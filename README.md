@@ -4,10 +4,6 @@
 
 ## Stats
 
-<!--START_SECTION:waka-->
-
-<!--END_SECTION:waka-->
-
 > [![Codewars Stats](https://www.codewars.com/users/pHoeniX-svg/badges/large)](https://www.codewars.com/users/pHoeniX-svg)
 >
 > ![pHoeniX-svg's Github Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=pHoeniX-svg&text_color=586069&layout=compact&hide_border=true&title_color=0366d6&count_private=true&include_all_commits=true&theme=tokyonight&show_icons=true)
