@@ -1,6 +1,6 @@
 # Buenos Dias! <img src="https://media.giphy.com/media/hvRJCLFzcasrR4ia7z/giphy.gif" width="33"> Welcome to my profile
 
-> Motto: “Vulnerability sounds like truth, and feels like courage. Truth and courage aren't always comfortable, but they're never weakness.”
+> **Motto**: “Vulnerability sounds like truth, and feels like courage. Truth and courage aren't always comfortable, but they're never weakness.”
 
 ## Stats
 
