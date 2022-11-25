@@ -4,9 +4,9 @@ on:
 
   schedule:
 
-    # Runs every 4 hours
-
-    - cron: '0 */4 * * *'
+    # Runs every 2 hours
+      
+    - cron: "0 */2 * * *"
 
   workflow_dispatch:
 
@@ -14,7 +14,7 @@ jobs:
 
   update-readme:
 
-    name: Update Readme with Metrics
+    name: Update this repo's README with metrics
 
     runs-on: ubuntu-latest
 
