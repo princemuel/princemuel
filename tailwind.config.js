@@ -16,8 +16,8 @@ module.exports = {
     },
 
     fontFamily: {
-      serif: ['Ibarra Real Nova', ...defaultTheme.fontFamily.serif],
-      sans: ['Public Sans', ...defaultTheme.fontFamily.sans],
+      serif: ['var(--font-serif)', ...defaultTheme.fontFamily.serif],
+      sans: ['var(--font-sans)', ...defaultTheme.fontFamily.sans],
     },
 
     fontSize: {
@@ -95,6 +95,7 @@ module.exports = {
     },
   },
   plugins: [
+    require('@tailwindcss/typography'),
     require('@savvywombat/tailwindcss-grid-areas'),
     require('tailwind-scrollbar')({ nocompatible: true }),
   ],
