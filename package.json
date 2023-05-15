@@ -6,7 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "env": "vercel link && vercel env pull"
+  },
+  "engines": {
+    "node": "18.x",
+    "npm": "please-use-yarn",
+    "yarn": "1.x"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.14",
@@ -29,6 +35,7 @@
   },
   "devDependencies": {
     "@savvywombat/tailwindcss-grid-areas": "^3.0.1",
+    "@svgr/webpack": "^6.2.1",
     "@tailwindcss/typography": "^0.5.9",
     "eslint-config-prettier": "^8.8.0",
     "prettier": "^2.8.8",
