@@ -56,10 +56,10 @@ module.exports = {
     //   xs: "30em", // => @media (min-width: 480px) { ... }
     //   sm: "36em", // => @media (min-width: 576px) { ... }
     //   sx: "40em", // => @media (min-width: 640px) { ... }
-    //   md: "45em", // => @media (min-width: 720px) { ... }
+    //   md: "48em", // => @media (min-width: 768px) { ... }
     //   lg: "64em", // => @media (min-width: 1024px) { ... }
     //   xl: "80em", // => @media (min-width: 1280px) { ... }
-    //   xxl: "96em", // => @media (min-width: 1280px) { ... }
+    //   xxl: "96em", // => @media (min-width: 1536px) { ... }
     //   xxxl: "112.5em", // => @media (min-width: 1800px) { ... }
     // },
 
