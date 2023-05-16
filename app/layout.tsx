@@ -63,9 +63,13 @@ export default function RootLayout({
   return (
     <html
       lang='en'
-      className={clsx(ibarraRealNova.variable, publicSans.variable)}
+      className={clsx(
+        ibarraRealNova.variable,
+        publicSans.variable,
+        'scrollbar-thin scrollbar-track-zinc-800 scrollbar-thumb-teal-500  scrollbar-track-rounded-md scrollbar-thumb-rounded-md'
+      )}
     >
-      <body>
+      <body className='body-100 text-zinc-800'>
         <React.Fragment>
           <Header />
           {children}
