@@ -59,6 +59,10 @@ Version: 01
     position: relative;
   }
 
+  :where(a, button, label, select, summary, [role='button'], [role='option']) {
+    @apply cursor-pointer;
+  }
+
   :where(label:has(* > input:disabled), label:has(* + input:disabled)) {
     cursor: not-allowed;
   }
