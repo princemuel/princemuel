@@ -79,13 +79,6 @@ module.exports = {
         lg: '64em', // => @media (min-width: 1024px) { ... }
         xl: '80em', // => @media (min-width: 1280px) { ... }
         '2xl': '96em', // => @media (min-width: 1536px) { ... }
-
-        '-xs': { max: '30em' },
-        '-sm': { max: '40em' }, // => @media (max-width: 640px) { ... }
-        '-md': { max: '48em' }, // => @media (max-width: 768px) { ... }
-        '-lg': { max: '64em' }, // => @media (max-width: 1024px) { ... }
-        '-xl': { max: '80em' }, // => @media (max-width: 1280px) { ... }
-        '-2xl': { max: '96em' }, // => @media (max-width: 1536px) { ... }
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
@@ -96,7 +89,20 @@ module.exports = {
   },
   plugins: [
     require('@tailwindcss/typography'),
-    require('@savvywombat/tailwindcss-grid-areas'),
     require('tailwind-scrollbar')({ nocompatible: true }),
+    plugin(function ({ addUtilities }) {
+      addUtilities({
+        '.full-width-shadow': {
+          boxShadow: '0 0 0 100vmax currentColor, 0 0 2rem currentColor',
+          clipPath: 'inset(0 -100vmax)',
+        },
+        '.h-container': {
+          '--max-width': '111rem',
+          '--container-padding': '1.6rem',
+          width: 'min(var(--max-width), 100% - (var(--container-padding) * 2))',
+          marginInline: 'auto',
+        },
+      });
+    }),
   ],
 };
