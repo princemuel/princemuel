@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     template: 'Prince Muel | %s',
     default: 'Prince Muel',
   },
-  metadataBase: new URL(process.env.VERCEL_URL || ''),
+  // metadataBase: new URL(process.env.VERCEL_URL || ''),
   generator: 'Next.js',
   applicationName: "Princemuel's E-Portfolio",
   referrer: 'origin-when-cross-origin',
