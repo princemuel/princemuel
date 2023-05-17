@@ -4,22 +4,22 @@ import { cache } from 'react';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings/lib';
 import rehypeHighlight from 'rehype-highlight/lib';
 import rehypeSlug from 'rehype-slug';
-import 'server-only';
+// import 'server-only';
 import { REPO_PATH } from './constants';
 import { getRepoFiletree } from './filetree';
 
-export const preloadProject = (fileName: string) => {
-  void getProjectByName(fileName);
+export const preloadProject = (slug: string) => {
+  void getProjectBySlug(slug);
 };
 
 export const preloadProjectsMeta = () => {
   void getProjectsMetadata();
 };
 
-export const getProjectByName = cache(
-  async (fileName: string): Promise<IProject | undefined> => {
+export const getProjectBySlug = cache(
+  async (slug: string): Promise<IProject | undefined> => {
     const res = await fetch(
-      `https://raw.githubusercontent.com/${REPO_PATH}/main/projects/${fileName}`,
+      `https://raw.githubusercontent.com/${REPO_PATH}/main/projects/${slug}`,
       {
         headers: {
           Accept: 'application/vnd.github+json',
@@ -56,7 +56,7 @@ export const getProjectByName = cache(
       },
     });
 
-    const id = fileName.replace(/\.mdx$/, '');
+    const id = slug.replace(/\.mdx$/, '');
     return {
       meta: {
         id,
@@ -82,7 +82,7 @@ export const getProjectsMetadata = cache(async () => {
   const metadata: IProjectMeta[] = [];
 
   for (const file of files) {
-    const project = await getProjectByName(file);
+    const project = await getProjectBySlug(file);
     if (project) {
       const { meta } = project;
       metadata.push(meta);
