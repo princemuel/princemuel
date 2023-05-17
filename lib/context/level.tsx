@@ -9,7 +9,7 @@ interface Props {
   value: Level;
 }
 
-const LevelProvider = ({ children, value }: Props) => {
+export const LevelProvider = ({ children, value }: Props) => {
   return (
     <LevelContext.Provider value={(value + 1) as Level}>
       {children}
