@@ -32,7 +32,7 @@ const NavLink = ({ href, children, ...props }: Props) => {
   return (
     <Link href={href} passHref {...props} legacyBehavior>
       {React.cloneElement(child, {
-        className: clsx(child?.props?.className, 'cursor-pointer'),
+        className: clsx(child?.props?.className),
         'aria-current': isCurrentPath ? 'page' : 'false',
       })}
     </Link>
