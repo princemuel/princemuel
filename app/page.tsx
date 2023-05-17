@@ -10,7 +10,9 @@ interface Props {}
 const Page = (props: Props) => {
   return (
     <main className=''>
-      <div></div>
+      <h1>
+        This page is currently under construction. It should be ready soon{' '}
+      </h1>
     </main>
   );
 };

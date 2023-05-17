@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     template: 'Prince Muel | %s',
     default: 'Prince Muel',
   },
-  // metadataBase: new URL('https://princemuel.vercel.app'),
+  // metadataBase: new URL(process.env.VERCEL_URL || ''),
   generator: 'Next.js',
   applicationName: "Princemuel's E-Portfolio",
   referrer: 'origin-when-cross-origin',
@@ -69,7 +69,7 @@ export default function RootLayout({
         'scrollbar-thin scrollbar-track-zinc-800 scrollbar-thumb-teal-500  scrollbar-track-rounded-md scrollbar-thumb-rounded-md'
       )}
     >
-      <body className='body-100 text-zinc-800'>
+      <body className='body-100'>
         <React.Fragment>
           <Header />
           {children}

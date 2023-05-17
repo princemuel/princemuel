@@ -12,6 +12,16 @@ const nextConfig = {
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'raw.githubusercontent.com',
+        port: '',
+        pathname: '/princemuel/e-portfolio-md/main/assets/**',
+      },
+    ],
+  },
 };
 
 module.exports = nextConfig;
