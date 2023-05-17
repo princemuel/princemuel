@@ -8,8 +8,12 @@ import 'server-only';
 import { REPO_PATH } from './constants';
 import { getRepoFiletree } from './filetree';
 
-export const preload = (fileName: string) => {
+export const preloadProject = (fileName: string) => {
   void getProjectByName(fileName);
+};
+
+export const preloadProjectsMeta = () => {
+  void getProjectsMetadata();
 };
 
 export const getProjectByName = cache(
@@ -65,7 +69,7 @@ export const getProjectByName = cache(
   }
 );
 
-export async function getProjectsMetadata() {
+export const getProjectsMetadata = cache(async () => {
   const filetrees = await getRepoFiletree();
   if (!filetrees) return undefined;
 
@@ -86,4 +90,4 @@ export async function getProjectsMetadata() {
   }
 
   return metadata.sort((a, b) => (a.date < b.date ? 1 : -1));
-}
+});
