@@ -1,4 +1,3 @@
-import { getProjectsMetadata } from '@/lib';
 import { Metadata } from 'next';
 
 export const revalidate = 86400;
@@ -19,14 +18,14 @@ async function Page({ params: { slug } }: Props) {
 
 export default Page;
 
-export async function generateStaticParams() {
-  const projects = await getProjectsMetadata();
-  return (projects || []).map((project) => {
-    return {
-      slug: project.id,
-    };
-  });
-}
+// export async function generateStaticParams() {
+//   const projects = await getProjectsMetadata();
+//   return (projects || []).map((project) => {
+//     return {
+//       slug: project.id,
+//     };
+//   });
+// }
 
 export const metadata: Metadata = {
   openGraph: {
@@ -34,7 +33,7 @@ export const metadata: Metadata = {
     description: 'The React Framework for the Web',
     type: 'article',
     publishedTime: new Date().toISOString(),
-    authors: ['Seb', 'Josh'],
+    authors: ['Prince Muel'],
   },
 };
 

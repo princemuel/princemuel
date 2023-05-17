@@ -1,6 +1,7 @@
 import { links } from '@/common';
 import clsx from 'clsx';
-import { Logo, NavLink, SocialIcon, Text } from '../atoms';
+import { Logo, SocialIcon, Text } from '../atoms';
+import { NavLink } from '../molecules';
 import styles from './styles.module.css';
 
 interface Props {}
