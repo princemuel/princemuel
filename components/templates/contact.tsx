@@ -10,7 +10,7 @@ const ContactTemplate = (props: Props) => {
     <MainContent
       id='main-content'
       aria-label='Contact Page'
-      className='flex flex-col gap-20'
+      className='bg-white! flex flex-col gap-20'
     >
       <Section className='flex flex-col gap-8 border-y border-zinc-800/20 py-12 h-container lg:flex-row'>
         <Heading className='flex-1'>Get in Touch</Heading>
