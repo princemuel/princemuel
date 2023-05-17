@@ -1,6 +1,6 @@
 import { links } from '@/common';
 import * as React from 'react';
-import { NavLink } from './navlink';
+import { NavLink } from '../atoms';
 
 interface Props {}
 
