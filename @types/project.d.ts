@@ -17,3 +17,5 @@ type ElementProps<E extends React.ElementType<any>> = $ElementProps<E> &
   Omit<React.ComponentPropsWithoutRef<E>, keyof $ElementProps<E>>;
 
 interface IconProps extends React.ComponentPropsWithoutRef<'svg'> {}
+
+type Level = [0, 1, 2, 3, 4, 5, 6][number];

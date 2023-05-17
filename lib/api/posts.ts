@@ -4,7 +4,7 @@ import { cache } from 'react';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings/lib';
 import rehypeHighlight from 'rehype-highlight/lib';
 import rehypeSlug from 'rehype-slug';
-import 'server-only';
+// import 'server-only';
 import { REPO_PATH } from './constants';
 import { getRepoFiletree } from './filetree';
 
