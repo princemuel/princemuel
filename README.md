@@ -12,7 +12,7 @@ I am currently updating my projects and it's a work in progress.
 
 **🐱 My GitHub Data** 
 
-> 📦 62.1 kB Used in GitHub's Storage 
+> 📦 61.6 kB Used in GitHub's Storage 
  > 
 > 🏆 1,266 Contributions in the Year 2023
  > 
@@ -86,5 +86,5 @@ C                        1 repo              ░░░░░░░░░░░�
 ![Lines of Code chart](https://raw.githubusercontent.com/princemuel/princemuel/main/assets/bar_graph.png)
 
 
- Last Updated on 17/05/2023 23:29:34 UTC
+ Last Updated on 17/05/2023 23:33:41 UTC
 <!--END_SECTION:waka-->
