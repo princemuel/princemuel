@@ -6,13 +6,13 @@ I am currently updating my projects and it's a work in progress.
 ![princemuel's wakatime stats](https://github-readme-stats.vercel.app/api/wakatime?username=princemuel&text_color=586069&layout=compact&hide_border=true&title_color=0366d6&count_private=true&include_all_commits=true&theme=tokyonight&show_icons=true)
 
 <!--START_SECTION:waka-->
-![Code Time](http://img.shields.io/badge/Code%20Time-2%2C365%20hrs%2042%20mins-blue)
+![Code Time](http://img.shields.io/badge/Code%20Time-2%2C368%20hrs%2039%20mins-blue)
 
-![Profile Views](http://img.shields.io/badge/Profile%20Views-62-blue)
+![Profile Views](http://img.shields.io/badge/Profile%20Views-64-blue)
 
 **🐱 My GitHub Data** 
 
-> 📦 62.0 kB Used in GitHub's Storage 
+> 📦 62.3 kB Used in GitHub's Storage 
  > 
 > 🏆 1,265 Contributions in the Year 2023
  > 
@@ -25,21 +25,21 @@ I am currently updating my projects and it's a work in progress.
 **I'm a Night 🦉** 
 
 ```text
-🌞 Morning                1094 commits        ██░░░░░░░░░░░░░░░░░░░░░░░   06.56 % 
-🌆 Daytime                4289 commits        ██████░░░░░░░░░░░░░░░░░░░   25.72 % 
-🌃 Evening                5558 commits        ████████░░░░░░░░░░░░░░░░░   33.33 % 
-🌙 Night                  5734 commits        █████████░░░░░░░░░░░░░░░░   34.39 % 
+🌞 Morning                1094 commits        ██░░░░░░░░░░░░░░░░░░░░░░░   06.51 % 
+🌆 Daytime                4289 commits        ██████░░░░░░░░░░░░░░░░░░░   25.53 % 
+🌃 Evening                5582 commits        ████████░░░░░░░░░░░░░░░░░   33.22 % 
+🌙 Night                  5838 commits        █████████░░░░░░░░░░░░░░░░   34.74 % 
 ```
 📅 **I'm Most Productive on Wednesday** 
 
 ```text
-Monday                   2869 commits        ████░░░░░░░░░░░░░░░░░░░░░   17.21 % 
-Tuesday                  2237 commits        ███░░░░░░░░░░░░░░░░░░░░░░   13.42 % 
-Wednesday                2946 commits        ████░░░░░░░░░░░░░░░░░░░░░   17.67 % 
-Thursday                 2160 commits        ███░░░░░░░░░░░░░░░░░░░░░░   12.95 % 
-Friday                   1545 commits        ██░░░░░░░░░░░░░░░░░░░░░░░   09.27 % 
-Saturday                 2399 commits        ████░░░░░░░░░░░░░░░░░░░░░   14.39 % 
-Sunday                   2519 commits        ████░░░░░░░░░░░░░░░░░░░░░   15.11 % 
+Monday                   2883 commits        ████░░░░░░░░░░░░░░░░░░░░░   17.16 % 
+Tuesday                  2289 commits        ███░░░░░░░░░░░░░░░░░░░░░░   13.62 % 
+Wednesday                3008 commits        ████░░░░░░░░░░░░░░░░░░░░░   17.90 % 
+Thursday                 2160 commits        ███░░░░░░░░░░░░░░░░░░░░░░   12.85 % 
+Friday                   1545 commits        ██░░░░░░░░░░░░░░░░░░░░░░░   09.19 % 
+Saturday                 2399 commits        ████░░░░░░░░░░░░░░░░░░░░░   14.28 % 
+Sunday                   2519 commits        ████░░░░░░░░░░░░░░░░░░░░░   14.99 % 
 ```
 
 
@@ -86,5 +86,5 @@ C                        1 repo              ░░░░░░░░░░░�
 ![Lines of Code chart](https://raw.githubusercontent.com/princemuel/princemuel/main/assets/bar_graph.png)
 
 
- Last Updated on 17/05/2023 01:35:33 UTC
+ Last Updated on 17/05/2023 18:42:13 UTC
 <!--END_SECTION:waka-->
