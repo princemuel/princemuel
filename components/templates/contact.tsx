@@ -1,13 +1,14 @@
 import { links } from '@/common';
 import clsx from 'clsx';
-import { Heading, MainContent, Section, SocialIcon, Text } from '../atoms';
+import { Heading, Section, SocialIcon, Text } from '../atoms';
 import footerStyles from '../organisms/styles.module.css';
 
 interface Props {}
 
 const ContactTemplate = (props: Props) => {
   return (
-    <MainContent
+    <Section
+      as='main'
       id='main-content'
       aria-label='Contact Page'
       className='bg-white! flex flex-col gap-20'
@@ -19,12 +20,12 @@ const ContactTemplate = (props: Props) => {
           <Text className='body-200'>
             I'd love to hear about what you're working on and how I could help.
             I'm currently looking for a new role and am open to a wide range of
-            opportunities. My preference would be to find work remotely. But I'm
-            also happy to hear about opportunites that don't fit that
-            description. I'm a hard-working and positive person who will always
-            approach each task with a sense of purpose and attention to detail.
-            Please do feel free to check out my online profiles below and get in
-            touch using the form.
+            opportunities. My preference would be to work remotely. But I'm also
+            happy to hear about opportunites that don't fit that description.
+            I'm a hard-working and positive person who will always approach each
+            task with a sense of purpose and attention to detail. Please do feel
+            free to check out my online profiles below and get in touch using
+            the form.
           </Text>
 
           <ul
@@ -95,7 +96,7 @@ const ContactTemplate = (props: Props) => {
           </button>
         </form>
       </Section>
-    </MainContent>
+    </Section>
   );
 };
 export { ContactTemplate };
