@@ -20,6 +20,7 @@ export const metadata: Metadata = {
   creator: 'Prince Muel',
   authors: [{ name: 'Prince Muel', url: 'https://github.com/princemuel' }],
   openGraph: {
+    type: 'website',
     title: `Princemuel's E-Portfolio`,
     description: '',
     url: 'https://princemuel.vercel.app',
@@ -38,10 +39,9 @@ export const metadata: Metadata = {
     //   },
     // ],
     locale: 'en-US',
-    type: 'website',
   },
   robots: {
-    index: false,
+    index: true,
     follow: true,
     nocache: true,
     googleBot: {
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
       follow: false,
       noimageindex: true,
       'max-video-preview': -1,
-      'max-image-preview': 'large',
+      'max-image-preview': 'standard',
       'max-snippet': -1,
     },
   },
@@ -69,7 +69,7 @@ export default function RootLayout({
         'scrollbar-thin scrollbar-track-zinc-800 scrollbar-thumb-teal-500  scrollbar-track-rounded-md scrollbar-thumb-rounded-md'
       )}
     >
-      <body className='body-100'>
+      <body className='body-100 relative text-white dark:text-green-500'>
         <React.Fragment>
           <Header />
           {children}
