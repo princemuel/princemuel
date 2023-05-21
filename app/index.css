@@ -118,7 +118,8 @@ Version: 01
   }
 
   :is(h1, h2, h3) {
-    @apply font-serif font-bold;
+    @apply font-sans font-bold;
+    /* @apply font-serif font-bold; */
   }
 
   h1 {

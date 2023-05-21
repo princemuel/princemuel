@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 
 interface Props {}
 
-const Page = (props: Props) => {
+export default function PageRoute(props: Props) {
   return (
     <main className=''>
       <h1>
@@ -15,6 +15,4 @@ const Page = (props: Props) => {
       </h1>
     </main>
   );
-};
-
-export default Page;
+}

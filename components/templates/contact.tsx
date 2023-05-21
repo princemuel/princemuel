@@ -1,30 +1,26 @@
 import { links } from '@/common';
 import clsx from 'clsx';
-import { Heading, MainContent, Section, SocialIcon, Text } from '../atoms';
-import footerStyles from '../organisms/styles.module.css';
+import { SocialIcon, Text } from '../atoms';
+import footerStyles from '../organisms/styles/footer.module.css';
 
 interface Props {}
 
 const ContactTemplate = (props: Props) => {
   return (
-    <MainContent
-      id='main-content'
-      aria-label='Contact Page'
-      className='bg-white! flex flex-col gap-20'
-    >
-      <Section className='flex flex-col gap-8 border-y border-zinc-800/20 py-12 h-container lg:flex-row'>
-        <Heading className='flex-1'>Get in Touch</Heading>
+    <>
+      <section className='flex flex-col gap-8 border-y border-zinc-800/20 py-12 h-container lg:flex-row'>
+        <h2 className='flex-1'>Get in Touch</h2>
 
         <div className='flex flex-1 flex-col gap-6'>
           <Text className='body-200'>
             I'd love to hear about what you're working on and how I could help.
             I'm currently looking for a new role and am open to a wide range of
-            opportunities. My preference would be to find work remotely. But I'm
-            also happy to hear about opportunites that don't fit that
-            description. I'm a hard-working and positive person who will always
-            approach each task with a sense of purpose and attention to detail.
-            Please do feel free to check out my online profiles below and get in
-            touch using the form.
+            opportunities. My preference would be to work remotely. But I'm also
+            happy to hear about opportunites that don't fit that description.
+            I'm a hard-working and positive person who will always approach each
+            task with a sense of purpose and attention to detail. Please do feel
+            free to check out my online profiles below and get in touch using
+            the form.
           </Text>
 
           <ul
@@ -46,10 +42,10 @@ const ContactTemplate = (props: Props) => {
             })}
           </ul>
         </div>
-      </Section>
+      </section>
 
-      <Section className='flex flex-col gap-8 h-container lg:flex-row'>
-        <Heading className='flex-1'>Contact Me</Heading>
+      <section className='flex flex-col gap-8 h-container lg:flex-row'>
+        <h2 className='flex-1'>Contact Me</h2>
 
         <form className='> * + * flex-1 space-y-12 text-[1.3rem] leading-500'>
           <div className='> * + * space-y-4'>
@@ -94,8 +90,8 @@ const ContactTemplate = (props: Props) => {
             Send Message
           </button>
         </form>
-      </Section>
-    </MainContent>
+      </section>
+    </>
   );
 };
 export { ContactTemplate };

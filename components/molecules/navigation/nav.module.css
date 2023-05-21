@@ -1,0 +1,47 @@
+.navigation {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 500ms;
+  background-color: brown;
+}
+.navigation[data-state='opened'] {
+  grid-template-rows: 1fr;
+}
+
+.navigation > ul {
+  transition: padding 500ms;
+  overflow: hidden;
+}
+
+.menu-toggle {
+  --button-color: black;
+
+  @apply aspect-square bg-slate-100;
+  width: 4rem;
+}
+
+.hamburger {
+}
+.menu-toggle .line {
+  transition: y 300ms ease-in 300ms, rotate 300ms ease-in, opacity 0ms 300ms;
+  transform-origin: center;
+}
+.menu-toggle[aria-expanded='true'] .line {
+  transition: y 300ms ease-in, rotate 300ms ease-in 300ms, opacity 0ms 300ms;
+}
+
+.menu-toggle[aria-expanded='true'] :is(.top, .bottom) {
+  y: 45px;
+}
+.menu-toggle[aria-expanded='true'] .top {
+  rotate: 45deg;
+}
+.menu-toggle[aria-expanded='true'] .middle {
+  opacity: 0;
+}
+.menu-toggle[aria-expanded='true'] .bottom {
+  rotate: -45deg;
+}
+
+.menu-toggle[aria-expanded='true'] .top {
+}

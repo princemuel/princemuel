@@ -10,11 +10,11 @@ export const links: ILinks = {
       text: 'projects',
       url: '/projects',
     },
-    // {
-    //   id: 'blog',
-    //   text: 'blog',
-    //   url: '/blog',
-    // },
+    {
+      id: 'blog',
+      text: 'blog',
+      url: '/blog',
+    },
     {
       id: 'contact',
       text: 'contact me',
@@ -25,7 +25,7 @@ export const links: ILinks = {
     {
       id: 'icon-github',
       url: 'https://github.com/princemuel',
-      icon: (props: IconProps) => (
+      icon: (props) => (
         <svg
           xmlns='http://www.w3.org/2000/svg'
           width='25'
@@ -43,7 +43,7 @@ export const links: ILinks = {
     {
       id: 'icon-facebook',
       url: 'https://www.facebook.com/mikeychuks',
-      icon: (props: IconProps) => (
+      icon: (props) => (
         <svg
           width='24'
           height='24'
@@ -62,7 +62,7 @@ export const links: ILinks = {
     {
       id: 'icon-instagram',
       url: 'https://www.instagram.com/princemuel',
-      icon: (props: IconProps) => (
+      icon: (props) => (
         <svg
           width='24'
           height='24'
@@ -81,7 +81,7 @@ export const links: ILinks = {
     {
       id: 'icon-linkedin',
       url: 'https://www.linkedin.com/in/princemuel',
-      icon: (props: IconProps) => (
+      icon: (props) => (
         <svg
           xmlns='http://www.w3.org/2000/svg'
           width='24'
@@ -101,7 +101,7 @@ export const links: ILinks = {
     {
       id: 'icon-twitter',
       url: 'https://www.twitter.com/iamprincemuel',
-      icon: (props: IconProps) => (
+      icon: (props) => (
         <svg
           xmlns='http://www.w3.org/2000/svg'
           width='24'
@@ -120,8 +120,8 @@ export const links: ILinks = {
   ],
 };
 
-export const icons = {
-  logo: (props: IconProps) => (
+export const icons: ISvgIcons = {
+  logo: (props) => (
     <svg
       width='145.425'
       height='26.675'
@@ -150,7 +150,7 @@ export const icons = {
     </svg>
   ),
   arrows: {
-    down: (props: IconProps) => (
+    down: (props) => (
       <svg xmlns='http://www.w3.org/2000/svg' width='16' height='14' {...props}>
         <g fill='none' fill-rule='evenodd' stroke='#5FB4A2'>
           <path d='M0 9l8 4 8-4' />
@@ -159,13 +159,13 @@ export const icons = {
         </g>
       </svg>
     ),
-    left: (props: IconProps) => (
+    left: (props) => (
       <svg xmlns='http://www.w3.org/2000/svg' width='10' height='16' {...props}>
         <path fill='none' stroke='#33323D' d='M9 0L1 8l8 8' />
       </svg>
     ),
 
-    right: (props: IconProps) => (
+    right: (props) => (
       <svg xmlns='http://www.w3.org/2000/svg' width='10' height='16' {...props}>
         <path fill='none' stroke='#33323D' d='M1 0l8 8-8 8' />
       </svg>

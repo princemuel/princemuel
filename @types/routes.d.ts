@@ -17,7 +17,7 @@ interface ISocial {
 
 type IconRFCType = (props: IconProps) => JSX.Element;
 
-interface ISvgIcon {
+interface ISvgIcons {
   logo: IconRFCType;
   arrows: {
     down: IconRFCType;

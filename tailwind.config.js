@@ -36,9 +36,13 @@ module.exports = {
       pill: '100vmax',
     },
 
+    // fontFamily: {
+    //   serif: ['var(--font-serif)', ...defaultTheme.fontFamily.serif],
+    //   sans: ['var(--font-sans)', ...defaultTheme.fontFamily.sans],
+    // },
     fontFamily: {
       serif: ['var(--font-serif)', ...defaultTheme.fontFamily.serif],
-      sans: ['var(--font-sans)', ...defaultTheme.fontFamily.sans],
+      sans: defaultTheme.fontFamily.sans,
     },
 
     fontSize: {
@@ -109,8 +113,8 @@ module.exports = {
     },
   },
   plugins: [
-    require('@tailwindcss/typography'),
-    require('tailwind-scrollbar')({ nocompatible: true }),
+    // require('@tailwindcss/typography'),
+    // require('tailwind-scrollbar')({ nocompatible: true }),
     plugin(function ({ addUtilities }) {
       addUtilities({
         '.full-width-shadow': {

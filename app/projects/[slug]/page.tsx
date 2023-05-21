@@ -8,15 +8,13 @@ interface Props {
   };
 }
 
-async function Page({ params: { slug } }: Props) {
+export default async function PageRoute({ params: { slug } }: Props) {
   return (
     <main className=''>
       <div></div>
     </main>
   );
 }
-
-export default Page;
 
 // export async function generateStaticParams() {
 //   const projects = await getProjectsMetadata();

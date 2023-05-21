@@ -7,7 +7,7 @@ interface Props extends React.ComponentPropsWithoutRef<'h1'> {
   children: React.ReactNode;
 }
 
-const Heading = ({ children, ...rest }: Props) => {
+export function Heading({ children, ...rest }: Props) {
   const level = useLevel();
 
   switch (level) {
@@ -28,6 +28,4 @@ const Heading = ({ children, ...rest }: Props) => {
     default:
       throw Error('Unknown level: ' + level);
   }
-};
-
-export { Heading };
+}
