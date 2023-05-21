@@ -18,13 +18,43 @@ export function NavMobile(props: Props) {
           <Logo className='text-black transition-all delay-0 duration-300 ease-in hover:text-teal-500 focus:text-teal-500 active:text-teal-500' />
 
           <button
-            className={clsx('rounded-full bg-red-600 p-4')}
+            className={clsx('group rounded-full p-4', styles['menu-toggle'])}
             aria-controls='primary-navigation'
             aria-pressed={isOpen}
             aria-expanded={isOpen}
             onClick={() => setIsOpen((previous) => !previous)}
           >
-            <span className='sr-only'>Menu</span>
+            {/* <span className='sr-only'>Menu</span> */}
+            <svg
+              fill='var(--button-color)'
+              className={styles.hamburger}
+              viewBox='0 0 100 100'
+            >
+              <rect
+                className={clsx(styles.line, styles.top)}
+                width={80}
+                height={10}
+                x={10}
+                y={25}
+                rx={5}
+              />
+              <rect
+                className={clsx(styles.line, styles.middle)}
+                width={80}
+                height={10}
+                x={10}
+                y={45}
+                rx={5}
+              />
+              <rect
+                className={clsx(styles.line, styles.bottom)}
+                width={80}
+                height={10}
+                x={10}
+                y={65}
+                rx={5}
+              />
+            </svg>
           </button>
         </div>
       </div>
