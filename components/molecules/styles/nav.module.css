@@ -1,0 +1,17 @@
+.navigation {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 500ms;
+  background-color: brown;
+}
+.navigation[data-state='opened'] {
+  grid-template-rows: 1fr;
+}
+
+.navigation > ul {
+  transition: padding 500ms;
+  overflow: hidden;
+}
+
+.menu-toggle {
+}
