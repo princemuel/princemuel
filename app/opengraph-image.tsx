@@ -1,6 +1,6 @@
 import { ImageResponse } from 'next/server';
 
-export const alt = 'About Acme';
+export const alt = 'Prince Muel';
 export const size = {
   width: 1200,
   height: 630,
@@ -28,7 +28,7 @@ export default async function og() {
           justifyContent: 'center',
         }}
       >
-        About Acme
+        Prince Muel
       </div>
     ),
     {
