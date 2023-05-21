@@ -1,20 +1,15 @@
 import { links } from '@/common';
 import clsx from 'clsx';
-import { Heading, Section, SocialIcon, Text } from '../atoms';
-import footerStyles from '../organisms/styles.module.css';
+import { SocialIcon, Text } from '../atoms';
+import footerStyles from '../organisms/styles/footer.module.css';
 
 interface Props {}
 
 const ContactTemplate = (props: Props) => {
   return (
-    <Section
-      as='main'
-      id='main-content'
-      aria-label='Contact Page'
-      className='bg-white! flex flex-col gap-20'
-    >
-      <Section className='flex flex-col gap-8 border-y border-zinc-800/20 py-12 h-container lg:flex-row'>
-        <Heading className='flex-1'>Get in Touch</Heading>
+    <>
+      <section className='flex flex-col gap-8 border-y border-zinc-800/20 py-12 h-container lg:flex-row'>
+        <h2 className='flex-1'>Get in Touch</h2>
 
         <div className='flex flex-1 flex-col gap-6'>
           <Text className='body-200'>
@@ -47,10 +42,10 @@ const ContactTemplate = (props: Props) => {
             })}
           </ul>
         </div>
-      </Section>
+      </section>
 
-      <Section className='flex flex-col gap-8 h-container lg:flex-row'>
-        <Heading className='flex-1'>Contact Me</Heading>
+      <section className='flex flex-col gap-8 h-container lg:flex-row'>
+        <h2 className='flex-1'>Contact Me</h2>
 
         <form className='> * + * flex-1 space-y-12 text-[1.3rem] leading-500'>
           <div className='> * + * space-y-4'>
@@ -95,8 +90,8 @@ const ContactTemplate = (props: Props) => {
             Send Message
           </button>
         </form>
-      </Section>
-    </Section>
+      </section>
+    </>
   );
 };
 export { ContactTemplate };
