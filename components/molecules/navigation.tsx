@@ -1,31 +1,16 @@
-import { links } from '@/common';
+'use client';
+
+import { useMedia } from '@/lib';
 import * as React from 'react';
-import { NavLink } from '../atoms';
+import { NavDesktop } from './nav.desktop';
+import { NavMobile } from './nav.mobile';
 
 interface Props {}
 
-function Navigation(props: Props) {
+export function Navigation(props: Props) {
+  const isMobile = useMedia('(max-width: 48em)', true);
+
   return (
-    <React.Fragment>
-      <nav>
-        <ul
-          className='flex flex-col items-center gap-8 md:flex-row md:gap-14'
-          aria-label='Primary Navigation'
-        >
-          {links?.routes?.map((link) => (
-            <li
-              key={link.text}
-              className='body-200 text-[1.4rem] uppercase transition-all delay-0 duration-300 ease-in hover:text-teal-500 focus:text-teal-500'
-            >
-              <NavLink href={link.url}>
-                <a>{link.text}</a>
-              </NavLink>
-            </li>
-          ))}
-        </ul>
-      </nav>
-    </React.Fragment>
+    <React.Fragment>{isMobile ? <NavMobile /> : <NavDesktop />}</React.Fragment>
   );
 }
-
-export { Navigation };
