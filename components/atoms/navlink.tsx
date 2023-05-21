@@ -20,12 +20,12 @@ const NavLink = ({ href, children, ...props }: Props) => {
   href =
     href &&
     href !== '/' &&
-    (href as __next_route_internal_types__.RouteImpl<string>).endsWith('/')
-      ? ((href as __next_route_internal_types__.RouteImpl<string>).slice(
+    (href as __next_route_internal_types__.RouteImpl<unknown>).endsWith('/')
+      ? ((href as __next_route_internal_types__.RouteImpl<unknown>).slice(
           0,
           -1
-        ) as __next_route_internal_types__.RouteImpl<string>)
-      : (href as __next_route_internal_types__.RouteImpl<string>);
+        ) as __next_route_internal_types__.RouteImpl<unknown>)
+      : (href as __next_route_internal_types__.RouteImpl<unknown>);
 
   const isCurrentPath = href === pathname || pathname?.startsWith(href + '/');
 
