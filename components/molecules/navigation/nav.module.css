@@ -20,8 +20,6 @@
   width: 4rem;
 }
 
-.hamburger {
-}
 .menu-toggle .line {
   transition: y 300ms ease-in 300ms, rotate 300ms ease-in, opacity 0ms 300ms;
   transform-origin: center;
