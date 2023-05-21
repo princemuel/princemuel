@@ -4,8 +4,6 @@ export const metadata: Metadata = {};
 
 interface Props {}
 
-const Page = (props: Props) => {
+export default async function PageRoute(props: Props) {
   return <div></div>;
-};
-
-export default Page;
+}
