@@ -3,7 +3,7 @@
 import { links } from '@/common';
 import clsx from 'clsx';
 import * as React from 'react';
-import { Logo, NavLink } from '../atoms';
+import { Logo, NavLink } from '../../atoms';
 import styles from './styles/nav.module.css';
 
 interface Props {}
