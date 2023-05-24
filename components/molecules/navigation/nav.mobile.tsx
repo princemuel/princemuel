@@ -6,13 +6,15 @@ import * as React from 'react';
 import { Logo, NavLink } from '../../atoms';
 import styles from './nav.module.css';
 
-interface Props {}
+interface Props {
+  className?: string;
+}
 
-export function NavMobile(props: Props) {
+export function NavMobile({ className }: Props) {
   const [isOpen, setIsOpen] = React.useState(false);
 
   return (
-    <div className={clsx('flex flex-col bg-slate-700 text-zinc-800')}>
+    <div className={clsx('bg-slate-700 text-zinc-800', className)}>
       <div className={clsx('py-10 full-width-shadow h-container')}>
         <div className='flex items-center justify-between bg-blue-600'>
           <Logo className='text-black transition-all delay-0 duration-300 ease-in hover:text-teal-500 focus:text-teal-500 active:text-teal-500' />

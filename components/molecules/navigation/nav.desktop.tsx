@@ -2,15 +2,13 @@ import { links } from '@/common';
 import clsx from 'clsx';
 import { Logo, NavLink } from '../../atoms';
 
-interface Props {}
+interface Props {
+  className?: string;
+}
 
-export function NavDesktop(props: Props) {
+export function NavDesktop({ className }: Props) {
   return (
-    <div
-      className={clsx(
-        'flex items-center justify-between py-10 full-width-shadow h-container'
-      )}
-    >
+    <div className={clsx('py-10 full-width-shadow', className)}>
       <div>
         <Logo className='text-black transition-all delay-0 duration-300 ease-in hover:text-teal-500 focus:text-teal-500 active:text-teal-500' />
       </div>
