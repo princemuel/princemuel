@@ -1,6 +1,6 @@
 import { Footer, Header } from '@/components';
 import { Analytics } from '@vercel/analytics/react';
-import clsx from 'clsx';
+import { cx } from 'cva';
 import { Metadata } from 'next';
 import * as React from 'react';
 import { ibarraRealNova, publicSans } from './fonts';
@@ -63,13 +63,13 @@ export default function RootLayout({
   return (
     <html
       lang='en'
-      className={clsx(
+      className={cx(
         ibarraRealNova.variable,
         publicSans.variable,
-        'scrollbar-thin scrollbar-track-zinc-800 scrollbar-thumb-teal-500  scrollbar-track-rounded-md scrollbar-thumb-rounded-md'
+        'scrollbar-thin scrollbar-track-zinc-800 scrollbar-thumb-teal-500 scrollbar-track-rounded-md scrollbar-thumb-rounded-md'
       )}
     >
-      <body className='body-100 relative text-white dark:text-green-500'>
+      <body className={cx('body-100 relative text-white dark:text-green-500')}>
         <React.Fragment>
           <Header />
           {children}

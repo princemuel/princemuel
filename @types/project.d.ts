@@ -1,7 +1,3 @@
-interface IUser {
-  name: string;
-}
-
 type ExtractElementProps<T> = T extends React.ComponentType<infer Props>
   ? Props extends object
     ? Props

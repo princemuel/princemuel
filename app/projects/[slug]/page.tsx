@@ -1,52 +1,72 @@
+import { getProjectBySlug, getProjectsMetadata } from '@/lib';
+import 'highlight.js/styles/atom-one-dark.css';
 import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 
 export const revalidate = 86400;
 
 interface Props {
-  params: {
-    slug: string;
-  };
+  params: IParams;
 }
 
-export default async function PageRoute({ params: { slug } }: Props) {
+const PageRoute = async ({ params: { slug } }: Props) => {
+  const project = await getProjectBySlug(`${slug}.mdx`); //deduped!
+  if (!project) notFound();
+
+  const { meta, content } = project;
+
   return (
     <main className=''>
-      <div></div>
+      <h1 className='mb-0 mt-4 text-900'>{meta.title}</h1>
+      <div>{content}</div>
     </main>
   );
-}
-
-// export async function generateStaticParams() {
-//   const projects = await getProjectsMetadata();
-//   return (projects || []).map((project) => {
-//     return {
-//       slug: project.id,
-//     };
-//   });
-// }
-
-export const metadata: Metadata = {
-  openGraph: {
-    title: 'Next.js',
-    description: 'The React Framework for the Web',
-    type: 'article',
-    publishedTime: new Date().toISOString(),
-    authors: ['Prince Muel'],
-  },
 };
 
-// export async function generateMetadata({
-//   params: { slug },
-// }: Props): Promise<Metadata> {
-//   const project = await getProjectByName(`${slug}.mdx`);
+export default PageRoute;
 
-//   if (!project) {
-//     return {
-//       title: 'Project Not Found',
-//     };
-//   }
+export async function generateStaticParams() {
+  const projects = await getProjectsMetadata();
+  return (projects || []).map((project) => {
+    return {
+      slug: project.id,
+    };
+  });
+}
+export async function generateMetadata({
+  params: { slug },
+}: Props): Promise<Metadata> {
+  const project = await getProjectBySlug(`${slug}.mdx`);
+  if (!project) {
+    return {
+      title: 'Project Not Found',
+      description: 'The requested resource does not exist',
+    };
+  }
 
-//   return {
-//     title: project.meta.title,
-//   };
-// }
+  return {
+    title: project.meta.title,
+    description: project.meta.description,
+    authors: { name: 'Prince Muel', url: 'https://github.com/princemuel' },
+    generator: 'Next.js',
+    keywords: project.meta.tags,
+    creator: 'Prince Muel',
+    publisher: 'Prince Muel',
+    openGraph: {
+      type: 'article',
+      title: project.meta.title,
+      description: project.meta.description,
+      authors: ['Prince Muel'],
+      publishedTime: new Date(project.meta.date).toISOString(),
+      // add image
+    },
+    twitter: {
+      card: 'summary_large_image',
+      site: '',
+      creator: '@iamprincemuel',
+      title: project.meta.title,
+      description: project.meta.description,
+      // add image
+    },
+  } satisfies Metadata;
+}

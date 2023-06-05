@@ -1,5 +1,5 @@
 import { links } from '@/common';
-import clsx from 'clsx';
+import { cx } from 'cva';
 import { Logo, NavLink } from '../../atoms';
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
 
 export function NavDesktop({ className }: Props) {
   return (
-    <div className={clsx('py-10 full-width-shadow', className)}>
+    <div className={cx('py-10 full-width-shadow', className)}>
       <div>
         <Logo className='text-black transition-all delay-0 duration-300 ease-in hover:text-teal-500 focus:text-teal-500 active:text-teal-500' />
       </div>

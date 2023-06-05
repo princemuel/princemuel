@@ -19,6 +19,15 @@ export function truncate(word = '', length = word.length) {
   return word.length > length ? `${word.substring(0, length)}...` : word;
 }
 
+type EndsWith<W, S extends string> = W extends `${infer _R}${S}` ? W : never;
+
+export const endsWith = <Word extends string, Suffix extends string>(
+  str: Word,
+  suffix: Suffix
+): str is EndsWith<Word, Suffix> => {
+  return str.endsWith(suffix);
+};
+
 /*---------------------------------*
             OBJECT UTILS           *
   ---------------------------------*
@@ -43,6 +52,16 @@ export function hasValues<T>(
   return (array || []).length > 0;
 }
 
+/*---------------------------------*
+            DATE UTILS             *
+  ---------------------------------*
+ */
+
+export function formatDate(datetime: string): string {
+  return new Intl.DateTimeFormat('en-US', { dateStyle: 'long' }).format(
+    new Date(datetime)
+  );
+}
 /*---------------------------------*
             DOM UTILS              *
   ---------------------------------*

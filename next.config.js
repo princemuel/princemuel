@@ -2,6 +2,7 @@
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  reactStrictMode: true,
   experimental: {
     typedRoutes: true,
     webVitalsAttribution: ['CLS', 'LCP'],
@@ -18,7 +19,7 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'raw.githubusercontent.com',
         port: '',
-        pathname: '/princemuel/e-portfolio-md/main/assets/**',
+        pathname: '/princemuel/markdown/main/assets/**',
       },
     ],
   },

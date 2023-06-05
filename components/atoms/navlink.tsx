@@ -1,6 +1,6 @@
 'use client';
 
-import clsx from 'clsx';
+import { cx } from 'cva';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import * as React from 'react';
@@ -32,7 +32,7 @@ const NavLink = ({ href, children, ...props }: Props) => {
   return (
     <Link href={href} passHref {...props} legacyBehavior>
       {React.cloneElement(child, {
-        className: clsx(child?.props?.className),
+        className: cx(child?.props?.className),
         'aria-current': isCurrentPath ? 'page' : 'false',
       })}
     </Link>

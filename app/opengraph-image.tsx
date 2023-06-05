@@ -17,17 +17,7 @@ export default async function og() {
 
   return new ImageResponse(
     (
-      <div
-        style={{
-          fontSize: 128,
-          background: 'white',
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
+      <div tw='flex h-full w-full items-center justify-between bg-white text-[12.8rem]'>
         Prince Muel
       </div>
     ),
