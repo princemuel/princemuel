@@ -2,7 +2,11 @@ interface IProjectMeta {
   id: string;
   title: string;
   date: string;
+  description: string;
+  alt: string;
   tags: string[];
+  links: ILinkMeta;
+  published: boolean;
 }
 
 interface IProject {
@@ -19,4 +23,14 @@ interface IPostMeta {
 interface IPost {
   meta: IPostMeta;
   content: JSX.Element;
+}
+
+interface ILinkMeta {
+  repository: string;
+  website: string;
+  video?: string;
+}
+
+interface IParams {
+  [key: string]: string | undefined;
 }

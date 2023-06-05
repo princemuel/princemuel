@@ -1,7 +1,6 @@
-import { Player } from '@/components';
+import { Heading, Section, Text, YoutubePlayer } from '@/components';
 import { compileMDX } from 'next-mdx-remote/rsc';
 import { cache } from 'react';
-import rehypeAutolinkHeadings from 'rehype-autolink-headings/lib';
 import rehypeHighlight from 'rehype-highlight/lib';
 import rehypeSlug from 'rehype-slug';
 // import 'server-only';
@@ -17,7 +16,7 @@ export const preloadProjectsMeta = () => {
 };
 
 export const getProjectBySlug = cache(
-  async (slug: string): Promise<IProject | undefined> => {
+  async (slug: string): Promise<IProject | null> => {
     const res = await fetch(
       `https://raw.githubusercontent.com/${REPO_PATH}/main/projects/${slug}`,
       {
@@ -29,29 +28,23 @@ export const getProjectBySlug = cache(
       }
     );
 
-    if (!res.ok) return undefined;
+    if (!res.ok) return null;
 
     const data = await res.text();
-    if (data === '404: Not Found') return undefined;
+    if (data === '404: Not Found') return null;
 
     const { frontmatter, content } = await compileMDX<IProjectMeta>({
       source: data,
       components: {
-        Player,
+        YoutubePlayer,
+        Heading,
+        Text,
+        Section,
       },
       options: {
         parseFrontmatter: true,
         mdxOptions: {
-          rehypePlugins: [
-            rehypeHighlight,
-            rehypeSlug,
-            [
-              rehypeAutolinkHeadings,
-              {
-                behavior: 'wrap',
-              },
-            ],
-          ],
+          rehypePlugins: [rehypeHighlight, rehypeSlug],
         },
       },
     });
@@ -59,10 +52,8 @@ export const getProjectBySlug = cache(
     const id = slug.replace(/\.mdx$/, '');
     return {
       meta: {
+        ...frontmatter,
         id,
-        title: frontmatter.title,
-        date: frontmatter.date,
-        tags: frontmatter.tags,
       },
       content,
     } satisfies IProject;
@@ -71,18 +62,20 @@ export const getProjectBySlug = cache(
 
 export const getProjectsMetadata = cache(async () => {
   const filetrees = await getRepoFiletree();
-  if (!filetrees) return undefined;
+  if (!filetrees) return null;
 
-  const files = filetrees.tree
+  const slugs = filetrees.tree
     .map((obj) => obj.path)
     .filter((path) => {
       return path.includes('projects') && path.endsWith('.mdx');
-    });
+    })
+    //
+    .map((path) => path.replace(/projects\//, ''));
 
   const metadata: IProjectMeta[] = [];
 
-  for (const file of files) {
-    const project = await getProjectBySlug(file);
+  for (const slug of slugs) {
+    const project = await getProjectBySlug(slug);
     if (project) {
       const { meta } = project;
       metadata.push(meta);

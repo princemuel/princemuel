@@ -1,5 +1,5 @@
 import { icons } from '@/common';
-import clsx from 'clsx';
+import { cx } from 'cva';
 import Link from 'next/link';
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
 const Logo = ({ className }: Props) => {
   return (
     <Link href={'/'} aria-label='Go to Home' legacyBehavior>
-      <a className={clsx(className)}>
+      <a className={cx(className)}>
         <span className='sr-only'>Go to Home</span>
         <icons.logo
           aria-hidden='true'

@@ -1,5 +1,5 @@
 import { links } from '@/common';
-import clsx from 'clsx';
+import { cx } from 'cva';
 import { SocialIcon, Text } from '../atoms';
 import footerStyles from '../organisms/styles/footer.module.css';
 
@@ -14,17 +14,17 @@ const ContactTemplate = (props: Props) => {
         <div className='flex flex-1 flex-col gap-6'>
           <Text className='body-200'>
             I'd love to hear about what you're working on and how I could help.
-            I'm currently looking for a new role and am open to a wide range of
-            opportunities. My preference would be to work remotely. But I'm also
-            happy to hear about opportunites that don't fit that description.
-            I'm a hard-working and positive person who will always approach each
-            task with a sense of purpose and attention to detail. Please do feel
-            free to check out my online profiles below and get in touch using
-            the form.
+            I'm currently looking for a new role and I'm open to a wide range of
+            opportunities. My preference would be to work remotely... But I'd
+            also be happy to hear about opportunites that don't fit that
+            description. I'm a hard-working and positive person who will always
+            approach each task with a sense of purpose and attention to detail.
+            Please, do feel free to check out my online profiles below and get
+            in touch using the form.
           </Text>
 
           <ul
-            className={clsx(
+            className={cx(
               'flex items-center gap-6 self-start',
               footerStyles.social
             )}

@@ -17,17 +17,7 @@ export default async function icon() {
 
   return new ImageResponse(
     (
-      <div
-        style={{
-          fontSize: 24,
-          background: 'white',
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
+      <div tw='flex h-full w-full items-center justify-between bg-white text-[2.4rem]'>
         PM
       </div>
     ),

@@ -1,18 +1,34 @@
+import { Text } from '@/components';
+import { getProjectsMetadata, hasValues } from '@/lib';
 import { Metadata } from 'next';
+import * as React from 'react';
 
 export const metadata: Metadata = {
   title: 'Prince Muel',
   description: '',
 };
 
-interface Props {}
+const PageRoute = async () => {
+  const projects = await getProjectsMetadata();
 
-export default function PageRoute(props: Props) {
   return (
     <main className=''>
-      <h1>
-        This page is currently under construction. It should be ready soon{' '}
-      </h1>
+      {/* HERO SECTION */}
+
+      {/*  */}
+      <h1>This page is still in development. It should be ready soon </h1>
+
+      <React.Fragment>
+        {!hasValues(projects) ? (
+          <Text className='mt-10 text-center'>
+            Sorry, no projects are available yet.
+          </Text>
+        ) : (
+          <section>{JSON.stringify(projects, null, 2)}</section>
+        )}
+      </React.Fragment>
     </main>
   );
-}
+};
+
+export default PageRoute;

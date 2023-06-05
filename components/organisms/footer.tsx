@@ -1,5 +1,5 @@
 import { links } from '@/common';
-import clsx from 'clsx';
+import { cx } from 'cva';
 import { Logo, NavLink, SocialIcon, Text } from '../atoms';
 import styles from './styles/footer.module.css';
 
@@ -31,8 +31,8 @@ export function Footer(props: Props) {
           </nav>
         </div>
 
-        <div className={clsx('body-200 mt-12', styles['footer-grid'])}>
-          <Text as='p' className={clsx('', styles.info)}>
+        <div className={cx('body-200 mt-12', styles['footer-grid'])}>
+          <Text as='p' className={cx('', styles.info)}>
             Hi there! Thanks for sticking with me till this point. If you're
             looking for a fast, performant, user-friendly, SEO and accessibility
             compliant website to represent your product or business, want a
@@ -40,13 +40,13 @@ export function Footer(props: Props) {
             reach out. I will do my best to respond. 😊 The quickest way to
             reach me is via email.
           </Text>
-          <Text as='p' className={clsx('', styles.copyright)}>
+          <Text as='p' className={cx('', styles.copyright)}>
             Copyright &copy; {new Date().getFullYear()} Prince Muel. All Rights
             Reserved
           </Text>
 
           <ul
-            className={clsx('flex items-center gap-6', styles.social)}
+            className={cx('flex items-center gap-6', styles.social)}
             aria-label='Social Links'
           >
             {links.social.map((link) => {

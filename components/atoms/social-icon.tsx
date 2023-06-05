@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import { cx } from 'cva';
 import Link from 'next/link';
 
 interface Props {
@@ -17,7 +17,7 @@ const SocialIcon = ({ alt, url, icon: Icon, className }: Props) => {
       aria-label={alt}
       target='_blank'
       rel='noopener noreferrer'
-      className={clsx(className)}
+      className={cx(className)}
     >
       <span className='sr-only'>{alt}</span>
       <Icon aria-hidden='true' className='icon' />

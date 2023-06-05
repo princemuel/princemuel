@@ -1,13 +1,14 @@
-'use client';
-
-import { useMedia } from '@/lib';
+import * as React from 'react';
 import { NavDesktop } from './nav.desktop';
 import { NavMobile } from './nav.mobile';
 
 interface Props {}
 
 export function Navigation(props: Props) {
-  const isMobile = useMedia('(max-width: 48em)', true);
-
-  return <>{isMobile ? <NavMobile /> : <NavDesktop />}</>;
+  return (
+    <React.Fragment>
+      <NavMobile className='flex flex-col md:hidden' />
+      <NavDesktop className='hidden md:flex md:items-center md:justify-between md:h-container' />
+    </React.Fragment>
+  );
 }
