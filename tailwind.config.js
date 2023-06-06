@@ -36,46 +36,6 @@ module.exports = {
       pill: '100vmax',
     },
 
-    // fontFamily: {
-    //   serif: ['var(--font-serif)', ...defaultTheme.fontFamily.serif],
-    //   sans: ['var(--font-sans)', ...defaultTheme.fontFamily.sans],
-    // },
-    fontFamily: {
-      serif: ['var(--font-serif)', ...defaultTheme.fontFamily.serif],
-      sans: defaultTheme.fontFamily.sans,
-    },
-
-    fontSize: {
-      100: '0.8rem',
-      200: '1rem',
-      300: '1.2rem',
-      400: '1.5rem',
-      500: '1.6rem',
-      600: '2.4rem',
-      700: '3.2rem', //
-      800: '4rem',
-      900: '5rem',
-    },
-
-    letterSpacing: {
-      ...defaultTheme.letterSpacing,
-      tightest: '-0.45px',
-      tighter: ' -0.36px',
-      tight: ' -0.29px',
-      widest: '2px',
-    },
-
-    lineHeight: {
-      100: '1.175rem',
-      200: '1.41rem',
-      300: '1.8rem',
-      400: '1.9rem',
-      500: '3rem',
-      600: '3.6rem',
-      700: '4.2rem',
-      800: '5rem',
-    },
-
     // screens: {
     //   s: "20em", // => @media (min-width: 320px) { ... }
     //   xs: "30em", // => @media (min-width: 480px) { ... }
@@ -105,16 +65,20 @@ module.exports = {
         xl: '80em', // => @media (min-width: 1280px) { ... }
         '2xl': '96em', // => @media (min-width: 1536px) { ... }
       },
+      fontFamily: {
+        sans: ['var(--font-sans)'],
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        //#141e30, #243b55 ;; #b6fbff, #83a4d4 bbut
       },
     },
   },
   plugins: [
-    // require('@tailwindcss/typography'),
-    // require('tailwind-scrollbar')({ nocompatible: true }),
+    require('@tailwindcss/typography'),
+    require('tailwind-scrollbar')({ nocompatible: true }),
     plugin(function ({ addUtilities }) {
       addUtilities({
         '.full-width-shadow': {
