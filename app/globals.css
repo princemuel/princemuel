@@ -81,7 +81,7 @@ Version: 01
     text-decoration-skip-ink: auto;
   }
 
-  :where(:focus-visible) {
+  :where(:focus-visible:not(:class)) {
     outline: 2px solid var(--focus-color, Highlight);
     outline-offset: 2px;
   }
@@ -113,30 +113,10 @@ Version: 01
       TYPOGRAPHY
     ============================
   */
-  :where(body) {
-    @apply font-sans font-normal leading-500 text-zinc-800;
-  }
 
   :is(h1, h2, h3) {
-    @apply font-sans font-bold;
+    @apply font-bold;
     /* @apply font-serif font-bold; */
-  }
-
-  h1 {
-    @apply text-900 leading-800 tracking-tightest;
-  }
-  h2 {
-    @apply text-800 leading-700 tracking-tighter;
-  }
-  h3 {
-    @apply text-700 leading-600 tracking-tighter;
-  }
-
-  .body-100 {
-    @apply font-sans text-500 font-normal leading-500;
-  }
-  .body-200 {
-    @apply font-sans text-400 font-normal leading-500;
   }
 }
 /**
