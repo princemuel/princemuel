@@ -9,9 +9,9 @@ interface Props {
 export function NavDesktop({ className }: Props) {
   return (
     <div className={cx('py-10 full-width-shadow', className)}>
-      <div>
+      <figure>
         <Logo className='text-black transition-all delay-0 duration-300 ease-in hover:text-teal-500 focus:text-teal-500 active:text-teal-500' />
-      </div>
+      </figure>
 
       <nav className=''>
         <ul
@@ -21,7 +21,7 @@ export function NavDesktop({ className }: Props) {
           {links?.routes?.map((link) => (
             <li
               key={link.text}
-              className='body-200 text-[1.4rem] uppercase transition-all delay-0 duration-300 ease-in hover:text-teal-500 focus:text-teal-500'
+              className='text-x uppercase transition-all delay-0 duration-300 ease-in hover:text-teal-500 focus:text-teal-500'
             >
               <NavLink href={link.url}>
                 <a>{link.text}</a>

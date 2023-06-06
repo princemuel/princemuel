@@ -75,7 +75,7 @@ export function NavMobile({ className }: Props) {
           {links?.routes?.map((link) => (
             <li
               key={link.text}
-              className='body-200 text-[1.4rem] uppercase transition-all delay-0 duration-300 ease-in hover:text-teal-500 focus:text-teal-500'
+              className=' text-[1.4rem] uppercase transition-all delay-0 duration-300 ease-in hover:text-teal-500 focus:text-teal-500'
             >
               <NavLink href={link.url}>
                 <a>{link.text}</a>
