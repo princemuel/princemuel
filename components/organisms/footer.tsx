@@ -20,7 +20,7 @@ export function Footer(props: Props) {
               {links?.routes?.map((link) => (
                 <li
                   key={link.text}
-                  className='body-200 text-[1.4rem] uppercase text-white transition-all delay-0 duration-300 ease-in hover:text-teal-500 focus:text-teal-500'
+                  className='text-xl uppercase text-white transition-all delay-0 duration-300 ease-in hover:text-teal-500 focus:text-teal-500'
                 >
                   <NavLink href={link.url}>
                     <a>{link.text}</a>
@@ -31,7 +31,7 @@ export function Footer(props: Props) {
           </nav>
         </div>
 
-        <div className={cx('body-200 mt-12', styles['footer-grid'])}>
+        <div className={cx(' mt-12', styles['footer-grid'])}>
           <Text as='p' className={cx('', styles.info)}>
             Hi there! Thanks for sticking with me till this point. If you're
             looking for a fast, performant, user-friendly, SEO and accessibility
