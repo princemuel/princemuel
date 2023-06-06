@@ -2,6 +2,7 @@ import { getProjectBySlug, getProjectsMetadata } from '@/lib';
 import 'highlight.js/styles/atom-one-dark.css';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import * as React from 'react';
 
 export const revalidate = 86400;
 
@@ -10,16 +11,16 @@ interface Props {
 }
 
 const PageRoute = async ({ params: { slug } }: Props) => {
-  const project = await getProjectBySlug(`${slug}.mdx`); //deduped!
+  const project = await getProjectBySlug(`${slug}.mdx`);
   if (!project) notFound();
 
   const { meta, content } = project;
 
   return (
-    <main className=''>
-      <h1 className='mb-0 mt-4 text-900'>{meta.title}</h1>
+    <React.Fragment>
+      <h1 className='mb-0 mt-4'>{meta.title}</h1>
       <div>{content}</div>
-    </main>
+    </React.Fragment>
   );
 };
 
@@ -47,11 +48,7 @@ export async function generateMetadata({
   return {
     title: project.meta.title,
     description: project.meta.description,
-    authors: { name: 'Prince Muel', url: 'https://github.com/princemuel' },
-    generator: 'Next.js',
     keywords: project.meta.tags,
-    creator: 'Prince Muel',
-    publisher: 'Prince Muel',
     openGraph: {
       type: 'article',
       title: project.meta.title,
@@ -61,9 +58,6 @@ export async function generateMetadata({
       // add image
     },
     twitter: {
-      card: 'summary_large_image',
-      site: '',
-      creator: '@iamprincemuel',
       title: project.meta.title,
       description: project.meta.description,
       // add image

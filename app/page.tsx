@@ -6,14 +6,10 @@ export const metadata: Metadata = {
   description: '',
 };
 
-const PageRoute = async () => {
+const PageRoute = () => {
   return (
     <>
-      <main
-        id='main-content'
-        aria-label='Contact Page'
-        className='flex flex-col gap-20 !bg-white'
-      >
+      <main id='main-content' aria-label='' className='flex flex-col gap-20'>
         <HomeTemplate />
       </main>
     </>

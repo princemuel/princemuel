@@ -7,15 +7,7 @@ export const metadata: Metadata = {
 };
 
 const PageRoute = () => {
-  return (
-    <main
-      id='main-content'
-      aria-label='Contact Page'
-      className='flex flex-col gap-20 !bg-white'
-    >
-      <ContactTemplate />
-    </main>
-  );
+  return <ContactTemplate />;
 };
 
 export default PageRoute;
