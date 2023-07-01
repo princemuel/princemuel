@@ -6,9 +6,9 @@ I am currently updating my projects and it's a work in progress.
 ![princemuel's wakatime stats](https://github-readme-stats.vercel.app/api/wakatime?username=princemuel&text_color=586069&layout=compact&hide_border=true&title_color=0366d6&count_private=true&include_all_commits=true&theme=tokyonight&show_icons=true)
 
 <!--START_SECTION:waka-->
-![Code Time](http://img.shields.io/badge/Code%20Time-2%2C566%20hrs%2029%20mins-blue)
+![Code Time](http://img.shields.io/badge/Code%20Time-2%2C570%20hrs%2056%20mins-blue)
 
-![Profile Views](http://img.shields.io/badge/Profile%20Views-56-blue)
+![Profile Views](http://img.shields.io/badge/Profile%20Views-55-blue)
 
 **🐱 My GitHub Data** 
 
@@ -49,24 +49,23 @@ Sunday                   3069 commits        ████░░░░░░░�
 🕑︎ Time Zone: Africa/Lagos
 
 💬 Programming Languages: 
-TypeScript               23 hrs 34 mins      █████████████████████░░░░   85.00 % 
-JavaScript               1 hr 15 mins        █░░░░░░░░░░░░░░░░░░░░░░░░   04.54 % 
-SCSS                     42 mins             █░░░░░░░░░░░░░░░░░░░░░░░░   02.58 % 
-CSS                      41 mins             █░░░░░░░░░░░░░░░░░░░░░░░░   02.48 % 
-JSON                     35 mins             █░░░░░░░░░░░░░░░░░░░░░░░░   02.13 % 
+TypeScript               20 hrs 1 min        ███████████████████████░░   91.06 % 
+JavaScript               39 mins             █░░░░░░░░░░░░░░░░░░░░░░░░   03.01 % 
+JSON                     22 mins             ░░░░░░░░░░░░░░░░░░░░░░░░░   01.69 % 
+SCSS                     13 mins             ░░░░░░░░░░░░░░░░░░░░░░░░░   01.03 % 
+CSS                      11 mins             ░░░░░░░░░░░░░░░░░░░░░░░░░   00.90 % 
 
 🔥 Editors: 
-VS Code                  27 hrs 44 mins      █████████████████████████   100.00 % 
+VS Code                  21 hrs 59 mins      █████████████████████████   100.00 % 
 
 🐱‍💻 Projects: 
-audiophile               21 hrs 31 mins      ███████████████████░░░░░░   77.60 % 
-princemuel               2 hrs 21 mins       ██░░░░░░░░░░░░░░░░░░░░░░░   08.53 % 
-kanban-task-manager      2 hrs 20 mins       ██░░░░░░░░░░░░░░░░░░░░░░░   08.43 % 
-audiophile-old           1 hr 11 mins        █░░░░░░░░░░░░░░░░░░░░░░░░   04.28 % 
-Unknown Project          10 mins             ░░░░░░░░░░░░░░░░░░░░░░░░░   00.64 % 
+audiophile               20 hrs 33 mins      ███████████████████████░░   93.49 % 
+audiophile-old           1 hr 11 mins        █░░░░░░░░░░░░░░░░░░░░░░░░   05.40 % 
+Unknown Project          10 mins             ░░░░░░░░░░░░░░░░░░░░░░░░░   00.81 % 
+invoicetracker           3 mins              ░░░░░░░░░░░░░░░░░░░░░░░░░   00.29 % 
 
 💻 Operating System: 
-Linux                    27 hrs 44 mins      █████████████████████████   100.00 % 
+Linux                    21 hrs 59 mins      █████████████████████████   100.00 % 
 ```
 
 **I Mostly Code in TypeScript** 
@@ -86,5 +85,5 @@ C                        1 repo              ░░░░░░░░░░░�
 ![Lines of Code chart](https://raw.githubusercontent.com/princemuel/princemuel/main/assets/bar_graph.png)
 
 
- Last Updated on 30/06/2023 18:43:27 UTC
+ Last Updated on 01/07/2023 18:42:23 UTC
 <!--END_SECTION:waka-->
