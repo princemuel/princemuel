@@ -1,5 +1,5 @@
-import { HomeTemplate } from '@/components';
 import { Metadata } from 'next';
+import { HomeTemplate } from './home';
 
 export const metadata: Metadata = {
   title: 'Prince Muel',

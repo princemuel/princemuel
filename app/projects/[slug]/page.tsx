@@ -1,8 +1,7 @@
-import { getProjectBySlug, getProjectsMetadata } from '@/lib';
 import 'highlight.js/styles/atom-one-dark.css';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import * as React from 'react';
+import { getProjectBySlug, getProjectsMetadata } from '../../content';
 
 export const revalidate = 86400;
 
@@ -17,10 +16,10 @@ const PageRoute = async ({ params: { slug } }: Props) => {
   const { meta, content } = project;
 
   return (
-    <React.Fragment>
+    <>
       <h1 className='mb-0 mt-4'>{meta.title}</h1>
       <div>{content}</div>
-    </React.Fragment>
+    </>
   );
 };
 
@@ -55,12 +54,12 @@ export async function generateMetadata({
       description: project.meta.description,
       authors: ['Prince Muel'],
       publishedTime: new Date(project.meta.date).toISOString(),
-      // add image
+      images: project.meta.links.thumbnail,
     },
     twitter: {
       title: project.meta.title,
       description: project.meta.description,
-      // add image
+      images: project.meta.links.thumbnail,
     },
   } satisfies Metadata;
 }

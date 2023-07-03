@@ -1,7 +1,7 @@
 import { Text } from '@/components';
-import { getProjectsMetadata, hasValues } from '@/lib';
+import { hasValues } from '@/lib';
 import { Metadata } from 'next';
-import * as React from 'react';
+import { getProjectsMetadata } from '../content';
 
 export const metadata: Metadata = {};
 
@@ -15,9 +15,13 @@ const PageRoute = async () => {
     );
 
   return (
-    <React.Fragment>
-      <div>{JSON.stringify(projects, null, 2)}</div>
-    </React.Fragment>
+    <main
+      id='main-content'
+      aria-label='Contact Page'
+      className='flex flex-col gap-20'
+    >
+      <pre>{JSON.stringify(projects, null, 2)}</pre>
+    </main>
   );
 };
 
