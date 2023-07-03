@@ -5,11 +5,9 @@ interface RepoFiletree {
     path: string;
   }[];
 }
-export async function getRepoFiletree() {
-  const url = `https://api.github.com/repos/${REPO_PATH}/git/trees/main?recursive=1`;
-  console.log('GITHUB_TOKEN', process.env.GITHUB_TOKEN);
-  console.log(url);
+const url = `https://api.github.com/repos/${REPO_PATH}/git/trees/main?recursive=1`;
 
+export async function getRepoFiletree() {
   const response = await fetch(url, {
     headers: {
       Accept: 'application/vnd.github+json',

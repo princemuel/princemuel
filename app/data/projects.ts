@@ -1,4 +1,4 @@
-import { Heading, Section, Text, YoutubePlayer } from '@/components';
+import { ResponsiveVideo, Text } from '@/components';
 import { compileMDX } from 'next-mdx-remote/rsc';
 import { cache } from 'react';
 import rehypeHighlight from 'rehype-highlight/lib';
@@ -36,10 +36,8 @@ export const getProjectBySlug = cache(
     const { frontmatter, content } = await compileMDX<IProjectMeta>({
       source: data,
       components: {
-        YoutubePlayer,
-        Heading,
+        ResponsiveVideo,
         Text,
-        Section,
       },
       options: {
         parseFrontmatter: true,
