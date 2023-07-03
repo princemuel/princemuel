@@ -6,6 +6,7 @@ interface IProjectMeta {
   alt: string;
   tags: string[];
   links: ILinkMeta;
+  featured: boolean;
   published: boolean;
 }
 
@@ -26,11 +27,8 @@ interface IPost {
 }
 
 interface ILinkMeta {
-  repository: string;
-  website: string;
+  repo: string;
+  site: string;
   video?: string;
-}
-
-interface IParams {
-  [key: string]: string | undefined;
+  thumbnail?: string;
 }
