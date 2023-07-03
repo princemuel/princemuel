@@ -1,11 +1,9 @@
 'use client';
 
-import { cx } from 'cva';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import * as React from 'react';
 
-interface Props extends ExtractElementProps<typeof Link> {}
+interface Props extends PropsFrom<typeof Link> {}
 
 /**
  * This component adds route-aware properties to the Next.js'
@@ -13,9 +11,8 @@ interface Props extends ExtractElementProps<typeof Link> {}
  * React-Router
  * @returns JSX.Element
  */
-const NavLink = ({ href, children, ...props }: Props) => {
+const NavLink = ({ href, children, className, ...props }: Props) => {
   const pathname = usePathname();
-  const child = React.Children.only(children) as React.ReactElement;
 
   href =
     href &&
@@ -30,11 +27,13 @@ const NavLink = ({ href, children, ...props }: Props) => {
   const isCurrentPath = href === pathname || pathname?.startsWith(href + '/');
 
   return (
-    <Link href={href} passHref {...props} legacyBehavior>
-      {React.cloneElement(child, {
-        className: cx(child?.props?.className),
-        'aria-current': isCurrentPath ? 'page' : 'false',
-      })}
+    <Link
+      href={href}
+      aria-current={isCurrentPath ? 'page' : 'false'}
+      className={className}
+      {...props}
+    >
+      {children}
     </Link>
   );
 };
