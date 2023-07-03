@@ -1,4 +1,4 @@
-export function YoutubePlayer({ slug }: IParams) {
+export function ResponsiveVideo({ slug }: IParams) {
   return (
     <div className='aspect-w-16 aspect-h-9'>
       <iframe

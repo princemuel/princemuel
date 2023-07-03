@@ -1,7 +1,7 @@
-import { cx } from 'cva';
+import { cn } from '@/lib';
 import Image from 'next/image';
 
-interface Props extends ExtractElementProps<typeof Image> {
+interface Props extends PropsFrom<typeof Image> {
   containerClassName?: string;
 }
 
@@ -15,11 +15,11 @@ const ResponsiveImage = ({
   containerClassName,
   ...rest
 }: Props) => (
-  <figure className={cx('h-full w-full', containerClassName)}>
+  <figure className={cn('h-full w-full', containerClassName)}>
     <Image
       src={src}
       alt={alt}
-      className={cx('', className)}
+      className={cn('', className)}
       width={width}
       height={height}
       priority={priority}
