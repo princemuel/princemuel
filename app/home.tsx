@@ -1,7 +1,5 @@
+import { Featured, Text } from '@/components';
 import { cn } from '@/lib';
-import { Featured } from '../components/organisms/featured';
-im
-
 
 const HomeTemplate = () => {
   return (

@@ -13,14 +13,9 @@ const PageRoute = async ({ params: { slug } }: Props) => {
   const project = await getProjectBySlug(`${slug}.mdx`);
   if (!project) notFound();
 
-  const { meta, content } = project;
+  const { content } = project;
 
-  return (
-    <>
-      <h1 className='mb-0 mt-4'>{meta.title}</h1>
-      <div>{content}</div>
-    </>
-  );
+  return <>{content}</>;
 };
 
 export default PageRoute;
