@@ -10,7 +10,7 @@ export const runtime = 'edge';
 
 export default async function icon() {
   const font = fetch(
-    new URL('../assets/SpecialElite-Regular.ttf', import.meta.url)
+    new URL('./fonts/special-elite.ttf', import.meta.url)
   ).then((response) => response?.arrayBuffer());
 
   const fontData = await font;
