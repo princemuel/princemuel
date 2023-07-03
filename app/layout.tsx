@@ -1,9 +1,8 @@
 import { Footer, Header } from '@/components';
+import { cn } from '@/lib';
 import { Analytics } from '@vercel/analytics/react';
-import { cx } from 'cva';
 import { Metadata } from 'next';
-import * as React from 'react';
-import { inter } from './fonts';
+import { FontMono, FontSans } from './fonts';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -74,22 +73,23 @@ export default function RootLayout({
   return (
     <html
       lang='en'
-      className={cx(
-        inter.variable,
-        'scrollbar-thin scrollbar-track-zinc-800 scrollbar-thumb-teal-500 scrollbar-track-rounded-md scrollbar-thumb-rounded-md'
+      className={cn(
+        FontMono.variable,
+        FontSans.variable,
+        'scrollbar-thin scrollbar-track-zinc-800 scrollbar-thumb-slate-500 scrollbar-track-rounded-md scrollbar-thumb-rounded-md'
       )}
     >
       <body
-        className={cx(
-          'relative bg-white bg-gradient-to-br text-slate-500 antialiased dark:bg-slate-900 dark:text-slate-400'
+        className={cn(
+          'relative bg-white bg-gradient-to-br text-slate-500 antialiased selection:bg-teal-300 selection:text-teal-900 dark:bg-slate-950 dark:text-slate-400'
         )}
       >
-        <React.Fragment>
+        <>
           <Header />
           {children}
           <Footer />
           <Analytics />
-        </React.Fragment>
+        </>
       </body>
     </html>
   );
