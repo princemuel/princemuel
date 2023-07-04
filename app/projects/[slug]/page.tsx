@@ -1,7 +1,7 @@
-import 'highlight.js/styles/atom-one-dark.css';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getProjectBySlug, getProjectsMetadata } from '../../content';
+import './highlight.scss';
 
 export const revalidate = 86400;
 

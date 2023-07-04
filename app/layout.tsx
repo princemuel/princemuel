@@ -1,11 +1,11 @@
 import { Footer, Header } from '@/components';
 import { cn } from '@/lib';
+import { Providers } from '@/providers';
 import { Analytics } from '@vercel/analytics/react';
-import { Metadata } from 'next';
 import { FontMono, FontSans } from './fonts';
 import './globals.css';
 
-export const metadata: Metadata = {
+export const metadata = {
   title: {
     template: 'Prince Muel | %s',
     default: 'Prince Muel',
@@ -78,18 +78,19 @@ export default function RootLayout({
         FontSans.variable,
         'scrollbar-thin scrollbar-track-zinc-800 scrollbar-thumb-slate-500 scrollbar-track-rounded-md scrollbar-thumb-rounded-md'
       )}
+      data-theme='light'
     >
       <body
         className={cn(
           'relative bg-white bg-gradient-to-br text-slate-500 antialiased selection:bg-teal-300 selection:text-teal-900 dark:bg-slate-950 dark:text-slate-400'
         )}
       >
-        <>
+        <Providers>
           <Header />
           {children}
           <Footer />
-          <Analytics />
-        </>
+        </Providers>
+        <Analytics />
       </body>
     </html>
   );
