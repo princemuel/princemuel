@@ -38,6 +38,11 @@ export const getProjectBySlug = cache(
       components: {
         ResponsiveVideo,
         Text,
+        h2: (props) => (
+          <Text as='h2' className='text-blue-600'>
+            {props.children}
+          </Text>
+        ),
       },
       options: {
         parseFrontmatter: true,
