@@ -12,7 +12,7 @@ interface ISocial {
   id: string;
   alt: string;
   icon: IconRFCType;
-  url: string;
+  url: URL;
 }
 
 type IconRFCType = (props: IconProps) => React.JSX.Element;
