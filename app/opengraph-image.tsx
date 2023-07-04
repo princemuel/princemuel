@@ -10,8 +10,8 @@ export const runtime = 'edge';
 
 export default async function og() {
   const font = fetch(
-    new URL('../assets/SpecialElite-Regular.ttf', import.meta.url)
-  ).then((res) => res?.arrayBuffer());
+    new URL('./fonts/special-elite.ttf', import.meta.url)
+  ).then((response) => response?.arrayBuffer());
 
   const fontData = await font;
 

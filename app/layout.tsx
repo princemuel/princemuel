@@ -1,30 +1,30 @@
 import { Footer, Header } from '@/components';
+import { cn } from '@/lib';
+import { Providers } from '@/providers';
 import { Analytics } from '@vercel/analytics/react';
-import { cx } from 'cva';
-import { Metadata } from 'next';
-import * as React from 'react';
-import { ibarraRealNova, publicSans } from './fonts';
-import './index.css';
+import { FontMono, FontSans } from './fonts';
+import './globals.css';
 
-export const metadata: Metadata = {
+export const metadata = {
   title: {
     template: 'Prince Muel | %s',
     default: 'Prince Muel',
   },
   // metadataBase: new URL(process.env.VERCEL_URL || ''),
   generator: 'Next.js',
-  applicationName: "Princemuel's E-Portfolio",
+  applicationName: 'Prince Muel',
   referrer: 'origin-when-cross-origin',
   keywords: ['Next.js', 'React', 'JavaScript', 'Portfolio', 'Blog'],
   colorScheme: 'dark light',
   creator: 'Prince Muel',
-  authors: [{ name: 'Prince Muel', url: 'https://github.com/princemuel' }],
+  publisher: 'Prince Muel',
+  authors: { name: 'Prince Muel', url: 'https://github.com/princemuel' },
   openGraph: {
     type: 'website',
-    title: `Princemuel's E-Portfolio`,
+    title: `Prince Muel`,
     description: '',
     url: 'https://princemuel.vercel.app',
-    siteName: "Princemuel's E-Portfolio",
+    siteName: 'Princemuel',
     // images: [
     //   {
     //     url: 'https://nextjs.org/og.png',
@@ -40,19 +40,29 @@ export const metadata: Metadata = {
     // ],
     locale: 'en-US',
   },
+  twitter: {
+    card: 'summary_large_image',
+    site: '@iamprincemuel',
+    creator: '@iamprincemuel',
+    // add image
+  },
   robots: {
     index: true,
     follow: true,
-    nocache: true,
+    nocache: false,
     googleBot: {
       index: true,
-      follow: false,
-      noimageindex: true,
+      follow: true,
+      noimageindex: false,
       'max-video-preview': -1,
       'max-image-preview': 'standard',
       'max-snippet': -1,
     },
   },
+  themeColor: [
+    { media: '(prefers-color-scheme: dark)', color: '#0B1120' },
+    { media: '(prefers-color-scheme: light)', color: '#fafafa' },
+  ],
 };
 
 export default function RootLayout({
@@ -63,19 +73,24 @@ export default function RootLayout({
   return (
     <html
       lang='en'
-      className={cx(
-        ibarraRealNova.variable,
-        publicSans.variable,
-        'scrollbar-thin scrollbar-track-zinc-800 scrollbar-thumb-teal-500 scrollbar-track-rounded-md scrollbar-thumb-rounded-md'
+      className={cn(
+        FontMono.variable,
+        FontSans.variable,
+        'scrollbar-thin scrollbar-track-zinc-800 scrollbar-thumb-slate-500 scrollbar-track-rounded-md scrollbar-thumb-rounded-md'
       )}
+      data-theme='light'
     >
-      <body className={cx('body-100 relative text-white dark:text-green-500')}>
-        <React.Fragment>
+      <body
+        className={cn(
+          'relative bg-white bg-gradient-to-br text-slate-500 antialiased selection:bg-teal-300 selection:text-teal-900 dark:bg-slate-950 dark:text-slate-400'
+        )}
+      >
+        <Providers>
           <Header />
           {children}
           <Footer />
-          <Analytics />
-        </React.Fragment>
+        </Providers>
+        <Analytics />
       </body>
     </html>
   );

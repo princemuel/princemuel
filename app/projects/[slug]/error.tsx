@@ -15,8 +15,8 @@ export default function Error({ error, reset }: Props) {
   }, [error]);
 
   return (
-    <main className='mx-auto min-h-screen max-w-lg bg-slate-200 px-4 py-1'>
-      <h2 className='my-4 text-800 font-bold'>Something went wrong!</h2>
+    <main className='mx-auto min-h-screen max-w-lg px-4 py-1'>
+      <h2 className='my-4 font-bold'>Something went wrong!</h2>
       <button
         className='mb-8 rounded-xl bg-red-500 p-4 text-white'
         onClick={reset}
@@ -24,7 +24,7 @@ export default function Error({ error, reset }: Props) {
         Try again
       </button>
 
-      <Text className='text-700'>
+      <Text className=''>
         Or go back to{' '}
         <Link href='/' className='underline'>
           Home 🏠

@@ -1,5 +1,5 @@
 import { links } from '@/common';
-import { cx } from 'cva';
+import { cn } from '@/lib';
 import { Logo, NavLink } from '../../atoms';
 
 interface Props {
@@ -8,10 +8,10 @@ interface Props {
 
 export function NavDesktop({ className }: Props) {
   return (
-    <div className={cx('py-10 full-width-shadow', className)}>
-      <div>
+    <div className={cn('py-10 full-w-bg', className)}>
+      <figure>
         <Logo className='text-black transition-all delay-0 duration-300 ease-in hover:text-teal-500 focus:text-teal-500 active:text-teal-500' />
-      </div>
+      </figure>
 
       <nav className=''>
         <ul
@@ -21,11 +21,9 @@ export function NavDesktop({ className }: Props) {
           {links?.routes?.map((link) => (
             <li
               key={link.text}
-              className='body-200 text-[1.4rem] uppercase transition-all delay-0 duration-300 ease-in hover:text-teal-500 focus:text-teal-500'
+              className='uppercase transition-all delay-0 duration-300 ease-in hover:text-teal-500 focus:text-teal-500'
             >
-              <NavLink href={link.url}>
-                <a>{link.text}</a>
-              </NavLink>
+              <NavLink href={link.url}>{link.text}</NavLink>
             </li>
           ))}
         </ul>

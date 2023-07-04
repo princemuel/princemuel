@@ -1,5 +1,5 @@
-import { ContactTemplate } from '@/components';
 import { Metadata } from 'next';
+import { ContactTemplate } from './contact';
 
 export const metadata: Metadata = {
   title: 'Contact Page',
@@ -11,9 +11,9 @@ const PageRoute = () => {
     <main
       id='main-content'
       aria-label='Contact Page'
-      className='flex flex-col gap-20 !bg-white'
+      className='flex flex-col gap-20'
     >
-      <ContactTemplate />
+      <ContactTemplate />;
     </main>
   );
 };

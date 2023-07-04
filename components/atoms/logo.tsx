@@ -1,5 +1,5 @@
 import { icons } from '@/common';
-import { cx } from 'cva';
+import { cn } from '@/lib';
 import Link from 'next/link';
 
 interface Props {
@@ -8,14 +8,12 @@ interface Props {
 
 const Logo = ({ className }: Props) => {
   return (
-    <Link href={'/'} aria-label='Go to Home' legacyBehavior>
-      <a className={cx(className)}>
-        <span className='sr-only'>Go to Home</span>
-        <icons.logo
-          aria-hidden='true'
-          className='fill-current stroke-transparent'
-        />
-      </a>
+    <Link href={'/'} aria-label='Go to Home' className={cn(className)}>
+      <span className='sr-only'>Go to Home</span>
+      <icons.site.logo
+        aria-hidden='true'
+        className='fill-current stroke-transparent'
+      />
     </Link>
   );
 };

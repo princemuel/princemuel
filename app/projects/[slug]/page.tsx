@@ -1,7 +1,7 @@
-import { getProjectBySlug, getProjectsMetadata } from '@/lib';
-import 'highlight.js/styles/atom-one-dark.css';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { getProjectBySlug, getProjectsMetadata } from '../../content';
+import './highlight.scss';
 
 export const revalidate = 86400;
 
@@ -10,17 +10,12 @@ interface Props {
 }
 
 const PageRoute = async ({ params: { slug } }: Props) => {
-  const project = await getProjectBySlug(`${slug}.mdx`); //deduped!
+  const project = await getProjectBySlug(`${slug}.mdx`);
   if (!project) notFound();
 
-  const { meta, content } = project;
+  const { content } = project;
 
-  return (
-    <main className=''>
-      <h1 className='mb-0 mt-4 text-900'>{meta.title}</h1>
-      <div>{content}</div>
-    </main>
-  );
+  return <>{content}</>;
 };
 
 export default PageRoute;
@@ -47,26 +42,19 @@ export async function generateMetadata({
   return {
     title: project.meta.title,
     description: project.meta.description,
-    authors: { name: 'Prince Muel', url: 'https://github.com/princemuel' },
-    generator: 'Next.js',
     keywords: project.meta.tags,
-    creator: 'Prince Muel',
-    publisher: 'Prince Muel',
     openGraph: {
       type: 'article',
       title: project.meta.title,
       description: project.meta.description,
       authors: ['Prince Muel'],
       publishedTime: new Date(project.meta.date).toISOString(),
-      // add image
+      images: project.meta.links.thumbnail,
     },
     twitter: {
-      card: 'summary_large_image',
-      site: '',
-      creator: '@iamprincemuel',
       title: project.meta.title,
       description: project.meta.description,
-      // add image
+      images: project.meta.links.thumbnail,
     },
   } satisfies Metadata;
 }

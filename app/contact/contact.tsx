@@ -1,7 +1,7 @@
+import layout from '@/assets/styles/layout.module.scss';
 import { links } from '@/common';
-import { cx } from 'cva';
-import { SocialIcon, Text } from '../atoms';
-import footerStyles from '../organisms/styles/footer.module.css';
+import { SocialIcon, Text } from '@/components';
+import { cn } from '@/lib';
 
 interface Props {}
 
@@ -12,7 +12,7 @@ const ContactTemplate = (props: Props) => {
         <h2 className='flex-1'>Get in Touch</h2>
 
         <div className='flex flex-1 flex-col gap-6'>
-          <Text className='body-200'>
+          <Text className=''>
             I'd love to hear about what you're working on and how I could help.
             I'm currently looking for a new role and I'm open to a wide range of
             opportunities. My preference would be to work remotely... But I'd
@@ -24,9 +24,9 @@ const ContactTemplate = (props: Props) => {
           </Text>
 
           <ul
-            className={cx(
+            className={cn(
               'flex items-center gap-6 self-start',
-              footerStyles.social
+              layout['footer__social']
             )}
             aria-label='Social Links'
           >
@@ -47,7 +47,7 @@ const ContactTemplate = (props: Props) => {
       <section className='flex flex-col gap-8 h-container lg:flex-row'>
         <h2 className='flex-1'>Contact Me</h2>
 
-        <form className='> * + * flex-1 space-y-12 text-[1.3rem] leading-500'>
+        <form className='> * + * leading-500 flex-1 space-y-12'>
           <div className='> * + * space-y-4'>
             <label className='block font-bold' htmlFor='name'>
               Name

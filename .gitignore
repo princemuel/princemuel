@@ -172,3 +172,4 @@ local
 
 *.pem
 *.local.*
+thunder-*

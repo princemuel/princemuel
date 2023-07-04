@@ -1,0 +1,49 @@
+type $ElementProps<E extends React.ElementType<any>> = {
+  children: React.ReactNode;
+  as?: E;
+};
+
+type ElementProps<E extends React.ElementType<any>> = $ElementProps<E> &
+  Omit<React.ComponentPropsWithoutRef<E>, keyof $ElementProps<E>>;
+
+interface IconProps extends React.ComponentPropsWithoutRef<'svg'> {}
+
+type PropsFrom<T> = T extends React.FC<infer Props>
+  ? Props
+  : T extends React.Component<infer Props>
+  ? Props
+  : T extends object
+  ? { [K in keyof T]: T[K] }
+  : never;
+
+/*==============================*
+  EVENT TYPES
+  ==============================*/
+type ReactFormEvent = React.FormEvent<HTMLFormElement>;
+type ReactSelectEvent = React.MouseEvent<HTMLLIElement>;
+type ReactInputEvent = React.ChangeEvent<HTMLInputElement>;
+type ReactMouseEvent = React.MouseEvent<HTMLButtonElement>;
+
+interface IParams {
+  [key: string]: string | undefined;
+}
+
+type ClassValue =
+  | ClassArray
+  | ClassDictionary
+  | string
+  | number
+  | null
+  | boolean
+  | undefined;
+type ClassDictionary = Record<string, any>;
+type ClassArray = ClassValue[];
+interface PropsWithChildren {
+  children: React.ReactNode;
+}
+
+type Level = [0, 1, 2, 3, 4, 5, 6][number];
+
+interface CSSStyleProps extends React.CSSProperties {
+  '--min-column-size': string;
+}
