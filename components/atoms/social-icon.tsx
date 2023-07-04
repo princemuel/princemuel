@@ -1,10 +1,9 @@
 import { cn } from '@/lib';
-import type { Route } from 'next';
 import Link from 'next/link';
 
 interface Props {
   id: string;
-  url: Route | URL;
+  url: string;
   icon: IconRFCType;
   alt: string;
   className?: string;
@@ -13,6 +12,7 @@ interface Props {
 const SocialIcon = ({ alt, url, icon: Icon, className }: Props) => {
   return (
     <Link
+      //@ts-expect-error
       href={url}
       aria-label={alt}
       target='_blank'
