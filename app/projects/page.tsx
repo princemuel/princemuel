@@ -1,9 +1,11 @@
 import { Text } from '@/components';
 import { hasValues } from '@/lib';
-import { Metadata } from 'next';
 import { getProjectsMetadata } from '../content';
 
-export const metadata: Metadata = {};
+export const metadata = {
+  title: 'Projects',
+  description: 'A list of all my past and current projects',
+};
 
 const PageRoute = async () => {
   const projects = await getProjectsMetadata();
