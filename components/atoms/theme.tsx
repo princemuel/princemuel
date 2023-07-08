@@ -2,7 +2,7 @@
 
 import { useLayoutEffect, useRef } from 'react';
 
-type Props = {};
+interface Props {}
 
 const ThemeSwitch = (props: Props) => {
   const isMounted = useRef(false);
