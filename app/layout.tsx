@@ -21,9 +21,9 @@ export const metadata = {
   authors: { name: 'Prince Muel', url: 'https://github.com/princemuel' },
   openGraph: {
     type: 'website',
+    url: 'https://princemuel.vercel.app',
     title: `Prince Muel`,
     description: '',
-    url: 'https://princemuel.vercel.app',
     siteName: 'Princemuel',
     // images: [
     //   {

@@ -1,14 +1,14 @@
-import { getProjectsMetadata } from '@/app/content';
+import { Button, Text } from '@/components';
 import { cn, hasValues } from '@/lib';
 import { FolderPlusIcon } from '@heroicons/react/24/outline';
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
-import { Text } from '../atoms';
 
-interface Props {}
+interface Props {
+  projects: IProjectMeta[];
+}
 
-async function Featured({}: Props) {
-  const projects = await getProjectsMetadata();
+function Featured({ projects }: Props) {
   if (!hasValues(projects))
     return (
       <Text as='h3' className='mt-10 text-center'>
@@ -33,12 +33,14 @@ async function Featured({}: Props) {
               <header className='flex flex-col gap-8'>
                 <div className='flex items-center justify-between'>
                   <FolderPlusIcon className='aspect-square w-12 text-teal-300' />
-                  <Link href={`/projects/${project.id}`} className='block'>
-                    <ArrowTopRightOnSquareIcon
-                      title='View Project Details'
-                      className='aspect-square w-8 text-teal-300 hover:text-teal-300 focus:text-teal-300'
-                    />
-                  </Link>
+                  <Button asChild>
+                    <Link href={`/projects/${project.id}`} className='block'>
+                      <ArrowTopRightOnSquareIcon
+                        title='View Project Details'
+                        className='aspect-square w-8 text-teal-300 hover:text-teal-300 focus:text-teal-300'
+                      />
+                    </Link>
+                  </Button>
                 </div>
 
                 <Text as='h3' className='text-4xl group-hover:text-teal-300'>
@@ -53,10 +55,7 @@ async function Featured({}: Props) {
               <footer>
                 <ul className='flex flex-wrap items-center gap-4 font-mono text-lg'>
                   {project.tags.map((tag) => (
-                    <li
-                      key={tag}
-                      className='rounded-pill bg-teal-400/10 px-4 py-1 text-teal-300'
-                    >
+                    <li key={tag} className='text-slate-300'>
                       {tag}
                     </li>
                   ))}
