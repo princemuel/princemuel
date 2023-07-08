@@ -15,10 +15,10 @@ Version: 01
  * This injects Tailwind's base styles and any base styles registered by
  * plugins.
  */
-@tailwind base;
 /* ================================= */
 /*               RESETS              */
 /* ================================= */
+@tailwind base;
 @layer base {
   :root {
     --deg: 1;
@@ -28,7 +28,7 @@ Version: 01
 
   html {
     box-sizing: border-box;
-    font-size: 56.25%;
+    font-size: 60%;
     text-rendering: optimizeSpeed;
     text-size-adjust: none;
     touch-action: manipulation;
@@ -110,40 +110,35 @@ Version: 01
   }
 
   /*============================
-      TYPOGRAPHY
-    ============================
-  */
+       TYPOGRAPHY
+     ============================
+   */
   :where(body) {
     font-size: 1.5rem;
     font-weight: 400;
   }
-
-  :is(h1, h2, h3) {
-    @apply font-bold;
-    /* @apply font-serif font-bold; */
-  }
 }
 /**
- * This injects Tailwind's component classes and any component classes
- * registered by plugins.
- */
-@tailwind components;
+  * This injects Tailwind's component classes and any component classes
+  * registered by plugins.
+  */
 /* ================================= */
 /*            COMPONENTS             */
 /* ================================= */
+@tailwind components;
 @layer components {
   .skip-to-content {
     @apply absolute z-[9999] mx-auto translate-y-[-120%] bg-zinc-800 px-[0.5em] py-[1em] text-white transition-transform focus:translate-y-0 focus:outline focus:outline-offset-2 focus:outline-zinc-800;
   }
 }
 /**
- * This injects Tailwind' s utility classes and
- * any utility classes registered * by plugins.
- */
-@tailwind utilities;
+  * This injects Tailwind' s utility classes and
+  * any utility classes registered * by plugins.
+  */
 /* ================================= */
 /*            UTILITIES              */
 /* ================================= */
+@tailwind utilities;
 @layer utilities {
   [aria-current='page'] {
     @apply text-teal-300;
@@ -151,12 +146,12 @@ Version: 01
 }
 
 /**
- * Use this directive to control where Tailwind injects the hover focus,
- * responsive, dark mode, and other variants of each class.
- *
- * If omitted, Tailwind will append these classes to the very end of
- * your stylesheet by default.
- */
+  * Use this directive to control where Tailwind injects the hover focus,
+  * responsive, dark mode, and other variants of each class.
+  *
+  * If omitted, Tailwind will append these classes to the very end of
+  * your stylesheet by default.
+  */
 /* @tailwind variants; */
 /* ================================= */
 /*            VARIANTS               */
