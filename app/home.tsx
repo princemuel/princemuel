@@ -1,7 +1,10 @@
-import { Featured, Text } from '@/components';
+import { Text } from '@/components';
 import { cn } from '@/lib';
+import { getProjectsMetadata } from './content';
+import { Featured } from './featured';
 
-const HomeTemplate = () => {
+async function HomeTemplate() {
+  const projects = await getProjectsMetadata();
   return (
     <>
       <div>
@@ -38,7 +41,7 @@ const HomeTemplate = () => {
       <section className={cn('h-container')}>
         <Text as='h2'>Featured Projects</Text>
 
-        <Featured />
+        <Featured projects={projects || []} />
       </section>
 
       <section className={cn('h-container')}>
@@ -46,6 +49,6 @@ const HomeTemplate = () => {
       </section>
     </>
   );
-};
+}
 
 export { HomeTemplate };
