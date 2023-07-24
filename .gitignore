@@ -24,8 +24,8 @@ pids
 *.pid.lock
 
 # Editor directories and files
-.vscode/*
-!.vscode/extensions.json
+# .vscode/*
+# !.vscode/extensions.json
 .idea
 *.suo
 *.ntvs*
@@ -170,6 +170,11 @@ dist
 dist-ssr
 local
 
+# local files
 *.pem
 *.local.*
 thunder-*
+
+## Panda
+styled-system
+styled-system-static

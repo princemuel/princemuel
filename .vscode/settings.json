@@ -1,0 +1,43 @@
+{
+  "editor.tabSize": 2,
+
+  "editor.inlineSuggest.enabled": true,
+  "editor.wordWrapColumn": 72,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true,
+    "source.addMissingImports": true,
+    "source.fixAll": true,
+    "source.fixAll.eslint": false
+  },
+  "eslint.codeAction.showDocumentation": {
+    "enable": true
+  },
+
+  "tailwindCSS.rootFontSize": 16,
+  "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
+  "dotenv.enableAutocloaking": false,
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+
+  "workbench.colorCustomizations": {
+    "[Night Wolf (black) (No Italics)]": {
+      "activityBar.border": "#292929"
+    },
+    "[Night Owl]": {
+      "activityBar.background": "#000C1D",
+      "activityBar.border": "#102a44",
+      "editorGroup.border": "#102a44",
+      "sideBar.background": "#001122",
+      "sideBar.border": "#102a44",
+      "sideBar.foreground": "#8BADC1"
+    },
+    "[Night Owl (No Italics)]": {
+      "activityBar.background": "#000C1D",
+      "activityBar.border": "#102a44",
+      "editorGroup.border": "#102a44",
+      "sideBar.background": "#001122",
+      "sideBar.border": "#102a44",
+      "sideBar.foreground": "#8BADC1"
+    }
+  }
+}
