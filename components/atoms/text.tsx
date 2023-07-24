@@ -4,11 +4,11 @@ import { cva } from 'cva';
 
 const textVariants = cva('', {
   defaultVariants: {
-    intent: 'primary',
+    color: 'primary',
     size: 's',
   },
   variants: {
-    intent: {
+    color: {
       primary: 'text-brand-900 dark:text-white',
       secondary: 'text-brand-400 dark:text-brand-400',
       outline: '',
@@ -30,7 +30,7 @@ const textVariants = cva('', {
   },
   compoundVariants: [
     {
-      intent: 'secondary',
+      color: 'secondary',
       size: 'xs',
       weight: 'bold',
       class: 'tracking-100',
@@ -47,7 +47,7 @@ type Props<E extends React.ElementType = 'p'> = ElementProps<E> & TextVariants;
 
 const Text = <E extends React.ElementType = 'p'>({
   as,
-  intent,
+  color,
   weight,
   size,
   className,
@@ -57,7 +57,7 @@ const Text = <E extends React.ElementType = 'p'>({
   const Rendered = as || 'p';
 
   return (
-    <Rendered className={text({ intent, weight, size }, className)} {...rest}>
+    <Rendered className={text({ color, weight, size }, className)} {...rest}>
       {children}
     </Rendered>
   );

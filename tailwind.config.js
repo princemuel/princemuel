@@ -78,17 +78,17 @@ module.exports = {
     plugin(function ({ addUtilities }) {
       addUtilities({
         '.full-w-bg': {
-          boxShadow: '0 0 0 100vmax currentColor, 0 0 2rem currentColor',
+          boxShadow: '0 0 0 100vmax currentColor, 0 0 3.2rem currentColor',
           clipPath: 'inset(0 -100vmax)',
         },
         '.h-container': {
-          '--max-width': '112rem',
-          '--container-padding': '1.6rem',
+          '--max-width': '70rem',
+          '--container-padding': '1rem',
           width: 'min(var(--max-width), 100% - (var(--container-padding) * 2))',
           marginInline: 'auto',
         },
         '.grid-auto': {
-          '--min-column-size': '22rem',
+          '--min-column-size': '15rem',
           gridTemplateColumns:
             'repeat(auto-fit, minmax(min(var(--min-column-size), 100%), 1fr))',
         },
