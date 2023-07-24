@@ -1,11 +1,22 @@
 //
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: process.env.SITE_URL || 'https://your-domain.com',
+  siteUrl: process.env.SITE_URL || 'https://princemuel.vercel.app',
   generateRobotsTxt: true,
-  generateIndexSitemap: false,
+  // generateIndexSitemap: false,
   exclude: ['/server-sitemap.xml'],
   robotsTxtOptions: {
-    additionalSitemaps: [`${process.env.SITE_URL}/server-sitemap.xml`],
+    policies: [
+      {
+        userAgent: '*',
+        allow: '/',
+      },
+    ],
+    additionalSitemaps: [
+      `${process.env.SITE_URL || 'https://princemuel.vercel.app'}/sitemap.xml`,
+      `${
+        process.env.SITE_URL || 'https://princemuel.vercel.app'
+      }/server-sitemap.xml`,
+    ],
   },
 };

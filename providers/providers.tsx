@@ -1,13 +1,8 @@
 'use client';
 
 import { ThemeProvider } from 'next-themes';
-import * as React from 'react';
 
-interface Props {
-  children: React.ReactNode;
-}
-
-const Providers = ({ children }: Props) => {
+export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <ThemeProvider
       storageKey='page-theme'
@@ -18,6 +13,4 @@ const Providers = ({ children }: Props) => {
       {children}
     </ThemeProvider>
   );
-};
-
-export { Providers };
+}

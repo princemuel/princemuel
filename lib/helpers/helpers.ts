@@ -1,4 +1,5 @@
 import { cx } from 'cva';
+import { ClassValue } from 'cva/dist/types';
 import { extendTailwindMerge } from 'tailwind-merge';
 
 const customTwMerge = extendTailwindMerge({
