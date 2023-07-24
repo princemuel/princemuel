@@ -58,7 +58,7 @@
     "@tailwindcss/typography": "^0.5.9",
     "eslint-config-prettier": "^8.8.0",
     "prettier": "^2.8.8",
-    "prettier-plugin-tailwindcss": "^0.3.0",
+    "prettier-plugin-tailwindcss": "^0.4.1",
     "sass": "^1.64.1",
     "svgo-loader": "^4.0.0",
     "tailwind-merge": "^1.14.0",
