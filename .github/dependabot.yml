@@ -10,7 +10,7 @@ updates:
 
   # Maintain dependencies for npm
   - package-ecosystem: 'npm'
-    directory: '/'
+    directory: '/' # Location of package manifests
     schedule:
       interval: 'weekly'
     commit-message:
