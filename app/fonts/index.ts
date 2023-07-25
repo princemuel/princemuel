@@ -1,28 +1,52 @@
+import { cn } from '@/lib';
 import localFont from 'next/font/local';
 
 // ! Note: using local fonts for now until next font api is stable
-const FontSans = localFont({
-  src: './inter.ttf',
-  variable: '--font-sans',
+const FontAccent = localFont({
+  src: './mona-sans.woff2',
+  variable: '--font-accent',
   display: 'swap',
 });
+
 const FontMono = localFont({
-  src: './roboto-mono.ttf',
+  // src: './roboto-mono.ttf',
+  src: './monaco.ttf',
   variable: '--font-mono',
   display: 'swap',
 });
 
-// import { Inter, Roboto_Mono } from 'next/font/google';
+const FontSans = localFont({
+  display: 'swap',
+  variable: '--font-sans',
+  src: [
+    {
+      path: './ubuntu-regular.ttf',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: './ubuntu-medium.ttf',
+      weight: '500',
+      style: 'normal',
+    },
+    {
+      path: './ubuntu-bold.ttf',
+      weight: '700',
+      style: 'normal',
+    },
+  ],
+});
 
-//   const FontSans = Inter({
+// import { Fira_Code, Ubuntu } from 'next/font/google';
+
+//   const FontSans = Ubuntu({
 //   subsets: ['latin'],
 //   variable: '--font-sans',
 //   display: 'swap',
 // });
 
-//   const FontMono = Roboto_Mono({
-//   subsets: ['latin'],
-//   variable: '--font-mono',
-//   display: 'swap',
-// });
-export { FontMono, FontSans };
+export const fonts = cn(
+  FontAccent.variable,
+  FontMono.variable,
+  FontSans.variable
+);
