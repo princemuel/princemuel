@@ -5,7 +5,7 @@
 // import rehypeHighlight from 'rehype-highlight/lib';
 // import rehypeSlug from 'rehype-slug';
 // // import 'server-only';
-// import { REPO_PATH } from './constants';
+// import { CONTENT_REPO_PATH } from './constants';
 // import { getRepoFiletree } from './filetree';
 
 // export const preloadPost = (slug: string) => {
@@ -19,7 +19,7 @@
 // export const getPostBySlug = cache(
 //   async (slug: string): Promise<IPost | null> => {
 //     const res = await fetch(
-//       `https://raw.githubusercontent.com/${REPO_PATH}/main/posts/${slug}`,
+//       `https://raw.githubusercontent.com/${CONTENT_REPO_PATH}/main/posts/${slug}`,
 //       {
 //         headers: {
 //           Accept: 'application/vnd.github+json',
