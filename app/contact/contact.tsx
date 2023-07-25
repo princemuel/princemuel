@@ -1,5 +1,5 @@
 import layout from '@/assets/styles/layout.module.scss';
-import { links } from '@/common';
+import { social } from '@/common';
 import { SocialIcon, Text } from '@/components';
 import { cn } from '@/lib';
 
@@ -30,7 +30,7 @@ const ContactTemplate = (props: Props) => {
             )}
             aria-label='Social Links'
           >
-            {links.social.map((link) => {
+            {social.map((link) => {
               return (
                 <li
                   key={link.id}
