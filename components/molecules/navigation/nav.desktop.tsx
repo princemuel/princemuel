@@ -10,7 +10,7 @@ export function NavDesktop({ className }: Props) {
   return (
     <div className={cn('py-10 full-w-bg', className)}>
       <figure>
-        <Logo className='text-black transition-all delay-0 duration-300 ease-in hover:text-teal-500 focus:text-teal-500 active:text-teal-500' />
+        <Logo className='text-black transition-all delay-0 duration-300 ease-in hover:text-blue-500 focus:text-blue-500 active:text-blue-500' />
       </figure>
 
       <nav className=''>
@@ -21,7 +21,7 @@ export function NavDesktop({ className }: Props) {
           {links.map((link) => (
             <li
               key={link.text}
-              className='text-sm capitalize transition-all delay-0 duration-300 ease-in hover:text-teal-500 focus:text-teal-500'
+              className='text-sm capitalize transition-all delay-0 duration-300 ease-in hover:text-blue-500 focus:text-blue-500'
             >
               <NavLink href={link.url} className='relative block'>
                 <span>{link.text}</span>
