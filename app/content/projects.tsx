@@ -18,7 +18,6 @@ export const preloadProjectsMeta = () => {
 
 export const getProjectBySlug = cache(
   async (slug: string): Promise<IProject | null> => {
-    slug = slug.includes('.mdx');
     const response = await fetch(
       `https://raw.githubusercontent.com/${CONTENT_REPO_PATH}/main/projects/${slug}`,
       {

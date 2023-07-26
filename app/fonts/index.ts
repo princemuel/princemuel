@@ -20,6 +20,11 @@ const FontSans = localFont({
   variable: '--font-sans',
   src: [
     {
+      path: './ubuntu-light.ttf',
+      weight: '300',
+      style: 'normal',
+    },
+    {
       path: './ubuntu-regular.ttf',
       weight: '400',
       style: 'normal',
