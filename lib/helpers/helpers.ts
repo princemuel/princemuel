@@ -93,6 +93,15 @@ export const rank = <T>(
   ---------------------------------*
  */
 
+/**
+ * A simple type guard for objects.
+ *
+ * @param obj - A possible object
+ */
+export function isObject(obj: unknown): obj is Record<string, unknown> {
+  return typeof obj === 'object' && obj !== null;
+}
+
 /*---------------------------------*
             DATE UTILS             *
   ---------------------------------*
