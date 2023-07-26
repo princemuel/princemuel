@@ -6,12 +6,15 @@ import { usePathname } from 'next/navigation';
 interface Props extends PropsFrom<typeof Link> {}
 
 /**
- * This component adds route-aware properties to the Next.js'
+ * This component adds route-aware properties to Next.js'
  * default Link component similar to the NavLink component in
  * React-Router
- * @returns JSX.Element
+ * @example
+ * <NavLink href={'/projects'} className='relative block'>
+ *    Projects
+ * </NavLink>
  */
-const NavLink = ({ href, children, className, ...props }: Props) => {
+const NavLink = ({ href, children, ...props }: Props) => {
   const pathname = usePathname();
 
   href =
@@ -24,15 +27,10 @@ const NavLink = ({ href, children, className, ...props }: Props) => {
         ) as __next_route_internal_types__.RouteImpl<unknown>)
       : (href as __next_route_internal_types__.RouteImpl<unknown>);
 
-  const isCurrentPath = href === pathname || pathname?.startsWith(href + '/');
+  const isActive = href === pathname || pathname?.startsWith(href + '/');
 
   return (
-    <Link
-      href={href}
-      aria-current={isCurrentPath ? 'page' : 'false'}
-      className={className}
-      {...props}
-    >
+    <Link href={href} aria-current={isActive ? 'page' : 'false'} {...props}>
       {children}
     </Link>
   );
