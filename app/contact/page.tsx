@@ -13,7 +13,7 @@ const PageRoute = () => {
       aria-label='Contact Page'
       className='flex flex-col gap-20'
     >
-      <ContactTemplate />;
+      <ContactTemplate />
     </main>
   );
 };
