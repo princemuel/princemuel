@@ -50,10 +50,16 @@ export const social: ILinks['social'] = [
     alt: 'github',
   },
   {
-    id: 'icon-facebook',
-    url: 'https://www.facebook.com/mikeychuks',
-    icon: (props) => <IconFacebook {...props} />,
-    alt: 'facebook',
+    id: 'icon-linkedin',
+    url: 'https://www.linkedin.com/in/princemuel',
+    icon: (props) => <IconLinkedIn {...props} />,
+    alt: 'linkedin',
+  },
+  {
+    id: 'icon-twitter',
+    url: 'https://www.twitter.com/iamprincemuel',
+    icon: (props) => <IconTwitter {...props} />,
+    alt: 'twitter',
   },
   {
     id: 'icon-instagram',
@@ -62,17 +68,10 @@ export const social: ILinks['social'] = [
     alt: 'instagram',
   },
   {
-    id: 'icon-linkedin',
-    url: 'https://www.linkedin.com/in/princemuel',
-    icon: (props) => <IconLinkedIn {...props} />,
-    alt: 'linkedin',
-  },
-
-  {
-    id: 'icon-twitter',
-    url: 'https://www.twitter.com/iamprincemuel',
-    icon: (props) => <IconTwitter {...props} />,
-    alt: 'twitter',
+    id: 'icon-facebook',
+    url: 'https://www.facebook.com/mikeychuks',
+    icon: (props) => <IconFacebook {...props} />,
+    alt: 'facebook',
   },
 ];
 
