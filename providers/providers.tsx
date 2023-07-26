@@ -2,13 +2,13 @@
 
 import { ThemeProvider } from 'next-themes';
 
-export function Providers({ children }: { children: React.ReactNode }) {
+export function GlobalProvider({ children }: { children: React.ReactNode }) {
   return (
     <ThemeProvider
       storageKey='page-theme'
       defaultTheme='system'
       enableSystem={true}
-      attribute='data-theme'
+      attribute='data-mode'
     >
       {children}
     </ThemeProvider>

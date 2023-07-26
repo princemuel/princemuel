@@ -72,10 +72,10 @@ export function NavMobile({ className }: Props) {
           aria-label='Primary Navigation'
           id='primary-navigation'
         >
-          {links?.routes?.map((link) => (
+          {links.map((link) => (
             <li
               key={link.text}
-              className=' text-[1.4rem] uppercase transition-all delay-0 duration-300 ease-in hover:text-teal-500 focus:text-teal-500'
+              className=' text-[1.4rem] capitalize transition-all delay-0 duration-300 ease-in hover:text-teal-500 focus:text-teal-500'
             >
               <NavLink href={link.url}>{link.text}</NavLink>
             </li>
