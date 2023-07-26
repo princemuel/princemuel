@@ -2,35 +2,50 @@ import { cn } from '@/lib';
 import type { VariantProps } from 'cva';
 import { cva } from 'cva';
 
+// light:
+// dark:
+
 const textVariants = cva('', {
   defaultVariants: {
-    color: 'primary',
-    size: 's',
+    variant: 'primary',
+    size: 'base',
+    family: 'sans',
+    weight: 'regular',
   },
   variants: {
-    color: {
-      primary: 'text-brand-900 dark:text-white',
+    variant: {
+      primary: 'text-gray-900 dark:text-gray-100',
       secondary: 'text-brand-400 dark:text-brand-400',
-      outline: '',
+      outline: 'text-blue-500',
+      callout: 'text-orange-800 dark:text-orange-300',
     },
     size: {
-      s: '',
       xs: 'text-300 leading-200',
-      sm: 'text-400 leading-400',
-      md: 'text-500 leading-300',
-      lg: 'text-600 leading-400',
-      xl: 'text-700 leading-500',
+      base: 'text-[0.9rem] leading-5',
+      sm: 'text-base',
+      md: 'text-lg',
+      lg: 'text-2xl',
+      xl: 'text-3xl',
+      '2xl': '',
+      '3xl': 'text-3xl tracking-tight',
+      '4xl': 'text-4xl tracking-tight',
     },
-
+    family: {
+      sans: 'font-sans',
+      accent: 'font-accent',
+      mono: 'font-mono',
+    },
     weight: {
       bold: 'font-bold',
+      semibold: 'font-semibold',
       medium: 'font-medium',
       regular: 'font-normal',
+      light: 'font-light',
     },
   },
   compoundVariants: [
     {
-      color: 'secondary',
+      variant: 'secondary',
       size: 'xs',
       weight: 'bold',
       class: 'tracking-100',
@@ -47,8 +62,9 @@ type Props<E extends React.ElementType = 'p'> = ElementProps<E> & TextVariants;
 
 const Text = <E extends React.ElementType = 'p'>({
   as,
-  color,
+  variant,
   weight,
+  family,
   size,
   className,
   children,
@@ -57,7 +73,10 @@ const Text = <E extends React.ElementType = 'p'>({
   const Rendered = as || 'p';
 
   return (
-    <Rendered className={text({ color, weight, size }, className)} {...rest}>
+    <Rendered
+      className={text({ variant, weight, size, family }, className)}
+      {...rest}
+    >
       {children}
     </Rendered>
   );
