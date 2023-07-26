@@ -18,37 +18,8 @@ const FontMono = localFont({
 const FontSans = localFont({
   display: 'swap',
   variable: '--font-sans',
-  src: [
-    {
-      path: './ubuntu-light.ttf',
-      weight: '300',
-      style: 'normal',
-    },
-    {
-      path: './ubuntu-regular.ttf',
-      weight: '400',
-      style: 'normal',
-    },
-    {
-      path: './ubuntu-medium.ttf',
-      weight: '500',
-      style: 'normal',
-    },
-    {
-      path: './ubuntu-bold.ttf',
-      weight: '700',
-      style: 'normal',
-    },
-  ],
+  src: './ubuntu.woff2',
 });
-
-// import { Fira_Code, Ubuntu } from 'next/font/google';
-
-//   const FontSans = Ubuntu({
-//   subsets: ['latin'],
-//   variable: '--font-sans',
-//   display: 'swap',
-// });
 
 export const fonts = cn(
   FontAccent.variable,
