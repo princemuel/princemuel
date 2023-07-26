@@ -1,4 +1,3 @@
-import { Footer, Header } from '@/components';
 import { seo } from '@/config';
 import { cn } from '@/lib';
 import { GlobalProvider } from '@/providers';
@@ -18,17 +17,13 @@ export default function RootLayout({
     <html
       lang='en'
       className={cn(
-        fonts,
-        'scrollbar-thin scrollbar-track-zinc-800 scrollbar-thumb-slate-500 scrollbar-track-rounded-md scrollbar-thumb-rounded-md'
+        'scrollbar-thin scrollbar-track-zinc-800 scrollbar-thumb-slate-500 scrollbar-track-rounded-md scrollbar-thumb-rounded-md',
+        fonts
       )}
     >
-      <body className='relative'>
+      <body className='relative bg-white font-sans text-gray-900 dark:bg-[#111] dark:text-gray-100'>
         <React.Fragment>
-          <GlobalProvider>
-            <Header />
-            {children}
-            <Footer />
-          </GlobalProvider>
+          <GlobalProvider>{children}</GlobalProvider>
           <Analytics />
         </React.Fragment>
       </body>
