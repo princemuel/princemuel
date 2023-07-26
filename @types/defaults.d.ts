@@ -38,9 +38,6 @@ type ClassValue =
   | undefined;
 type ClassDictionary = Record<string, any>;
 type ClassArray = ClassValue[];
-interface PropsWithChildren {
-  children: React.ReactNode;
-}
 
 type Level = [0, 1, 2, 3, 4, 5, 6][number];
 
