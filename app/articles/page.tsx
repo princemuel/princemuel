@@ -8,7 +8,7 @@ const Page = (props: Props) => {
   return (
     <>
       <main>
-        <h1>No Blog Posts yet</h1>
+        <h1>No Articles yet</h1>
       </main>
     </>
   );

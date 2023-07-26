@@ -6,18 +6,32 @@ const pointer =
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: ['class', '[data-theme="dark"]'],
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+  darkMode: ['class', '[data-mode="dark"]'],
   theme: {
     container: {
       center: true,
-      padding: '2rem',
+      padding: {
+        DEFAULT: '1rem',
+        sm: '2rem',
+        lg: '4rem',
+        xl: '6rem',
+        '2xl': '8rem',
+        '3xl': '10rem',
+      },
       screens: {
+        s: '30em',
+        sx: '36em',
+        sm: '40em',
+        md: '48em',
+        lg: '64em',
+        xl: '80em',
         '2xl': '96em',
+        '3xl': '112.5em',
       },
     },
     borderRadius: {
@@ -26,28 +40,11 @@ module.exports = {
     },
 
     screens: {
-      sx: '20em', // @media (min-width: 320px) { ... }
       s: '30em', //  @media (min-width: 480px) { ... }
       ...defaultTheme.screens,
     },
 
     extend: {
-      colors: {
-        brand: {
-          50: '#FADA5E',
-          100: '#FADA5E',
-          200: '#FADA5E',
-          300: '#F8DE7E',
-          400: '#FADA5E',
-          500: '#FADA5E',
-          600: '#FADA5E',
-          700: '#FADA5E',
-          800: '#FADA5E',
-          900: '#FADA5E',
-          950: '#FADA5E',
-        },
-      },
-
       cursor: {
         pointer,
       },
@@ -61,8 +58,9 @@ module.exports = {
         '3xl': '112.5em', // @media (min-width: 1800px) { ... }
       },
       fontFamily: {
-        sans: ['var(--font-sans)'],
-        mono: ['var(--font-mono)'],
+        sans: ['var(--font-sans)', ...defaultTheme.fontFamily.sans],
+        mono: ['var(--font-mono)', ...defaultTheme.fontFamily.mono],
+        accent: ['var(--font-accent)', ...defaultTheme.fontFamily.sans],
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

@@ -15,7 +15,15 @@ const PageRoute = async ({ params: { slug } }: Props) => {
 
   const { content } = project;
 
-  return <>{content}</>;
+  return (
+    <main
+      id='main-content'
+      aria-label={`${slug}`}
+      className='prose prose-neutral flex flex-col gap-20'
+    >
+      <div className='h-container'>{content}</div>
+    </main>
+  );
 };
 
 export default PageRoute;

@@ -28,21 +28,9 @@ Version: 01
 
   html {
     box-sizing: border-box;
-    font-size: 60%;
     text-rendering: optimizeSpeed;
     text-size-adjust: none;
     touch-action: manipulation;
-  }
-
-  @media (min-width: 70em) {
-    html {
-      font-size: 62.5%;
-    }
-  }
-  @media (min-width: 112.5em) {
-    html {
-      font-size: 75%;
-    }
   }
 
   *,
@@ -89,13 +77,12 @@ Version: 01
   @media (prefers-reduced-motion: no-preference) {
     :where(html:focus-within) {
       scroll-behavior: smooth;
-      scroll-behavior: auto;
     }
   }
 
   /* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
   @media (prefers-reduced-motion: reduce) {
-    html:focus-within {
+    :where(html:focus-within) {
       scroll-behavior: auto;
     }
 
@@ -108,63 +95,7 @@ Version: 01
       scroll-behavior: auto !important;
     }
   }
-
-  /*============================
-       TYPOGRAPHY
-     ============================
-   */
-  :where(body) {
-    font-size: 1.5rem;
-    font-weight: 400;
-  }
 }
-/**
-  * This injects Tailwind's component classes and any component classes
-  * registered by plugins.
-  */
-/* ================================= */
-/*            COMPONENTS             */
-/* ================================= */
+
 @tailwind components;
-@layer components {
-  .skip-to-content {
-    @apply absolute z-[9999] mx-auto translate-y-[-120%] bg-zinc-800 px-[0.5em] py-[1em] text-white transition-transform focus:translate-y-0 focus:outline focus:outline-offset-2 focus:outline-zinc-800;
-  }
-}
-/**
-  * This injects Tailwind' s utility classes and
-  * any utility classes registered * by plugins.
-  */
-/* ================================= */
-/*            UTILITIES              */
-/* ================================= */
 @tailwind utilities;
-@layer utilities {
-  [aria-current='page'] {
-    @apply text-teal-300;
-  }
-}
-
-/**
-  * Use this directive to control where Tailwind injects the hover focus,
-  * responsive, dark mode, and other variants of each class.
-  *
-  * If omitted, Tailwind will append these classes to the very end of
-  * your stylesheet by default.
-  */
-/* @tailwind variants; */
-/* ================================= */
-/*            VARIANTS               */
-/* ================================= */
-/* @layer variants {} */
-
-/* ================================= */
-/*            CUSTOM                 */
-/* ================================= */
-
-@keyframes wobble {
-  to {
-    filter: hue-rotate(1turn);
-    transform: translate(var(--x), var(--y)) rotate(1turn);
-  }
-}

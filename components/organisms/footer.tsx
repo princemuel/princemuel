@@ -1,5 +1,5 @@
 import layout from '@/assets/styles/layout.module.scss';
-import { links } from '@/common';
+import { links, social } from '@/common';
 import { cn } from '@/lib';
 import { Logo, NavLink, SocialIcon, Text } from '../atoms';
 
@@ -17,7 +17,7 @@ export function Footer(props: Props) {
               className='flex flex-col items-center gap-8 md:flex-row md:gap-14'
               aria-label='Secondary Navigation'
             >
-              {links?.routes?.map((link) => (
+              {links.map((link) => (
                 <li
                   key={link.text}
                   className='text-xl uppercase text-white transition-all delay-0 duration-300 ease-in hover:text-teal-300 focus:text-teal-300'
@@ -47,13 +47,13 @@ export function Footer(props: Props) {
             className={cn('flex items-center gap-6', layout['footer__social'])}
             aria-label='Social Links'
           >
-            {links.social.map((link) => {
+            {social.map((social) => {
               return (
                 <li
-                  key={link.id}
+                  key={social.id}
                   className='text-white transition-all delay-0  duration-300 ease-in hover:text-teal-300 focus:text-teal-300'
                 >
-                  <SocialIcon className={'fill-current'} {...link} />
+                  <SocialIcon className={'fill-current'} {...social} />
                 </li>
               );
             })}

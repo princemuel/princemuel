@@ -1,10 +1,11 @@
-import { ResponsiveVideo, Text, Typography } from '@/components';
+import { components } from '@/common';
 import { compileMDX } from 'next-mdx-remote/rsc';
 import { cache } from 'react';
+import rehypeAutolinkHeadings from 'rehype-autolink-headings/lib';
 import rehypeHighlight from 'rehype-highlight/lib';
 import rehypeSlug from 'rehype-slug';
-// import 'server-only';
-import { REPO_PATH } from './constants';
+import 'server-only';
+import { CONTENT_REPO_PATH } from './constants';
 import { getRepoFiletree } from './filetree';
 
 export const preloadProject = (slug: string) => {
@@ -17,8 +18,8 @@ export const preloadProjectsMeta = () => {
 
 export const getProjectBySlug = cache(
   async (slug: string): Promise<IProject | null> => {
-    const res = await fetch(
-      `https://raw.githubusercontent.com/${REPO_PATH}/main/projects/${slug}`,
+    const response = await fetch(
+      `https://raw.githubusercontent.com/${CONTENT_REPO_PATH}/main/projects/${slug}`,
       {
         headers: {
           Accept: 'application/vnd.github+json',
@@ -28,27 +29,32 @@ export const getProjectBySlug = cache(
       }
     );
 
-    if (!res.ok) return null;
+    if (!response.ok) return null;
 
-    const data = await res.text();
+    const data = await response.text();
     if (data === '404: Not Found') return null;
 
     const { frontmatter, content } = await compileMDX<IProjectMeta>({
       source: data,
-      components: {
-        ResponsiveVideo,
-        Typography,
-        Text,
-      },
+      components,
       options: {
         parseFrontmatter: true,
         mdxOptions: {
-          rehypePlugins: [rehypeHighlight, rehypeSlug],
+          rehypePlugins: [
+            rehypeHighlight,
+            rehypeSlug,
+            [
+              rehypeAutolinkHeadings,
+              {
+                behavior: 'wrap',
+              },
+            ],
+          ],
         },
       },
     });
 
-    const id = slug.replace(/\.mdx$/, '');
+    const id = slug.replace(/\.mdx?$/, '');
     return {
       meta: {
         ...frontmatter,
@@ -73,13 +79,24 @@ export const getProjectsMetadata = cache(async () => {
 
   const metadata: IProjectMeta[] = [];
 
-  for (const slug of slugs) {
-    const project = await getProjectBySlug(slug);
-    if (project) {
-      const { meta } = project;
-      metadata.push(meta);
-    }
-  }
+  Promise.allSettled(
+    slugs.map(async (slug) => await getProjectBySlug(slug))
+  ).then((results) => {
+    results.forEach((result) => {
+      if (result.status === 'fulfilled' && result.value) {
+        const { meta } = result.value;
+        metadata.push(meta);
+      }
+    });
+  });
+
+  // for (const slug of slugs) {
+  //   const project = await getProjectBySlug(slug);
+  //   if (project) {
+  //     const { meta } = project;
+  //     metadata.push(meta);
+  //   }
+  // }
 
   return metadata.sort((a, b) => (a.date < b.date ? 1 : -1));
 });

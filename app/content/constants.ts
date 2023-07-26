@@ -1,1 +1,1 @@
-export const REPO_PATH = 'princemuel/markdown';
+export const CONTENT_REPO_PATH = process.env.CONTENT_REPO_PATH;

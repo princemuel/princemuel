@@ -1,0 +1,35 @@
+.skip-link {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+
+  &:focus {
+    width: auto;
+    height: auto;
+    padding: 0;
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+    position: fixed;
+    top: var(--geist-space-4x);
+    left: var(--geist-gap-half);
+    z-index: 1000;
+    height: var(--geist-space-8x);
+    display: flex;
+    align-items: center;
+    outline: none;
+    color: var(--geist-link-color);
+    padding: 0 var(--geist-gap-half);
+    background: var(--geist-background);
+    box-shadow: 0 0 0 2px var(--geist-background),
+      0 0 0 4px var(--geist-link-color);
+    border-radius: var(--geist-radius);
+  }
+}

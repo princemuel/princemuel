@@ -1,10 +1,8 @@
 import { Text } from '@/components';
 import { cn } from '@/lib';
-import { getProjectsMetadata } from './content';
-import { Featured } from './featured';
 
 async function HomeTemplate() {
-  const projects = await getProjectsMetadata();
+  // const projects = await getProjectsMetadata();
   return (
     <>
       <div>
@@ -20,7 +18,7 @@ async function HomeTemplate() {
       <section className={cn('h-container')}>
         <h2>About Me</h2>
 
-        <Text as='p'>
+        {/* <Text as='p'>
           Hello! My name is Samuel. I'm a passionate technophile who loves
           building stuff with code and seeing them come alive as living products
           on the web.
@@ -34,14 +32,14 @@ async function HomeTemplate() {
           especially my music, which made me put off learning it. (Also, the
           syntax was quite annoying 🤭)
         </Text>
-        <Text as='p'>Years later,</Text>
-        <Text as='p'> l</Text>
+        <Text as='p'>Years later,</Text> */}
+        <Text as='p'> Blah Blah Blah</Text>
       </section>
 
       <section className={cn('h-container')}>
         <Text as='h2'>Featured Projects</Text>
 
-        <Featured projects={projects || []} />
+        {/* <Featured projects={projects || []} /> */}
       </section>
 
       <section className={cn('h-container')}>

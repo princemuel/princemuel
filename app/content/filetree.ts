@@ -1,11 +1,11 @@
-import { REPO_PATH } from './constants';
+import { CONTENT_REPO_PATH } from './constants';
 
 interface RepoFiletree {
   tree: {
     path: string;
   }[];
 }
-const url = `https://api.github.com/repos/${REPO_PATH}/git/trees/main?recursive=1`;
+const url = `https://api.github.com/repos/${CONTENT_REPO_PATH}/git/trees/main?recursive=1`;
 
 export async function getRepoFiletree() {
   const response = await fetch(url, {

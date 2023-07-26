@@ -17,7 +17,7 @@ export function NavMobile({ className }: Props) {
     <div className={cn('bg-slate-700 text-zinc-800', className)}>
       <div className={cn('py-10 full-w-bg h-container')}>
         <div className='flex items-center justify-between bg-blue-600'>
-          <Logo className='text-black transition-all delay-0 duration-300 ease-in hover:text-teal-500 focus:text-teal-500 active:text-teal-500' />
+          <Logo className='text-black transition-all delay-0 duration-300 ease-in hover:text-blue-500 focus:text-blue-500 active:text-blue-500' />
 
           <button
             className={cn('group rounded-full p-4', styles['menu-toggle'])}
@@ -72,10 +72,10 @@ export function NavMobile({ className }: Props) {
           aria-label='Primary Navigation'
           id='primary-navigation'
         >
-          {links?.routes?.map((link) => (
+          {links.map((link) => (
             <li
               key={link.text}
-              className=' text-[1.4rem] uppercase transition-all delay-0 duration-300 ease-in hover:text-teal-500 focus:text-teal-500'
+              className=' text-[1.4rem] capitalize transition-all delay-0 duration-300 ease-in hover:text-blue-500 focus:text-blue-500'
             >
               <NavLink href={link.url}>{link.text}</NavLink>
             </li>

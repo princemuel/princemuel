@@ -1,5 +1,6 @@
 import { cx } from 'cva';
 import { ClassValue } from 'cva/dist/types';
+
 import { extendTailwindMerge } from 'tailwind-merge';
 
 const customTwMerge = extendTailwindMerge({
@@ -8,7 +9,9 @@ const customTwMerge = extendTailwindMerge({
   // },
 });
 
-export const cn = (...args: ClassValue[]) => customTwMerge(cx(args));
+export function cn(...args: ClassValue[]) {
+  return customTwMerge(cx(args));
+}
 
 /*---------------------------------*
             STRING UTILS           *
@@ -84,6 +87,20 @@ export const rank = <T>(
     .sort((a, b) => (order === 'asc' ? a.rank - b.rank : b.rank - a.rank))
     .map((ranked) => ranked.item);
 };
+
+/*---------------------------------*
+            FUNCTION UTILS         *
+  ---------------------------------*
+ */
+
+/**
+ * A simple type guard for objects.
+ *
+ * @param obj - A possible object
+ */
+export function isObject(obj: unknown): obj is Record<string, unknown> {
+  return typeof obj === 'object' && obj !== null;
+}
 
 /*---------------------------------*
             DATE UTILS             *
