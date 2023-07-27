@@ -1,3 +1,5 @@
+'use client';
+
 import { links } from '@/common';
 import { Popover, Transition } from '@headlessui/react';
 import { AlignJustify, X } from 'lucide-react';
