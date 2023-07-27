@@ -1,9 +1,9 @@
 'use client';
 
-import { cn, off, on } from '@/lib';
+import { clamp, cn, off, on, pixelToRem } from '@/lib';
 import { usePathname } from 'next/navigation';
 import * as React from 'react';
-import { SiteLogo } from '../atoms';
+import { SiteLogo, ThemeSwitch } from '../atoms';
 import { Container } from './container';
 import { DesktopNavigation } from './desktop';
 import styles from './layout.module.scss';
@@ -16,14 +16,14 @@ function LayoutHeader(props: Props) {
 
   const isHome = pathname === '/';
 
-  let header = React.useRef<HTMLDivElement>(null);
+  let headerRef = React.useRef<HTMLDivElement>(null);
   let logoRef = React.useRef<HTMLDivElement>(null);
   let initial = React.useRef(true);
 
   // const blah = new IntersectionObserver((entries) => {});
 
   React.useEffect(() => {
-    const bottomOffet = logoRef.current?.offsetTop ?? 0;
+    const bottomOffset = logoRef.current?.offsetTop ?? 0;
     const topOffset = 64;
 
     function updateProperty(prop: string, value: string) {
@@ -31,22 +31,87 @@ function LayoutHeader(props: Props) {
       document.documentElement.style.setProperty(prop, value);
     }
 
-    function updateHeaderStyles() {}
-    function updateLogoStyles() {}
+    function updateHeader() {
+      const { top, height } = headerRef.current?.getBoundingClientRect()!;
+      const verticalScroll = clamp(
+        window.scrollY,
+        0,
+        document.body.scrollHeight - window.innerHeight
+      );
+
+      if (initial.current) updateProperty('--position', 'sticky');
+
+      updateProperty('--content-offset', `${pixelToRem(bottomOffset)}rem`);
+
+      if (initial.current || verticalScroll < bottomOffset) {
+        updateProperty('--height', `${pixelToRem(bottomOffset + height)}rem`);
+        updateProperty(
+          '--bottom-margin',
+          `${pixelToRem(bottomOffset * -1)}rem`
+        );
+      } else if (top + height < topOffset * -1) {
+        const offset = Math.max(height, verticalScroll - topOffset);
+
+        updateProperty('--height', `${pixelToRem(offset)}rem`);
+        updateProperty('--bottom-margin', `${pixelToRem(height - offset)}rem`);
+      } else if (top === 0) {
+        updateProperty('--height', `${pixelToRem(verticalScroll + height)}rem`);
+        updateProperty(
+          '--bottom-margin',
+          `${pixelToRem(verticalScroll * -1)}rem`
+        );
+      }
+    }
+
+    function updateLogo() {
+      if (!isHome) return;
+
+      const scaleFrom = 1;
+      const scaleTo = 36 / 64;
+      const fromX = 0;
+      const toX = 2 / 16;
+
+      const verticalScroll = bottomOffset - window.scrollY;
+
+      let scale =
+        (verticalScroll * (scaleFrom - scaleTo)) / bottomOffset + scaleTo;
+      scale = clamp(scale, scaleFrom, scaleTo);
+
+      let xValue = (verticalScroll * (fromX - toX)) / bottomOffset + toX;
+      xValue = clamp(xValue, fromX, toX);
+
+      updateProperty(
+        '--logo-transform',
+        `translate3d(${xValue}rem, 0, 0) scale(${scale})`
+      );
+
+      const borderScale = 1 / (scaleTo / scale);
+      const borderX = (-toX + xValue) * borderScale;
+      const borderTransform = `translate3d(${borderX}rem, 0, 0) scale(${borderScale})`;
+
+      const borderOpacity = scale === scaleTo ? '1' : '0';
+
+      updateProperty('--border-transform', borderTransform);
+      updateProperty('--border-opacity', borderOpacity);
+    }
 
     function update() {
+      updateHeader();
+      updateLogo();
+
       initial.current = false;
-      console.log('updating');
     }
 
     update();
+
     on(window, 'scroll', update, { passive: true });
     on(window, 'resize', update);
+
     return () => {
       off(window, 'scroll', update, { passive: true });
       off(window, 'resize', update);
     };
-  }, []);
+  }, [isHome]);
 
   return (
     <React.Fragment>
@@ -86,9 +151,9 @@ function LayoutHeader(props: Props) {
           </React.Fragment>
         )}
 
-        <div ref={header} className={cn('top-0 z-10 pt-6', styles.position)}>
+        <div ref={headerRef} className={cn('top-0 z-10 pt-6', styles.position)}>
           <Container>
-            <div className='relative flex gap-4'>
+            <div className='relative flex items-center gap-4'>
               <div className='flex flex-1'>
                 {!isHome && (
                   <figure
@@ -104,11 +169,17 @@ function LayoutHeader(props: Props) {
 
               <nav
                 aria-label='Primary Navigation'
-                className='flex flex-1 justify-end md:justify-center'
+                // className='flex flex-1 justify-end md:justify-center'
               >
                 <MobileNavigation className='pointer-events-auto md:hidden' />
                 <DesktopNavigation className='pointer-events-auto hidden md:block' />
               </nav>
+
+              <div className='ml-auto hidden md:block'>
+                <div>
+                  <ThemeSwitch />
+                </div>
+              </div>
             </div>
           </Container>
         </div>

@@ -1,40 +1,27 @@
-.header {
-  --header-height: auto;
-  --header-mb: 0;
-
-  height: var(--header-height);
-  margin-block-end: var(--header-mb);
-}
-
 .height {
-  --height: auto;
   height: var(--height);
 }
 
 .position {
-  --position: static;
   position: var(--position);
 }
 
 .bottom-margin {
-  --bottom-margin: 0;
   margin-block-end: var(--bottom-margin);
 }
 
 .content-offset {
-  --content-offset: auto;
   height: var(--content-offset);
 }
 
 .logo-transform {
-  --logo-transform: none;
   transform: var(--logo-transform);
 }
+
 .border-transform {
-  --border-transform: none;
   transform: var(--border-transform);
 }
+
 .border-opacity {
-  --border-opacity: 0;
   transform: var(--border-opacity);
 }

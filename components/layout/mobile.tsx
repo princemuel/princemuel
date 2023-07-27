@@ -1,5 +1,3 @@
-// 'use client';
-
 import { links } from '@/common';
 import { Popover, Transition } from '@headlessui/react';
 import { AlignJustify, X } from 'lucide-react';
@@ -71,9 +69,11 @@ const MobileNavigation = ({ className }: Props) => {
               </ul>
             </div>
 
-            <div className='mt-6'>
+            <div className='mt-8'>
               <div className='flex items-center justify-between'>
-                <Text>Switch theme</Text>
+                <Text as='label' htmlFor='theme-switch'>
+                  Switch theme
+                </Text>
                 <ThemeSwitch />
               </div>
             </div>
