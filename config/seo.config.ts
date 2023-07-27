@@ -42,14 +42,24 @@ export const seo = defineMeta({
     'Chukwuzube',
     'Samuel Chukwuzube',
     'Chukwuzube Samuel',
-
-    'Prince Muel - Innovative Researcher and Skilled Mentor',
     'Prince Muel - Personal Website',
+
+    title,
   ],
+  archives: ['/resources'],
 
   creator: 'Prince Muel',
   publisher: 'Prince Muel',
   authors: [{ name: 'Prince Muel', url: 'https://github.com/princemuel' }],
+  verification: {
+    google: 'google',
+    yandex: 'yandex',
+    yahoo: 'yahoo',
+    other: {
+      bing: 'msvalidate.01=0',
+      me: ['vansomecsam@gmail.com', 'my-link'],
+    },
+  },
   formatDetection: {
     telephone: true,
     address: true,
@@ -58,7 +68,6 @@ export const seo = defineMeta({
 
   // come back to this
   icons: [
-    { rel: 'icon', url: '/favicon.ico' },
     {
       rel: 'icon',
       url: '/favicon-16x16.png',
@@ -71,12 +80,7 @@ export const seo = defineMeta({
       sizes: '32x32',
       type: 'image/png',
     },
-    {
-      rel: 'apple-touch-icon',
-      url: '/apple-touch-icon.png',
-    },
-    { rel: 'mask-icon', url: '/favicon-ico' },
-    { rel: 'image/x-icon', url: '/favicon.ico' },
+    { rel: 'mask-icon', url: '/safari-pinned-tab.svg' },
     {
       rel: 'android-chrome-192x192',
       url: '/android-chrome-192x192.png',
@@ -86,6 +90,10 @@ export const seo = defineMeta({
       url: '/android-chrome-512x512.png',
     },
   ],
+  other: {
+    'msapplication-TileColor': '#ffffff',
+    'msapplication-TileImage': '/mstile-144x144.png',
+  },
   openGraph: {
     type: 'website',
     url: baseUrl,
@@ -93,14 +101,6 @@ export const seo = defineMeta({
     siteName: title,
     title,
     description,
-    images: [
-      {
-        url: `/og-image.png`,
-        width: 800,
-        height: 450,
-        alt: title,
-      },
-    ],
   },
   twitter: {
     card: 'summary_large_image',
@@ -108,14 +108,6 @@ export const seo = defineMeta({
     creator: '@iamprincemuel',
     title,
     description,
-    images: [
-      {
-        url: `/og-image.png`,
-        width: 800,
-        height: 450,
-        alt: title,
-      },
-    ],
   },
 
   colorScheme: 'dark light',
@@ -135,13 +127,6 @@ export const seo = defineMeta({
       'max-video-preview': -1,
       'max-image-preview': 'large',
       'max-snippet': -1,
-    },
-  },
-  verification: {
-    google: 'google-site-verification=0',
-    yandex: 'yandex-verification=0',
-    other: {
-      bing: 'msvalidate.01=0',
     },
   },
 });
