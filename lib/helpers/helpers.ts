@@ -50,6 +50,11 @@ export function clamp(value: number, a: number, b: number) {
   return min(max(value, min(a, b)), max(a, b));
 }
 
+export function safeNum(value: any, defaultValue = 0): number {
+  const updated = Number(value);
+  return Number.isNaN(updated) || isNaN(updated) ? defaultValue : updated;
+}
+
 /*---------------------------------*
             OBJECT UTILS           *
   ---------------------------------*
@@ -140,7 +145,13 @@ export const formatDate: FormatDateFunction = (
 export const isBrowser = typeof window !== 'undefined';
 export const isNavigator = typeof navigator !== 'undefined';
 
-export function on<T extends Window | Document | HTMLElement | EventTarget>(
+export function pixelToRem(value: number | string) {
+  return 0.0625 * safeNum(value);
+}
+
+type DOMEventListenerTarget = Window | Document | HTMLElement | EventTarget;
+
+export function on<T extends DOMEventListenerTarget>(
   obj: T | null,
   ...args: Parameters<T['addEventListener']> | [string, Function | null, ...any]
 ): void {
@@ -151,7 +162,7 @@ export function on<T extends Window | Document | HTMLElement | EventTarget>(
   }
 }
 
-export function off<T extends Window | Document | HTMLElement | EventTarget>(
+export function off<T extends DOMEventListenerTarget>(
   obj: T | null,
   ...args:
     | Parameters<T['removeEventListener']>
