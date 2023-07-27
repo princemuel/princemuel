@@ -24,6 +24,13 @@ Version: 01
     --deg: 1;
     --x: -50%;
     --y: -50%;
+    --height: auto;
+    --position: static;
+    --bottom-margin: 0;
+    --content-offset: auto;
+    --logo-transform: none;
+    --border-transform: none;
+    --border-opacity: 0;
   }
 
   html {

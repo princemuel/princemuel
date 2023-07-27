@@ -1,7 +1,7 @@
 import layout from '@/assets/styles/layout.module.scss';
 import { links, social } from '@/common';
 import { cn } from '@/lib';
-import { Logo, NavLink, SocialIcon, Text } from '../atoms';
+import { NavLink, SocialIcon, Text } from '../atoms';
 
 interface Props {}
 
@@ -10,7 +10,7 @@ export function Footer(props: Props) {
     <footer className='mt-40 bg-slate-950 text-slate-950 full-w-bg h-container'>
       <section className="relative py-32 text-white/75 before:absolute before:left-2/4 before:top-0 before:h-2 before:w-40 before:-translate-x-2/4 before:bg-teal-300 before:content-[''] before:md:left-0 before:md:translate-x-0">
         <div className='mb-12 flex flex-col items-center gap-12 text-center md:items-start md:text-left lg:flex-row lg:justify-between'>
-          <Logo className='text-white transition-all delay-0 duration-300  ease-in hover:text-teal-300 focus:text-teal-300 active:text-teal-300' />
+          {/* <Logo className='text-white transition-all delay-0 duration-300  ease-in hover:text-teal-300 focus:text-teal-300 active:text-teal-300' /> */}
 
           <nav>
             <ul

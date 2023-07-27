@@ -1,3 +1,5 @@
+import { TailwindIndicator } from '@/components';
+import LayoutHeader from '@/components/layout/header';
 import { seo } from '@/config';
 import { cn } from '@/lib';
 import { GlobalProvider } from '@/providers';
@@ -20,10 +22,15 @@ export default function RootLayout({
         'scrollbar-thin scrollbar-track-zinc-800 scrollbar-thumb-slate-500 scrollbar-track-rounded-md scrollbar-thumb-rounded-md',
         fonts
       )}
+      suppressHydrationWarning
     >
       <body className='relative bg-white font-sans text-gray-900 dark:bg-[#111] dark:text-gray-100'>
         <React.Fragment>
-          <GlobalProvider>{children}</GlobalProvider>
+          <GlobalProvider>
+            <LayoutHeader />
+            {children}
+            <TailwindIndicator />
+          </GlobalProvider>
           <Analytics />
         </React.Fragment>
       </body>

@@ -5,6 +5,7 @@ export * from './responsive-image';
 export * from './responsive-video';
 export * from './skeleton-card';
 export * from './social-icon';
+export * from './tailwind-indicator';
 export * from './text';
 export * from './theme';
 export * from './underline';
