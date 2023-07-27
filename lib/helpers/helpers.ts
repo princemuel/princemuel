@@ -43,6 +43,13 @@ export const endsWith = <Word extends string, Suffix extends string>(
   return str.endsWith(suffix);
 };
 
+const min = (a: number, b: number) => Math.min(a, b);
+const max = (a: number, b: number) => Math.max(a, b);
+
+export function clamp(value: number, a: number, b: number) {
+  return min(max(value, min(a, b)), max(a, b));
+}
+
 /*---------------------------------*
             OBJECT UTILS           *
   ---------------------------------*
