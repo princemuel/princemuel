@@ -1,7 +1,9 @@
-interface Props {}
+interface Props {
+  className?: string;
+}
 
-const DesktopNavigation = (props: Props) => {
-  return <div>DesktopNavigation</div>;
+const DesktopNavigation = ({ className }: Props) => {
+  return <div className={className}>DesktopNavigation</div>;
 };
 
 export { DesktopNavigation };
