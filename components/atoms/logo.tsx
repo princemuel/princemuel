@@ -1,5 +1,5 @@
 import { cn } from '@/lib';
-import AvatarImage from '@/public/assets/placeholder.jpg';
+import AvatarImage from '@/public/placeholder.jpg';
 import Image from 'next/image';
 import Link from 'next/link';
 
