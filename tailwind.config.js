@@ -23,16 +23,6 @@ module.exports = {
         '2xl': '8rem',
         '3xl': '10rem',
       },
-      screens: {
-        s: '30em',
-        sx: '36em',
-        sm: '40em',
-        md: '48em',
-        lg: '64em',
-        xl: '80em',
-        '2xl': '96em',
-        '3xl': '112.5em',
-      },
     },
     borderRadius: {
       ...defaultTheme.borderRadius,
@@ -49,7 +39,7 @@ module.exports = {
         pointer,
       },
       screens: {
-        sx: '36em', // @media (min-width: 576px) { ... },
+        xs: '36em', // @media (min-width: 576px) { ... },
         sm: '40em', // @media (min-width: 640px) { ... }
         md: '48em', // @media (min-width: 768px) { ... }
         lg: '64em', // @media (min-width: 1024px) { ... }
