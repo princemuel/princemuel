@@ -6,6 +6,8 @@ import {
   IconTwitter,
 } from './assets';
 
+// Making the Web better and accessible for everyone.
+
 export const links: ILinks['routes'] = [
   {
     id: 'home',

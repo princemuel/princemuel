@@ -57,12 +57,12 @@ export async function generateMetadata({
       description: project.meta.description,
       authors: ['Prince Muel'],
       publishedTime: new Date(project.meta.date).toISOString(),
-      images: project.meta.links.thumbnail,
+      images: project.meta.links?.thumbnail || '',
     },
     twitter: {
       title: project.meta.title,
       description: project.meta.description,
-      images: project.meta.links.thumbnail,
+      images: project.meta.links?.thumbnail || '',
     },
   } satisfies Metadata;
 }
