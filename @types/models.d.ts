@@ -35,8 +35,10 @@ interface SocialMeta {
 }
 interface Author {
   name?: string;
+  designation: string;
   email?: string;
   link?: string;
+  avatar: MediaResource['image'];
 }
 
 interface Resource {
@@ -50,4 +52,5 @@ interface ResourceMeta {
   description: string;
   alt: string;
   tags: string[];
+  categories: string[];
 }
