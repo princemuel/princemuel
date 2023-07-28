@@ -22,7 +22,12 @@ export const seo = defineMeta({
   alternates: {
     canonical: baseUrl,
     types: {
-      'application/rss+xml': `/feed.xml`,
+      'application/rss+xml': [
+        {
+          title: 'RSS Feed | Prince Muel',
+          url: '/feed.xml',
+        },
+      ],
     },
   },
 
@@ -65,38 +70,46 @@ export const seo = defineMeta({
     address: true,
     email: true,
   },
+  icons: {
+    icon: [
+      { url: '/icon.png' },
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      {
+        rel: 'icon',
+        url: '/favicon-32x32.png',
+        sizes: '32x32',
+        type: 'image/png',
+      },
+    ],
+    shortcut: ['/shortcut-icon.png'],
+    apple: [
+      { url: '/apple-icon.png' },
+      { url: '/apple-icon-x3.png', sizes: '180x180', type: 'image/png' },
+    ],
+    other: [
+      {
+        rel: 'apple-touch-icon-precomposed',
+        url: '/apple-touch-icon-precomposed.png',
+      },
+      {
+        rel: 'android-chrome-192x192',
+        url: '/android-chrome-192x192.png',
+      },
+      {
+        rel: 'android-chrome-512x512',
+        url: '/android-chrome-512x512.png',
+      },
+      { rel: 'mask-icon', url: '/safari-pinned-tab.svg' },
+    ],
+  },
 
-  // come back to this
-  icons: [
-    {
-      rel: 'icon',
-      url: '/favicon-16x16.png',
-      sizes: '16x16',
-      type: 'image/png',
-    },
-    {
-      rel: 'icon',
-      url: '/favicon-32x32.png',
-      sizes: '32x32',
-      type: 'image/png',
-    },
-    { rel: 'mask-icon', url: '/safari-pinned-tab.svg' },
-    {
-      rel: 'android-chrome-192x192',
-      url: '/android-chrome-192x192.png',
-    },
-    {
-      rel: 'android-chrome-512x512',
-      url: '/android-chrome-512x512.png',
-    },
-  ],
   other: {
     'msapplication-TileColor': '#ffffff',
     'msapplication-TileImage': '/mstile-144x144.png',
   },
   openGraph: {
     type: 'website',
-    url: baseUrl,
+    url: '/',
     locale: 'en_US',
     siteName: title,
     title,
