@@ -15,7 +15,7 @@ export const getProjectBySlug = cache(
     const response = await fetchResource('projects')(slug);
     if (!response) return null;
 
-    return await parse_mdx<IProject>({ data: response, slug });
+    return await parse_mdx<IProject>(response, slug);
   }
 );
 
