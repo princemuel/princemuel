@@ -1,12 +1,8 @@
 import { Author, Feed, type FeedOptions } from 'feed';
-import fs, { promises as ps } from 'fs';
 import { getArticlesMetadata } from '../content';
 
 const SITE_URL = process.env.SITE_URL || '';
-const baseUrl = new URL('/', SITE_URL).href;
-
-console.log(ps.constants);
-console.log(fs.constants);
+const baseUrl = SITE_URL;
 
 const author: Author = {
   name: 'Prince Muel',
@@ -16,15 +12,11 @@ const author: Author = {
 
 const copyright = `All rights reserved © ${new Date().getFullYear()} Prince Muel`;
 
-async function generate() {
-  const t0 = performance.now();
-  console.log('generating rss');
-
+export async function feed() {
   const articles = await getArticlesMetadata();
-
   const options: FeedOptions = {
     title: "RSS Feed - Prince Muel's Blog",
-    description: "Prince Muel's personal blog website",
+    description: "Prince Muel's Personal Blog Website",
     id: baseUrl,
     link: baseUrl,
     image: `${baseUrl}/opengraph-image.png`,
@@ -34,16 +26,16 @@ async function generate() {
     language: 'en-US',
     feedLinks: {
       rss2: `${baseUrl}/feed.xml`,
-      json: `${baseUrl}/rss.json`,
-      atom: `${baseUrl}/atom.xml`,
+      json: `${baseUrl}/feed.json`,
+      atom: `${baseUrl}/atom1.xml`,
     },
     author,
     copyright,
   };
-  const feed = new Feed(options);
 
+  const data = new Feed(options);
   for (const article of articles) {
-    feed.addItem({
+    data.addItem({
       id: `${baseUrl}/articles/${article.id}`,
       link: `${baseUrl}/articles/${article.id}`,
       title: article.title,
@@ -52,7 +44,7 @@ async function generate() {
       image: article.image,
       audio: article.audio,
       video: article.video,
-      date: new Date(article.date),
+      date: new Date(),
       published: new Date(article.date),
       author: [article.author || author],
       contributor: article.contributors,
@@ -60,14 +52,6 @@ async function generate() {
     });
   }
 
-  await ps.writeFile('./public/feed.xml', feed.rss2());
-  await ps.writeFile('./public/atom.xml', feed.atom1());
-  await ps.writeFile('./public/rss.json', feed.json1());
-
-  console.log('rss generated');
-
-  const t1 = performance.now();
-  console.log(`Rss Generation took ${t1 - t0} milliseconds.`);
+  const path = process.cwd() + '/public';
+  return [path, data] as const;
 }
-
-generate().catch((e) => console.log(e.message));
