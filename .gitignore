@@ -178,3 +178,8 @@ thunder-*
 ## Panda
 styled-system
 styled-system-static
+
+# Generated Feed files
+public/*.xml
+public/*.json
+!public/browserconfig.xml
