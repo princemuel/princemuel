@@ -28,6 +28,18 @@ export const seo = defineMeta({
           url: '/feed.xml',
         },
       ],
+      'application/atom+xml': [
+        {
+          title: 'Atom Feed | Prince Muel',
+          url: '/atom1.xml',
+        },
+      ],
+      'application/json': [
+        {
+          title: 'JSON Feed | Prince Muel',
+          url: '/feed.json',
+        },
+      ],
     },
   },
 

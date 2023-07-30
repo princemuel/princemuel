@@ -7,6 +7,7 @@ import { Analytics } from '@vercel/analytics/react';
 import * as React from 'react';
 import { fonts } from './fonts';
 import './globals.css';
+import { WebVitals } from './web-vitals';
 
 export const metadata = seo;
 
@@ -26,6 +27,7 @@ export default function RootLayout({
     >
       <body className='relative bg-white font-sans text-gray-900 dark:bg-[#111] dark:text-gray-100'>
         <React.Fragment>
+          <WebVitals />
           <GlobalProvider>
             <LayoutHeader />
             {children}

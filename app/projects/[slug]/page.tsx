@@ -19,7 +19,7 @@ const PageRoute = async ({ params: { slug } }: Props) => {
     <main
       id='main-content'
       aria-label={`${slug}`}
-      className='prose prose-neutral flex flex-col gap-20'
+      className='prose prose-blue flex flex-col gap-20 dark:prose-invert'
     >
       <div className='h-container'>{content}</div>
     </main>
@@ -36,6 +36,7 @@ export async function generateStaticParams() {
     };
   });
 }
+
 export async function generateMetadata({
   params: { slug },
 }: Props): Promise<Metadata> {

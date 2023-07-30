@@ -39,6 +39,8 @@ type ClassValue =
 type ClassDictionary = Record<string, any>;
 type ClassArray = ClassValue[];
 
+type Callback<T> = (data: T) => void;
+
 type Level = [0, 1, 2, 3, 4, 5, 6][number];
 
 interface CSSStyleProps extends React.CSSProperties {

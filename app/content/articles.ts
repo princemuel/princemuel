@@ -15,7 +15,7 @@ export const getArticleBySlug = cache(
     const response = await fetchResource('articles')(slug);
     if (!response) return null;
 
-    return await parse_mdx<IArticle>({ data: response, slug });
+    return await parse_mdx<IArticle>(response, slug);
   }
 );
 

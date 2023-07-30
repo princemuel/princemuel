@@ -4,34 +4,29 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings/lib';
 import rehypeHighlight from 'rehype-highlight/lib';
 import rehypeSlug from 'rehype-slug';
 import 'server-only';
-import type {
-  Callback,
-  ParseMdxProps,
-  RepoFiletree,
-  ResourceType,
-} from './constants';
+import type { RepoFiletree, ResourceType } from './constants';
 import { CONTENT_REPO_PATH } from './constants';
 import { components } from './mdx';
 
 export const fetchResourceMeta = cache(
-  async (resource: ResourceType, callback?: Callback) => {
+  async (resource: ResourceType, callback?: Callback<ResourceMeta>) => {
     const slugs = await fetchAllSlugs(resource);
     const metadata: ResourceMeta[] = [];
 
-    Promise.allSettled(
+    const promises = await Promise.allSettled(
       (slugs || []).map(async (slug) => {
         const data = await fetchResource(resource)(slug);
         if (!data) return null;
-        return await parse_mdx({ data, slug });
+        return await parse_mdx(data, slug);
       })
-    ).then((results) => {
-      for (const result of results) {
-        if (result.status === 'fulfilled' && result?.value != null) {
-          if (callback) callback(result?.value?.meta);
-          else metadata.push(result?.value?.meta);
-        }
+    );
+
+    for (const promise of promises) {
+      if (promise.status === 'fulfilled' && promise?.value != null) {
+        if (callback) callback(promise?.value?.meta);
+        else metadata.push(promise?.value?.meta);
       }
-    });
+    }
 
     return metadata.sort((a, b) => (a.date < b.date ? 1 : -1));
   }
@@ -57,11 +52,11 @@ export const fetchResource = cache((resource: ResourceType) =>
   })
 );
 
-export const parse_mdx = async <T extends Resource>({
-  data,
-  slug,
-}: ParseMdxProps): Promise<T> => {
-  const { frontmatter, content } = await compileMDX<ResourceMeta>({
+export const parse_mdx = async <T extends Resource>(
+  data: string,
+  slug: string
+): Promise<T> => {
+  const result = await compileMDX<ResourceMeta>({
     source: data,
     components,
     options: {
@@ -81,14 +76,12 @@ export const parse_mdx = async <T extends Resource>({
     },
   });
 
-  const id = slug.replace(/\.mdx?$/, '');
-
   return {
     meta: {
-      ...frontmatter,
-      id,
+      ...result?.frontmatter,
+      id: slug.replace(/\.mdx?$/, ''),
     },
-    content,
+    content: result?.content,
   } as T;
 };
 

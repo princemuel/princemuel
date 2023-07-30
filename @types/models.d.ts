@@ -49,7 +49,7 @@ interface ResourceMeta {
   id: string;
   title: string;
   date: string;
-  description: string;
+  description: string; // have a headline
   alt: string;
   tags: string[];
   categories: string[];
