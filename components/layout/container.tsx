@@ -1,8 +1,6 @@
 import { cn } from '@/lib';
 import * as React from 'react';
 
-type DivProps = JSX.IntrinsicElements['div'];
-
 interface OuterProps {}
 interface InnerProps {}
 interface Props extends React.HTMLAttributes<HTMLDivElement> {}
@@ -21,7 +19,9 @@ const Outer = React.forwardRef<HTMLDivElement, Props>(
   ({ className, children, ...props }, forwardedRef) => {
     return (
       <div ref={forwardedRef} className={cn('sm:px-8', className)} {...props}>
-        <div className='mx-auto w-full max-w-7xl lg:px-8'>{children}</div>
+        <div className='mx-auto w-full max-w-screen-2xl lg:px-8'>
+          {children}
+        </div>
       </div>
     );
   }
@@ -32,10 +32,12 @@ const Inner = React.forwardRef<HTMLDivElement, Props>(
     return (
       <div
         ref={forwardedRef}
-        className={cn('relative px-4 sm:px-8 lg:px-12', className)}
+        className={cn('relative px-4 md:px-8 lg:px-12', className)}
         {...props}
       >
-        <div className='mx-auto max-w-2xl lg:max-w-5xl'>{children}</div>
+        <div className='mx-auto max-w-screen-md lg:max-w-screen-lg'>
+          {children}
+        </div>
       </div>
     );
   }

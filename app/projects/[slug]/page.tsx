@@ -1,9 +1,8 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getProjectBySlug, getProjectsMetadata } from '../../content';
-import './highlight.scss';
 
-export const revalidate = 86400;
+// export const revalidate = 86400;
 
 interface Props {
   params: IParams;
@@ -19,7 +18,7 @@ const PageRoute = async ({ params: { slug } }: Props) => {
     <main
       id='main-content'
       aria-label={`${slug}`}
-      className='prose prose-blue flex flex-col gap-20 dark:prose-invert'
+      className='prose prose-blue mx-auto flex flex-col gap-20 dark:prose-invert'
     >
       <div className='h-container'>{content}</div>
     </main>
@@ -57,13 +56,13 @@ export async function generateMetadata({
       title: project.meta.title,
       description: project.meta.description,
       authors: ['Prince Muel'],
-      publishedTime: new Date(project.meta.date).toISOString(),
-      images: project.meta.links?.thumbnail || '',
+      publishedTime: new Date(project.meta.publishedAt).toISOString(),
+      images: project.meta.media?.thumbnail || '',
     },
     twitter: {
       title: project.meta.title,
       description: project.meta.description,
-      images: project.meta.links?.thumbnail || '',
+      images: project.meta.media?.thumbnail || '',
     },
   } satisfies Metadata;
 }

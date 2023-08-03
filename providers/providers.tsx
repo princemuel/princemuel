@@ -8,7 +8,7 @@ export function GlobalProvider({ children }: { children: React.ReactNode }) {
       storageKey='page-theme'
       defaultTheme='system'
       enableSystem={true}
-      attribute='data-mode'
+      attribute='data-theme'
     >
       {children}
     </ThemeProvider>

@@ -1,5 +1,4 @@
-import { TailwindIndicator } from '@/components';
-import LayoutHeader from '@/components/layout/header';
+import { BaseLayout } from '@/components';
 import { seo } from '@/config';
 import { cn } from '@/lib';
 import { GlobalProvider } from '@/providers';
@@ -7,6 +6,7 @@ import { Analytics } from '@vercel/analytics/react';
 import * as React from 'react';
 import { fonts } from './fonts';
 import './globals.css';
+import './prettycode.css';
 import { WebVitals } from './web-vitals';
 
 export const metadata = seo;
@@ -29,9 +29,7 @@ export default function RootLayout({
         <React.Fragment>
           <WebVitals />
           <GlobalProvider>
-            <LayoutHeader />
-            {children}
-            <TailwindIndicator />
+            <BaseLayout>{children}</BaseLayout>
           </GlobalProvider>
           <Analytics />
         </React.Fragment>
