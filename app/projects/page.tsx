@@ -20,7 +20,7 @@ const PageRoute = async () => {
     <main
       id='main-content'
       aria-label='Contact Page'
-      className='flex flex-col gap-20'
+      className='mx-auto flex flex-col gap-20'
     >
       <pre>{JSON.stringify(projects, null, 2)}</pre>
     </main>

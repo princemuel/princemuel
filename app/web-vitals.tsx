@@ -5,7 +5,7 @@ import { useReportWebVitals } from 'next/web-vitals';
 export function WebVitals() {
   useReportWebVitals((metric) => {
     const body = JSON.stringify(metric);
-    const url = `${process.env.SITE_URL}/analytics`;
+    const url = `/analytics`;
 
     // Use `navigator.sendBeacon()` if available, falling back to `fetch()`.
     if (navigator?.sendBeacon) {
@@ -17,3 +17,5 @@ export function WebVitals() {
 
   return <span />;
 }
+
+// const url = `${process.env.SITE_URL}/analytics`;

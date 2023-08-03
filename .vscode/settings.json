@@ -14,6 +14,9 @@
   },
 
   "tailwindCSS.rootFontSize": 16,
+  "tailwindCSS.includeLanguages": {
+    "plaintext": "html"
+  },
   "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
   "dotenv.enableAutocloaking": false,
   "typescript.tsdk": "node_modules/typescript/lib",

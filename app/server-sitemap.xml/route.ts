@@ -12,7 +12,7 @@ export async function GET() {
       (article) =>
         ({
           loc: `${SITE_URL}/articles/${article.id}`,
-          lastmod: new Date(article.date).toISOString(),
+          lastmod: new Date(article.publishedAt).toISOString(),
           changefreq: 'daily',
           priority: 0.7,
         } satisfies ISitemapField)
@@ -36,8 +36,6 @@ function tagsAndCategories(resources: IArticleMeta[]) {
           .replace(/^-+|-+$/g, '')
           .trim()
       );
-    }
-    for (const category of resource.categories) {
     }
   }
 

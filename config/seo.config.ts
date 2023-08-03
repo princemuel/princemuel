@@ -1,9 +1,8 @@
 import type { Metadata } from 'next';
+import { baseUrl } from './constants.config';
 
 type MetaFunction = (data: Metadata) => Metadata;
 
-const SITE_URL = process.env.SITE_URL || '';
-const baseUrl = new URL('/', SITE_URL);
 const defineMeta: MetaFunction = (metadata) => metadata;
 
 const title: Metadata['title'] =

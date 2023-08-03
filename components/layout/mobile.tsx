@@ -1,22 +1,38 @@
 'use client';
 
 import { links } from '@/common';
+import { FOCUS_VISIBLE_OUTLINE } from '@/config';
+import { cn } from '@/lib';
 import { Popover, Transition } from '@headlessui/react';
 import { AlignJustify, X } from 'lucide-react';
+import NextLink from 'next/link';
 import { Fragment } from 'react';
-import { NavLink, Text, ThemeSwitch } from '../atoms';
+import { Avatar, NavLink, Text, ThemeSwitch } from '../atoms';
 
 interface Props {
   className?: string;
+  showAvatar: boolean;
 }
 
-const MobileNavigation = ({ className }: Props) => {
+const MobileNavigation = ({ className, showAvatar }: Props) => {
   return (
     <Popover className={className}>
-      <Popover.Button className='ring-1 ring-zinc-900/5 backdrop-blur dark:ring-white/10 dark:hover:ring-white/20'>
-        <span className='sr-only'>Menu</span>
-        <AlignJustify className='stroke-zinc-500 group-hover:stroke-zinc-700 dark:group-hover:stroke-zinc-400' />
-      </Popover.Button>
+      <div className='flex items-center'>
+        {showAvatar && (
+          <NextLink
+            href='/'
+            title='View home page'
+            className={cn('rounded-full', FOCUS_VISIBLE_OUTLINE)}
+          >
+            <Avatar interactive />
+          </NextLink>
+        )}
+
+        <Popover.Button className='ml-auto ring-1 ring-zinc-900/5 backdrop-blur dark:ring-white/10 dark:hover:ring-white/20'>
+          <span className='sr-only'>Menu</span>
+          <AlignJustify className='stroke-zinc-500 group-hover:stroke-zinc-700 dark:group-hover:stroke-zinc-400' />
+        </Popover.Button>
+      </div>
 
       <Transition.Root>
         <Transition.Child
