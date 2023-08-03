@@ -3,6 +3,7 @@ import { getArticlesMetadata } from '../content';
 
 const SITE_URL = process.env.SITE_URL || '';
 const baseUrl = SITE_URL;
+const currentYear = new Date().getFullYear();
 
 const author: Author = {
   name: 'Prince Muel',
@@ -10,7 +11,7 @@ const author: Author = {
   link: baseUrl,
 };
 
-const copyright = `All rights reserved © ${new Date().getFullYear()} Prince Muel`;
+const copyright = `All rights reserved © ${currentYear} Prince Muel`;
 
 export async function feed() {
   const articles = await getArticlesMetadata();
@@ -41,11 +42,11 @@ export async function feed() {
       title: article.title,
       description: article.description,
       content: article.description,
-      image: article.image,
-      audio: article.audio,
-      video: article.video,
+      image: article.media?.image,
+      audio: article.media?.audio,
+      video: article.media?.video,
       date: new Date(),
-      published: new Date(article.date),
+      published: new Date(article.publishedAt),
       author: [article.author || author],
       contributor: article.contributors,
       copyright,
