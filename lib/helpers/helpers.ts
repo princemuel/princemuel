@@ -17,7 +17,7 @@ export function cn(...args: ClassValue[]) {
             STRING UTILS           *
   ---------------------------------*
  */
-
+// Success! 🌈
 export function capitalize(string = '') {
   return string[0].toUpperCase() + string.slice(1).toLowerCase();
 }
@@ -79,6 +79,46 @@ export function hasValues<T>(
   return (array || []).length > 0;
 }
 
+// export const sortBy = <T>(
+//   arr: T[],
+//   key: string,
+//   direction = 'asc',
+//   callback: any
+// ) => {
+//   const compareFn =
+//     callback ||
+//     function (a: any, b: any) {
+//       if (a > b) return 1;
+//       else if (a < b) return -1;
+//       else return 0;
+//     };
+
+//   return arr.sort((a, b) => {
+//     return compareFn(
+//       sortBy === 'asc' ? a[key] : b[key],
+//       sortBy === 'asc' ? b[key] : a[key]
+//     );
+//   });
+// };
+
+// export const isEmpty = (obj) => Object.keys(obj).length === 0;
+
+// reverse array function using iterators
+export function reverse<T>(data: ArrayLike<T>): Iterable<T> {
+  return {
+    [Symbol.iterator](): Iterator<T> {
+      let len = data.length;
+      return {
+        next(): IteratorResult<T> {
+          return len
+            ? { value: data[--len], done: false }
+            : { value: undefined, done: true };
+        },
+      };
+    },
+  };
+}
+
 /**
  * A Generic Ranking Algorithm
  * @param items T[]
@@ -113,6 +153,25 @@ export const rank = <T>(
 export function isObject(obj: unknown): obj is Record<string, unknown> {
   return typeof obj === 'object' && obj !== null;
 }
+/**
+ * This method will call the callback for every value in the
+ * object, and return a new object with transformed values.
+ * This is useful if, eg., you need to capitalize every value in
+ * a dictionary-style object with string values.
+ */
+export const transformValues = <T extends object>(
+  data: T,
+  callback: (key: string, value: unknown) => any
+) => {
+  if (typeof data !== 'object') return data;
+
+  return Object.entries(data).reduce((values, [key, value]) => {
+    return {
+      ...values,
+      [key]: callback(key, value),
+    };
+  }, {});
+};
 
 /*---------------------------------*
             DATE UTILS             *
@@ -137,13 +196,18 @@ export const formatDate: FormatDateFunction = (
     })
     .join(separator);
 };
+
 /*---------------------------------*
-            DOM UTILS              *
+            BROWSER UTILS          *
   ---------------------------------*
  */
-
 export const isBrowser = typeof window !== 'undefined';
 export const isNavigator = typeof navigator !== 'undefined';
+
+const mobileRegex = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i;
+const userAgent = isNavigator ? navigator.userAgent : 'node';
+
+export const IS_MOBILE_USER_AGENT = mobileRegex.test(userAgent);
 
 export function pixelToRem(value: number | string) {
   return 0.0625 * safeNum(value);
