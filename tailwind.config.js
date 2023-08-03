@@ -11,7 +11,7 @@ module.exports = {
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
-  darkMode: ['class', '[data-mode="dark"]'],
+  darkMode: ['class', '[data-theme="dark"]'],
   theme: {
     container: {
       center: true,
@@ -30,6 +30,7 @@ module.exports = {
     },
 
     screens: {
+      ss: '25em', // had to add this. tailwind's min not working
       s: '30em', //  @media (min-width: 480px) { ... }
       ...defaultTheme.screens,
     },
@@ -58,6 +59,35 @@ module.exports = {
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
         //#141e30, #243b55 ;; #b6fbff, #83a4d4 bbut
       },
+      keyframes: ({ theme }) => ({
+        shimmer: {
+          '100%': {
+            transform: 'translateX(100%)',
+          },
+        },
+      }),
+      boxShadow: ({ theme }) => ({
+        glass: `
+          inset 0.25px 1px 0 0 ${theme('colors.rose.200 / 3%')},
+          0px 0.3px 0.3px rgba(3, 2, 2, 0.02),
+          0px 2.2px 2.5px -0.4px rgba(3, 2, 2, 0.02),
+          0px 4.3px 4.8px -0.8px rgba(3, 2, 2, 0.02),
+          0px 7.5px 8.4px -1.2px rgba(3, 2, 2, 0.02),
+          0px 12.8px 14.4px -1.7px rgba(3, 2, 2, 0.02),
+          0px 21px 23.6px -2.1px rgba(3, 2, 2, 0.02),
+          0px 33.2px 37.4px -2.5px rgba(3, 2, 2, 0.02)`,
+        'elevation-sm': `
+          inset 0.25px 1px 1px 0 ${theme('colors.rose.200 / 1.5%')},
+          0.3px 0.5px 0.7px rgba(3, 2, 2, 0.2),
+          0.4px 0.8px 1px -1.2px rgba(3, 2, 2, 0.2),
+          1px 2px 2.5px -2.5px rgba(3, 2, 2, 0.2);`,
+        'elevation-md': `
+          inset 0.25px 1px 1px 0 ${theme('colors.rose.200 / 3%')},
+          0.3px 0.5px 0.7px rgba(3, 2, 2, 0.1),
+          0.8px 1.6px 2px -0.8px rgba(3, 2, 2, 0.1),
+          2.1px 4.1px 5.2px -1.7px rgba(3, 2, 2, 0.1),
+          5px 10px 12.6px -2.5px rgba(3, 2, 2, 0.1)`,
+      }),
     },
   },
   plugins: [
