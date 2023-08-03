@@ -1,10 +1,4 @@
-import { Metadata } from 'next';
 import { HomeTemplate } from './home';
-
-export const metadata: Metadata = {
-  title: 'Prince Muel',
-  description: '',
-};
 
 const PageRoute = () => {
   return (
