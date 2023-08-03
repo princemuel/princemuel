@@ -1,19 +1,27 @@
+import { HEADING_LINK_ANCHOR } from '@/config';
 import { compileMDX } from 'next-mdx-remote/rsc';
 import { cache } from 'react';
-import rehypeAutolinkHeadings from 'rehype-autolink-headings/lib';
-import rehypeHighlight from 'rehype-highlight/lib';
+import readingTime from 'reading-time';
+import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+import rehypePrettyCode from 'rehype-pretty-code';
 import rehypeSlug from 'rehype-slug';
+import remarkGfm from 'remark-gfm';
+import remarkUnwrapImages from 'remark-unwrap-images';
 import 'server-only';
-import type { RepoFiletree, ResourceType } from './constants';
-import { CONTENT_REPO_PATH } from './constants';
 import { components } from './mdx';
+import { codeBlockClasses, codeBlockOptions } from './plugins';
 
+/**
+ * =============================================================
+ * Get The Metadata For A Particular Resource
+ * =============================================================
+ */
 export const fetchResourceMeta = cache(
   async (resource: ResourceType, callback?: Callback<ResourceMeta>) => {
     const slugs = await fetchAllSlugs(resource);
     const metadata: ResourceMeta[] = [];
 
-    const promises = await Promise.allSettled(
+    const results = await Promise.allSettled(
       (slugs || []).map(async (slug) => {
         const data = await fetchResource(resource)(slug);
         if (!data) return null;
@@ -21,26 +29,33 @@ export const fetchResourceMeta = cache(
       })
     );
 
-    for (const promise of promises) {
-      if (promise.status === 'fulfilled' && promise?.value != null) {
-        if (callback) callback(promise?.value?.meta);
-        else metadata.push(promise?.value?.meta);
+    for (const result of results) {
+      if (result.status === 'fulfilled' && result?.value != null) {
+        if (callback) callback(result?.value?.meta);
+        else metadata.push(result?.value?.meta);
       }
     }
 
-    return metadata.sort((a, b) => (a.date < b.date ? 1 : -1));
+    return metadata.sort((resourceA, resourceB) =>
+      resourceA.publishedAt < resourceB.publishedAt ? 1 : -1
+    );
   }
 );
 
+/**
+ * =============================================================
+ * Get The File And Folder Contents Of A Github Repository
+ * =============================================================
+ */
 export const fetchResource = cache((resource: ResourceType) =>
   cache(async (slug: string) => {
-    const url = `https://raw.githubusercontent.com/${CONTENT_REPO_PATH}/main/${resource}/${slug}`;
+    const url = `https://raw.githubusercontent.com/${process.env.REPO_PATH}/main/${resource}/${slug}`;
 
     const response = await fetch(url, {
       headers: {
         Accept: 'application/vnd.github+json',
         Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
-        'X-GitHub-Api-Version': '2022-11-28',
+        'X-GitHub-Api-Version': `${process.env.GITHUB_API_VERSION}`,
       },
     });
     if (!response.ok) return null;
@@ -52,6 +67,11 @@ export const fetchResource = cache((resource: ResourceType) =>
   })
 );
 
+/**
+ * =============================================================
+ * Parse and Transform The Markdown Contents Received
+ * =============================================================
+ */
 export const parse_mdx = async <T extends Resource>(
   data: string,
   slug: string
@@ -62,13 +82,18 @@ export const parse_mdx = async <T extends Resource>(
     options: {
       parseFrontmatter: true,
       mdxOptions: {
+        remarkPlugins: [[remarkGfm], [remarkUnwrapImages]],
         rehypePlugins: [
-          rehypeHighlight,
-          rehypeSlug,
+          [rehypeSlug],
+          [rehypePrettyCode, codeBlockOptions],
+          [codeBlockClasses],
           [
             rehypeAutolinkHeadings,
             {
               behavior: 'wrap',
+              properties: {
+                className: [HEADING_LINK_ANCHOR],
+              },
             },
           ],
         ],
@@ -80,11 +105,17 @@ export const parse_mdx = async <T extends Resource>(
     meta: {
       ...result?.frontmatter,
       id: slug.replace(/\.mdx?$/, ''),
+      readtime: Math.ceil(readingTime(data).minutes),
     },
     content: result?.content,
   } as T;
 };
 
+/**
+ * =============================================================
+ * Get All The Slugs For A Particular Resource
+ * =============================================================
+ */
 export const fetchAllSlugs = cache(async (resource: ResourceType) => {
   const filetrees = await getRepoFiletree();
   if (!filetrees) return null;
@@ -99,14 +130,19 @@ export const fetchAllSlugs = cache(async (resource: ResourceType) => {
     .map((path) => path.replace(path_regex, ''));
 });
 
+/**
+ * =============================================================
+ * Get The File And Folder Contents Of A Github Repository
+ * =============================================================
+ */
 export async function getRepoFiletree() {
   const response = await fetch(
-    `https://api.github.com/repos/${CONTENT_REPO_PATH}/git/trees/main?recursive=1`,
+    `https://api.github.com/repos/${process.env.REPO_PATH}/git/trees/main?recursive=1`,
     {
       headers: {
         Accept: 'application/vnd.github+json',
         Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
-        'X-GitHub-Api-Version': '2022-11-28',
+        'X-GitHub-Api-Version': `${process.env.GITHUB_API_VERSION}`,
       },
     }
   );

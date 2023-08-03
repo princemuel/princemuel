@@ -10,14 +10,12 @@ export const preloadArticlesMeta = () => {
   void getArticlesMetadata();
 };
 
-export const getArticleBySlug = cache(
-  async (slug: string): Promise<IArticle | null> => {
-    const response = await fetchResource('articles')(slug);
-    if (!response) return null;
+export const getArticleBySlug = cache(async (slug: string) => {
+  const response = await fetchResource('articles')(slug);
+  if (!response) return null;
 
-    return await parse_mdx<IArticle>(response, slug);
-  }
-);
+  return await parse_mdx<IArticle>(response, slug);
+});
 
 export const getArticlesMetadata = cache(async () => {
   return (await fetchResourceMeta('articles')) as IArticleMeta[];

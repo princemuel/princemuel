@@ -10,14 +10,12 @@ export const preloadProjectsMeta = () => {
   void getProjectsMetadata();
 };
 
-export const getProjectBySlug = cache(
-  async (slug: string): Promise<IProject | null> => {
-    const response = await fetchResource('projects')(slug);
-    if (!response) return null;
+export const getProjectBySlug = cache(async (slug: string) => {
+  const response = await fetchResource('projects')(slug);
+  if (!response) return null;
 
-    return await parse_mdx<IProject>(response, slug);
-  }
-);
+  return await parse_mdx<IProject>(response, slug);
+});
 
 export const getProjectsMetadata = cache(async () => {
   return (await fetchResourceMeta('projects')) as IProjectMeta[];

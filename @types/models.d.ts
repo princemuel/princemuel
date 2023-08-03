@@ -1,25 +1,51 @@
 interface IProject extends Resource {
   meta: IProjectMeta;
 }
-interface IProjectMeta extends ResourceMeta {
-  links: SocialMeta;
-  featured: boolean;
-}
-
 interface IArticle extends Resource {
   meta: IArticleMeta;
 }
+
+interface IProjectMeta extends ResourceMeta {
+  link?: ResourceLink;
+  featured: boolean;
+}
 interface IArticleMeta extends ResourceMeta, MediaResource {
-  contributors?: Author[];
   author?: Author;
-  links: SocialMeta;
-  published: boolean;
+  contributors?: Author[];
+  link?: ResourceLink;
+  series?: Series;
 }
 
+// TODO: Write a function to create og images per post
+interface Resource {
+  content: React.JSX.Element;
+  meta: ResourceMeta;
+}
+interface ResourceMeta {
+  id: string;
+  title: string;
+  alternate: string;
+  type: 'article' | 'project' | 'snippet' | 'resource';
+  /////////////////////////////
+  headline: string; // alternate description for seo purpose
+  description: string;
+  media: MediaResource;
+  /////////////////////////////
+  tags: string[];
+  categories?: string[];
+  /////////////////////////////
+  readtime: number;
+  publishedAt: string;
+  status: 'published' | 'draft';
+  /////////////////////////////
+}
+
+// TODO!: Write a function to resolve media path, if string or object
 interface MediaResource {
   image?: string | Media;
   audio?: string | Media;
   video?: string | Media;
+  thumbnail?: string | Media;
 }
 interface Media {
   url: string;
@@ -27,11 +53,6 @@ interface Media {
   length?: number;
   title?: string;
   duration?: number;
-}
-interface SocialMeta {
-  repo: string;
-  site: string;
-  thumbnail?: string;
 }
 interface Author {
   name?: string;
@@ -41,16 +62,11 @@ interface Author {
   avatar: MediaResource['image'];
 }
 
-interface Resource {
-  content: React.JSX.Element;
-  meta: ResourceMeta;
-}
-interface ResourceMeta {
-  id: string;
+interface Series {
   title: string;
-  date: string;
-  description: string; // have a headline
-  alt: string;
-  tags: string[];
-  categories: string[];
+  order: number;
+}
+interface ResourceLink {
+  repo?: string;
+  site?: string;
 }
