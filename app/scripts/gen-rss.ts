@@ -15,6 +15,7 @@ const copyright = `All rights reserved © ${currentYear} Prince Muel`;
 
 export async function feed() {
   const articles = await getArticlesMetadata();
+
   const options: FeedOptions = {
     title: "RSS Feed - Prince Muel's Blog",
     description: "Prince Muel's Personal Blog Website",
