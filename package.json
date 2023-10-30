@@ -42,7 +42,7 @@
     "highlight.js": "^11.8.0",
     "immer": "^10.0.2",
     "lucide-react": "^0.263.1",
-    "next": "^13.4.12",
+    "next": "^14.0.0",
     "next-mdx-remote": "^4.4.1",
     "next-share": "^0.24.0",
     "next-sitemap": "^4.1.8",
