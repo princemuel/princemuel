@@ -23,7 +23,7 @@ I am currently updating my projects and it's a work in progress.
 <!--START_SECTION:waka-->
 **🐱 My GitHub Data** 
 
-> 📦 75.1 kB Used in GitHub's Storage 
+> 📦 74.1 kB Used in GitHub's Storage 
  > 
 > 🏆 3,524 Contributions in the Year 2023
  > 
