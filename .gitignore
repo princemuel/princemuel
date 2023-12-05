@@ -25,7 +25,7 @@ pids
 
 # Editor directories and files
 # .vscode/*
-# !.vscode/extensions.json
+!.vscode/extensions.json
 .idea
 *.suo
 *.ntvs*
@@ -170,16 +170,7 @@ dist
 dist-ssr
 local
 
-# local files
 *.pem
 *.local.*
-thunder-*
 
-## Panda
 styled-system
-styled-system-static
-
-# Generated Feed files
-public/*.xml
-public/*.json
-!public/browserconfig.xml
