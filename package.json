@@ -14,8 +14,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "type-check": "tsc --noEmit",
-    "format:write": "prettier ./src --write \"**/*.{js,mjs,jsx,ts,tsx,md,mdx,html,css}\" --cache",
-    "format:check": "prettier ./src --check \"**/*.{js,mjs,jsx,ts,tsx,md,mdx,html,css}\" --cache",
+    "format:write": "prettier ./src --write \"**/*.{js,mjs,jsx,ts,tsx,md,mdx,html,css}\" --ignore-unknown --cache",
+    "format:check": "prettier ./src --check \"**/*.{js,mjs,jsx,ts,tsx,md,mdx,html,css}\" --ignore-unknown --cache",
     "get:env": "npx vercel link && npx vercel env pull",
     "prepare": "husky install"
   },
@@ -45,6 +45,6 @@
     "prettier-plugin-tailwindcss": "^0.5.9"
   },
   "lint-staged": {
-    "**/*": "npm run format:write --"
+    "*": "npm run format:write --"
   }
 }
