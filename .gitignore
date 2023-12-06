@@ -98,6 +98,9 @@ typings/
 .env.test.local
 .env.production.local
 
+# generated types
+.astro/
+
 # parcel-bundler cache (https://parceljs.org/)
 .cache
 
@@ -157,13 +160,11 @@ dist
 ###############################################
 *.xd
 
-# Avoid your project being littered with annoying .DS_Store files!
+# macOS-specific files
 .DS_Store
-.prettierignore
 
-# misc
-.DS_Store
-*.pem
+# Linters
+.prettierignore
 
 # misc
 dist
