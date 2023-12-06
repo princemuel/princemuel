@@ -1,4 +1,6 @@
 @tailwind base;
+@tailwind components;
+@tailwind utilities;
 @layer base {
   html {
     box-sizing: border-box;
@@ -22,16 +24,7 @@
     min-block-size: 100svh;
   }
 
-  :is(
-      a,
-      button,
-      label,
-      select,
-      summary,
-      [role="button"],
-      [role="option"],
-      [role="menuitem"]
-    ) {
+  :is(a, button, label, select, summary, [role="button"], [role="option"], [role="menuitem"]) {
     @apply cursor-pointer;
   }
 
@@ -52,6 +45,7 @@
   :where(a) {
     text-underline-offset: 0.2ex;
   }
+
   :where(a:not([class])) {
     text-decoration-skip-ink: auto;
   }
@@ -83,6 +77,3 @@
     }
   }
 }
-
-@tailwind components;
-@tailwind utilities;
