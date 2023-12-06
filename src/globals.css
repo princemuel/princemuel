@@ -1,38 +1,5 @@
-/* -------------------------------- */
-/*               BASE               */
-/* -------------------------------- */
-
-/*!Theme Name:
-Theme URI: https://princemuel.vercel.app/
-Repository: https://github.com/princemuel/princemuel
-Description: My Personal Website .
-Author's Name: Samuel Chukwuzube
-Author's Moniker: Prince Muel
-Version: 01
-
-*/
-/**
- * This injects Tailwind's base styles and any base styles registered by
- * plugins.
- */
-/* ================================= */
-/*               RESETS              */
-/* ================================= */
 @tailwind base;
 @layer base {
-  :root {
-    --deg: 1;
-    --x: -50%;
-    --y: -50%;
-    --height: auto;
-    --position: static;
-    --bottom-margin: 0;
-    --content-offset: auto;
-    --logo-transform: none;
-    --border-transform: none;
-    --border-opacity: 0;
-  }
-
   html {
     box-sizing: border-box;
     text-rendering: optimizeSpeed;
@@ -52,18 +19,31 @@ Version: 01
   /* Set core body defaults */
   :where(body) {
     min-block-size: 100vh;
+    min-block-size: 100svh;
   }
 
-  :where(a, button, label, select, summary, [role='button'], [role='option']) {
+  :is(
+      a,
+      button,
+      label,
+      select,
+      summary,
+      [role="button"],
+      [role="option"],
+      [role="menuitem"]
+    ) {
     @apply cursor-pointer;
   }
 
-  :where(label:has(* > input:disabled), label:has(* + input:disabled)) {
-    cursor: not-allowed;
+  img {
+    font-style: italic;
+    background-repeat: no-repeat;
+    background-size: cover;
+    shape-margin: 0.75rem;
   }
 
   @media not all and (min-resolution: 0.001dpcm) {
-    :where(img[loading='lazy']) {
+    :where(img[loading="lazy"]) {
       clip-path: inset(0.5px);
     }
   }
