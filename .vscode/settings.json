@@ -1,6 +1,7 @@
 {
   "editor.tabSize": 2,
-
+  // "editor.rulers": [100],
+  "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
   "editor.inlineSuggest.enabled": true,
   "editor.wordWrap": "bounded",
   "editor.wordWrapColumn": 96,
@@ -10,17 +11,27 @@
     "source.fixAll": "explicit",
     "source.fixAll.eslint": "never"
   },
+  "editor.formatOnSave": true,
+
   "eslint.codeAction.showDocumentation": {
     "enable": true
   },
 
   "tailwindCSS.rootFontSize": 16,
+  "tailwindCSS.classAttributes": ["class", "className", "class:list"],
+
   "tailwindCSS.experimental.classRegex": [
-    ["tv\\((([^()]*|\\([^()]*\\))*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
-    ["twcn\\((([^()]*|\\([^()]*\\))*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]
+    ["(?:cn|classnames|classNames|cx|clsx|tv|twcn)\\(([^)]*)\\)", "(?:')((?:\\'|[^'])*)(?:')"],
+    ["(?:cn|classnames|classNames|cx|clsx|tv|twcn)\\(([^)]*)\\)", "(?:\")((?:\\\"|[^\"])*)(?:\")"],
+    ["(?:cn|classnames|classNames|cx|clsx|tv|twcn)\\(([^)]*)\\)", "(?:`)((?:\\`|[^`])*)(?:`)"],
+    [
+      "(?:cn|classnames|classNames|cx|clsx|tv|twcn)\\((([^()]*|\\([^()]*\\))*)\\)",
+      "[\"'`]([^\"'`]*).*?[\"'`]"
+    ]
   ],
-  "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
+
   "dotenv.enableAutocloaking": false,
+
   "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true
 }
