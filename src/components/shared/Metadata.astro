@@ -11,11 +11,10 @@ interface Props {
   published?: string;
 }
 
-const CannonicalUrl = new URL(Astro.url.pathname, Astro.site);
-const Title = "Prince Muel";
+const CannonicalUrl = new URL(Astro.request.url, Astro.site);
 const Description = "";
 const SiteName = "Prince Muel | Personal Page";
-const Image = { src: "string", alt: "string" };
+const Image = { src: "/favicon.svg", alt: "Prince Muel" };
 const PageType = "website";
 const Handle = "@iamprincemuel";
 
@@ -34,7 +33,7 @@ const seoImage = {
 };
 ---
 
-<!-- High Priority Global Metadata -->
+{/* High Priority Global Metadata  */}
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="generator" content={Astro.generator} />
@@ -48,9 +47,9 @@ const seoImage = {
   content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"
 />
 
-<!-- Font preloads -->
+{/* Font preloads  */}
 
-<!-- Low Priority Global Metadata -->
+{/* Low Priority Global Metadata  */}
 <link rel="manifest" href="/site.webmanifest" />
 <link rel="archives" href="/resources" />
 <link rel="sitemap" href="/sitemap-index.xml" />
@@ -66,19 +65,19 @@ const seoImage = {
   type="application/rss+xml"
   title="RSS Feed | Prince Muel"
   href={new URL("/rss.xml", Astro.url)}
-/>} />
+/>
 <link
   rel="alternate"
   type="application/atom+xml"
   title="Atom Feed | Prince Muel"
   href={new URL("/atom.xml", Astro.url)}
-/>} />
+/>
 <link
   rel="alternate"
   type="application/json"
   title="JSON Feed | Prince Muel"
   href={new URL("/rss.json", Astro.url)}
-/>} />
+/>
 
 <meta
   name="keywords"
