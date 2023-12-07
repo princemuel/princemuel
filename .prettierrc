@@ -1,22 +1,39 @@
 {
+  "printWidth": 100,
+  "tabWidth": 2,
+  "useTabs": false,
+  "semi": true,
+  "singleQuote": false,
+  "quoteProps": "as-needed",
+  "jsxSingleQuote": false,
+  "trailingComma": "all",
   "bracketSpacing": true,
+  "bracketSameLine": false,
+  "arrowParens": "always",
+
+  "requirePragma": false,
   "endOfLine": "lf",
   "htmlWhitespaceSensitivity": "css",
   "embeddedLanguageFormatting": "auto",
-  "bracketSameLine": false,
-  "printWidth": 80,
-  "quoteProps": "as-needed",
-  "singleQuote": true,
-  "trailingComma": "es5",
-  "tabWidth": 2,
-  "arrowParens": "always",
-  "semi": true,
-  "jsxBracketSameLine": false,
-  "jsxSingleQuote": true,
-  "useTabs": false,
+  "singleAttributePerLine": false,
 
-  "tailwindConfig": "./tailwind.config.js",
-  "tailwindFunctions": ["cn"],
+  "experimentalTernaries": true,
+  "tailwindConfig": "./tailwind.config.mjs",
+  "tailwindFunctions": ["twcn", "cn", "tv", "cva"],
   "tailwindAttributes": ["tw"],
-  "plugins": ["prettier-plugin-tailwindcss"]
+  "plugins": ["prettier-plugin-astro", "prettier-plugin-tailwindcss"],
+  "overrides": [
+    {
+      "files": [".*", "*.json", "*.md", "*.toml", "*.yml"],
+      "options": {
+        "useTabs": false
+      }
+    },
+    {
+      "files": "*.astro",
+      "options": {
+        "parser": "astro"
+      }
+    }
+  ]
 }
