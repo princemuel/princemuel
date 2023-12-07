@@ -1,4 +1,6 @@
+import Animate from "tailwindcss-animate";
 import defaultTheme from "tailwindcss/defaultTheme";
+import plugin from "tailwindcss/plugin";
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -6,6 +8,7 @@ export default {
   content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
   corePlugins: {
     float: false,
+    container: false,
   },
   future: {
     hoverOnlyWhenSupported: true,
@@ -50,5 +53,46 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    Animate,
+    plugin(function ({ addUtilities, theme }) {
+      addUtilities({
+        ".full-w-bg": {
+          boxShadow: "0 0 0 100vmax currentColor, 0 0 2rem currentColor",
+          clipPath: "inset(0 -100vmax)",
+        },
+        ".grid-cols-auto": {
+          "--min": "15rem",
+          gridTemplateColumns: `repeat(auto-fit, minmax(min(100%, var(--min)), 1fr))`,
+        },
+
+        ".container": {
+          "--padding-inline": theme("spacing.6"),
+
+          "--content-maxW": "70rem",
+          "--content-size": "min(100% - (var(--padding-inline) * 2), var(--content-maxW))",
+
+          "--breakout-maxW": "80rem",
+          "--breakout-size": `calc((var(--breakout-maxW) - var(--content-maxW)) / 2)`,
+
+          "--fullWPadding": "minmax(var(--padding-inline), 1fr)",
+          "--breakoutPadding": "minmax(0, var(--breakout-size))",
+
+          display: "grid",
+          gridTemplateColumns: `[full-width-start] var(--fullWPadding) [breakout-start]
+        var(--breakoutPadding) [content-start] var(--content-size) [content-end]
+        var(--breakoutPadding) [breakout-end] var(--fullWPadding) [full-width-end]`,
+        },
+        ".container > :not(.tw-breakout, .tw-full-width)": {
+          gridColumn: "content",
+        },
+        ".tw-breakout": {
+          gridColumn: "breakout",
+        },
+        ".tw-full-width": {
+          gridColumn: "full-width",
+        },
+      });
+    }),
+  ],
 };
