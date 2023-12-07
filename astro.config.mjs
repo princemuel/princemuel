@@ -7,12 +7,20 @@ import { defineConfig } from "astro/config";
 
 // https://astro.build/config
 export default defineConfig({
-  site: process.env.VERCEL_URL,
+  site: process.env.VERCEL_URL ?? "http://localhost:3000",
+
   output: "hybrid",
   adapter: vercel({
-    functionPerRoute: true,
+    functionPerRoute: false,
     imageService: true,
+    webAnalytics: {
+      enabled: true,
+    },
+    speedInsights: {
+      enabled: true,
+    },
   }),
+
   integrations: [
     tailwind({
       applyBaseStyles: false,
