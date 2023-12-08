@@ -109,7 +109,7 @@ const blogCollection = defineCollection({
 
 export const collections = {
   // projects: projectCollection,
-  // posts: blogCollection,
+  // articles: blogCollection,
   routes: routeCollection,
   social: socialCollection,
 };
