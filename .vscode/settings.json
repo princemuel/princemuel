@@ -1,6 +1,5 @@
 {
   "editor.tabSize": 2,
-  "editor.rulers": [100],
   "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
   "editor.inlineSuggest.enabled": true,
   "editor.wordWrap": "bounded",
@@ -16,19 +15,6 @@
   "eslint.codeAction.showDocumentation": {
     "enable": true
   },
-
-  "tailwindCSS.rootFontSize": 16,
-  "tailwindCSS.classAttributes": ["class", "className", "class:list"],
-
-  "tailwindCSS.experimental.classRegex": [
-    ["(?:cn|classnames|classNames|cx|clsx|tv|twcn)\\(([^)]*)\\)", "(?:')((?:\\'|[^'])*)(?:')"],
-    ["(?:cn|classnames|classNames|cx|clsx|tv|twcn)\\(([^)]*)\\)", "(?:\")((?:\\\"|[^\"])*)(?:\")"],
-    ["(?:cn|classnames|classNames|cx|clsx|tv|twcn)\\(([^)]*)\\)", "(?:`)((?:\\`|[^`])*)(?:`)"],
-    [
-      "(?:cn|classnames|classNames|cx|clsx|tv|twcn)\\((([^()]*|\\([^()]*\\))*)\\)",
-      "[\"'`]([^\"'`]*).*?[\"'`]"
-    ]
-  ],
 
   "dotenv.enableAutocloaking": false,
 
