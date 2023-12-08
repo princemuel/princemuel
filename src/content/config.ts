@@ -26,6 +26,15 @@ const pageCollection = defineCollection({
   }),
 });
 
+const routeCollection = defineCollection({
+  type: "data",
+  schema: z.object({
+    id: z.string().min(1),
+    text: z.string().min(1),
+    href: z.string().min(1),
+  }),
+});
+
 const socialCollection = defineCollection({
   type: "data",
   schema: z.object({
@@ -59,7 +68,8 @@ const articleCollection = defineCollection({
 });
 
 export const collections = {
-  pages: pageCollection,
-  articles: articleCollection,
+  // pages: pageCollection,
+  // articles: articleCollection,
+  routes: routeCollection,
   social: socialCollection,
 };
