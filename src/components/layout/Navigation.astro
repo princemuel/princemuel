@@ -1,0 +1,16 @@
+---
+import { getCollection } from "astro:content";
+import NavLink from "../primitives/NavLink.astro";
+
+const routes = await getCollection("routes");
+---
+
+<ul class="flex items-center gap-4">
+  {
+    routes.map((route) => (
+      <NavLink href={route.data.href} className="">
+        {route.data.text}
+      </NavLink>
+    ))
+  }
+</ul>

@@ -5,9 +5,13 @@ import tailwind from "@astrojs/tailwind";
 import vercel from "@astrojs/vercel/serverless";
 import { defineConfig } from "astro/config";
 
+const VERCEL_PREVIEW_SITE =
+  process.env.VERCEL_ENV !== "production" &&
+  process.env.VERCEL_URL &&
+  `https://${process.env.VERCEL_URL}`;
 // https://astro.build/config
 export default defineConfig({
-  site: process.env.VERCEL_URL ?? "http://localhost:3000",
+  site: VERCEL_PREVIEW_SITE ?? "https://princemuel.vercel.app",
 
   output: "hybrid",
   adapter: vercel({

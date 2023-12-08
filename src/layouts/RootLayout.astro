@@ -1,16 +1,17 @@
 ---
-import Metadata from "@/components/shared/Metadata.astro";
 import "@/styles/globals.css";
 import { ViewTransitions } from "astro:transitions";
-
 import { cn } from "tailwind-variants";
+import "@/styles/fonts.css";
+import Header from "@/components/layout/Header.astro";
+import { BreakpointIndicator } from "@/components/react/Indicator";
 
 interface Props {
   title: string;
   description: string;
 }
 
-const { title, description } = Astro.props;
+// const { title, description } = Astro.props;
 
 const className = cn("__variable-sans __variable-accent")({ twMerge: true });
 ---
@@ -18,14 +19,18 @@ const className = cn("__variable-sans __variable-accent")({ twMerge: true });
 <!doctype html>
 <html lang="en" dir="ltr" class={className}>
   <head>
-    <Metadata title={title} description={description} />
+    <!-- <Metadata title={title} description={description} /> -->
     <ViewTransitions />
   </head>
 
   <body
-    class="bg-white font-sans text-[0.9rem] font-normal leading-7 text-black antialiased dark:bg-[#111] dark:text-gray-100"
+    class="bg-white font-sans text-base font-normal text-gray-900 antialiased dark:bg-[#111] dark:text-gray-100"
   >
+    <Header />
+
     <slot />
+
+    <BreakpointIndicator />
 
     <script is:inline>
       const getThemePreference = () => {
@@ -42,7 +47,7 @@ const className = cn("__variable-sans __variable-accent")({ twMerge: true });
       };
 
       const rootElement = document.documentElement;
-      const dataTheme = "data-theme";
+      const dataTheme = "data-color-mode";
 
       const currentTheme = getThemePreference();
       rootElement.setAttribute(dataTheme, currentTheme);
