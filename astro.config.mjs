@@ -11,7 +11,8 @@ const VERCEL_PREVIEW_SITE =
   `https://${process.env.VERCEL_URL}`;
 // https://astro.build/config
 export default defineConfig({
-  site: process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "https://princemuel.vercel.app",
+  site:
+    process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "https://princemuel.vercel.app",
 
   output: "hybrid",
   adapter: vercel({
