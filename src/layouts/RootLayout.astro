@@ -1,0 +1,72 @@
+---
+import "@/styles/globals.css";
+import { ViewTransitions } from "astro:transitions";
+import { cn } from "tailwind-variants";
+import "@/styles/fonts.css";
+import Header from "@/components/layout/Header.astro";
+import { BreakpointIndicator } from "@/components/react/Indicator";
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+// const { title, description } = Astro.props;
+
+const className = cn("__variable-sans __variable-accent")({ twMerge: true });
+---
+
+<!doctype html>
+<html lang="en" dir="ltr" class={className}>
+  <head>
+    <!-- <Metadata title={title} description={description} /> -->
+    <ViewTransitions />
+  </head>
+
+  <body
+    class="bg-white font-sans text-base font-normal text-gray-900 antialiased dark:bg-[#111] dark:text-gray-100"
+  >
+    <Header />
+
+    <slot />
+
+    <BreakpointIndicator />
+
+    <script is:inline>
+      const getThemePreference = () => {
+        try {
+          if (localStorage.getItem("theme")) return localStorage.getItem("theme");
+
+          const query = window.matchMedia("(prefers-color-scheme: dark)");
+          return query.matches ? "dark" : "light";
+        } catch (error) {
+          // Handle the error (e.g., localStorage is not available)
+          console.error("Error accessing localStorage:", error);
+          return "dark"; // Fallback to a default theme
+        }
+      };
+
+      const rootElement = document.documentElement;
+      const dataTheme = "data-color-mode";
+
+      const currentTheme = getThemePreference();
+      rootElement.setAttribute(dataTheme, currentTheme);
+
+      if (typeof localStorage !== "undefined") {
+        const observer = new MutationObserver(() => {
+          try {
+            const isDark = rootElement.getAttribute(dataTheme) === "dark";
+            localStorage.setItem("theme", isDark ? "dark" : "light");
+          } catch (error) {
+            console.error("Error accessing localStorage:", error);
+            alert(
+              "Your browser's privacy settings prevent us from saving your theme preferences. Please adjust your settings or use a different browser.",
+            );
+          }
+        });
+
+        observer.observe(rootElement, { attributes: true, attributeFilter: [dataTheme] });
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,37 @@
+@font-face {
+  font-family: __FontAccent;
+  src: url("../fonts/mona-sans.woff2") format("woff2");
+  font-display: swap;
+}
+@font-face {
+  font-family: __FontSans;
+  src: url("../fonts/ubuntu.woff2") format("woff2");
+  font-display: swap;
+}
+
+/* == FALLBACK FONT CONFIG == */
+@font-face {
+  font-family: __FontAccent_Fallback;
+  src: system-ui;
+  ascent-override: 79.79%;
+  descent-override: 16.66%;
+  line-gap-override: 0%;
+  size-adjust: 100.26%;
+}
+
+@font-face {
+  font-family: __FontSans_Fallback;
+  src: system-ui;
+  ascent-override: 92.26%;
+  descent-override: 18.71%;
+  line-gap-override: 0%;
+  size-adjust: 101.02%;
+}
+
+.__variable-accent {
+  --font-accent: "__FontAccent", "__FontAccent_Fallback";
+}
+
+.__variable-sans {
+  --font-sans: "__FontSans", "__FontSans_Fallback";
+}
