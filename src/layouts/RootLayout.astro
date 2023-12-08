@@ -4,6 +4,7 @@ import { ViewTransitions } from "astro:transitions";
 import { cn } from "tailwind-variants";
 import "@/styles/fonts.css";
 import Header from "@/components/layout/Header.astro";
+import { BreakpointIndicator } from "@/components/react/Indicator";
 
 interface Props {
   title: string;
@@ -26,7 +27,10 @@ const className = cn("__variable-sans __variable-accent")({ twMerge: true });
     class="bg-white font-sans text-base font-normal text-gray-900 antialiased dark:bg-[#111] dark:text-gray-100"
   >
     <Header />
+
     <slot />
+
+    <BreakpointIndicator />
 
     <script is:inline>
       const getThemePreference = () => {
