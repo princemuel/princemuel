@@ -1,11 +1,20 @@
-import Animate from "tailwindcss-animate";
+// @ts-check
+
+import typography from "@tailwindcss/typography";
+import animate from "tailwindcss-animate";
 import defaultTheme from "tailwindcss/defaultTheme";
 import plugin from "tailwindcss/plugin";
 
 /** @type {import('tailwindcss').Config} */
 export default {
-  darkMode: ["class", '[data-color-mode="dark"]'],
-  content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
+  // darkMode: ["class", '[data-color-mode="dark"]'],
+  darkMode: "class",
+  content: [
+    "./src/pages/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}",
+    "./src/layouts/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}",
+    "./src/components/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}",
+    "./src/content/**/*.{md,mdx}",
+  ],
   corePlugins: {
     float: false,
     container: false,
@@ -25,8 +34,8 @@ export default {
       },
       fontFamily: {
         sans: ["var(--font-sans)", ...defaultTheme.fontFamily.sans],
-        // mono: ["var(--font-mono)", ...defaultTheme.fontFamily.mono],
-        accent: ["var(--font-accent)", ...defaultTheme.fontFamily.sans],
+        mono: ["var(--font-mono)", ...defaultTheme.fontFamily.mono],
+        serif: ["var(--font-serif)", ...defaultTheme.fontFamily.serif],
       },
       screens: {
         xs: "36em", // @media (min-width: 576px) { ... },
@@ -54,8 +63,12 @@ export default {
     },
   },
   plugins: [
-    Animate,
-    plugin(function ({ addUtilities, theme }) {
+    animate,
+    typography(),
+    plugin(function ({ theme, addUtilities, addVariant }) {
+      addVariant("optional", "&:optional");
+      addVariant("hocus", ["&:hover", "&:focus"]);
+      addVariant("inverted-colors", "@media (inverted-colors: inverted)");
       addUtilities({
         ".full-w-bg": {
           boxShadow: "0 0 0 100vmax currentColor, 0 0 2rem currentColor",
@@ -83,13 +96,13 @@ export default {
         var(--breakoutPadding) [content-start] var(--content-size) [content-end]
         var(--breakoutPadding) [breakout-end] var(--fullWPadding) [full-width-end]`,
         },
-        ".container > :not(.tw-breakout, .tw-full-width)": {
+        ".container > :not(.breakout, .full-width)": {
           gridColumn: "content",
         },
-        ".tw-breakout": {
+        ".breakout": {
           gridColumn: "breakout",
         },
-        ".tw-full-width": {
+        ".full-width": {
           gridColumn: "full-width",
         },
       });
