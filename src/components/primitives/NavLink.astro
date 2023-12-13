@@ -1,11 +1,9 @@
 ---
 import type { HTMLAttributes } from "astro/types";
 
-interface Props extends HTMLAttributes<"a"> {
-  className?: string;
-}
+interface Props extends HTMLAttributes<"a"> {}
 
-let { href, className, ...rest } = Astro.props;
+let { href, ...rest } = Astro.props;
 
 const pathname = Astro.url.pathname;
 
@@ -15,15 +13,6 @@ href = href !== "/" && href?.endsWith("/") ? href.slice(0, -1) : href;
 const isActive = href === pathname || pathname?.startsWith(href + "/");
 ---
 
-<a
-  href={href}
-  {...rest}
-  data-id="navlink"
-  aria-current={isActive ? "page" : "false"}
-  class:list={[
-    "flex items-center capitalize transition-colors  aria-[current='page']:text-blue-600",
-    className,
-  ]}
->
+<a href={href} aria-current={isActive ? "page" : "false"} {...rest}>
   <slot />
 </a>
