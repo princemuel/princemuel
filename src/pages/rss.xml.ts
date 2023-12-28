@@ -3,22 +3,21 @@ import type { APIRoute } from "astro";
 
 type PostData = { data: { publishedAt: Date } };
 
-function sortPosts(a: PostData, b: PostData) {
-  return Number(b.data.publishedAt) - Number(a.data.publishedAt);
-}
+const compareFnPosts = (a: PostData, b: PostData) =>
+  Number(b.data.publishedAt) - Number(a.data.publishedAt);
 
-function formatDate(date: Date) {
+const formatDate = (date: Date) => {
   date.setUTCHours(0);
   return date;
-}
+};
 
 export const GET: APIRoute = async (context) => {
   // const posts = await getCollection("posts");
 
   return rss({
-    title: "Astro Learner | Blog",
+    title: "Prince Muel | Blog",
     description: "My journey learning Astro",
-    site: context.site as URL,
+    site: new URL("/", context.site),
     items: [],
     // items: posts.map((item) => ({
     //   title: item.data.title,
