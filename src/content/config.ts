@@ -45,70 +45,77 @@ const socialCollection = defineCollection({
 
 const projectCollection = defineCollection({
   type: "content",
-  schema: z.object({
-    featured: z.boolean(),
-    title: z.string().min(2),
-    alternate: z.string().min(2).optional(),
-    headline: z.string().min(2),
-    description: z.string().min(2),
-    type: z.enum(["project", "article"]).default("project"),
-    order: z.number().min(0).default(0),
-    media: z.object({
-      image: z.string().optional(),
-      social: z.string().optional(),
-      thumbnail: z.string().optional(),
-      video: z.string().optional(),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string().min(2),
+      alternate: z.string().min(2).optional(),
+      headline: z.string().min(2),
+      description: z.string().min(2),
+      type: z.enum(["project", "article"]).default("project"),
+      featured: z.boolean(),
+      order: z.number().min(0).default(0),
+      media: z.object({
+        cover: image()
+          .refine((value) => value.width >= 1080, {
+            message: "Cover picture must be at least 1080 pixels wide!",
+          })
+          .optional(),
+        coverAlt: z.string().optional(),
+        image: z.string().optional(),
+        thumbnail: z.string().optional(),
+        video: z.string().optional(),
+      }),
+      author: AuthorSchema,
+      contributors: z.array(AuthorSchema).optional(),
+      tags: z.array(z.string()),
+      tools: z.array(z.string()),
+      footnote: z.string().optional(),
+      links: z.object({
+        repo: z.string().url(),
+        url: z.string().url(),
+        video: z.string().or(z.string().url()).optional(),
+      }),
+      stars: z.number().min(0).default(0),
+      publishedAt: z
+        .string()
+        .or(z.date())
+        .transform((val) => new Date(val)),
+      status: z.enum(["draft", "preview", "published"]).default("draft"),
     }),
-    author: AuthorSchema,
-    contributors: z.array(AuthorSchema).optional(),
-    tags: z.array(z.string()),
-    tools: z.array(z.string()),
-    footnote: z.string().optional(),
-    links: z.object({
-      repo: z.string().url(),
-      url: z.string().url(),
-      video: z.string().or(z.string().url()).optional(),
-    }),
-    stars: z.number().min(0).default(0),
-    publishedAt: z
-      .string()
-      .or(z.date())
-      .transform((val) => new Date(val)),
-    status: z.enum(["todo", "pending", "done"]).default("done"),
-  }),
 });
 
 const blogCollection = defineCollection({
   type: "content",
-  schema: z.object({
-    title: z.string().min(2),
-    alternate: z.string().min(2).optional(),
-    headline: z.string().min(2),
-    description: z.string().min(2),
-    type: z.enum(["project", "article"]).default("article"),
-    order: z.number().min(0).default(0),
-    language: z.enum(["en", "es", "fr"]).default("en"),
-    media: z.object({
-      image: z.string().optional(),
-      social: z.string().optional(),
-      thumbnail: z.string().optional(),
-      video: z.string().optional(),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string().min(2),
+      alternate: z.string().min(2).optional(),
+      headline: z.string().min(2),
+      description: z.string().min(2),
+      type: z.enum(["project", "article"]).default("article"),
+      order: z.number().min(0).default(0),
+      language: z.enum(["en", "es", "fr"]).default("en"),
+      media: z.object({
+        image: z.string().optional(),
+        social: z.string().optional(),
+        thumbnail: z.string().optional(),
+        video: z.string().optional(),
+      }),
+      author: AuthorSchema,
+      contributors: z.array(AuthorSchema).optional(),
+      tags: z.array(z.string()),
+      footnote: z.string().optional(),
+      publishedAt: z
+        .string()
+        .or(z.date())
+        .transform((val) => new Date(val)),
+      status: z.enum(["draft", "preview", "published"]).default("draft"),
+      canonicalURL: z.string().url(),
     }),
-    author: AuthorSchema,
-    contributors: z.array(AuthorSchema).optional(),
-    tags: z.array(z.string()),
-    footnote: z.string().optional(),
-    publishedAt: z
-      .string()
-      .or(z.date())
-      .transform((val) => new Date(val)),
-    status: z.enum(["draft", "preview", "published"]).default("draft"),
-    canonicalURL: z.string().url(),
-  }),
 });
 
 export const collections = {
-  // projects: projectCollection,
+  projects: projectCollection,
   // articles: blogCollection,
   routes: routeCollection,
   social: socialCollection,
