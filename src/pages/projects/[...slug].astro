@@ -1,0 +1,37 @@
+---
+import ProjectLayout from "@/layouts/ProjectLayout.astro";
+import type { GetStaticPaths, InferGetStaticParamsType, InferGetStaticPropsType } from "astro";
+import { getCollection } from "astro:content";
+
+export const getStaticPaths = (async () => {
+  const entries = await getCollection("projects");
+  return entries.map((entry) => {
+    return {
+      params: { slug: entry.slug },
+      props: {
+        entry,
+        title: entry.data.title,
+        isDraft: entry.data.status === "draft",
+      },
+    };
+  });
+}) satisfies GetStaticPaths;
+
+type Params = InferGetStaticParamsType<typeof getStaticPaths>;
+export type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<ProjectLayout frontmatter={entry.data}>
+  <!-- {
+    headings.map((heading) => (
+      <a href={`#${heading.slug}`} class="block text-xs">
+        {heading.text}
+      </a>
+    ))
+  } -->
+
+  <Content />
+</ProjectLayout>

@@ -1,10 +1,57 @@
 ---
 import SocialLinks from "@/components/templates/SocialLinks.astro";
+import { z } from "astro/zod";
 import RootLayout from "../layouts/RootLayout.astro";
+
+const schema = z.object({
+  name: z.string().min(2),
+  email: z.string().email(),
+  message: z.string().min(2),
+});
+
+let errors = { name: "", email: "", message: "" };
+
+if (Astro.request.method === "POST") {
+  try {
+    // Getting posted data from our contact form
+    const formData = await Astro.request.formData();
+
+    console.log(Object.fromEntries(formData.entries()));
+
+    const result = schema.safeParse(Object.fromEntries(formData.entries()));
+    if (!result.success) throw result.error;
+
+    const msg = {
+      to: "test@example.com", // Change to your recipient
+      from: "text@example.com", // Change to your verified sender
+      replyTo: { email: result.data.email, name: result.data.name },
+      subject: `Contact form submission from ${result.data.name}`,
+      text: result.data.message,
+    };
+
+    console.log(msg);
+  } catch (e) {
+    if (e instanceof z.ZodError) {
+      console.error(JSON.stringify(e.issues, null, 2));
+      errors = e.issues.reduce(
+        (error, issue) => {
+          const path = issue.path[0] as keyof typeof error;
+          error[path] = issue.message;
+          return error;
+        },
+        { name: "", email: "", message: "" },
+      );
+    }
+
+    if (e instanceof Error) {
+      console.error(e.message);
+    }
+  }
+}
 
 const pagetitle = "Prince Muel - Contact Me";
 const description =
-  "If you're looking for a fast, performant, user-friendly, SEO and accessibility compliant website to represent your product or business, want a consultation or you'd just like to say hi 👋, please feel free to reach out. I'd love to hear about what you're working on and how I could help.";
+  "If you're looking for a fast, performant, user-friendly, SEO and accessibility compliant website to represent your product or business, want a consultation or you'd just like to say hi, please feel free to reach out. I'd love to hear about what you're working on and how I could help.";
 ---
 
 <RootLayout title={pagetitle} description={description}>
@@ -12,8 +59,10 @@ const description =
     <h1 id="page-heading" class="sr-only">Want to reach out?</h1>
 
     <section class="container">
-      <div class="gap8 flex flex-col border-y border-zinc-800/20 py-12 md:flex-row">
-        <h2 class="flex-1 font-accent text-3xl font-semibold tracking-tight text-blue-300">
+      <div
+        class="flex flex-col gap-8 border-y border-zinc-800/20 py-12 md:flex-row dark:border-zinc-200/20"
+      >
+        <h2 class="flex-1 font-serif text-4xl font-light tracking-tight text-teal-500">
           Get in Touch
         </h2>
 
@@ -43,43 +92,76 @@ const description =
 
     <section class="container">
       <div class="flex flex-col gap-8 md:flex-row">
-        <h2 class="flex-1 font-accent text-3xl font-semibold tracking-tight text-blue-300">
+        <h2 class="flex-1 font-serif text-4xl font-light tracking-tight text-teal-500">
           Contact Me
         </h2>
 
-        <form class="flex-1 space-y-8">
+        <form method="POST" class="flex-1 space-y-8">
           <div class="space-y-2">
             <label class="block text-sm font-semibold" for="name">Name</label>
             <input
               type="text"
-              class="w-full bg-zinc-800/20 px-5 py-3"
+              class="w-full bg-zinc-800/20 px-5 py-3 dark:bg-zinc-200/20"
               id="name"
+              name="name"
               placeholder="Jane Appleseed"
               autocomplete="name"
             />
+            {
+              errors.name && (
+                <span role="alert" aria-live="polite" id="errors-name" class="text-sm text-red-400">
+                  {errors.name}
+                </span>
+              )
+            }
           </div>
 
           <div class="space-y-2">
             <label class="block text-sm font-semibold" for="email"> Email Address</label>
             <input
               type="email"
-              class="w-full bg-zinc-800/20 px-5 py-3"
+              class="w-full bg-zinc-800/20 px-5 py-3 dark:bg-zinc-200/20"
               id="email"
+              name="email"
               placeholder="email@example.com"
               autocomplete="email"
             />
+            {
+              errors.email && (
+                <span
+                  role="alert"
+                  aria-live="polite"
+                  id="errors-email"
+                  class="text-sm text-red-400"
+                >
+                  {errors.email}
+                </span>
+              )
+            }
           </div>
 
           <div class="space-y-2">
             <label class="block text-sm font-semibold" for="message"> Message</label>
             <textarea
-              name=""
+              name="message"
               class="min-h-min w-full bg-zinc-800/20 px-5 py-3"
               id="message"
               placeholder="How can I help"></textarea>
+            {
+              errors.message && (
+                <span
+                  role="alert"
+                  aria-live="polite"
+                  id="errors-message"
+                  class="text-sm text-red-400"
+                >
+                  {errors.message}
+                </span>
+              )
+            }
           </div>
 
-          <button type="submit" class="inline-flex items-center bg-blue-500 px-5 py-3 text-white"
+          <button type="submit" class="inline-flex items-center bg-teal-500 px-5 py-3 text-white"
             >Send Message</button
           >
         </form>

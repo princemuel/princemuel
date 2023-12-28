@@ -1,10 +1,9 @@
 ---
+import Header from "@/components/layout/Header.astro";
+import { BreakpointIndicator } from "@/components/react/Indicator";
 import "@/styles/globals.css";
 import { ViewTransitions } from "astro:transitions";
 import { cn } from "tailwind-variants";
-import "@/styles/fonts.css";
-import Header from "@/components/layout/Header.astro";
-import { BreakpointIndicator } from "@/components/react/Indicator";
 
 interface Props {
   title: string;
@@ -12,61 +11,81 @@ interface Props {
 }
 
 // const { title, description } = Astro.props;
-
-const className = cn("__variable-sans __variable-accent")({ twMerge: true });
 ---
 
 <!doctype html>
-<html lang="en" dir="ltr" class={className}>
+<html
+  lang="en"
+  dir="ltr"
+  data-darkreader-mode="dynamic"
+  data-darkreader-theme=""
+  class={cn("__sans__ __serif__ __mono__")({ twMerge: true })}
+>
   <head>
     <!-- <Metadata title={title} description={description} /> -->
     <ViewTransitions />
-  </head>
 
+    <style>
+      @font-face {
+        font-family: __FontSerif_Fallback;
+        src: ui-serif;
+        size-adjust: 100%;
+      }
+      @font-face {
+        font-family: __FontSerif;
+        src: url("../fonts/spectral-300.ttf") format("truetype");
+        font-weight: 300;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: __FontSerif;
+        src: url("../fonts/spectral-400.ttf") format("truetype");
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
+      .__serif__ {
+        --font-serif: "__FontSerif", "__FontSerif_Fallback";
+      }
+      @font-face {
+        font-family: __FontSans_Fallback;
+        src: system-ui;
+        size-adjust: 100%;
+      }
+      @font-face {
+        font-family: __FontSans;
+        src: url("../fonts/league-spartan.ttf") format("truetype");
+        font-style: normal;
+        font-display: swap;
+      }
+      .__sans__ {
+        --font-sans: "__FontSans", "__FontSans_Fallback";
+      }
+      @font-face {
+        font-family: __FontMono_Fallback;
+        src: ui-monospace;
+        size-adjust: 100%;
+      }
+      @font-face {
+        font-family: __FontMono;
+        src: url("../fonts/fira-code.ttf") format("truetype");
+        font-style: normal;
+        font-display: swap;
+      }
+      .__mono__ {
+        --font-mono: "__FontMono", "__FontMono_Fallback";
+      }
+    </style>
+  </head>
+  <!-- dark:bg-[#1A181F] -->
   <body
-    class="bg-white font-sans text-base font-normal text-gray-900 antialiased dark:bg-[#111] dark:text-gray-100"
+    class="bg-white font-sans text-lg font-light text-zinc-600 antialiased dark:bg-[#1A181F] dark:text-stone-100"
   >
     <Header />
 
     <slot />
 
     <BreakpointIndicator />
-
-    <script is:inline>
-      const getThemePreference = () => {
-        try {
-          if (localStorage.getItem("theme")) return localStorage.getItem("theme");
-
-          const query = window.matchMedia("(prefers-color-scheme: dark)");
-          return query.matches ? "dark" : "light";
-        } catch (error) {
-          // Handle the error (e.g., localStorage is not available)
-          console.error("Error accessing localStorage:", error);
-          return "dark"; // Fallback to a default theme
-        }
-      };
-
-      const rootElement = document.documentElement;
-      const dataTheme = "data-color-mode";
-
-      const currentTheme = getThemePreference();
-      rootElement.setAttribute(dataTheme, currentTheme);
-
-      if (typeof localStorage !== "undefined") {
-        const observer = new MutationObserver(() => {
-          try {
-            const isDark = rootElement.getAttribute(dataTheme) === "dark";
-            localStorage.setItem("theme", isDark ? "dark" : "light");
-          } catch (error) {
-            console.error("Error accessing localStorage:", error);
-            alert(
-              "Your browser's privacy settings prevent us from saving your theme preferences. Please adjust your settings or use a different browser.",
-            );
-          }
-        });
-
-        observer.observe(rootElement, { attributes: true, attributeFilter: [dataTheme] });
-      }
-    </script>
   </body>
 </html>

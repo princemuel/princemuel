@@ -1,6 +1,4 @@
 @tailwind base;
-@tailwind components;
-@tailwind utilities;
 @layer base {
   html {
     box-sizing: border-box;
@@ -77,3 +75,7 @@
     }
   }
 }
+
+@tailwind components;
+@tailwind utilities;
+/* @tailwind variants */
