@@ -5,13 +5,21 @@ import tailwind from "@astrojs/tailwind";
 import vercel from "@astrojs/vercel/serverless";
 import { defineConfig } from "astro/config";
 
-const SITE_URL =
-  process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "https://princemuel.vercel.app";
 // https://astro.build/config
 export default defineConfig({
-  site: SITE_URL,
   output: "hybrid",
+  site:
+    Boolean(process.env.VERCEL_URL) ?
+      `https://${process.env.VERCEL_URL}`
+    : "https://princemuel.vercel.app",
+  integrations: [
+    sitemap({ changefreq: "daily", priority: 0.7 }),
+    tailwind({ applyBaseStyles: false }),
+    react({ include: ["**/react/*"] }),
+    mdx(),
+  ],
   adapter: vercel({
+    output: "hybrid",
     functionPerRoute: false,
     imageService: true,
     webAnalytics: {
@@ -22,22 +30,12 @@ export default defineConfig({
     },
   }),
 
-  integrations: [
-    tailwind({
-      applyBaseStyles: false,
-    }),
-    react({
-      include: ["**/react/*"],
-    }),
-    mdx(),
-    sitemap({ changefreq: "daily", priority: 0.7 }),
-  ],
-  redirects: {
-    "/twitter": "https://x.com/iamprincemuel",
-    "/linkedin": "https://linkedin.com/in/iamprincemuel",
-    "/youtube": "https://youtube.com/@princemuel",
-    "/github": "https://github.com/princemuel",
-    "/sponsors": "https://github.com/sponsors/princemuel",
-    "/coffee": "",
-  },
+  // redirects: {
+  //   "/twitter": "https://x.com/iamprincemuel",
+  //   "/linkedin": "https://www.linkedin.com/in/princemuel/",
+  //   "/youtube": "https://youtube.com/@princemuel",
+  //   "/github": "https://github.com/princemuel",
+  //   "/sponsor-me": "https://github.com/sponsors/princemuel",
+  //   "/coffee": "https://www.buymeacoffee.com/princemuel",
+  // },
 });

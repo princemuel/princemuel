@@ -7,7 +7,7 @@ import plugin from "tailwindcss/plugin";
 
 /** @type {import('tailwindcss').Config} */
 export default {
-  // darkMode: ["class", '[data-color-mode="dark"]'],
+  // darkMode: ["class", '[data-darkreader-theme="dark"]'],
   darkMode: "class",
   content: [
     "./src/pages/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}",
@@ -65,27 +65,42 @@ export default {
   plugins: [
     animate,
     typography(),
-    plugin(function ({ theme, addUtilities, addVariant }) {
+    plugin(function ({ theme, addUtilities, addVariant, matchUtilities }) {
       addVariant("optional", "&:optional");
       addVariant("hocus", ["&:hover", "&:focus"]);
       addVariant("inverted-colors", "@media (inverted-colors: inverted)");
+
+      matchUtilities({
+        "fluid-cols": (value) => ({
+          gridTemplateColumns: `repeat(auto-fit, minmax(min(100%, ${value}), 1fr))`,
+        }),
+      });
+
+      addUtilities({
+        ".fluid-cols-fit": { "--fluid-cols-repeat": "auto-fit" },
+        ".fluid-cols-fill": { "--fluid-cols-repeat": "auto-fill" },
+      });
+      addUtilities({
+        ".mask-radial-gradient": {
+          maskImage: "radial-gradient(rgba(0, 0, 0, 0.8), transparent 60%)",
+        },
+        ".mask-linear-gradient-to-b": {
+          maskImage: "linear-gradient(to bottom, white 0%, white 33%, transparent 90%)",
+        },
+      });
       addUtilities({
         ".full-w-bg": {
           boxShadow: "0 0 0 100vmax currentColor, 0 0 2rem currentColor",
           clipPath: "inset(0 -100vmax)",
         },
-        ".grid-cols-auto": {
-          "--min": "15rem",
-          gridTemplateColumns: `repeat(auto-fit, minmax(min(100%, var(--min)), 1fr))`,
-        },
 
         ".container": {
           "--padding-inline": theme("spacing.6"),
 
-          "--content-maxW": "70rem",
+          "--content-maxW": "60rem",
           "--content-size": "min(100% - (var(--padding-inline) * 2), var(--content-maxW))",
 
-          "--breakout-maxW": "80rem",
+          "--breakout-maxW": "70rem",
           "--breakout-size": `calc((var(--breakout-maxW) - var(--content-maxW)) / 2)`,
 
           "--fullWPadding": "minmax(var(--padding-inline), 1fr)",
@@ -106,6 +121,11 @@ export default {
           gridColumn: "full-width",
         },
       });
+
+      // ".grid-cols-auto": {
+      //   "--min": "15rem",
+      //   gridTemplateColumns: `repeat(auto-fit, minmax(min(100%, var(--min)), 1fr))`,
+      // },
     }),
   ],
 };
