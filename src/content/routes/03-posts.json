@@ -1,5 +1,5 @@
 {
-  "id": "articles",
-  "text": "articles",
-  "href": "/blog"
+  "id": "posts",
+  "text": "Articles",
+  "href": "/posts"
 }
