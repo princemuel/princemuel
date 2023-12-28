@@ -1,0 +1,9 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+type Props = RequireSome<HTMLAttributes<"a">, "href">;
+---
+
+<a target="_blank" rel="noopener noreferer" {...Astro.props}>
+  <slot />
+</a>

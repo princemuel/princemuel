@@ -1,0 +1,16 @@
+---
+import TOCHeading from "./TOCHeading.astro";
+
+const { headings } = Astro.props;
+const toc = buildToc(headings);
+
+function buildToc(headings) {
+  // ...
+}
+---
+
+<nav class="toc">
+  <ul>
+    {toc.map((heading) => <TOCHeading heading={heading} />)}
+  </ul>
+</nav>
