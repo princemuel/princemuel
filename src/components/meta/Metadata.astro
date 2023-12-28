@@ -3,7 +3,7 @@ type Image = {
   src: string;
   alt: string;
 };
-type SEOMetadata = {
+type IMetadata = {
   name: string;
   title: string;
   description: string;
@@ -11,15 +11,15 @@ type SEOMetadata = {
   canonicalURL?: URL | string | null;
   locale?: string;
 };
-type OpenGraph = Partial<SEOMetadata> & {
+type OpenGraph = Partial<IMetadata> & {
   type?: string;
 };
-type Twitter = Partial<SEOMetadata> & {
+type Twitter = Partial<IMetadata> & {
   handle?: string;
   card?: "summary" | "summary_large_image";
 };
 
-interface Props extends SEOMetadata {
+interface Props extends IMetadata {
   og?: OpenGraph;
   twitter?: Twitter;
 }
