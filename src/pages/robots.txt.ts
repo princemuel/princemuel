@@ -1,7 +1,23 @@
 import type { APIRoute } from "astro";
 
-export const GET: APIRoute = (context) => {
-  return new Response(`User-Agent: *\nAllow: /\n\nSitemap: ${context.site}sitemap-index.html`, {
-    status: 200,
-  });
+export const GET: APIRoute = async (ctx) => {
+  try {
+    const robotsTxt = `# I, for one, welcome our new robotic overlords\n\nUser-Agent: *\nAllow: /\n\nSitemap: ${ctx.site}sitemap-index.html`;
+
+    return new Response(robotsTxt, {
+      status: 200,
+      headers: {
+        "Content-Type": "text/plain; charset=utf-8",
+        "Cache-Control": "public, max-age=604800, s-max-age=604800,stale-while-revalidate=86400",
+        "Access-Control-Allow-Credentials": "true",
+        "Access-Control-Allow-Origin": "*",
+        // "Access-Control-Allow-Methods": "GET,OPTIONS,HEAD",
+        "Access-Control-Allow-Headers":
+          "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, If-Modified-Since, X-Api-Version",
+      },
+    });
+  } catch (error) {
+    console.error(`Error generating robots.txt: ${error}`);
+    return new Response("Internal Server Error", { status: 500 });
+  }
 };
