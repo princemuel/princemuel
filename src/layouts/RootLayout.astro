@@ -1,5 +1,6 @@
 ---
 import Header from "@/components/layout/Header.astro";
+import BaseHead from "@/components/meta/BaseHead.astro";
 import { BreakpointIndicator } from "@/components/react/Indicator";
 import "@/styles/globals.css";
 import { ViewTransitions } from "astro:transitions";
@@ -10,7 +11,7 @@ interface Props {
   description: string;
 }
 
-// const { title, description } = Astro.props;
+const { title, description } = Astro.props;
 ---
 
 <!doctype html>
@@ -22,7 +23,7 @@ interface Props {
   class={cn("__sans__ __serif__ __mono__")({ twMerge: true })}
 >
   <head>
-    <!-- <Metadata title={title} description={description} /> -->
+    <BaseHead title={title} description={description} />
     <ViewTransitions />
 
     <style>
@@ -55,7 +56,13 @@ interface Props {
       }
       @font-face {
         font-family: __FontSans;
-        src: url("../fonts/league-spartan.ttf") format("truetype");
+        src: url("../fonts/UbuntuSansVariableItalic.ttf") format("truetype");
+        font-style: italic;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: __FontSans;
+        src: url("../fonts/UbuntuSansVariableNormal.ttf") format("truetype");
         font-style: normal;
         font-display: swap;
       }
@@ -69,7 +76,13 @@ interface Props {
       }
       @font-face {
         font-family: __FontMono;
-        src: url("../fonts/fira-code.ttf") format("truetype");
+        src: url("../fonts/MonoLisaVariableItalic.woff2") format("woff2");
+        font-style: italic;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: __FontMono;
+        src: url("../fonts/MonoLisaVariableNormal.woff2") format("woff2");
         font-style: normal;
         font-display: swap;
       }
