@@ -5,35 +5,13 @@
   "semi": true,
   "singleQuote": false,
   "quoteProps": "as-needed",
-  "jsxSingleQuote": false,
   "trailingComma": "all",
   "bracketSpacing": true,
   "bracketSameLine": false,
   "arrowParens": "always",
-
   "requirePragma": false,
   "endOfLine": "lf",
   "htmlWhitespaceSensitivity": "css",
   "embeddedLanguageFormatting": "auto",
-  "singleAttributePerLine": false,
-
-  "experimentalTernaries": true,
-  "tailwindConfig": "./tailwind.config.mjs",
-  "tailwindFunctions": ["twcn", "cn", "tv", "cva"],
-  "tailwindAttributes": ["tw"],
-  "plugins": ["prettier-plugin-astro", "prettier-plugin-tailwindcss"],
-  "overrides": [
-    {
-      "files": [".*", "*.json", "*.md", "*.toml", "*.yml"],
-      "options": {
-        "useTabs": false
-      }
-    },
-    {
-      "files": "*.astro",
-      "options": {
-        "parser": "astro"
-      }
-    }
-  ]
+  "singleAttributePerLine": false
 }
