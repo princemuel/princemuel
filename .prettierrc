@@ -19,7 +19,7 @@
 
   "experimentalTernaries": true,
   "tailwindConfig": "./tailwind.config.mjs",
-  "tailwindFunctions": ["twcn", "cn", "tv", "cva"],
+  "tailwindFunctions": ["tw", "cn", "tv", "cva"],
   "tailwindAttributes": ["tw"],
   "plugins": ["prettier-plugin-astro", "prettier-plugin-tailwindcss"],
   "overrides": [
