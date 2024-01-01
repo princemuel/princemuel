@@ -30,6 +30,8 @@ export const GET: APIRoute = async (context) => {
   });
 };
 
+const str = `<atom:link href='https://princemuel.vercel.app/rss.xml' rel='self' type='application/rss+xml' xmlns:atom='http://www.w3.org/2005/Atom' xmlns:content='http://purl.org/rss/1.0/modules/content/'></atom:link>`;
+
 // export const GET: APIRoute = async (context) => {
 // 	const unsortedPosts = [...(await getCollection("blog")), ...(await getCollection("caseStudies"))]
 // 	const posts = unsortedPosts.sort((a, b) => sortPosts(a, b))

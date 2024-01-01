@@ -1,8 +1,8 @@
-import { defineCollection, z } from "astro:content";
+import { defineCollection, z, type SchemaContext } from "astro:content";
 
 const AuthorSchema = z.object({
   name: z.string(),
-  contact: z.string().or(z.string().email()).optional(),
+  contact: z.string().url().or(z.string().email()).optional(),
   avatar: z.string().url().optional(),
 });
 
@@ -43,6 +43,12 @@ const socialCollection = defineCollection({
   }),
 });
 
+export const imageSchema = ({ image }: SchemaContext) =>
+  z.object({
+    image: image(),
+    description: z.string().optional(),
+  });
+
 const projectCollection = defineCollection({
   type: "content",
   schema: ({ image }) =>
@@ -54,27 +60,32 @@ const projectCollection = defineCollection({
       type: z.enum(["project", "article"]).default("project"),
       featured: z.boolean(),
       order: z.number().min(0).default(0),
-      media: z.object({
-        cover: image()
-          .refine((value) => value.width >= 1080, {
-            message: "Cover picture must be at least 1080 pixels wide!",
-          })
-          .optional(),
-        coverAlt: z.string().optional(),
-        image: z.string().optional(),
-        thumbnail: z.string().optional(),
-        video: z.string().optional(),
-      }),
+      media: z
+        .object({
+          cover: image()
+            .refine((value) => value.width >= 1080, {
+              message: "Cover picture must be at least 1080 pixels wide!",
+            })
+            .optional(),
+          coverAlt: z.string().optional(),
+          image: z.string().optional(),
+          thumbnail: z.string().optional(),
+          video: z.string().optional(),
+        })
+        .optional(),
       author: AuthorSchema,
       contributors: z.array(AuthorSchema).optional(),
       tags: z.array(z.string()),
-      tools: z.array(z.string()),
+      tools: z.array(z.string()).optional(),
       footnote: z.string().optional(),
-      links: z.object({
-        repo: z.string().url(),
-        url: z.string().url(),
-        video: z.string().or(z.string().url()).optional(),
-      }),
+      links: z
+        .object({
+          repo: z.string().url().optional(),
+          url: z.string().url().optional(),
+          video: z.string().or(z.string().url()).optional(),
+        })
+        .optional(),
+      permalink: z.string().optional(),
       stars: z.number().min(0).default(0),
       publishedAt: z
         .string()
@@ -84,7 +95,7 @@ const projectCollection = defineCollection({
     }),
 });
 
-const blogCollection = defineCollection({
+const postCollection = defineCollection({
   type: "content",
   schema: ({ image }) =>
     z.object({
@@ -95,12 +106,19 @@ const blogCollection = defineCollection({
       type: z.enum(["project", "article"]).default("article"),
       order: z.number().min(0).default(0),
       language: z.enum(["en", "es", "fr"]).default("en"),
-      media: z.object({
-        image: z.string().optional(),
-        social: z.string().optional(),
-        thumbnail: z.string().optional(),
-        video: z.string().optional(),
-      }),
+      media: z
+        .object({
+          cover: image()
+            .refine((value) => value.width >= 1080, {
+              message: "Cover picture must be at least 1080 pixels wide!",
+            })
+            .optional(),
+          coverAlt: z.string().optional(),
+          image: z.string().optional(),
+          thumbnail: z.string().optional(),
+          video: z.string().optional(),
+        })
+        .optional(),
       author: AuthorSchema,
       contributors: z.array(AuthorSchema).optional(),
       tags: z.array(z.string()),
@@ -109,14 +127,20 @@ const blogCollection = defineCollection({
         .string()
         .or(z.date())
         .transform((val) => new Date(val)),
+      updatedAt: z
+        .string()
+        .or(z.date())
+        .transform((val) => new Date(val))
+        .optional(),
       status: z.enum(["draft", "preview", "published"]).default("draft"),
-      canonicalURL: z.string().url(),
+      permalink: z.string().optional(),
+      canonicalURL: z.string().url().optional(),
     }),
 });
 
 export const collections = {
   projects: projectCollection,
-  // articles: blogCollection,
+  articles: postCollection,
   routes: routeCollection,
   social: socialCollection,
 };
