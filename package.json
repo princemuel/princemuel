@@ -1,10 +1,10 @@
 {
-  "name": "princemuel",
+  "name": "webapp",
   "type": "module",
   "version": "0.2.0",
   "description": "My personal portfolio website built with Astro, Tailwind CSS, MDX and the Github API",
   "private": true,
-  "repository": "git@github.com:princemuel/princemuel.git",
+  "repository": "git@github.com:princemuel/webapp.git",
   "author": "princemuel <vansomecsam@gmail.com>",
   "license": "MIT",
   "scripts": {
