@@ -10,7 +10,7 @@ const routes = await getCollection("routes");
 >
   {
     routes
-      .filter((route) => route.id !== "01-home" && route.id !== "03-posts")
+      .filter((route) => route.id !== "01-home" /*&& route.id !== "03-posts"*/)
       .map((route) => (
         <NavLink
           href={route.data.href}

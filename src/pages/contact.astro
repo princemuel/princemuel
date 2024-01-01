@@ -6,14 +6,13 @@ import RootLayout from "../layouts/RootLayout.astro";
 const schema = z.object({
   name: z.string().min(2),
   email: z.string().email(),
-  message: z.string().min(2),
+  message: z.string().min(20),
 });
 
 let errors = { name: "", email: "", message: "" };
 
 if (Astro.request.method === "POST") {
   try {
-    // Getting posted data from our contact form
     const formData = await Astro.request.formData();
 
     console.log(Object.fromEntries(formData.entries()));
@@ -22,10 +21,10 @@ if (Astro.request.method === "POST") {
     if (!result.success) throw result.error;
 
     const msg = {
-      to: "test@example.com", // Change to your recipient
-      from: "text@example.com", // Change to your verified sender
+      to: "vansomecsam@gmail.com",
+      from: result.data.email,
       replyTo: { email: result.data.email, name: result.data.name },
-      subject: `Contact form submission from ${result.data.name}`,
+      subject: `Contact Form Submission From ${result.data.name}`,
       text: result.data.message,
     };
 
@@ -49,12 +48,12 @@ if (Astro.request.method === "POST") {
   }
 }
 
-const pagetitle = "Prince Muel - Contact Me";
+const title = "Prince Muel - Contact Me";
 const description =
   "If you're looking for a fast, performant, user-friendly, SEO and accessibility compliant website to represent your product or business, want a consultation or you'd just like to say hi, please feel free to reach out. I'd love to hear about what you're working on and how I could help.";
 ---
 
-<RootLayout title={pagetitle} description={description}>
+<RootLayout title={title} description={description}>
   <main id="main" aria-labelledby="page-heading" class="flex min-h-full flex-col gap-20 py-20">
     <h1 id="page-heading" class="sr-only">Want to reach out?</h1>
 

@@ -12,7 +12,6 @@ const allProjects = await getCollection("projects");
       {
         allProjects.map((project) => (
           <div>
-            {/* @ts-expect-error */}
             <Image src={project.data.media.cover} alt={project.data.media.coverAlt} />
             <h2>
               <a href={`/projects/${project.slug}`}>{project.data.title}</a>

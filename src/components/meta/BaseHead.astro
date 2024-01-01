@@ -82,7 +82,7 @@ const seoImage = {
   title={title}
   description={description}
   image={seoImage}
-  twitter={{ handle: Handle }}
-  og={{ type }}
+  twitter={{ name: SiteName, title, description, image: seoImage, canonicalURL, handle: Handle }}
+  og={{ type, name: SiteName, title, description, image: seoImage, canonicalURL }}
   canonicalURL={canonicalURL}
 />

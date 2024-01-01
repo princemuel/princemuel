@@ -1,4 +1,6 @@
 ---
+import { formatCanonicalURL } from "@/helpers/seo";
+
 type Image = {
   src: string;
   alt: string;
@@ -53,19 +55,6 @@ const twitter = {
   card: "summary_large_image",
   ...Astro.props.twitter,
 } satisfies Twitter;
-
-/**
- * Enforce some standard canonical URL formatting across the site.
- */
-function formatCanonicalURL(url: string | URL) {
-  const path = url.toString();
-  const hasQueryParams = path.includes("?");
-  // If there are query params, make sure the URL has no trailing slash
-  if (hasQueryParams) path.replace(/\/?$/, "");
-
-  // otherwise, canonical URL always has a trailing slash
-  return path.replace(/\/?$/, hasQueryParams ? "" : "/");
-}
 ---
 
 {/* Page Metadata  */}
@@ -86,7 +75,6 @@ function formatCanonicalURL(url: string | URL) {
 {twitter.card && <meta name="twitter:card" content={twitter.card} />}
 {twitter.handle && <meta name="twitter:site" content={twitter.handle} />}
 {twitter.handle && <meta name="twitter:creator" content={twitter.handle} />}
-
 <meta name="twitter:title" content={twitter.title} />
 <meta name="twitter:description" content={twitter.description} />
 {twitter.image && <meta name="twitter:image" content={twitter.image.src} />}
