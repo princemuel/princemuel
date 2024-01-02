@@ -1,17 +1,16 @@
 ---
-import type { MDXLayoutProps } from "astro";
 import type { CollectionEntry } from "astro:content";
 import RootLayout from "./Root.astro";
 
-type Props = MDXLayoutProps<CollectionEntry<"articles">["data"]>;
+type Props = {
+  frontmatter: CollectionEntry<"posts">["data"];
+};
 
 const { frontmatter } = Astro.props;
 ---
 
-<!-- <link rel="canonical" href={new URL(url, Astro.site).pathname}>
-<title>{frontmatter.title}</title> -->
 <RootLayout title={frontmatter.title} description={frontmatter?.headline}>
   <main aria-label={frontmatter.title} class="">
-    <slot />
+    <slot name="post__content" />
   </main>
 </RootLayout>
