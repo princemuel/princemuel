@@ -5,7 +5,7 @@ import Metadata from "./MetaTags.astro";
 interface Props {
   title?: string;
   description?: string;
-  image?: { src: string; alt: string };
+  image?: { src?: string; alt?: string };
   canonical?: string | URL | null;
   type?: "website" | "article";
   publishedAt?: string;
@@ -22,8 +22,6 @@ const {
 const title = [Astro.props.title].filter(Boolean).join(" - ");
 ---
 
-<Links />
-
 <Metadata
   title={title}
   description={description}
@@ -33,3 +31,4 @@ const title = [Astro.props.title].filter(Boolean).join(" - ");
   publishedAt={publishedAt}
   canonical={canonical}
 />
+<Links />

@@ -4,7 +4,7 @@ import { formatCanonicalURL } from "@/helpers/seo";
 type Meta = {
   title: string;
   description: string;
-  image?: { src: string; alt: string };
+  image?: { src?: string; alt?: string };
   canonical?: string | URL | null;
   publishedAt?: string;
 };
