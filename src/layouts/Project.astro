@@ -1,17 +1,27 @@
 ---
-import type { MDXLayoutProps } from "astro";
+import type { MarkdownHeading } from "astro";
 import type { CollectionEntry } from "astro:content";
+import type { Props as RootLayoutProps } from "./Root.astro";
 import RootLayout from "./Root.astro";
 
-type Props = MDXLayoutProps<CollectionEntry<"projects">["data"]>;
+type Props = {
+  headings: MarkdownHeading[];
+  frontmatter: CollectionEntry<"projects">["data"];
+};
 
 const { frontmatter } = Astro.props;
+
+const metadata = {
+  title: frontmatter.title,
+  description: frontmatter?.headline,
+  image: { src: "/favicon.svg", alt: frontmatter?.media?.coverAlt },
+  type: "article",
+  publishedAt: frontmatter?.publishedAt?.toISOString(),
+} satisfies RootLayoutProps;
 ---
 
-<!-- <link rel="canonical" href={new URL(url, Astro.site).pathname}>
-<title>{frontmatter.title}</title> -->
-<RootLayout title={frontmatter.title} description={frontmatter?.headline}>
+<RootLayout {...metadata}>
   <main aria-label={frontmatter.title} class="">
-    <slot />
+    <slot name="project__content" />
   </main>
 </RootLayout>
