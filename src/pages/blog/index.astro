@@ -3,7 +3,7 @@ import RootLayout from "@/layouts/Root.astro";
 import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 
-const allArticles = await getCollection("articles");
+const allArticles = await getCollection("posts");
 ---
 
 <RootLayout title="Prince Muel - Blog" description="">
@@ -14,7 +14,7 @@ const allArticles = await getCollection("articles");
           <div>
             <p>
               {post.data.media?.cover ?
-                <Image src={post.data.media.cover} alt={post.data.media?.coverAlt} />
+                <Image src={post.data.media.cover} alt={post.data.media?.coverAlt || ""} />
               : null}
             </p>
 
