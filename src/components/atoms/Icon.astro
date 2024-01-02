@@ -1,0 +1,15 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"svg"> {
+  name: string;
+}
+
+const { class: className, name, ...rest } = Astro.props;
+
+const href = `/sprites.svg#${name}`;
+---
+
+<svg class:list={["size-[1em] fill-current", className]} role="presentation" {...rest}>
+  <use href={href}></use>
+</svg>

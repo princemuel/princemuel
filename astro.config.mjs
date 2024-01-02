@@ -4,13 +4,12 @@ import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
 import vercel from "@astrojs/vercel/serverless";
 import { defineConfig } from "astro/config";
+import IconSpritePlugin from "./plugins/icon-sprite";
 
 // https://astro.build/config
 export default defineConfig({
   site:
-    Boolean(process.env.VERCEL_URL) ?
-      `https://${process.env.VERCEL_URL}`
-    : "https://princemuel.vercel.app",
+    process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "https://princemuel.vercel.app",
   output: "hybrid",
   adapter: vercel({
     output: "hybrid",
@@ -24,6 +23,7 @@ export default defineConfig({
     },
   }),
   experimental: { contentCollectionCache: true },
+  vite: { plugins: [IconSpritePlugin()] },
   markdown: {
     shikiConfig: {
       experimentalThemes: { light: "github-light", dark: "github-dark" },
