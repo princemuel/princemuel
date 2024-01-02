@@ -15,7 +15,7 @@ const projects = defineCollection({
       media: MediaObject(image).optional(),
       tools: z.array(z.string()).optional(),
       updatedAt: ResourceDateTime.optional(),
-      stars: z.number().min(0).default(0),
+      stars: z.number().int().nonnegative().safe().default(0),
       links: ResourceLinks.optional(),
     }),
 });
@@ -27,7 +27,7 @@ const posts = defineCollection({
       type: ResourceType("article"),
       media: MediaObject(image).optional(),
       updatedAt: ResourceDateTime.optional(),
-      likes: z.number().min(0).default(0),
+      likes: z.number().int().nonnegative().safe().default(0),
       canonical: z.string().url().optional(),
       language: z.enum(["en", "es", "fr"]).default("en"),
     }),
@@ -36,9 +36,9 @@ const posts = defineCollection({
 const routes = defineCollection({
   type: "data",
   schema: z.object({
-    id: z.string().min(1),
     text: z.string().min(1),
     href: z.string().min(1),
+    order: z.number().int().nonnegative().safe().default(0),
   }),
 });
 
