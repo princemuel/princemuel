@@ -6,6 +6,7 @@
     "jsxImportSource": "react",
 
     "noErrorTruncation": true,
+    "exactOptionalPropertyTypes": false,
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
