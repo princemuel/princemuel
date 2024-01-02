@@ -15,8 +15,10 @@ export const GET: APIRoute = async (context) => {
   // const posts = await getCollection("posts");
 
   return rss({
-    title: "Prince Muel | Blog",
-    description: "My journey learning Astro",
+    xmlns: { atom: "http://www.w3.org/2005/Atom" },
+    title: "Prince Muel | Blog RSS Feed",
+    description:
+      "My journey learning Astro. If you subscribe to this RSS feed you will receive updates and summaries of my new posts",
     site: new URL("/", context.site),
     items: [],
     // items: posts.map((item) => ({
@@ -46,6 +48,7 @@ const str = `<atom:link href='https://princemuel.vercel.app/rss.xml' rel='self' 
 // 		items: posts.map((item) => ({
 // 			title: item.data.title,
 // 			description: item.data.description,
+//     commentsUrl: "https://github.com/princemuel/webapp/discussions",
 // 			link: "isCaseStudy" in item.data ? `/case-studies/${item.slug}` : `/blog/${item.slug}/`,
 // 			pubDate: formatDate(item.data.publishDate),
 // 		})),
