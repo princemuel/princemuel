@@ -1,9 +1,9 @@
 ---
 import type { MDXLayoutProps } from "astro";
 import type { CollectionEntry } from "astro:content";
-import RootLayout from "./RootLayout.astro";
+import RootLayout from "./Root.astro";
 
-type Props = MDXLayoutProps<CollectionEntry<"articles">["data"]>;
+type Props = MDXLayoutProps<CollectionEntry<"projects">["data"]>;
 
 const { frontmatter } = Astro.props;
 ---

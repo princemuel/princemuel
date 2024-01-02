@@ -1,12 +1,12 @@
 ---
-import SocialLinks from "@/components/templates/SocialLinks.astro";
+import SocialLinks from "@/components/molecules/SocialLinks.astro";
 import { z } from "astro/zod";
-import RootLayout from "../layouts/RootLayout.astro";
+import RootLayout from "../layouts/Root.astro";
 
 const schema = z.object({
   name: z.string().min(2),
   email: z.string().email(),
-  message: z.string().min(20),
+  message: z.string().min(15),
 });
 
 let errors = { name: "", email: "", message: "" };
@@ -15,20 +15,17 @@ if (Astro.request.method === "POST") {
   try {
     const formData = await Astro.request.formData();
 
-    console.log(Object.fromEntries(formData.entries()));
+    const result = schema.parse(Object.fromEntries(formData.entries()));
 
-    const result = schema.safeParse(Object.fromEntries(formData.entries()));
-    if (!result.success) throw result.error;
-
-    const msg = {
+    const message = {
       to: "vansomecsam@gmail.com",
-      from: result.data.email,
-      replyTo: { email: result.data.email, name: result.data.name },
-      subject: `Contact Form Submission From ${result.data.name}`,
-      text: result.data.message,
+      from: result.email,
+      replyTo: { email: result.email, name: result.name },
+      subject: `Contact Form Submission From ${result.name}`,
+      text: result.message,
     };
 
-    console.log(msg);
+    console.log(message);
   } catch (e) {
     if (e instanceof z.ZodError) {
       console.error(JSON.stringify(e.issues, null, 2));
@@ -50,7 +47,7 @@ if (Astro.request.method === "POST") {
 
 const title = "Prince Muel - Contact Me";
 const description =
-  "If you're looking for a fast, performant, user-friendly, SEO and accessibility compliant website to represent your product or business, want a consultation or you'd just like to say hi, please feel free to reach out. I'd love to hear about what you're working on and how I could help.";
+  "Please feel free to reach out to me. I'd love to hear about what you're working on and how I could help.";
 ---
 
 <RootLayout title={title} description={description}>

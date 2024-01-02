@@ -1,6 +1,6 @@
 ---
-import Header from "@/components/layout/Header.astro";
-import BaseHead from "@/components/meta/BaseHead.astro";
+import RootMeta from "@/components/meta/RootMeta.astro";
+import Header from "@/components/organisms/Header.astro";
 import { BreakpointIndicator } from "@/components/react/Indicator";
 import "@/styles/globals.css";
 import { ViewTransitions } from "astro:transitions";
@@ -9,21 +9,24 @@ import { cn } from "tailwind-variants";
 interface Props {
   title: string;
   description: string;
+  image?: { src: string; alt: string };
+  canonical?: string | URL | null;
+  type?: "website" | "article";
+  publishedAt?: string;
 }
 
-const { title, description } = Astro.props;
+const { ...rest } = Astro.props;
 ---
 
 <!doctype html>
 <html
   lang="en"
-  dir="ltr"
+  dir="auto"
   data-darkreader-mode="dynamic"
-  data-darkreader-theme=""
   class={cn("__sans__ __serif__ __mono__")({ twMerge: true })}
 >
   <head>
-    <BaseHead title={title} description={description} />
+    <RootMeta {...rest} />
     <ViewTransitions />
 
     <style>
