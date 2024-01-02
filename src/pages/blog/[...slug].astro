@@ -20,14 +20,6 @@ const { entry } = Astro.props;
 const { Content, headings } = await entry.render();
 ---
 
-<BlogPostLayout frontmatter={entry.data}>
-  {
-    headings.map((heading) => (
-      <a href={`#${heading.slug}`} class="block text-xs">
-        {heading.text}
-      </a>
-    ))
-  }
-
+<BlogPostLayout headings={headings} frontmatter={entry.data}>
   <Content slot="post__content" />
 </BlogPostLayout>
