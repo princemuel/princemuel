@@ -134,7 +134,7 @@ const postCollection = defineCollection({
         .optional(),
       status: z.enum(["draft", "preview", "published"]).default("draft"),
       permalink: z.string().optional(),
-      canonicalURL: z.string().url().optional(),
+      canonical: z.string().url().optional(),
     }),
 });
 

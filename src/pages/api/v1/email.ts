@@ -8,7 +8,7 @@ const resend = new Resend(import.meta.env.RESEND_API_KEY);
 const schema = z.object({
   name: z.string().min(2),
   email: z.string().email(),
-  message: z.string().min(2),
+  message: z.string().min(15),
 });
 
 export const POST: APIRoute = async ({ request }) => {
