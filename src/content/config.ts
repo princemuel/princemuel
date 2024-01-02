@@ -54,7 +54,7 @@ const social = defineCollection({
 
 export const collections = {
   projects: projects,
-  articles: posts,
+  posts: posts,
   routes: routes,
   social: social,
 };
