@@ -3,14 +3,14 @@ import RootLayout from "@/layouts/Root.astro";
 import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 
-const allArticles = await getCollection("posts");
+const allPosts = await getCollection("posts");
 ---
 
 <RootLayout title="Prince Muel - Blog" description="">
   <main class="min-h-full">
     <section class="container">
       {
-        allArticles.map((post) => (
+        allPosts.map((post) => (
           <div>
             <p>
               {post.data.media?.cover ?
@@ -19,7 +19,7 @@ const allArticles = await getCollection("posts");
             </p>
 
             <h2>
-              <a href={`/posts/${post.slug}`}>{post.data.title}</a>
+              <a href={`/blog/${post.slug}`}>{post.data.title}</a>
             </h2>
           </div>
         ))
