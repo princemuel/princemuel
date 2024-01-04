@@ -1,26 +1,34 @@
-import { EmailTemplate } from "@/components/react/EmailTemplate";
+import { ContactFormSchema } from "@/lib/schema";
+import { parse } from "@conform-to/zod";
 import type { APIRoute } from "astro";
-import { z } from "astro:content";
-import { Resend } from "resend";
+// import { Resend } from "resend";
 
-const resend = new Resend(import.meta.env.RESEND_API_KEY);
-
-const schema = z.object({
-  name: z.string().min(2),
-  email: z.string().email(),
-  message: z.string().min(15),
-});
+// const resend = new Resend(import.meta.env.RESEND_API_KEY);
 
 export const POST: APIRoute = async ({ request }) => {
-  try {
-    const body = schema.parse(await request.json());
+  console.log(import.meta.env.RESEND_API_KEY);
 
-    const data = await resend.emails.send({
-      from: `${body.name} <onboarding@resend.dev>`,
-      to: ["delivered@resend.dev"],
-      subject: body.message,
-      react: EmailTemplate({ ...body }),
-    });
+  try {
+    const formData = await request.formData();
+    const submission = parse(formData, { schema: ContactFormSchema });
+
+    if (submission.intent !== "submit") {
+      return Response.json({ status: "idle", submission } as const);
+    }
+    if (!submission.value) {
+      return Response.json({ status: "error", submission } as const, { status: 400 });
+    }
+
+    const body = submission.value;
+
+    // const data = await resend.emails.send({
+    //   from: `${body.name} <onboarding@resend.dev>`,
+    //   to: ["delivered@resend.dev"],
+    //   subject: body.message,
+    //   react: EmailTemplate({ ...body }),
+    // });
+
+    const data = { status: "success", ...body };
 
     return Response.json(data);
   } catch (error) {

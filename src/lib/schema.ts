@@ -42,6 +42,12 @@ export const MetaSchema = () =>
     )
     .default([]);
 
+const ContactFormSchema = z.object({
+  name: z.string({ required_error: "Name is required" }).min(2),
+  email: z.string({ required_error: "Email is required" }).email(),
+  message: z.string({ required_error: "Message is required" }).min(15),
+});
+
 const BaseSchema = z.object({
   title: z.string().min(2),
   alternate: z.string().min(2).optional(),
@@ -63,6 +69,7 @@ const BaseSchema = z.object({
 export {
   AuthorSchema,
   BaseSchema,
+  ContactFormSchema,
   MediaObject,
   ResourceDateTime,
   ResourceLink,

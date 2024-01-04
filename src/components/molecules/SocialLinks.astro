@@ -9,11 +9,21 @@ const links = await getCollection("social");
     links.map((link) => (
       <li
         title={link.data.text}
-        class:list={["h-6 w-6 transition-transform duration-300 ease-out hover:scale-125"]}
+        class:list={["transition-transform duration-300 ease-out hover:scale-125"]}
       >
-        <a href={link.data.href} target="_blank" rel="noopener noreferrer">
+        <a
+          href={link.data.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex size-8 items-center"
+        >
           <span class="sr-only"> {link.data.text}</span>
-          <img loading="lazy" src={link.data.icon} alt="" />
+          <img
+            loading="eager"
+            src={link.data.icon}
+            alt=""
+            class="backdrop-brightness-100 backdrop-contrast-100"
+          />
         </a>
       </li>
     ))

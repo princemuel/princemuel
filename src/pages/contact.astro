@@ -1,13 +1,8 @@
 ---
 import SocialLinks from "@/components/molecules/SocialLinks.astro";
+import { ContactFormSchema } from "@/lib/schema";
 import { z } from "astro/zod";
 import RootLayout from "../layouts/Root.astro";
-
-const schema = z.object({
-  name: z.string({ required_error: "Name is required" }).min(2),
-  email: z.string({ required_error: "Email is required" }).email(),
-  message: z.string({ required_error: "Message is required" }).min(15),
-});
 
 let errors = { name: "", email: "", message: "" };
 
@@ -15,7 +10,7 @@ if (Astro.request.method === "POST") {
   try {
     const formData = await Astro.request.formData();
 
-    const result = schema.parse(Object.fromEntries(formData.entries()));
+    const result = ContactFormSchema.parse(Object.fromEntries(formData.entries()));
 
     const message = {
       to: "vansomecsam@gmail.com",
