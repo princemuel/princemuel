@@ -4,9 +4,9 @@ import { z } from "astro/zod";
 import RootLayout from "../layouts/Root.astro";
 
 const schema = z.object({
-  name: z.string().min(2),
-  email: z.string().email(),
-  message: z.string().min(15),
+  name: z.string({ required_error: "Name is required" }).min(2),
+  email: z.string({ required_error: "Email is required" }).email(),
+  message: z.string({ required_error: "Message is required" }).min(15),
 });
 
 let errors = { name: "", email: "", message: "" };
@@ -58,9 +58,7 @@ const description =
       <div
         class="flex flex-col gap-8 border-y border-zinc-800/20 py-12 md:flex-row dark:border-zinc-200/20"
       >
-        <h2 class="flex-1 font-serif text-4xl font-light tracking-tight text-teal-500">
-          Get in Touch
-        </h2>
+        <h2 class="flex-1 text-4xl font-light tracking-tight text-teal-500">Get in Touch</h2>
 
         <div class="flex flex-1 flex-col gap-6">
           <p>
@@ -88,9 +86,7 @@ const description =
 
     <section class="container">
       <div class="flex flex-col gap-8 md:flex-row">
-        <h2 class="flex-1 font-serif text-4xl font-light tracking-tight text-teal-500">
-          Contact Me
-        </h2>
+        <h2 class="flex-1 text-4xl font-light tracking-tight text-teal-500">Contact Me</h2>
 
         <form method="POST" class="flex-1 space-y-8">
           <div class="space-y-2">
