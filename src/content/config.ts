@@ -1,10 +1,4 @@
-import {
-  BaseSchema,
-  MediaObject,
-  ResourceDateTime,
-  ResourceLinks,
-  ResourceType,
-} from "@/lib/schema";
+import { BaseSchema, MediaObject, ResourceLink, ResourceType } from "@/lib/schema";
 import { defineCollection, z } from "astro:content";
 
 const projects = defineCollection({
@@ -14,9 +8,8 @@ const projects = defineCollection({
       type: ResourceType("project"),
       media: MediaObject(image).optional(),
       tools: z.array(z.string()).optional(),
-      updatedAt: ResourceDateTime.optional(),
       stars: z.number().int().nonnegative().safe().default(0),
-      links: ResourceLinks.optional(),
+      links: z.array(ResourceLink).optional().default([]),
     }),
 });
 
@@ -26,7 +19,6 @@ const posts = defineCollection({
     BaseSchema.extend({
       type: ResourceType("article"),
       media: MediaObject(image).optional(),
-      updatedAt: ResourceDateTime.optional(),
       likes: z.number().int().nonnegative().safe().default(0),
       canonical: z.string().url().optional(),
       language: z.enum(["en", "es", "fr"]).default("en"),
@@ -52,9 +44,12 @@ const social = defineCollection({
   }),
 });
 
-export const collections = {
-  projects: projects,
-  posts: posts,
-  routes: routes,
-  social: social,
-};
+const stacks = defineCollection({
+  type: "content",
+  schema: z.object({
+    name: z.string(),
+    href: z.string().url(),
+  }),
+});
+
+export const collections = { posts, routes, projects, social, stacks };
