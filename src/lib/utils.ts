@@ -6,7 +6,7 @@ export async function getSortedPosts(): Promise<CollectionEntry<"posts">[]> {
     return data.status === "draft" || data.status === "published" || data.status === "preview";
   });
 
-  return resource.toSorted((a, b) => {
+  return resource.sort((a, b) => {
     const dateA = Number(a.data.updatedAt) || Number(a.data.publishedAt);
     const dateB = Number(b.data.updatedAt) || Number(b.data.publishedAt);
 
@@ -24,7 +24,7 @@ export async function getSortedProjects(): Promise<CollectionEntry<"projects">[]
     return data.status === "draft" || data.status === "published" || data.status === "preview";
   });
 
-  return resource.toSorted((a, b) => {
+  return resource.sort((a, b) => {
     const dateA = Number(a.data.updatedAt) || Number(a.data.publishedAt);
     const dateB = Number(b.data.updatedAt) || Number(b.data.publishedAt);
 
