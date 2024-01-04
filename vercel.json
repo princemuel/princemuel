@@ -1,0 +1,61 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "version": 2,
+  "trailingSlash": true,
+  "cleanUrls": true,
+  "outputDirectory": null,
+  "headers": [
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400"
+        }
+      ]
+    },
+    {
+      "source": "/_astro/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "immutable, max-age=31536000"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/twitter/",
+      "destination": "https://x.com/iamprincemuel"
+    },
+    {
+      "source": "/chat/",
+      "destination": "https://discord.gg/grF4GTXXYm"
+    },
+    {
+      "source": "/linkedin/",
+      "destination": "https://www.linkedin.com/in/princemuel"
+    },
+    {
+      "source": "/youtube/",
+      "destination": "https://youtube.com/@princemuel"
+    },
+    {
+      "source": "/github/",
+      "destination": "https://github.com/princemuel"
+    },
+    {
+      "source": "/sponsor-me/",
+      "destination": "https://github.com/sponsors/princemuel"
+    },
+    {
+      "source": "/coffee/",
+      "destination": "https://www.buymeacoffee.com/princemuel"
+    },
+    {
+      "source": "/code-of-conduct/",
+      "destination": "https://github.com/princemuel/webapp/blob/main/CODE_OF_CONDUCT.md"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+---
+import BlogPostLayout from "@/layouts/BlogPost.astro";
+import { getSortedPosts } from "@/lib/utils";
+import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
+
+export const getStaticPaths = (async () => {
+  const entries = await getSortedPosts();
+  return entries.map((entry) => {
+    return {
+      params: { slug: entry.slug },
+      props: { entry },
+    };
+  });
+}) satisfies GetStaticPaths;
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const { entry } = Astro.props;
+const { headings, remarkPluginFrontmatter: remark, Content } = await entry.render();
+---
+
+<BlogPostLayout {remark} {headings} frontmatter={entry.data}>
+  <Content slot="post__content" />
+</BlogPostLayout>

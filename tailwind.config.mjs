@@ -68,6 +68,10 @@ export default {
       addVariant("optional", "&:optional");
       addVariant("hocus", ["&:hover", "&:focus"]);
       addVariant("inverted-colors", "@media (inverted-colors: inverted)");
+      addVariant(
+        "prose-inline-code",
+        '&.prose :where(:not(pre)>code):not(:where([class~="not-prose"] *))',
+      );
 
       matchUtilities({
         "fluid-cols": (value) => ({

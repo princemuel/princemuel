@@ -1,0 +1,29 @@
+---
+import RootLayout from "@/layouts/Root.astro";
+import { getSortedPosts } from "@/lib/utils";
+import { Image } from "astro:assets";
+
+const allPosts = await getSortedPosts();
+---
+
+<RootLayout title="Prince Muel - Blog" description="">
+  <main class="min-h-full">
+    <section class="container">
+      {
+        allPosts.map((post) => (
+          <div>
+            <p>
+              {post.data.media?.cover ?
+                <Image src={post.data.media.cover} alt={post.data.media?.coverAlt || ""} />
+              : null}
+            </p>
+
+            <h2>
+              <a href={`/blog/${post.slug}`}>{post.data.title}</a>
+            </h2>
+          </div>
+        ))
+      }
+    </section>
+  </main>
+</RootLayout>

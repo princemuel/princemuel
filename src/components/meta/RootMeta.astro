@@ -1,0 +1,34 @@
+---
+import Links from "./MetaLinks.astro";
+import Metadata from "./MetaTags.astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: { src?: string; alt?: string };
+  canonical?: string | URL | null;
+  type?: "website" | "article";
+  publishedAt?: string;
+}
+
+const {
+  description = "",
+  type = "website",
+  image = { src: "/favicon.svg", alt: "Prince Muel's Logo" },
+  canonical,
+  publishedAt,
+} = Astro.props;
+
+const title = [Astro.props.title].filter(Boolean).join(" - ");
+---
+
+<Metadata
+  title={title}
+  description={description}
+  image={image}
+  twitter={{ image, canonical }}
+  og={{ type, image, canonical }}
+  publishedAt={publishedAt}
+  canonical={canonical}
+/>
+<Links />

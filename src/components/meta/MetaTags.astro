@@ -1,0 +1,99 @@
+---
+import { formatCanonicalURL } from "@/helpers/seo";
+
+type Meta = {
+  title: string;
+  description: string;
+  image?: { src?: string; alt?: string };
+  canonical?: string | URL | null;
+  publishedAt?: string;
+};
+type OpenGraph = Partial<Meta> & { type?: "website" | "article" };
+type Twitter = Partial<Meta> & {
+  handle?: string;
+  card?: "summary" | "summary_large_image";
+};
+type Props = Meta & { og?: OpenGraph; twitter?: Twitter };
+
+const { title, description, image, canonical, publishedAt } = Astro.props;
+
+const og = {
+  title,
+  description,
+  canonical,
+  image,
+  type: "website",
+  ...Astro.props.og,
+} satisfies OpenGraph;
+
+const twitter = {
+  title,
+  description,
+  canonical,
+  image,
+  handle: "@iamprincemuel",
+  card: "summary_large_image",
+  ...Astro.props.twitter,
+} satisfies Twitter;
+
+const locale = "en";
+const application_name = "Prince Muel's Personal Website";
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="generator" content={Astro.generator} />
+<meta name="application-name" content={application_name} } />
+<title>{title}</title>
+<meta name="title" content={title} />
+<meta name="description" content={description} />
+<meta name="referrer" content="origin-when-cross-origin" />
+<meta name="robots" content="index, follow" />
+<meta
+  name="googlebot"
+  content="index, follow, max-snippet:160, max-image-preview:large, max-video-preview:-1"
+/>
+
+<meta name="creator" content="Prince Muel" />
+<meta name="publisher" content="Prince Muel" />
+<link rel="author" href="https://github.com/princemuel" />
+<meta name="author" content="Prince Muel" />
+
+{canonical && <link rel="canonical" href={formatCanonicalURL(canonical)} />}
+{og.canonical && <meta property="og:url" content={formatCanonicalURL(og.canonical)} />}
+{publishedAt && <meta property="article:published_time" content={publishedAt} />}
+
+{/*  OpenGraph Tags */}
+<meta property="og:title" content={og.title} />
+<meta property="og:description" content={og.description} />
+<meta property="og:type" content={og.type} />
+<meta property="og:site_name" content={application_name} />
+<meta property="og:locale" content={locale} />
+{og.image && <meta property="og:image" content={og.image.src} />}
+{og.image && <meta property="og:image:alt" content={og.image.alt} />}
+
+{/*  Twitter Tags */}
+<meta name="twitter:title" content={twitter.title} />
+<meta name="twitter:description" content={twitter.description} />
+{twitter.card && <meta name="twitter:card" content={twitter.card} />}
+{twitter.handle && <meta name="twitter:site" content={twitter.handle} />}
+{twitter.handle && <meta name="twitter:creator" content={twitter.handle} />}
+{twitter.image && <meta name="twitter:image" content={twitter.image.src} />}
+{twitter.image && <meta name="twitter:image:alt" content={twitter.image.alt} />}
+
+<meta name="color-scheme" content="dark light" />
+<meta name="theme-color" content="#111111" media="(prefers-color-scheme: dark)" />
+<meta name="theme-color" content="#fafaf9" media="(prefers-color-scheme: light)" />
+
+<meta
+  name="keywords"
+  content="princemuel, iamprincemuel, princemuel_cs, pHoeniX-svg, Prince Muel, Samuel Chukwuzube, Software Engineer, Frontend Engineer, Web Developer, React Developer, Coding Instructor, Musician, Educator, React, Node.js, GraphQL, JavaScript, Typescript, Frontend Development, Web Design, UI/UX, Web Applications, Tech Industry, Portfolio, Africa"
+/>
+
+<meta name="format-detection" content="telephone=no, address=no, email=no" />
+<meta name="google-site-verification" content="google" />
+<meta name="y_key" content="yahoo" />
+<meta name="yandex-verification" content="yandex" />
+<meta name="bing" content="msvalidate.01=0" />
+<meta name="me" content="vansomecsam@gmail.com" />
+<meta name="me" content="my-link" />
