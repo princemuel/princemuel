@@ -1,4 +1,5 @@
 ---
+import { tw } from "@/helpers/utils";
 import type { MarkdownHeading } from "astro";
 import type { CollectionEntry } from "astro:content";
 import type { Props as RootLayoutProps } from "./Root.astro";
@@ -7,9 +8,10 @@ import RootLayout from "./Root.astro";
 type Props = {
   headings: MarkdownHeading[];
   frontmatter: CollectionEntry<"posts">["data"];
+  remark: Record<string, any>;
 };
 
-const { frontmatter } = Astro.props;
+const { frontmatter, remark } = Astro.props;
 
 const metadata = {
   title: frontmatter.title,
@@ -22,7 +24,27 @@ const metadata = {
 ---
 
 <RootLayout {...metadata}>
-  <main aria-label={frontmatter.title} class="">
-    <slot name="post__content" />
+  <main
+    aria-label={frontmatter.title}
+    class={tw([
+      "prose prose-stone max-w-full dark:prose-invert",
+      "prose-pre:border prose-inline-code:border",
+      "prose-pre:border-gray-900/20 prose-inline-code:border-gray-900/20",
+      "dark:prose-inline-code:border-gray-100/10",
+      "prose-inline-code:rounded-lg prose-inline-code:font-normal ",
+      "prose-pre:px-6 prose-pre:py-4 prose-inline-code:px-1",
+      "",
+      "",
+      "",
+      "",
+      "",
+    ])}
+  >
+    <div class="container">
+      <p>{remark.duration}</p>
+    </div>
+    <div class="container">
+      <slot name="post__content" />
+    </div>
   </main>
 </RootLayout>

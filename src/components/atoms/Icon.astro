@@ -1,9 +1,7 @@
 ---
 import type { HTMLAttributes } from "astro/types";
 
-interface Props extends HTMLAttributes<"svg"> {
-  name: string;
-}
+interface Props extends HTMLAttributes<"svg"> {}
 
 const { class: className, name, ...rest } = Astro.props;
 

@@ -7,6 +7,7 @@ import RootLayout from "./Root.astro";
 type Props = {
   headings: MarkdownHeading[];
   frontmatter: CollectionEntry<"projects">["data"];
+  remark: Record<string, any>;
 };
 
 const { frontmatter } = Astro.props;

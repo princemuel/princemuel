@@ -22,7 +22,7 @@ status: published
 
 Updating the dependencies of a project can be tedious. However, neglecting to update project dependencies is not a good idea either 😬. In this post, I will share how I usually update my projects, focusing on AstroPaper as an example. Nonetheless, these steps can be applied to other js/node projects as well.
 
-![Forrest Gump Fake Quote](/assets/forrest-gump-quote.webp)
+![Forrest Gump Fake Quote](../../assets/forrest-gump-quote.webp)
 
 ## Table of contents
 
