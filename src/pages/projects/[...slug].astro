@@ -1,11 +1,10 @@
 ---
 import ProjectLayout from "@/layouts/Project.astro";
-import { filterAndSortResource } from "@/lib/utils";
+import { getSortedProjects } from "@/lib/utils";
 import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
-import { getCollection } from "astro:content";
 
 export const getStaticPaths = (async () => {
-  const entries = filterAndSortResource(await getCollection("projects"));
+  const entries = await getSortedProjects();
   return entries.map((entry) => {
     return {
       params: { slug: entry.slug },
@@ -17,9 +16,9 @@ export const getStaticPaths = (async () => {
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
 const { entry } = Astro.props;
-const { Content, headings } = await entry.render();
+const { remarkPluginFrontmatter: remark, headings, Content } = await entry.render();
 ---
 
-<ProjectLayout headings={headings} frontmatter={entry.data}>
+<ProjectLayout {remark} {headings} frontmatter={entry.data}>
   <Content slot="project__content" />
 </ProjectLayout>
