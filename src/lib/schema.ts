@@ -1,17 +1,13 @@
 import { z, type SchemaContext } from "astro:content";
 
+const ResourceLink = z.object({ href: z.string().url(), text: z.string() });
 const ResourceStatus = z.enum(["draft", "preview", "published"]).default("draft");
 const ResourceType = (type: "project" | "article") => z.enum(["project", "article"]).default(type);
+
 const AuthorSchema = z.object({
   name: z.string(),
   contact: z.string().url().or(z.string().email()).optional(),
   avatar: z.string().url().optional(),
-});
-
-const ResourceLinks = z.object({
-  repo: z.string().url().optional(),
-  url: z.string().url().optional(),
-  video: z.string().or(z.string().url()).optional(),
 });
 
 const ResourceDateTime = z
@@ -32,6 +28,20 @@ const MediaObject = (image: SchemaContext["image"]) =>
     video: z.string().optional(),
   });
 
+export const MetaSchema = () =>
+  z
+    .array(
+      z.object({
+        /** Name of the HTML tag to add to `<head>`, e.g. `'meta'`, `'link'`, or `'script'`. */
+        tag: z.enum(["title", "base", "link", "style", "meta", "script", "noscript", "template"]),
+        /** Attributes to set on the tag, e.g. `{ rel: 'stylesheet', href: '/custom.css' }`. */
+        attrs: z.record(z.union([z.string(), z.boolean(), z.undefined()])).default({}),
+        /** Content to place inside the tag (optional). */
+        content: z.string().default(""),
+      }),
+    )
+    .default([]);
+
 const BaseSchema = z.object({
   title: z.string().min(2),
   alternate: z.string().min(2).optional(),
@@ -45,6 +55,8 @@ const BaseSchema = z.object({
   footnote: z.string().optional(),
   status: ResourceStatus,
   publishedAt: ResourceDateTime,
+  updatedAt: ResourceDateTime.optional(),
+  duration: z.string().optional(),
   permalink: z.string().optional(),
 });
 
@@ -53,7 +65,7 @@ export {
   BaseSchema,
   MediaObject,
   ResourceDateTime,
-  ResourceLinks,
+  ResourceLink,
   ResourceStatus,
   ResourceType,
 };
