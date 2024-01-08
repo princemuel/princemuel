@@ -1,4 +1,5 @@
 ---
+import Link from "@/components/atoms/Link.astro";
 import RootLayout from "@/layouts/Root.astro";
 import { getSortedPosts } from "@/lib/utils";
 import { Image } from "astro:assets";
@@ -8,6 +9,15 @@ const allPosts = await getSortedPosts();
 
 <RootLayout title="Prince Muel - Blog" description="">
   <main class="min-h-full">
+    <section class="container">
+      <p>
+        Sometimes general thoughts and rambles but more often these posts follow my experimentation,
+        learning, and front-end development discoveries that were worth a share with the world wide
+        web. All feedback is always welcome. Below is the whole collection, starting with the most
+        recent stuff. Follow my <Link href="/rss.xml">RSS feed</Link> to stay in the loop when new content
+        gets published.
+      </p>
+    </section>
     <section class="container">
       {
         allPosts.map((post) => (
