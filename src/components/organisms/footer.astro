@@ -1,0 +1,11 @@
+---
+const datetime = new Date("2021-06-28");
+---
+
+<footer class="container">
+  <p>
+    © <time datetime={datetime.toISOString()}>{datetime.getFullYear()}-present</time> Prince Muel. All
+    Rights Reserved.
+  </p>
+  <slot />
+</footer>
