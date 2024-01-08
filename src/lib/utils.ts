@@ -1,37 +1,19 @@
-import { getCollection, type CollectionEntry } from "astro:content";
+import { getCollection, type CollectionEntry, type CollectionKey } from "astro:content";
 
-export async function getSortedPosts(): Promise<CollectionEntry<"posts">[]> {
-  const resource = await getCollection("posts", ({ data }) => {
+const status = ["draft", "preview", "published"] as const;
+
+export async function getSortedResource<K extends CollectionKey>(
+  key: K,
+): Promise<CollectionEntry<K>[]> {
+  const resource = await getCollection(key, ({ data }) => {
     if (import.meta.env.PROD) return data.status === "published";
-    return data.status === "draft" || data.status === "published" || data.status === "preview";
+    return status.includes(data.status);
   });
 
   return resource.sort((a, b) => {
-    const dateA = Number(a.data.updatedAt) || Number(a.data.publishedAt);
-    const dateB = Number(b.data.updatedAt) || Number(b.data.publishedAt);
+    const A = Number(a.data.updatedAt) || Number(a.data.publishedAt);
+    const B = Number(b.data.updatedAt) || Number(b.data.publishedAt);
 
-    return (
-      dateA < dateB ? -1
-      : dateA > dateB ? 1
-      : 0
-    );
-  });
-}
-
-export async function getSortedProjects(): Promise<CollectionEntry<"projects">[]> {
-  const resource = await getCollection("projects", ({ data }) => {
-    if (import.meta.env.PROD) return data.status === "published";
-    return data.status === "draft" || data.status === "published" || data.status === "preview";
-  });
-
-  return resource.sort((a, b) => {
-    const dateA = Number(a.data.updatedAt) || Number(a.data.publishedAt);
-    const dateB = Number(b.data.updatedAt) || Number(b.data.publishedAt);
-
-    return (
-      dateA < dateB ? -1
-      : dateA > dateB ? 1
-      : 0
-    );
+    return A < B ? -1 : A > B ? 1 : 0;
   });
 }

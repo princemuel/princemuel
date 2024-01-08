@@ -1,9 +1,9 @@
-import { getSortedPosts } from "@/lib/utils";
+import { getSortedResource } from "@/lib/utils";
 import rss from "@astrojs/rss";
 import type { APIRoute } from "astro";
 
 export const GET: APIRoute = async (context) => {
-  const resources = await getSortedPosts();
+  const resource = await getSortedResource("posts");
 
   return rss({
     xmlns: {
@@ -14,7 +14,7 @@ export const GET: APIRoute = async (context) => {
     description:
       "My Personal Website scaffolded with Astro. If you subscribe to this RSS feed you will receive updates and summaries of my new posts",
     site: new URL("/", context.site),
-    items: (resources ?? []).map((item) => {
+    items: (resource ?? []).map((item) => {
       return {
         title: item.data.title,
         description: item.data.description,

@@ -1,10 +1,10 @@
 ---
 import BlogPostLayout from "@/layouts/blog.astro";
-import { getSortedPosts } from "@/lib/utils";
+import { getSortedResource } from "@/lib/utils";
 import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
 
 export const getStaticPaths = (async () => {
-  const entries = await getSortedPosts();
+  const entries = await getSortedResource("posts");
   return entries.map((entry) => {
     return {
       params: { slug: entry.slug },
