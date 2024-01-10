@@ -11,9 +11,9 @@ invariant(to, "Invaild URL. Expected %s", "string");
 const href = to?.toString();
 
 const props =
-  href?.startsWith("/") || href?.startsWith("#") ?
-    { ...rest }
-  : { ...rest, target: "_blank", rel: "noopener noreferrer" };
+  href?.startsWith("/") || href?.startsWith("#")
+    ? { ...rest }
+    : { ...rest, target: "_blank", rel: "noopener noreferrer" };
 ---
 
 <a href={href} {...props}>
