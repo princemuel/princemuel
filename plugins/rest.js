@@ -24,7 +24,7 @@ import path from "node:path";
  *
  * @returns {IconSpritePlugin}
  */
-export default function IconSpritePlugin() {
+export function IconSpritePlugin() {
   /**
    * Generate the SVG sprite during build.
    *
