@@ -2,7 +2,10 @@ export function BreakpointIndicator() {
   if (import.meta.env.PROD) return null;
 
   return (
-    <div className="fixed bottom-4 right-4 z-[99] flex h-10 w-10 animate-pulse items-center justify-center rounded-full bg-gray-800 p-8 font-mono text-base text-white">
+    <div
+      aria-hidden
+      className="fixed bottom-4 right-4 z-[99] flex h-10 w-10 animate-pulse items-center justify-center rounded-full bg-gray-800 p-8 font-mono text-base text-white"
+    >
       <p className="block 3xs:hidden">base</p>
       <p className="hidden 3xs:block 2xs:hidden">3xs</p>
       <p className="hidden 2xs:block xs:hidden">2xs</p>

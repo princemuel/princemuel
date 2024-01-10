@@ -9,9 +9,9 @@ import plugin from "tailwindcss/plugin";
 export default {
   darkMode: ["class", '[data-darkreader-theme="dark"]'],
   content: [
-    "./src/pages/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}",
-    "./src/layouts/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}",
-    "./src/components/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}",
+    "./src/pages/**/*.{astro,html,js,jsx,ts,tsx,md,mdx,svelte,vue}",
+    "./src/layouts/**/*.{astro,html,js,jsx,ts,tsx,md,mdx,svelte,vue}",
+    "./src/components/**/*.{astro,html,js,jsx,ts,tsx,md,mdx,svelte,vue}",
     "./src/content/**/*.{md,mdx}",
   ],
   corePlugins: {

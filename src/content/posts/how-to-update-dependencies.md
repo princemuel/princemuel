@@ -16,6 +16,7 @@ tags:
 author:
   name: Prince Muel
   contact: vansomecsam@email.com
+  avatar: https://github.com/princemuel.png
 publishedAt: 2023-07-20T15:33:05.569Z
 status: published
 ---

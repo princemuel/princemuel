@@ -1,0 +1,26 @@
+---
+import { getCollection } from "astro:content";
+import ThemeSwitch from "../atoms/theme-toggle.astro";
+import DesktopNav from "../molecules/nav.desktop.astro";
+import MobileNav from "../react/nav.mobile";
+
+const response = await getCollection("routes");
+
+const excludedRoutes = ["resources", "snippets"] as const;
+
+const routes = response
+  .filter((route) => !excludedRoutes.includes(route.id))
+  .sort((a, b) => a.data.order - b.data.order);
+---
+
+<header class="sticky top-0 transition-all ease-in-out container">
+  <div class="flex items-center justify-between md:py-6">
+    <MobileNav routes={routes} client:visible>
+      <ThemeSwitch class="pointer-events-auto block md:hidden" slot="toggle" />
+    </MobileNav>
+
+    <DesktopNav routes={routes} />
+
+    <ThemeSwitch class="pointer-events-auto hidden md:block" />
+  </div>
+</header>

@@ -1,10 +1,10 @@
 ---
-import BlogPostLayout from "@/layouts/BlogPost.astro";
-import { getSortedPosts } from "@/lib/utils";
+import ProjectLayout from "@/layouts/project.astro";
+import { getSortedResource } from "@/lib/utils";
 import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
 
 export const getStaticPaths = (async () => {
-  const entries = await getSortedPosts();
+  const entries = await getSortedResource("projects");
   return entries.map((entry) => {
     return {
       params: { slug: entry.slug },
@@ -16,9 +16,9 @@ export const getStaticPaths = (async () => {
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
 const { entry } = Astro.props;
-const { headings, remarkPluginFrontmatter: remark, Content } = await entry.render();
+const { remarkPluginFrontmatter: remark, headings, Content } = await entry.render();
 ---
 
-<BlogPostLayout {remark} {headings} frontmatter={entry.data}>
-  <Content slot="post__content" />
-</BlogPostLayout>
+<ProjectLayout {remark} {headings} frontmatter={entry.data}>
+  <Content slot="content" />
+</ProjectLayout>

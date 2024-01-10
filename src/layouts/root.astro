@@ -1,8 +1,8 @@
 ---
-import RootMeta from "@/components/meta/RootMeta.astro";
-import Footer from "@/components/organisms/Footer.astro";
-import Header from "@/components/organisms/Header.astro";
-import { BreakpointIndicator } from "@/components/react/Indicator";
+import RootMeta from "@/components/meta/root.astro";
+import Footer from "@/components/organisms/footer.astro";
+import Header from "@/components/organisms/header.astro";
+import { BreakpointIndicator } from "@/components/react/indicator";
 import { tw } from "@/helpers/utils";
 import "@/styles/globals.css";
 import { ViewTransitions } from "astro:transitions";
@@ -25,6 +25,7 @@ const { ...rest } = Astro.props;
   lang="en"
   dir="auto"
   data-darkreader-mode="dynamic"
+  data-darkreader-theme="dark"
   class={cn("__sans__ __serif__ __mono__")({ twMerge: true })}
 >
   <head>
@@ -39,14 +40,14 @@ const { ...rest } = Astro.props;
       }
       @font-face {
         font-family: __FontSerif;
-        src: url("/fonts/spectral-300.ttf") format("truetype");
+        src: url("../fonts/spectral-300.ttf") format("truetype");
         font-weight: 300;
         font-style: normal;
         font-display: swap;
       }
       @font-face {
         font-family: __FontSerif;
-        src: url("/fonts/spectral-400.ttf") format("truetype");
+        src: url("../fonts/spectral-400.ttf") format("truetype");
         font-weight: 400;
         font-style: normal;
         font-display: swap;
@@ -61,33 +62,33 @@ const { ...rest } = Astro.props;
       }
       /* @font-face {
         font-family: __FontSans;
-        src: url("/fonts/UbuntuSansVariableItalic.ttf") format("truetype");
+        src: url("../fonts/UbuntuSansVariableItalic.ttf") format("truetype");
         font-style: italic;
         font-display: swap;
       } */
       /* @font-face {
         font-family: __FontSans;
-        src: url("/fonts/UbuntuSansVariableNormal.ttf") format("truetype");
+        src: url("../fonts/UbuntuSansVariableNormal.ttf") format("truetype");
         font-style: normal;
         font-display: swap;
       } */
       @font-face {
         font-family: __FontSans;
-        src: url("/fonts/WotfardRegular.woff2") format("woff2");
+        src: url("../fonts/WotfardRegular.woff2") format("woff2");
         font-weight: 400;
         font-display: swap;
       }
 
       @font-face {
         font-family: __FontSans;
-        src: url("/fonts/WotfardMedium.woff2") format("woff2");
+        src: url("../fonts/WotfardMedium.woff2") format("woff2");
         font-weight: 500;
         font-display: swap;
       }
 
       @font-face {
         font-family: __FontSans;
-        src: url("/fonts/WotfardSemiBold.woff2") format("woff2");
+        src: url("../fonts/WotfardSemiBold.woff2") format("woff2");
         font-weight: 600;
         font-display: swap;
       }
@@ -102,13 +103,13 @@ const { ...rest } = Astro.props;
       }
       @font-face {
         font-family: __FontMono;
-        src: url("/fonts/MonoLisaVariableItalic.woff2") format("woff2");
+        src: url("../fonts/MonoLisaVariableItalic.woff2") format("woff2");
         font-style: italic;
         font-display: swap;
       }
       @font-face {
         font-family: __FontMono;
-        src: url("/fonts/MonoLisaVariableNormal.woff2") format("woff2");
+        src: url("../fonts/MonoLisaVariableNormal.woff2") format("woff2");
         font-style: normal;
         font-display: swap;
       }
@@ -117,7 +118,7 @@ const { ...rest } = Astro.props;
       }
     </style>
   </head>
-  <!-- dark:bg-[#1A181F] -->
+
   <body
     class:list={tw([
       "font-sans text-lg font-normal antialiased dark:bg-red-100",
@@ -128,19 +129,6 @@ const { ...rest } = Astro.props;
     <Header />
     <slot />
     <Footer />
-
     <BreakpointIndicator />
-
-    <style is:global>
-      :where([data-darkreader-theme="dark"] .astro-code),
-      :where([data-darkreader-theme="dark"] .astro-code span) {
-        color: var(--shiki-dark) !important;
-        background-color: var(--shiki-dark-bg) !important;
-        /* Optional, if you also want font styles */
-        /* font-style: var(--shiki-dark-font-style) !important;
-        font-weight: var(--shiki-dark-font-weight) !important;
-        text-decoration: var(--shiki-dark-text-decoration) !important; */
-      }
-    </style>
   </body>
 </html>

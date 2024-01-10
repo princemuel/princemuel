@@ -4,7 +4,8 @@ alternate: Customizing The AstroPaper theme color schemes
 type: article
 featured: false
 headline: Now you can customize the AstroPaper theme color schemes
-description: How you can enable/disable light & dark mode; and customize color schemes
+description:
+  How you can enable/disable light & dark mode; and customize color schemes
   of AstroPaper theme.
 tags:
   - color-schemes
@@ -12,6 +13,7 @@ tags:
 author:
   name: Prince Muel
   contact: vansomecsam@email.com
+  avatar: https://github.com/princemuel.png
 publishedAt: 2022-09-25T15:20:35Z
 status: published
 ---
