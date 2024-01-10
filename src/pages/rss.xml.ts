@@ -1,51 +1,39 @@
+import { getSortedResource } from "@/lib/utils";
 import rss from "@astrojs/rss";
 import type { APIRoute } from "astro";
 
-type PostData = { data: { publishedAt: Date } };
-
-const compareFnPosts = (a: PostData, b: PostData) =>
-  Number(b.data.publishedAt) - Number(a.data.publishedAt);
-
-const formatDate = (date: Date) => {
-  date.setUTCHours(0);
-  return date;
-};
-
 export const GET: APIRoute = async (context) => {
-  // const posts = await getCollection("posts");
+  const resource = await getSortedResource("posts");
 
   return rss({
-    title: "Prince Muel | Blog",
-    description: "My journey learning Astro",
+    xmlns: {
+      atom: "http://www.w3.org/2005/Atom",
+      media: "http://search.yahoo.com/mrss/",
+    },
+    title: "Prince Muel | Blog RSS Feed",
+    description:
+      "My Personal Website scaffolded with Astro. If you subscribe to this RSS feed you will receive updates and summaries of my new posts",
     site: new URL("/", context.site),
-    items: [],
-    // items: posts.map((item) => ({
-    //   title: item.data.title,
-    //   description: item.data.description,
-    //   link: `/posts/${item.slug}/`,
-    //   pubDate: item.data.publishedAt,
-    // })),
-    customData: `<language>en-US</language>`,
+    items: (resource ?? []).map((item) => {
+      return {
+        title: item.data.title,
+        description: item.data.description,
+        link: `/blog/${item.slug}/`,
+        pubDate: item.data.publishedAt,
+        categories: item.data.tags,
+        commentsUrl: "https://github.com/princemuel/webapp/discussions",
+        customData: `<media:content
+        type="image/${item.data.media?.cover?.format == "jpg" ? "jpeg" : "png"}"
+        width="${item.data.media?.cover?.width}"
+        height="${item.data.media?.cover?.height}"
+        medium="image"
+        url="${context.site}${item.data.media?.cover?.src || ""}" />
+    `,
+      };
+    }),
+    customData: `<atom:link href="${context.site}rss.xml" rel='self'
+    type='application/rss+xml' xmlns:atom='http://www.w3.org/2005/Atom'
+    xmlns:content='http://purl.org/rss/1.0/modules/content/'></atom:link>`,
     stylesheet: "/styles.xsl",
   });
 };
-
-// export const GET: APIRoute = async (context) => {
-// 	const unsortedPosts = [...(await getCollection("blog")), ...(await getCollection("caseStudies"))]
-// 	const posts = unsortedPosts.sort((a, b) => sortPosts(a, b))
-
-// 	return rss({
-// 		// The RSS Feed title, description, and custom metadata.
-// 		title: "The Astro Blog",
-// 		// See "Styling" section below
-// 		description: "News and updates about Astro.",
-// 		site: context.site!.href,
-// 		// The list of items for your RSS feed, sorted.
-// 		items: posts.map((item) => ({
-// 			title: item.data.title,
-// 			description: item.data.description,
-// 			link: "isCaseStudy" in item.data ? `/case-studies/${item.slug}` : `/blog/${item.slug}/`,
-// 			pubDate: formatDate(item.data.publishDate),
-// 		})),
-// 	})
-// }

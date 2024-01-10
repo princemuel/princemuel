@@ -1,23 +1,27 @@
 {
   "editor.tabSize": 2,
-  "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
+
   "editor.inlineSuggest.enabled": true,
   "editor.wordWrap": "bounded",
   "editor.wordWrapColumn": 96,
   "editor.codeActionsOnSave": {
-    "source.organizeImports": "explicit",
+    "mode": "explicit",
     "source.addMissingImports": "explicit",
-    "source.fixAll": "explicit",
-    "source.fixAll.eslint": "never"
+    "source.organizeImports": "explicit",
+    "source.fixAll": "explicit"
   },
-  "editor.formatOnSave": true,
-
+  "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
+  "eslint.codeActionsOnSave.mode": "problems",
+  "eslint.lintTask.enable": true,
   "eslint.codeAction.showDocumentation": {
     "enable": true
   },
-
+  "tailwindCSS.rootFontSize": 16,
+  "tailwindCSS.experimental.classRegex": [
+    ["tv\\((([^()]*|\\([^()]*\\))*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]
+  ],
   "dotenv.enableAutocloaking": false,
-
   "typescript.tsdk": "node_modules/typescript/lib",
-  "typescript.enablePromptUseWorkspaceTsdk": true
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "autoimport.doubleQuotes": false
 }

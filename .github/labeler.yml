@@ -1,0 +1,21 @@
+root:
+  - changed-files:
+      - any-glob-to-any-file: "*"
+
+Update:
+  - changed-files:
+      - any-glob-to-any-file: "**"
+
+Documentation:
+  - changed-files:
+      - any-glob-to-any-file: "README.md"
+
+Content":
+  - changed-files:
+      - any-glob-to-any-file: "**/content/*"
+
+feature:
+  - head-branch: ["^staging", "staging"]
+
+release:
+  - base-branch: "main"

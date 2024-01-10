@@ -7,12 +7,11 @@ import plugin from "tailwindcss/plugin";
 
 /** @type {import('tailwindcss').Config} */
 export default {
-  // darkMode: ["class", '[data-darkreader-theme="dark"]'],
-  darkMode: "class",
+  darkMode: ["class", '[data-darkreader-theme="dark"]'],
   content: [
-    "./src/pages/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}",
-    "./src/layouts/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}",
-    "./src/components/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}",
+    "./src/pages/**/*.{astro,html,js,jsx,ts,tsx,md,mdx,svelte,vue}",
+    "./src/layouts/**/*.{astro,html,js,jsx,ts,tsx,md,mdx,svelte,vue}",
+    "./src/components/**/*.{astro,html,js,jsx,ts,tsx,md,mdx,svelte,vue}",
     "./src/content/**/*.{md,mdx}",
   ],
   corePlugins: {
@@ -69,6 +68,10 @@ export default {
       addVariant("optional", "&:optional");
       addVariant("hocus", ["&:hover", "&:focus"]);
       addVariant("inverted-colors", "@media (inverted-colors: inverted)");
+      addVariant(
+        "prose-inline-code",
+        '&.prose :where(:not(pre)>code):not(:where([class~="not-prose"] *))',
+      );
 
       matchUtilities({
         "fluid-cols": (value) => ({

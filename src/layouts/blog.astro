@@ -1,0 +1,93 @@
+---
+import Prose from "@/components/atoms/prose.astro";
+import type { MarkdownHeading } from "astro";
+import type { CollectionEntry } from "astro:content";
+import type { Props as RootLayoutProps } from "./root.astro";
+import RootLayout from "./root.astro";
+type Props = {
+  headings: MarkdownHeading[];
+  frontmatter: CollectionEntry<"posts">["data"];
+  remark: Record<string, any>;
+};
+
+const { frontmatter } = Astro.props;
+
+const metadata = {
+  title: frontmatter.title,
+  description: frontmatter?.headline,
+  image: { src: "/favicon.svg", alt: frontmatter?.media?.coverAlt },
+  canonical: frontmatter.canonical,
+  type: "article",
+  publishedAt: frontmatter?.publishedAt?.toISOString(),
+} satisfies RootLayoutProps;
+---
+
+<RootLayout {...metadata}>
+  <Prose as="main" aria-labelledby="title">
+    <!-- <div class="bg-gradient-to-t from-white to-gray-100">
+      <div class="relative min-h-[80vh] py-12">
+        <Pattern class="bottom-1/4 left-16 top-10 hidden w-80 opacity-20 lg:block" />
+        <Pattern class="bottom-1/4 right-16 top-10 hidden w-80 opacity-20 lg:block" />
+
+        <motion.div
+          initial={{ y: -50, opacity: 0, filter: "grayscale(100%)" }}
+          animate={{ y: 0, opacity: 1, filter: "grayscale(0%)" }}
+          transition={{ duration: 0.8 }}
+          client:load
+        >
+          <div class="mx-auto w-48 pb-5 drop-shadow-2xl lg:pb-10" set:html={thumbnail} />
+        </motion.div>
+
+        <motion.header
+          className="text-center text-xl"
+          initial={{ y: -50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.25 }}
+          client:load
+        >
+           <PostMeta
+          category={post.frontmatter.category}
+          publishedAt={publishedAt}
+        />
+           <PostTitle title={post.frontmatter.title} />
+
+
+          <div
+            class="not-prose mt-16 inline-grid grid-cols-[2fr_1fr_auto_1fr_2fr] items-center gap-6 text-2xl font-medium"
+          >
+            <hr class="border border-gray-200" />
+            <Link href="https://twitter.com/princemuel" class="p-5 text-gray-500 hocus:text-black">
+              <FaTwitter />
+            </Link>
+
+
+            <img
+              src={"/placeholder.jpg"}
+              alt="Prince Muel"
+              class="size-14 rounded-full text-xs shadow-lg"
+            />
+
+            <Link href="https://github.com/princemuel" class="p-5 text-gray-500 hocus:text-black">
+              <FaGithub />
+            </Link>
+            <hr class="border border-gray-200" />
+          </div>
+        </motion.header>
+
+
+      </div>
+    </div> -->
+
+    <div class="container">
+      <h1 class="text-5xl" id="title">{frontmatter.title}</h1>
+    </div>
+
+    <!-- <div class="container">
+      <p>{remark.duration}</p>
+    </div> -->
+
+    <article class="container">
+      <slot name="content" />
+    </article>
+  </Prose>
+</RootLayout>

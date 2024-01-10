@@ -1,9 +1,9 @@
 ---
-import RootLayout from "@/layouts/RootLayout.astro";
+import RootLayout from "@/layouts/root.astro";
+import { getSortedResource } from "@/lib/utils";
 import { Image } from "astro:assets";
-import { getCollection } from "astro:content";
 
-const allProjects = await getCollection("projects");
+const allProjects = await getSortedResource("projects");
 ---
 
 <RootLayout title="Prince Muel - Projects" description="">
@@ -12,8 +12,11 @@ const allProjects = await getCollection("projects");
       {
         allProjects.map((project) => (
           <div>
-            {/* @ts-expect-error */}
-            <Image src={project.data.media.cover} alt={project.data.media.coverAlt} />
+            <p>
+              {project.data.media?.cover ? (
+                <Image src={project.data.media.cover} alt={project.data.media?.coverAlt || ""} />
+              ) : null}
+            </p>
             <h2>
               <a href={`/projects/${project.slug}`}>{project.data.title}</a>
             </h2>

@@ -2,9 +2,9 @@ import type { APIRoute } from "astro";
 
 export const GET: APIRoute = async (ctx) => {
   try {
-    const robotsTxt = `# I, for one, welcome our new robotic overlords\n\nUser-Agent: *\nAllow: /\n\nSitemap: ${ctx.site}sitemap-index.html`;
+    const body = `# I, for one, welcome our new robotic overlords\n\nUser-Agent: *\nAllow: /\nDisallow: /private/\n\nSitemap: ${ctx.site}sitemap-index.html`;
 
-    return new Response(robotsTxt, {
+    return new Response(body, {
       status: 200,
       headers: {
         "Content-Type": "text/plain; charset=utf-8",

@@ -1,0 +1,39 @@
+---
+import Link from "@/components/atoms/link.astro";
+import RootLayout from "@/layouts/root.astro";
+import { getSortedResource } from "@/lib/utils";
+import { Image } from "astro:assets";
+
+const allPosts = await getSortedResource("posts");
+---
+
+<RootLayout title="Prince Muel - Blog" description="">
+  <main class="min-h-full">
+    <section class="container">
+      <p>
+        Sometimes general thoughts and rambles but more often these posts follow my experimentation,
+        learning, and front-end development discoveries that were worth a share with the world wide
+        web. All feedback is always welcome. Below is the whole collection, starting with the most
+        recent stuff. Follow my <Link href="/rss.xml">RSS feed</Link> to stay in the loop when new content
+        gets published.
+      </p>
+    </section>
+    <section class="container">
+      {
+        allPosts.map((post) => (
+          <div>
+            <p>
+              {post.data.media?.cover ? (
+                <Image src={post.data.media.cover} alt={post.data.media?.coverAlt || ""} />
+              ) : null}
+            </p>
+
+            <h2>
+              <a href={`/blog/${post.slug}`}>{post.data.title}</a>
+            </h2>
+          </div>
+        ))
+      }
+    </section>
+  </main>
+</RootLayout>

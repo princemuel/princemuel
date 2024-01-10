@@ -1,13 +1,13 @@
 ---
-name: Bug report
-about: Create a report to help us improve
+name: "Bug Report 🐛"
+about: Report an issue or possible bug with the functionality of the site
 title: ""
-labels: ""
+labels: "bug"
 assignees: ""
 ---
 
-**Describe the bug**
-A clear and concise description of what the bug is.
+**📝 Describe the bug**
+Please make a clear and concise description of what the bug is.
 
 **To Reproduce**
 Steps to reproduce the behavior:
@@ -17,16 +17,18 @@ Steps to reproduce the behavior:
 3. Scroll down to '....'
 4. See error
 
-**Expected behavior**
+**"🤔 Expected behavior"**
 A clear and concise description of what you expected to happen.
 
-**Screenshots**
+When on this page, I expected
+
+**🖥️ Screenshots**
 If applicable, add screenshots to help explain your problem.
 
 **Desktop (please complete the following information):**
 
 - OS: [e.g. iOS]
-- Browser [e.g. chrome, safari]
+- Browser [e.g. Chrome XXX, Safari XXX]
 - Version [e.g. 22]
 
 **Smartphone (please complete the following information):**
@@ -36,5 +38,5 @@ If applicable, add screenshots to help explain your problem.
 - Browser [e.g. stock browser, safari]
 - Version [e.g. 22]
 
-**Additional context**
-Add any other context about the problem here.
+**"📄 Additional Information"**
+Any additional information that may be relevant for the issue.

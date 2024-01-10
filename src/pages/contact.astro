@@ -1,35 +1,26 @@
 ---
-import SocialLinks from "@/components/templates/SocialLinks.astro";
+import SocialLinks from "@/components/molecules/social.astro";
+import { ContactFormSchema } from "@/lib/schema";
 import { z } from "astro/zod";
-import RootLayout from "../layouts/RootLayout.astro";
-
-const schema = z.object({
-  name: z.string().min(2),
-  email: z.string().email(),
-  message: z.string().min(2),
-});
+import RootLayout from "../layouts/root.astro";
 
 let errors = { name: "", email: "", message: "" };
 
 if (Astro.request.method === "POST") {
   try {
-    // Getting posted data from our contact form
     const formData = await Astro.request.formData();
 
-    console.log(Object.fromEntries(formData.entries()));
+    const result = ContactFormSchema.parse(Object.fromEntries(formData.entries()));
 
-    const result = schema.safeParse(Object.fromEntries(formData.entries()));
-    if (!result.success) throw result.error;
-
-    const msg = {
-      to: "test@example.com", // Change to your recipient
-      from: "text@example.com", // Change to your verified sender
-      replyTo: { email: result.data.email, name: result.data.name },
-      subject: `Contact form submission from ${result.data.name}`,
-      text: result.data.message,
+    const message = {
+      to: "vansomecsam@gmail.com",
+      from: result.email,
+      replyTo: { email: result.email, name: result.name },
+      subject: `Contact Form Submission From ${result.name}`,
+      text: result.message,
     };
 
-    console.log(msg);
+    console.log(message);
   } catch (e) {
     if (e instanceof z.ZodError) {
       console.error(JSON.stringify(e.issues, null, 2));
@@ -49,22 +40,20 @@ if (Astro.request.method === "POST") {
   }
 }
 
-const pagetitle = "Prince Muel - Contact Me";
+const title = "Prince Muel - Contact Me";
 const description =
-  "If you're looking for a fast, performant, user-friendly, SEO and accessibility compliant website to represent your product or business, want a consultation or you'd just like to say hi, please feel free to reach out. I'd love to hear about what you're working on and how I could help.";
+  "Please feel free to reach out to me. I'd love to hear about what you're working on and how I could help.";
 ---
 
-<RootLayout title={pagetitle} description={description}>
+<RootLayout title={title} description={description}>
   <main id="main" aria-labelledby="page-heading" class="flex min-h-full flex-col gap-20 py-20">
     <h1 id="page-heading" class="sr-only">Want to reach out?</h1>
 
     <section class="container">
       <div
-        class="flex flex-col gap-8 border-y border-zinc-800/20 py-12 md:flex-row dark:border-zinc-200/20"
+        class="flex flex-col gap-8 border-y border-zinc-800/20 py-12 dark:border-zinc-200/20 md:flex-row"
       >
-        <h2 class="flex-1 font-serif text-4xl font-light tracking-tight text-teal-500">
-          Get in Touch
-        </h2>
+        <h2 class="flex-1 text-4xl font-semibold tracking-tight text-teal-500">Get in Touch</h2>
 
         <div class="flex flex-1 flex-col gap-6">
           <p>
@@ -92,9 +81,7 @@ const description =
 
     <section class="container">
       <div class="flex flex-col gap-8 md:flex-row">
-        <h2 class="flex-1 font-serif text-4xl font-light tracking-tight text-teal-500">
-          Contact Me
-        </h2>
+        <h2 class="flex-1 text-4xl font-semibold tracking-tight text-teal-500">Contact Me</h2>
 
         <form method="POST" class="flex-1 space-y-8">
           <div class="space-y-2">

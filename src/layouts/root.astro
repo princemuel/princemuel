@@ -1,0 +1,134 @@
+---
+import RootMeta from "@/components/meta/root.astro";
+import Footer from "@/components/organisms/footer.astro";
+import Header from "@/components/organisms/header.astro";
+import { BreakpointIndicator } from "@/components/react/indicator";
+import { tw } from "@/helpers/utils";
+import "@/styles/globals.css";
+import { ViewTransitions } from "astro:transitions";
+import { cn } from "tailwind-variants";
+
+export interface Props {
+  title: string;
+  description: string;
+  image?: { src?: string; alt?: string };
+  canonical?: string | URL | null;
+  type?: "website" | "article";
+  publishedAt?: string;
+}
+
+const { ...rest } = Astro.props;
+---
+
+<!doctype html>
+<html
+  lang="en"
+  dir="auto"
+  data-darkreader-mode="dynamic"
+  data-darkreader-theme="dark"
+  class={cn("__sans__ __serif__ __mono__")({ twMerge: true })}
+>
+  <head>
+    <RootMeta {...rest} />
+    <ViewTransitions />
+
+    <style>
+      @font-face {
+        font-family: __FontSerif_Fallback;
+        src: ui-serif;
+        size-adjust: 100%;
+      }
+      @font-face {
+        font-family: __FontSerif;
+        src: url("../fonts/spectral-300.ttf") format("truetype");
+        font-weight: 300;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: __FontSerif;
+        src: url("../fonts/spectral-400.ttf") format("truetype");
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
+      .__serif__ {
+        --font-serif: "__FontSerif", "__FontSerif_Fallback";
+      }
+      @font-face {
+        font-family: __FontSans_Fallback;
+        src: system-ui;
+        size-adjust: 100%;
+      }
+      /* @font-face {
+        font-family: __FontSans;
+        src: url("../fonts/UbuntuSansVariableItalic.ttf") format("truetype");
+        font-style: italic;
+        font-display: swap;
+      } */
+      /* @font-face {
+        font-family: __FontSans;
+        src: url("../fonts/UbuntuSansVariableNormal.ttf") format("truetype");
+        font-style: normal;
+        font-display: swap;
+      } */
+      @font-face {
+        font-family: __FontSans;
+        src: url("../fonts/WotfardRegular.woff2") format("woff2");
+        font-weight: 400;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: __FontSans;
+        src: url("../fonts/WotfardMedium.woff2") format("woff2");
+        font-weight: 500;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: __FontSans;
+        src: url("../fonts/WotfardSemiBold.woff2") format("woff2");
+        font-weight: 600;
+        font-display: swap;
+      }
+
+      .__sans__ {
+        --font-sans: "__FontSans", "__FontSans_Fallback";
+      }
+      @font-face {
+        font-family: __FontMono_Fallback;
+        src: ui-monospace;
+        size-adjust: 100%;
+      }
+      @font-face {
+        font-family: __FontMono;
+        src: url("../fonts/MonoLisaVariableItalic.woff2") format("woff2");
+        font-style: italic;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: __FontMono;
+        src: url("../fonts/MonoLisaVariableNormal.woff2") format("woff2");
+        font-style: normal;
+        font-display: swap;
+      }
+      .__mono__ {
+        --font-mono: "__FontMono", "__FontMono_Fallback";
+      }
+    </style>
+  </head>
+
+  <body
+    class:list={tw([
+      "font-sans text-lg font-normal antialiased dark:bg-red-100",
+      "text-zinc-600 dark:text-stone-100",
+      "bg-white dark:bg-[#0e141b]",
+    ])}
+  >
+    <Header />
+    <slot />
+    <Footer />
+    <BreakpointIndicator />
+  </body>
+</html>

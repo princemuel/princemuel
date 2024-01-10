@@ -1,0 +1,30 @@
+---
+import type { MarkdownHeading } from "astro";
+import type { CollectionEntry } from "astro:content";
+import type { Props as RootLayoutProps } from "./root.astro";
+import RootLayout from "./root.astro";
+
+type Props = {
+  headings: MarkdownHeading[];
+  frontmatter: CollectionEntry<"projects">["data"];
+  remark: Record<string, any>;
+};
+
+const { frontmatter } = Astro.props;
+
+const metadata = {
+  title: frontmatter.title,
+  description: frontmatter?.headline,
+  image: { src: "/favicon.svg", alt: frontmatter?.media?.coverAlt },
+  type: "article",
+  publishedAt: frontmatter?.publishedAt?.toISOString(),
+} satisfies RootLayoutProps;
+---
+
+<RootLayout {...metadata}>
+  <main aria-label={frontmatter.title} class="">
+    <article class="container">
+      <slot name="content" />
+    </article>
+  </main>
+</RootLayout>
