@@ -10,7 +10,7 @@ type Props = {
   remark: Record<string, any>;
 };
 
-const { frontmatter, remark } = Astro.props;
+const { frontmatter } = Astro.props;
 
 const metadata = {
   title: frontmatter.title,
