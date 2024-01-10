@@ -118,7 +118,7 @@ const { ...rest } = Astro.props;
       }
     </style>
   </head>
-  <!-- dark:bg-[#1A181F] -->
+
   <body
     class:list={tw([
       "font-sans text-lg font-normal antialiased dark:bg-red-100",
@@ -129,15 +129,6 @@ const { ...rest } = Astro.props;
     <Header />
     <slot />
     <Footer />
-
     <BreakpointIndicator />
-
-    <script>
-      import { inject } from "@vercel/analytics";
-      import { injectSpeedInsights } from "@vercel/speed-insights";
-
-      inject();
-      injectSpeedInsights({});
-    </script>
   </body>
 </html>

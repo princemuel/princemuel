@@ -20,7 +20,6 @@ const { as: Tag, class: className, ...rest } = Astro.props;
     "prose-h2:text-3xl prose-h2:font-semibold prose-h2:tracking-tight",
     "",
     "",
-    "",
   ])}
 >
   <slot />
@@ -28,8 +27,13 @@ const { as: Tag, class: className, ...rest } = Astro.props;
 
 {/* Dark Mode: https://shikiji.netlify.app/guide/dual-themes*/}
 <style is:global>
-  :where([data-darkreader-theme="dark"] .astro-code),
-  :where([data-darkreader-theme="dark"] .astro-code span) {
+  :where([data-darkreader-theme="light"] [data-theme*=" "]),
+  :where([data-darkreader-theme="light"] [data-theme*=" "] span) {
+    color: var(--shiki-light) !important;
+    background-color: var(--shiki-light-bg) !important;
+  }
+  :where([data-darkreader-theme="dark"] [data-theme*=" "]),
+  :where([data-darkreader-theme="dark"] [data-theme*=" "] span) {
     color: var(--shiki-dark) !important;
     background-color: var(--shiki-dark-bg) !important;
   }

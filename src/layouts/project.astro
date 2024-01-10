@@ -23,6 +23,8 @@ const metadata = {
 
 <RootLayout {...metadata}>
   <main aria-label={frontmatter.title} class="">
-    <slot name="project__content" />
+    <article class="container">
+      <slot name="content" />
+    </article>
   </main>
 </RootLayout>

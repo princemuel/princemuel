@@ -1,10 +1,10 @@
 import { getCollection, type CollectionEntry, type CollectionKey } from "astro:content";
 
-const status = ["draft", "preview", "published"] as const;
-
 export async function getSortedResource<K extends CollectionKey>(
   key: K,
 ): Promise<CollectionEntry<K>[]> {
+  const status = ["draft", "preview", "published"] as const;
+
   const resource = await getCollection(key, ({ data }) => {
     if (import.meta.env.PROD) return data.status === "published";
     return status.includes(data.status);
