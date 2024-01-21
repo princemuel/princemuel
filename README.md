@@ -98,6 +98,10 @@ C                        1 repo              ░░░░░░░░░░░�
 
 <!--END_SECTION:waka-->
 
+## Snaky Contribs
+
+[Snaky Contributions](./assets/github-snake-dark.svg)
+
 ## Blog posts
 
 <!-- BLOG-POST-LIST:START -->
