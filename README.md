@@ -100,7 +100,6 @@ C                        1 repo              ░░░░░░░░░░░�
 
 ## Snaky Contribs
 
-[Snaky Contributions](/assets/github-snake-dark.svg)
 <img src='/assets/github-snake-dark.svg' alt='Snaky Contributions' />
 
 ## Blog posts
