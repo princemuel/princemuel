@@ -1,0 +1,26 @@
+name: Latest Blog Post Workflow
+on:
+  schedule:
+    - cron: "30 0 * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+
+jobs:
+  update-readme-with-blog:
+    name: Update Github Profile README with latest blog posts
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Pull in Latest Blog Posts
+        uses: gautamkrishnar/blog-post-workflow@v1
+        with:
+          feed_names: Blog
+          feed_list: https://princemuel.vercel.app/rss.xml
+          max_post_count: 20
+          template: "$newline - $randomEmoji(🔥,🚀,👨‍💻,👀,✍🏽,🥳,💯,💫,🌮,⚡️) <a href='$url?&ref=github-profile-readme'>$title</a>"
+          committer_username: princemuel
+          committer_email: vansomecsam@gmail.com
+          commit_message: "docs: :memo: updated blog list"
