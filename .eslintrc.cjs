@@ -5,13 +5,13 @@ module.exports = {
     es2022: true,
     browser: true,
   },
-  extends: ["eslint:recommended", "plugin:astro/recommended"],
+  extends: ["eslint:recommended", "plugin:astro/recommended", "plugin:astro/jsx-a11y-strict"],
   parserOptions: {
     ecmaVersion: "latest",
     sourceType: "module",
   },
   rules: {
-    "no-mixed-spaces-and-tabs": "off",
+    "no-mixed-spaces-and-tabs": ["error", "smart-tabs"],
   },
   settings: {
     react: {
@@ -32,7 +32,10 @@ module.exports = {
     {
       files: ["*.ts"],
       parser: "@typescript-eslint/parser",
-      extends: ["plugin:@typescript-eslint/recommended"],
+      extends: [
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking",
+      ],
       rules: {
         "@typescript-eslint/no-unused-vars": [
           "error",
@@ -71,8 +74,6 @@ module.exports = {
       },
     },
     {
-      // Define the configuration for `<script>` tag.
-      // Script in `<script>` is assigned a virtual file name with the `.js` extension.
       files: ["**/*.astro/*.js", "*.astro/*.js"],
       parser: "@typescript-eslint/parser",
     },

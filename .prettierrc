@@ -18,9 +18,12 @@
   "singleAttributePerLine": false,
 
   "experimentalTernaries": false,
+
   "tailwindConfig": "./tailwind.config.mjs",
   "tailwindFunctions": ["tw", "cn", "tv", "cva"],
   "tailwindAttributes": ["tw"],
+
+  "astroAllowShorthand": false,
   "plugins": [
     "prettier-plugin-organize-imports",
     "prettier-plugin-astro",
