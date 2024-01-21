@@ -106,14 +106,14 @@ C                        1 repo              ░░░░░░░░░░░�
 ## Blog posts
 
 <!-- BLOG-POST-LIST:START -->
- - 💫 <a href='https://princemuel.vercel.app/blog/how-to-add-an-estimated-reading-time/?&ref=github-profile-readme'>Adding Estimated Reading Time In AstroPaper</a>
- - 💯 <a href='https://princemuel.vercel.app/blog/how-to-add-estimated-reading-time/?&ref=github-profile-readme'>Adding Estimated Reading Time In AstroPaper</a>
- - 🚀 <a href='https://princemuel.vercel.app/blog/how-to-update-dependencies/?&ref=github-profile-readme'>Updating AstroPaper&#39;s dependencies</a>
- - 🥳 <a href='https://princemuel.vercel.app/blog/dynamic-og-images/?&ref=github-profile-readme'>Dynamic OG image generation in AstroPaper</a>
- - 🔥 <a href='https://princemuel.vercel.app/blog/predefined-color-schemes/?&ref=github-profile-readme'>Predefined color schemes in the AstroPaper blog theme</a>
- - 🔥 <a href='https://princemuel.vercel.app/blog/customizing-astropaper-theme-color-schemes/?&ref=github-profile-readme'>Customizing AstroPaper theme</a>
- - 👀 <a href='https://princemuel.vercel.app/blog/adding-new-post/?&ref=github-profile-readme'>Add New Posts in AstroPaper</a>
- - 🔥 <a href='https://princemuel.vercel.app/blog/how-to-configure-astropaper-theme/?&ref=github-profile-readme'>Configuring the AstroPaper theme</a>
+ - 🔥 <a href='https://princemuel.vercel.app/blog/how-to-add-an-estimated-reading-time/?&ref=github-profile-readme'>Adding Estimated Reading Time In AstroPaper</a>
+ - 🚀 <a href='https://princemuel.vercel.app/blog/how-to-add-estimated-reading-time/?&ref=github-profile-readme'>Adding Estimated Reading Time In AstroPaper</a>
+ - 👨‍💻 <a href='https://princemuel.vercel.app/blog/how-to-update-dependencies/?&ref=github-profile-readme'>Updating AstroPaper&#39;s dependencies</a>
+ - 👀 <a href='https://princemuel.vercel.app/blog/dynamic-og-images/?&ref=github-profile-readme'>Dynamic OG image generation in AstroPaper</a>
+ - ✍🏽 <a href='https://princemuel.vercel.app/blog/predefined-color-schemes/?&ref=github-profile-readme'>Predefined color schemes in the AstroPaper blog theme</a>
+ - 🥳 <a href='https://princemuel.vercel.app/blog/customizing-astropaper-theme-color-schemes/?&ref=github-profile-readme'>Customizing AstroPaper theme</a>
+ - 💯 <a href='https://princemuel.vercel.app/blog/adding-new-post/?&ref=github-profile-readme'>Add New Posts in AstroPaper</a>
+ - 💫 <a href='https://princemuel.vercel.app/blog/how-to-configure-astropaper-theme/?&ref=github-profile-readme'>Configuring the AstroPaper theme</a>
  - 🌮 <a href='https://princemuel.vercel.app/blog/tailwind-typography/?&ref=github-profile-readme'>The Tailwind Typography Plugin</a>
- - 🔥 <a href='https://princemuel.vercel.app/blog/terminal-development/?&ref=github-profile-readme'>Developing A Terminal Portfolio Website with React</a>
- - 👀 <a href='https://princemuel.vercel.app/blog/portfolio-website-development/?&ref=github-profile-readme'>Develop Your Portfolio Website and Blog</a><!-- BLOG-POST-LIST:END -->
+ - ⚡️ <a href='https://princemuel.vercel.app/blog/terminal-development/?&ref=github-profile-readme'>Developing A Terminal Portfolio Website with React</a>
+ - 🔥 <a href='https://princemuel.vercel.app/blog/portfolio-website-development/?&ref=github-profile-readme'>Develop Your Portfolio Website and Blog</a><!-- BLOG-POST-LIST:END -->
