@@ -1,9 +1,108 @@
 ---
+import PlaceholderImg from "@/assets/placeholder.avif";
+import Container from "@/components/atoms/container.astro";
+import { Image } from "astro:assets";
 import RootLayout from "../layouts/root.astro";
 ---
 
 <RootLayout title="Prince Muel - Home" description="">
-  <main class="min-h-svh">
-    <section class="container"></section>
+  <main class="my-20 min-h-svh">
+    <Container>
+      <div class="grid gap-8 md:gap-6 lg:grid-cols-12">
+        <div class="flex flex-col gap-y-12 lg:col-span-9">
+          <header class="flex flex-col gap-4">
+            <h2 class="text-xl uppercase">Hi there! 👋</h2>
+            <!-- <h1
+              class="bg-gradient-to-r from-blue-600 via-tahiti-400 to-green-300 bg-clip-text text-3xl font-bold leading-tight text-transparent lg:text-5xl"
+            >
+Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+            </h1> -->
+
+            <h1
+              class="bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% bg-clip-text text-3xl font-semibold text-transparent lg:text-5xl lg:leading-tight"
+            >
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+            </h1>
+            <p>
+              Whoa, wait, Doc. Wow, ah Red, you look great. Everything looks great. 1:24, I still
+              got time. Oh my god. No, no not again, c'mon, c'mon. Hey. Libyans. C'mon, Mom, make it
+              fast, I'll miss my bus. Hey see you tonight, Pop. Woo, time to change that oil. What
+              kind of date? I don't know, what do kids do in the fifties? Stop it.
+            </p>
+          </header>
+
+          <section aria-labelledby="how-it-started" class="flex flex-col gap-4">
+            <header class="flex flex-col gap-8">
+              <h2 id="how-it-started" class="text-4xl font-semibold tracking-tight text-blue-600">
+                Ah, where're my pants?
+              </h2>
+            </header>
+            {
+              Array.from({ length: 3 }, (_, idx) => idx + 1).map((_) => (
+                <p>
+                  Yeah man, that was good. Let's do another one. Who are you calling spook,
+                  pecker-wood. Alright, okay listen, keep your pants on, she's over in the cafe.
+                  God, how do you do this? What made you change your mind, George? No, why, what's a
+                  matter? Yeah, alright, bye-bye. What?
+                </p>
+              ))
+            }
+          </section>
+
+          <section aria-labelledby="how-its-going" class="flex flex-col gap-4">
+            <header>
+              <h2
+                id="how-its-going"
+                class="tracking-ti ght text-4xl
+              font-semibold text-blue-600"
+              >
+                No, Marty, we've already agreed
+              </h2>
+            </header>
+            {
+              Array.from({ length: 2 }, (_, idx) => idx + 1).map((_) => (
+                <p>
+                  Yeah I know, If you put your mind to it you could accomplish anything. Mother,
+                  with Marty's parents out of town, don't you think he oughta spend the night, after
+                  all, Dad almost killed him with the car. I think it's terrible. Girls chasing
+                  boys. When I was your age I never chased a boy, or called a boy, or sat in a
+                  parked car with a boy. Thanks a lot, kid. Mom, is that you?
+                </p>
+              ))
+            }
+          </section>
+        </div>
+
+        <!-- outline outline-1 outline-gray-100/20  -->
+        <div class="lg:col-span-3">
+          <div class="flex flex-col gap-6">
+            <div class="grid place-content-center">
+              <div class="size-48 overflow-hidden rounded-pill">
+                <Image src={PlaceholderImg} alt="A placholder" />
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between gap-2">
+              {
+                Array.from({ length: 5 }, (_, idx) => idx + 1).map((_) => (
+                  <div class="size-8 outline outline-1 outline-gray-100/20" />
+                ))
+              }
+            </div>
+          </div>
+
+          <div class="mt-8 flex flex-col gap-6">
+            {
+              Array.from({ length: 3 }, (_, idx) => idx + 1).map((_) => (
+                <div class="flex items-center gap-2">
+                  <div class="size-12 outline outline-1 outline-gray-100/20" />
+                  <div class="h-12 flex-1 outline outline-1 outline-gray-100/20" />
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </Container>
   </main>
 </RootLayout>
