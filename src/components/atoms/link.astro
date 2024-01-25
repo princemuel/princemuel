@@ -4,11 +4,16 @@ import type { HTMLAttributes } from "astro/types";
 
 type Props = RequireSome<HTMLAttributes<"a">, "href">;
 
-const { href: to, ...rest } = Astro.props;
+const { href: url, ...rest } = Astro.props;
 
-invariant(to, "Invaild URL. Expected %s", "string");
+invariant(
+  url,
+  `Expected \`href\` to be of type \`%s\` but received type \`%s\``,
+  "URL or string",
+  undefined,
+);
 
-const href = to?.toString();
+const href = url.toString();
 
 const props =
   href?.startsWith("/") || href?.startsWith("#")

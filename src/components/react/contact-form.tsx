@@ -76,7 +76,7 @@ export const ContactForm = () => {
         </span>
       </div>
 
-      <button type="submit" className="inline-flex items-center bg-teal-500 px-5 py-3 text-white">
+      <button type="submit" className="inline-flex items-center bg-tahiti-500 px-5 py-3 text-white">
         Send Message
       </button>
     </form>
