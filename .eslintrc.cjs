@@ -4,14 +4,21 @@ module.exports = {
     node: true,
     es2022: true,
     browser: true,
+    worker: true,
+    "shared-node-browser": true,
   },
-  extends: ["eslint:recommended", "plugin:astro/recommended"],
+  extends: ["eslint:recommended", "plugin:astro/recommended", "plugin:astro/jsx-a11y-strict"],
   parserOptions: {
     ecmaVersion: "latest",
     sourceType: "module",
+    ecmaFeatures: {
+      impliedStrict: true,
+    },
+    tsconfigRootDir: __dirname,
+    project: "./tsconfig.json",
   },
   rules: {
-    "no-mixed-spaces-and-tabs": "off",
+    "no-mixed-spaces-and-tabs": ["error", "smart-tabs"],
   },
   settings: {
     react: {
@@ -23,56 +30,48 @@ module.exports = {
     {
       files: ["*.astro"],
       parser: "astro-eslint-parser",
+      extends: ["plugin:astro/recommended", "plugin:astro/jsx-a11y-strict"],
       parserOptions: {
         parser: "@typescript-eslint/parser",
         extraFileExtensions: [".astro"],
       },
-      rules: {},
-    },
-    {
-      files: ["*.ts"],
-      parser: "@typescript-eslint/parser",
-      extends: ["plugin:@typescript-eslint/recommended"],
       rules: {
-        "@typescript-eslint/no-unused-vars": [
-          "error",
-          { argsIgnorePattern: "^_", destructuredArrayIgnorePattern: "^_" },
-        ],
-        "@typescript-eslint/no-non-null-assertion": "off",
+        "no-undef": "off",
+        "no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
       },
     },
     {
       files: ["*.d.ts"],
+      parser: "@typescript-eslint/parser",
+      extends: [
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking",
+      ],
       rules: {
         "@typescript-eslint/triple-slash-reference": "off",
       },
     },
     {
       files: ["*.tsx"],
-      parser: "@typescript-eslint/parser",
       plugins: ["react", "@typescript-eslint"],
-      parserOptions: {
-        tsconfigRootDir: __dirname,
-        project: ["./tsconfig.json"],
-      },
+      extends: ["plugin:react/recommended", "plugin:react/jsx-runtime"],
+    },
+    {
+      files: ["*.ts", "*.mts", "*.cts", "*.tsx"],
+      parser: "@typescript-eslint/parser",
       extends: [
-        "eslint:recommended",
-        "plugin:react/recommended",
-        "plugin:react/jsx-runtime",
         "plugin:@typescript-eslint/recommended",
         "plugin:@typescript-eslint/recommended-requiring-type-checking",
       ],
       rules: {
-        "@typescript-eslint/no-unused-vars": [
-          "error",
-          { argsIgnorePattern: "^_", destructuredArrayIgnorePattern: "^_" },
-        ],
+        "no-undef": "off",
+        // "@typescript-eslint/restrict-template-expressions": "off",
+        "no-unused-vars": "off",
+        "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
         "@typescript-eslint/no-non-null-assertion": "off",
       },
     },
     {
-      // Define the configuration for `<script>` tag.
-      // Script in `<script>` is assigned a virtual file name with the `.js` extension.
       files: ["**/*.astro/*.js", "*.astro/*.js"],
       parser: "@typescript-eslint/parser",
     },

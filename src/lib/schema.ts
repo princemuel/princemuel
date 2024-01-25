@@ -51,7 +51,7 @@ const ContactFormSchema = z.object({
 const BaseSchema = z.object({
   title: z.string().min(2),
   alternate: z.string().min(2).optional(),
-  headline: z.string().min(2),
+  summary: z.string().min(2),
   description: z.string().min(2),
   featured: z.boolean().default(false),
   order: z.number().min(0).default(0),

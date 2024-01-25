@@ -1,9 +1,9 @@
 ---
 import RootLayout from "@/layouts/root.astro";
-import { getSortedResource } from "@/lib/utils";
+import { fetchResource } from "@/lib/utils";
 import { Image } from "astro:assets";
 
-const allProjects = await getSortedResource("projects");
+const allProjects = await fetchResource("projects");
 ---
 
 <RootLayout title="Prince Muel - Projects" description="">

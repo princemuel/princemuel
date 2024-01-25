@@ -3,7 +3,7 @@ title: The Tailwind Typography Plugin
 alternate: Using the Tailwind Typography Plugin
 type: article
 featured: false
-headline: How to use the Tailwind Typography Plugin
+summary: How to use the Tailwind Typography Plugin
 description: About the Tailwind Typography Plugin and how you can use it effectively.
 tags:
   - TypeScript
@@ -13,7 +13,7 @@ author:
   contact: vansomecsam@email.com
   avatar: https://github.com/princemuel.png
 publishedAt: 2022-07-05T02:05:51Z
-status: published
+status: draft
 ---
 
 > This article is from [TailwindLabs](https://tailwindcss-typography.vercel.app/). I put this article to demonstrate how you can write blog posts/articles using AstroPaper theme.

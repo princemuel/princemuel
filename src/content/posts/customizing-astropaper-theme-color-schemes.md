@@ -3,7 +3,7 @@ title: Customizing AstroPaper theme
 alternate: Customizing The AstroPaper theme color schemes
 type: article
 featured: false
-headline: Now you can customize the AstroPaper theme color schemes
+summary: Now you can customize the AstroPaper theme color schemes
 description:
   How you can enable/disable light & dark mode; and customize color schemes
   of AstroPaper theme.
@@ -15,7 +15,7 @@ author:
   contact: vansomecsam@email.com
   avatar: https://github.com/princemuel.png
 publishedAt: 2022-09-25T15:20:35Z
-status: published
+status: draft
 ---
 
 This post will explain how you can enable/disable light & dark mode for the website. Moreover, you'll learn how you can customize color schemes of the entire website.
@@ -83,7 +83,7 @@ Both light & dark color schemes of AstroPaper theme can be customized. You can d
 
 @layer base {
   :root,
-  html[data-darkreader-theme="light"] {
+  html[data-dark-reader-theme="light"] {
     --color-fill: 251, 254, 251;
     --color-text-base: 40, 39, 40;
     --color-accent: 0, 108, 172;
@@ -91,7 +91,7 @@ Both light & dark color schemes of AstroPaper theme can be customized. You can d
     --color-card-muted: 205, 205, 205;
     --color-border: 236, 233, 233;
   }
-  html[data-darkreader-theme="dark"] {
+  html[data-dark-reader-theme="dark"] {
     --color-fill: 47, 55, 65;
     --color-text-base: 230, 230, 230;
     --color-accent: 26, 217, 217;
@@ -103,7 +103,7 @@ Both light & dark color schemes of AstroPaper theme can be customized. You can d
 }
 ```
 
-In AstroPaper theme, `:root` and `html[data-darkreader-theme="light"]` selectors are used as the light color scheme and `html[data-darkreader-theme="dark"]` is used the dark color scheme. If you want to customize your custom color scheme, you have to specify your light color scheme inside `:root`,`html[data-darkreader-theme="light"]` and dark color scheme inside `html[data-darkreader-theme="dark"]`.
+In AstroPaper theme, `:root` and `html[data-dark-reader-theme="light"]` selectors are used as the light color scheme and `html[data-dark-reader-theme="dark"]` is used the dark color scheme. If you want to customize your custom color scheme, you have to specify your light color scheme inside `:root`,`html[data-dark-reader-theme="light"]` and dark color scheme inside `html[data-dark-reader-theme="dark"]`.
 
 Colors are declared in CSS custom property (CSS Variable) notation. Color property values are written in rgb values. (Note: instead of `rgb(40, 39, 40)`, only specify `40, 39, 40`)
 
@@ -124,7 +124,7 @@ Here is an example of changing the light color scheme.
 @layer base {
   /* lobster color scheme */
   :root,
-  html[data-darkreader-theme="light"] {
+  html[data-dark-reader-theme="light"] {
     --color-fill: 246, 238, 225;
     --color-text-base: 1, 44, 86;
     --color-accent: 225, 74, 57;

@@ -6,8 +6,6 @@ import type { APIRoute } from "astro";
 // const resend = new Resend(import.meta.env.RESEND_API_KEY);
 
 export const POST: APIRoute = async ({ request }) => {
-  console.log(import.meta.env.RESEND_API_KEY);
-
   try {
     const formData = await request.formData();
     const submission = parse(formData, { schema: ContactFormSchema });
@@ -32,7 +30,7 @@ export const POST: APIRoute = async ({ request }) => {
 
     return Response.json(data);
   } catch (error) {
-    return Response.json({ error });
+    return Response.json({ status: "error", error });
   }
 };
 

@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export const invariant: Invariant = (predicate, message, ...positionals): asserts predicate => {
-  if (!predicate) {
-    throw new InvariantError(message, ...positionals);
-  }
+  if (!predicate) throw new InvariantError(message, ...positionals);
 };
 
 invariant.as = (ErrorConstructor, predicate, message, ...positionals) => {
@@ -27,9 +29,7 @@ const STACK_FRAMES_TO_IGNORE = 2;
  * when used in other applications.
  */
 function cleanErrorStack(error: Error): void {
-  if (!error.stack) {
-    return;
-  }
+  if (!error.stack) return;
 
   const nextStack = error.stack.split("\n");
   nextStack.splice(1, STACK_FRAMES_TO_IGNORE);

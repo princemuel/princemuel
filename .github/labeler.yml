@@ -1,18 +1,11 @@
-root:
-  - changed-files:
-      - any-glob-to-any-file: "*"
-
-Update:
-  - changed-files:
-      - any-glob-to-any-file: "**"
-
-Documentation:
+documentation:
   - changed-files:
       - any-glob-to-any-file: "README.md"
 
-Content":
+content:
   - changed-files:
-      - any-glob-to-any-file: "**/content/*"
+      - any-glob-to-any-file: ["**/content/*.md", "**/content/*.mdx", "**/content/*.json"]
+  - head-branch: ["^content", "content"]
 
 feature:
   - head-branch: ["^staging", "staging"]

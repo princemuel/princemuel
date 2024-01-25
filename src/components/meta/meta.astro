@@ -7,6 +7,7 @@ type Meta = {
   image?: { src?: string; alt?: string };
   canonical?: string | URL | null;
   publishedAt?: string;
+  updatedAt?: string;
 };
 type OpenGraph = Partial<Meta> & { type?: "website" | "article" };
 type Twitter = Partial<Meta> & {
@@ -15,7 +16,7 @@ type Twitter = Partial<Meta> & {
 };
 type Props = Meta & { og?: OpenGraph; twitter?: Twitter };
 
-const { title, description, image, canonical, publishedAt } = Astro.props;
+const { title, description, image, canonical, publishedAt, updatedAt } = Astro.props;
 
 const og = {
   title,
@@ -29,7 +30,7 @@ const og = {
 const twitter = {
   title,
   description,
-  canonical,
+  canonical: new URL(Astro.url.pathname, Astro.site),
   image,
   handle: "@iamprincemuel",
   card: "summary_large_image",
@@ -40,20 +41,32 @@ const locale = "en";
 const application_name = "Prince Muel's Personal Website";
 ---
 
+<!-- Global Metadata -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <meta name="generator" content={Astro.generator} />
-<meta name="application-name" content={application_name} } />
+<meta name="application-name" content={application_name} />
+<meta name="color-scheme" content="dark light" />
+<meta name="theme-color" content="#111111" media="(prefers-color-scheme: dark)" />
+<meta name="theme-color" content="#fafaf9" media="(prefers-color-scheme: light)" />
+
+<!-- Primary Meta Tags -->
 <title>{title}</title>
 <meta name="title" content={title} />
 <meta name="description" content={description} />
+<link rel="alternate" type="application/rss+xml" href="/rss.xml" />
+<link rel="sitemap" href="/sitemap-index.xml" />
 <meta name="referrer" content="origin-when-cross-origin" />
 <meta name="robots" content="index, follow" />
 <meta
   name="googlebot"
   content="index, follow, max-snippet:160, max-image-preview:large, max-video-preview:-1"
 />
-
+<meta
+  name="keywords"
+  content="princemuel, iamprincemuel, princemuel_cs, pHoeniX-svg, Prince Muel, Samuel Chukwuzube, Software Engineer, Frontend Engineer, Web Developer, React Developer, Coding Instructor, Musician, Educator, React, Node.js, GraphQL, JavaScript, Typescript, Frontend Development, Web Design, UI/UX, Web Applications, Tech Industry, Portfolio, Africa"
+/>
 <meta name="creator" content="Prince Muel" />
 <meta name="publisher" content="Prince Muel" />
 <link rel="author" href="https://github.com/princemuel" />
@@ -62,8 +75,9 @@ const application_name = "Prince Muel's Personal Website";
 {canonical && <link rel="canonical" href={formatCanonicalURL(canonical)} />}
 {og.canonical && <meta property="og:url" content={formatCanonicalURL(og.canonical)} />}
 {publishedAt && <meta property="article:published_time" content={publishedAt} />}
+{updatedAt && <meta property="article:modified_time" content={updatedAt} />}
 
-{/*  OpenGraph Tags */}
+{/*  Open Graph / Facebook Tags */}
 <meta property="og:title" content={og.title} />
 <meta property="og:description" content={og.description} />
 <meta property="og:type" content={og.type} />
@@ -80,15 +94,6 @@ const application_name = "Prince Muel's Personal Website";
 {twitter.handle && <meta name="twitter:creator" content={twitter.handle} />}
 {twitter.image && <meta name="twitter:image" content={twitter.image.src} />}
 {twitter.image && <meta name="twitter:image:alt" content={twitter.image.alt} />}
-
-<meta name="color-scheme" content="dark light" />
-<meta name="theme-color" content="#111111" media="(prefers-color-scheme: dark)" />
-<meta name="theme-color" content="#fafaf9" media="(prefers-color-scheme: light)" />
-
-<meta
-  name="keywords"
-  content="princemuel, iamprincemuel, princemuel_cs, pHoeniX-svg, Prince Muel, Samuel Chukwuzube, Software Engineer, Frontend Engineer, Web Developer, React Developer, Coding Instructor, Musician, Educator, React, Node.js, GraphQL, JavaScript, Typescript, Frontend Development, Web Design, UI/UX, Web Applications, Tech Industry, Portfolio, Africa"
-/>
 
 <meta name="format-detection" content="telephone=no, address=no, email=no" />
 <meta name="google-site-verification" content="google" />

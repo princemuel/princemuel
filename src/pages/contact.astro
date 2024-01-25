@@ -1,16 +1,21 @@
 ---
 import SocialLinks from "@/components/molecules/social.astro";
-import { ContactFormSchema } from "@/lib/schema";
-import { z } from "astro/zod";
+import { ContactForm } from "@/components/react/contact-form";
+import { ContactFormSchema as schema } from "@/lib/schema";
+import { parse } from "@conform-to/zod";
 import RootLayout from "../layouts/root.astro";
-
-let errors = { name: "", email: "", message: "" };
 
 if (Astro.request.method === "POST") {
   try {
     const formData = await Astro.request.formData();
 
-    const result = ContactFormSchema.parse(Object.fromEntries(formData.entries()));
+    const submission = parse(formData, { schema });
+
+    if (!submission.value || submission.intent !== "submit") {
+      throw submission.error;
+    }
+
+    const result = submission.value;
 
     const message = {
       to: "vansomecsam@gmail.com",
@@ -22,21 +27,7 @@ if (Astro.request.method === "POST") {
 
     console.log(message);
   } catch (e) {
-    if (e instanceof z.ZodError) {
-      console.error(JSON.stringify(e.issues, null, 2));
-      errors = e.issues.reduce(
-        (error, issue) => {
-          const path = issue.path[0] as keyof typeof error;
-          error[path] = issue.message;
-          return error;
-        },
-        { name: "", email: "", message: "" },
-      );
-    }
-
-    if (e instanceof Error) {
-      console.error(e.message);
-    }
+    console.log("SUBMISSION_ERROR", e);
   }
 }
 
@@ -53,7 +44,7 @@ const description =
       <div
         class="flex flex-col gap-8 border-y border-zinc-800/20 py-12 dark:border-zinc-200/20 md:flex-row"
       >
-        <h2 class="flex-1 text-4xl font-semibold tracking-tight text-teal-500">Get in Touch</h2>
+        <h2 class="flex-1 text-4xl font-semibold tracking-tight text-blue-600">Get in Touch</h2>
 
         <div class="flex flex-1 flex-col gap-6">
           <p>
@@ -81,77 +72,9 @@ const description =
 
     <section class="container">
       <div class="flex flex-col gap-8 md:flex-row">
-        <h2 class="flex-1 text-4xl font-semibold tracking-tight text-teal-500">Contact Me</h2>
+        <h2 class="flex-1 text-4xl font-semibold tracking-tight text-blue-600">Contact Me</h2>
 
-        <form method="POST" class="flex-1 space-y-8">
-          <div class="space-y-2">
-            <label class="block text-sm font-semibold" for="name">Name</label>
-            <input
-              type="text"
-              class="w-full bg-zinc-800/20 px-5 py-3 dark:bg-zinc-200/20"
-              id="name"
-              name="name"
-              placeholder="Jane Appleseed"
-              autocomplete="name"
-            />
-            {
-              errors.name && (
-                <span role="alert" aria-live="polite" id="errors-name" class="text-sm text-red-400">
-                  {errors.name}
-                </span>
-              )
-            }
-          </div>
-
-          <div class="space-y-2">
-            <label class="block text-sm font-semibold" for="email"> Email Address</label>
-            <input
-              type="email"
-              class="w-full bg-zinc-800/20 px-5 py-3 dark:bg-zinc-200/20"
-              id="email"
-              name="email"
-              placeholder="email@example.com"
-              autocomplete="email"
-            />
-            {
-              errors.email && (
-                <span
-                  role="alert"
-                  aria-live="polite"
-                  id="errors-email"
-                  class="text-sm text-red-400"
-                >
-                  {errors.email}
-                </span>
-              )
-            }
-          </div>
-
-          <div class="space-y-2">
-            <label class="block text-sm font-semibold" for="message"> Message</label>
-            <textarea
-              name="message"
-              class="min-h-min w-full bg-zinc-800/20 px-5 py-3"
-              id="message"
-              placeholder="How can I help"></textarea>
-            {
-              errors.message && (
-                <span
-                  role="alert"
-                  aria-live="polite"
-                  id="errors-message"
-                  class="text-sm text-red-400"
-                >
-                  {errors.message}
-                </span>
-              )
-            }
-          </div>
-
-          <button type="submit" class="inline-flex items-center bg-teal-500 px-5 py-3 text-white"
-            >Send Message</button
-          >
-        </form>
+        <ContactForm client:load />
       </div>
     </section>
   </main>

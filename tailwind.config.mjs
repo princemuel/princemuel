@@ -1,5 +1,3 @@
-// @ts-check
-
 import typography from "@tailwindcss/typography";
 import animate from "tailwindcss-animate";
 import defaultTheme from "tailwindcss/defaultTheme";
@@ -7,12 +5,12 @@ import plugin from "tailwindcss/plugin";
 
 /** @type {import('tailwindcss').Config} */
 export default {
-  darkMode: ["class", '[data-darkreader-theme="dark"]'],
+  darkMode: ["class", '[data-dark-reader-theme="dark"]'],
   content: [
-    "./src/pages/**/*.{astro,html,js,jsx,ts,tsx,md,mdx,svelte,vue}",
-    "./src/layouts/**/*.{astro,html,js,jsx,ts,tsx,md,mdx,svelte,vue}",
-    "./src/components/**/*.{astro,html,js,jsx,ts,tsx,md,mdx,svelte,vue}",
-    "./src/content/**/*.{md,mdx}",
+    "./src/pages/**/*.{astro,js[x,],ts[x,],md[x,]}",
+    "./src/layouts/**/*.{astro,js[x,],ts[x,],md[x,]}",
+    "./src/components/**/*.{astro,js[x,],ts[x,],md[x,]}",
+    "./src/content/**/*.{md[x,]}",
   ],
   corePlugins: {
     float: false,
@@ -28,12 +26,25 @@ export default {
       ...defaultTheme.screens,
     },
     extend: {
+      colors: {
+        tahiti: {
+          100: "#cffafe",
+          200: "#a5f3fc",
+          300: "#67e8f9",
+          400: "#22d3ee",
+          500: "#06b6d4",
+          600: "#0891b2",
+          700: "#0e7490",
+          800: "#155e75",
+          900: "#164e63",
+        },
+      },
       borderRadius: {
         pill: "100vmax",
       },
       fontFamily: {
-        sans: ["var(--font-sans)", ...defaultTheme.fontFamily.sans],
-        mono: ["var(--font-mono)", ...defaultTheme.fontFamily.mono],
+        sans: ["__FontSans", ...defaultTheme.fontFamily.sans],
+        mono: ["__FontMono", ...defaultTheme.fontFamily.mono],
         serif: ["var(--font-serif)", ...defaultTheme.fontFamily.serif],
       },
       screens: {
@@ -98,12 +109,12 @@ export default {
         },
 
         ".container": {
-          "--padding-inline": theme("spacing.6"),
+          "--padding-inline": theme("spacing.4"),
 
-          "--content-maxW": "60rem",
+          "--content-maxW": "65rem",
           "--content-size": "min(100% - (var(--padding-inline) * 2), var(--content-maxW))",
 
-          "--breakout-maxW": "70rem",
+          "--breakout-maxW": "80rem",
           "--breakout-size": `calc((var(--breakout-maxW) - var(--content-maxW)) / 2)`,
 
           "--fullWPadding": "minmax(var(--padding-inline), 1fr)",

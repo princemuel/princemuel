@@ -1,9 +1,10 @@
 import { toString } from "mdast-util-to-string";
 import { execSync } from "node:child_process";
 import getReadingTime from "reading-time";
+import remarkToc from "remark-toc";
 import { visit } from "unist-util-visit";
 
-export function remarkReadingTime() {
+function remarkReadingTime() {
   return function (tree, file) {
     const textOnPage = toString(tree);
     const readingTime = getReadingTime(textOnPage);
@@ -12,7 +13,7 @@ export function remarkReadingTime() {
   };
 }
 
-export function remarkDeruntify() {
+function remarkDeruntify() {
   function transformer(tree) {
     visit(tree, "text", function (node) {
       const wordCount = node.value.split(" ").length;
@@ -26,10 +27,13 @@ export function remarkDeruntify() {
   return transformer;
 }
 
-export function remarkModifiedTime() {
+function remarkModifiedTime() {
   return function (tree, file) {
     const filepath = file.history[0];
     const output = execSync(`git log -1 --pretty="format:%cI" "${filepath}"`);
     file.data.astro.frontmatter.updatedAt = output.toString();
   };
 }
+
+/** @type {import('astro').RemarkPlugins} */
+export const remarkPlugins = [remarkDeruntify, remarkReadingTime, remarkModifiedTime, remarkToc];

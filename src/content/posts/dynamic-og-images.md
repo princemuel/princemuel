@@ -3,7 +3,7 @@ title: Dynamic OG image generation in AstroPaper
 alternate: Dynamic OG image generation in AstroPaper blog posts
 type: article
 featured: false
-headline: Introducing the new dynamic OG image generation for blog posts.
+summary: Introducing the new dynamic OG image generation for blog posts.
 description: New feature in AstroPaper v1.4.0, introducing dynamic OG image generation for blog posts.
 tags:
   - docs
@@ -13,7 +13,7 @@ author:
   contact: vansomecsam@email.com
   avatar: https://github.com/princemuel.png
 publishedAt: 2022-12-28T04:59:04.866Z
-status: published
+status: draft
 ---
 
 New feature in AstroPaper v1.4.0, introducing dynamic OG image generation for blog posts.
