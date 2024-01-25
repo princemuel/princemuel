@@ -1,3 +1,5 @@
+import defaultTheme from "tailwindcss/defaultTheme";
+
 export const fontSans = {
   name: "__FontSans",
   basePath: "./public",
@@ -24,7 +26,9 @@ export const fontSans = {
   preload: true,
   display: "swap",
   selector: ".__sans__",
-  fallback: "sans-serif" as const,
+  fallback: "__FontSans, " + defaultTheme.fontFamily.sans.join(", "),
+  // fallback: "sans-serif" as const,
+  fallbackName: "__FontSans_Fallback",
   cssVariable: "font-sans",
 };
 
@@ -49,6 +53,7 @@ export const fontMono = {
   preload: true,
   display: "swap",
   selector: ".__mono__",
-  fallback: "sans-serif" as const,
-  cssVariable: "font-mono",
+  fallback: "__FontMono, " + defaultTheme.fontFamily.mono.join(", "),
+  fallbackName: "__FontMono_Fallback",
+  // cssVariable: "font-mono",
 };
