@@ -1,14 +1,17 @@
 ---
-import RootMeta from "@/components/meta/root.astro";
+import Links from "@/components/meta/links.astro";
+import Meta from "@/components/meta/meta.astro";
 import Footer from "@/components/organisms/footer.astro";
 import Header from "@/components/organisms/header.astro";
 import { BreakpointIndicator } from "@/components/react/indicator";
 import { tw } from "@/helpers/utils";
 import { fontMono, fontSans } from "@/lib/fonts";
-import "@/styles/globals.css";
-import { AstroFont } from "astro-font";
+import "@/globals.css";
+import { AstroFont as Fonts } from "astro-font";
 import { ViewTransitions } from "astro:transitions";
 import { cn } from "tailwind-variants";
+import { DEFAULT_SITE_THEME } from "@/lib/config";
+import { pwaInfo } from "virtual:pwa-info";
 
 export interface Props {
   title: string;
@@ -19,34 +22,73 @@ export interface Props {
   publishedAt?: string;
 }
 
-const { ...rest } = Astro.props;
+const {
+  description = "",
+  type = "website",
+  image = { src: "/favicon.svg", alt: "Prince Muel's Logo" },
+  canonical,
+  publishedAt,
+} = Astro.props;
+
+const title = [Astro.props.title].filter(Boolean).join(" - ");
 ---
 
 <!doctype html>
 <html
   lang="en"
   dir="auto"
-  data-darkreader-mode="dynamic"
-  data-darkreader-theme="dark"
+  data-dark-reader-mode="dynamic"
   class={cn("__sans__ __serif__ __mono__")({ twMerge: true })}
 >
   <head>
-    <RootMeta {...rest} />
+    <script define:vars={{ DEFAULT_SITE_THEME }}>
+      const theme = localStorage.getItem("site-theme");
+      const $root = document.documentElement;
+
+      if (!theme) {
+        const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light";
+        localStorage.setItem("site-theme", systemTheme);
+      }
+      $root.dataset.darkReaderTheme = theme || DEFAULT_SITE_THEME;
+      $root.dataset.theme = `github-${theme}` || `github-${DEFAULT_SITE_THEME}`;
+    </script>
+
+    <Meta
+      title={title}
+      description={description}
+      image={image}
+      twitter={{ image, canonical }}
+      og={{ type, image, canonical }}
+      publishedAt={publishedAt}
+      canonical={canonical}
+    />
+    <Links />
+    {/* @ts-expect-error override expected font type  */}
+    <Fonts config={[fontSans, fontMono]} />
     <ViewTransitions />
 
-    <AstroFont config={[fontSans, fontMono]} />
+    <script src="/src/scripts/pwa.ts"></script>
+    {pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} />}
   </head>
 
   <body
     class:list={tw([
       "font-sans text-lg font-normal antialiased dark:bg-red-100",
       "text-zinc-600 dark:text-stone-100",
-      "bg-white dark:bg-[#0e141b]",
+      "bg-white dark:bg-[#0e141b] ",
     ])}
   >
     <Header />
     <slot />
     <Footer />
     <BreakpointIndicator />
+
+    <script>
+      // @ts-expect-error
+      const cssHasPseudo = (await import("css-has-pseudo/browser")).default;
+      cssHasPseudo(document);
+    </script>
   </body>
 </html>

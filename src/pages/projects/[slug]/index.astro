@@ -1,10 +1,10 @@
 ---
 import ProjectLayout from "@/layouts/project.astro";
-import { getSortedResource } from "@/lib/utils";
+import { fetchResource } from "@/lib/utils";
 import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
 
 export const getStaticPaths = (async () => {
-  const entries = await getSortedResource("projects");
+  const entries = await fetchResource("projects");
   return entries.map((entry) => {
     return {
       params: { slug: entry.slug },

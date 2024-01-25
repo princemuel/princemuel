@@ -14,7 +14,7 @@ const { frontmatter } = Astro.props;
 
 const metadata = {
   title: frontmatter.title,
-  description: frontmatter?.headline,
+  description: frontmatter?.summary,
   image: { src: "/favicon.svg", alt: frontmatter?.media?.coverAlt },
   canonical: frontmatter.canonical,
   type: "article",

@@ -1,10 +1,10 @@
 ---
 import Link from "@/components/atoms/link.astro";
 import RootLayout from "@/layouts/root.astro";
-import { getSortedResource } from "@/lib/utils";
+import { fetchResource } from "@/lib/utils";
 import { Image } from "astro:assets";
 
-const allPosts = await getSortedResource("posts");
+const allPosts = await fetchResource("posts");
 ---
 
 <RootLayout title="Prince Muel - Blog" description="">

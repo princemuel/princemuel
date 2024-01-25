@@ -3,7 +3,7 @@ title: Add New Posts in AstroPaper
 alternate: Adding new posts in AstroPaper theme
 type: article
 featured: true
-headline: Rules and Recommendations for creating new posts using the AstroPaper theme.
+summary: Rules and Recommendations for creating new posts using the AstroPaper theme.
 description: Some rules & recommendations for creating or adding new posts using AstroPaper theme.
 tags:
   - docs
@@ -13,7 +13,7 @@ author:
   avatar: https://github.com/princemuel.png
 publishedAt: 2022-09-23T15:22:00Z
 updatedAt: 2023-12-21T09:12:47.400Z
-status: published
+status: draft
 ---
 
 Here are some rules/recommendations, tips & ticks for creating new posts in AstroPaper blog theme.

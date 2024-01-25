@@ -3,7 +3,7 @@ title: Develop Your Portfolio Website and Blog
 alternate: How Do I Develop My Portfolio Website and Blog
 type: article
 featured: true
-headline: Rules and Recommendations for creating new posts using the AstroPaper theme.
+summary: Rules and Recommendations for creating new posts using the AstroPaper theme.
 description: My experience developing my first portfolio website and a blog using NextJS and a headless CMS.
 tags:
   - NextJS
@@ -15,7 +15,7 @@ author:
   contact: vansomecsam@email.com
   avatar: https://github.com/princemuel.png
 publishedAt: 2022-03-25T16:55:12.000+00:00
-status: published
+status: draft
 ---
 
 > This article is originally from my [blog post](https://satnaing.dev/blog/posts/how-do-i-develop-my-portfolio-and-blog). I put this article to demonstrate how you can write blog posts/articles using AstroPaper theme.
