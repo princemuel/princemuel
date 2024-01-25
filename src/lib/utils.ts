@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { getCollection, type CollectionEntry, type CollectionKey } from "astro:content";
@@ -9,7 +10,7 @@ export async function fetchResource<K extends CollectionKey>(
   options?: RequestOptions,
 ): Promise<CollectionEntry<K>[]> {
   const status = ["draft", "preview", "published"] as const;
-  // @ts-expect-error ignored collection type
+  // @ts-ignore ignored collection type
   const resource = await getCollection(key, ({ data }) => {
     if (import.meta.env.PROD) return data.status === "published";
     return status.includes(data.status);
@@ -18,9 +19,9 @@ export async function fetchResource<K extends CollectionKey>(
   return options?.sort
     ? resource.sort((a, b) => {
         return (
-          // @ts-expect-error ignored collection type "any"
+          // @ts-ignore ignored collection type "any"
           Number(b.data.updatedAt ?? b.data.publishedAt) -
-          // @ts-expect-error ignored collection type
+          // @ts-ignore ignored collection type
           Number(a.data.updatedAt ?? a.data.publishedAt)
         );
       })
