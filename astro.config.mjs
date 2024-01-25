@@ -4,23 +4,29 @@ import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
 import vercel from "@astrojs/vercel/serverless";
+import pwa from "@vite-pwa/astro";
+import ec from "astro-expressive-code";
 import { defineConfig } from "astro/config";
 import { rehypeAccessibleEmojis } from "rehype-accessible-emojis";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
-import rehypePrettyCode from "rehype-pretty-code";
 import remarkToc from "remark-toc";
 import { loadEnv } from "vite";
-import { rehypePrettyCodeOptions } from "./plugins/rehype";
-import { remarkDeruntify, remarkModifiedTime, remarkReadingTime } from "./plugins/remark";
-import { IconSpritePlugin } from "./plugins/rest";
+import {
+  codeBlockOptions,
+  remarkDeruntify,
+  remarkModifiedTime,
+  remarkReadingTime,
+} from "./plugins";
 
-const { BASE_URL } = loadEnv(process.env.NODE_ENV, process.cwd(), "");
+const envVars = loadEnv(process.env.NODE_ENV, process.cwd(), "");
+
 // https://astro.build/config
 export default defineConfig({
-  site: BASE_URL ?? "https://princemuel.vercel.app",
+  site: envVars.PUBLIC_SITE_URL,
   output: "hybrid",
   adapter: vercel({
     output: "hybrid",
+    edgeMiddleware: true,
     functionPerRoute: false,
     imageService: true,
     webAnalytics: {
@@ -30,22 +36,46 @@ export default defineConfig({
       enabled: true,
     },
   }),
-  experimental: { contentCollectionCache: true },
-  vite: { plugins: [IconSpritePlugin()] },
+  experimental: {
+    globalRoutePriority: true,
+    contentCollectionCache: true,
+  },
+  vite: { plugins: [] },
   markdown: {
-    syntaxHighlight: false,
     remarkPlugins: [remarkDeruntify, remarkReadingTime, remarkModifiedTime, remarkToc],
     rehypePlugins: [
       rehypeHeadingIds,
-      [rehypePrettyCode, rehypePrettyCodeOptions],
-      [rehypeAutolinkHeadings, { behavior: "prepend" }],
       rehypeAccessibleEmojis,
+      [
+        rehypeAutolinkHeadings,
+        {
+          behavior: "append",
+          properties: {
+            class: "linked",
+            ariaHidden: true,
+            tabIndex: -1,
+          },
+        },
+      ],
     ],
   },
   integrations: [
-    mdx(),
-    sitemap({ changefreq: "daily", priority: 0.7 }),
+    pwa({
+      registerType: "autoUpdate",
+      includeAssets: ["/favicon.svg"],
+      experimental: {
+        directoryAndTrailingSlashHandler: true,
+      },
+    }),
+    ec(codeBlockOptions),
+    mdx({ optimize: true }),
     tailwind({ applyBaseStyles: false, nesting: true }),
     react({ include: ["**/react/*"] }),
+    sitemap({
+      changefreq: "daily",
+      priority: 0.7,
+      lastmod: new Date(),
+      filter: (page) => !(page.includes("/api/") || page.includes(".xml")),
+    }),
   ],
 });
