@@ -21,77 +21,75 @@ I am currently updating my projects and it's a work in progress.
 ![princemuel's wakatime stats](https://github-readme-stats.vercel.app/api/wakatime?username=princemuel&text_color=586069&layout=compact&hide_border=true&title_color=0366d6&count_private=true&include_all_commits=true&theme=tokyonight&show_icons=true)
 
 <!--START_SECTION:waka-->
-**🐱 My GitHub Data** 
 
-> 📦 91.0 kB Used in GitHub's Storage 
- > 
+**🐱 My GitHub Data**
+
+> 📦 91.0 kB Used in GitHub's Storage
+>
 > 🏆 183 Contributions in the Year 2024
- > 
+>
 > 💼 Opted to Hire
- > 
-> 📜 19 Public Repositories 
- > 
-> 🔑 46 Private Repositories 
- > 
-**I'm a Night 🦉** 
+>
+> 📜 19 Public Repositories
+>
+> 🔑 46 Private Repositories
+>
+> **I'm a Night 🦉**
 
 ```text
-🌞 Morning                2665 commits        ██░░░░░░░░░░░░░░░░░░░░░░░   08.96 % 
-🌆 Daytime                7012 commits        ██████░░░░░░░░░░░░░░░░░░░   23.57 % 
-🌃 Evening                9686 commits        ████████░░░░░░░░░░░░░░░░░   32.56 % 
-🌙 Night                  10385 commits       █████████░░░░░░░░░░░░░░░░   34.91 % 
+🌞 Morning                2665 commits        ██░░░░░░░░░░░░░░░░░░░░░░░   08.96 %
+🌆 Daytime                7012 commits        ██████░░░░░░░░░░░░░░░░░░░   23.57 %
+🌃 Evening                9686 commits        ████████░░░░░░░░░░░░░░░░░   32.56 %
+🌙 Night                  10385 commits       █████████░░░░░░░░░░░░░░░░   34.91 %
 ```
-📅 **I'm Most Productive on Wednesday** 
+
+📅 **I'm Most Productive on Wednesday**
 
 ```text
-Monday                   4689 commits        ████░░░░░░░░░░░░░░░░░░░░░   15.76 % 
-Tuesday                  3990 commits        ███░░░░░░░░░░░░░░░░░░░░░░   13.41 % 
-Wednesday                5143 commits        ████░░░░░░░░░░░░░░░░░░░░░   17.29 % 
-Thursday                 4756 commits        ████░░░░░░░░░░░░░░░░░░░░░   15.99 % 
-Friday                   3081 commits        ███░░░░░░░░░░░░░░░░░░░░░░   10.36 % 
-Saturday                 3919 commits        ███░░░░░░░░░░░░░░░░░░░░░░   13.17 % 
-Sunday                   4170 commits        ████░░░░░░░░░░░░░░░░░░░░░   14.02 % 
+Monday                   4689 commits        ████░░░░░░░░░░░░░░░░░░░░░   15.76 %
+Tuesday                  3990 commits        ███░░░░░░░░░░░░░░░░░░░░░░   13.41 %
+Wednesday                5143 commits        ████░░░░░░░░░░░░░░░░░░░░░   17.29 %
+Thursday                 4756 commits        ████░░░░░░░░░░░░░░░░░░░░░   15.99 %
+Friday                   3081 commits        ███░░░░░░░░░░░░░░░░░░░░░░   10.36 %
+Saturday                 3919 commits        ███░░░░░░░░░░░░░░░░░░░░░░   13.17 %
+Sunday                   4170 commits        ████░░░░░░░░░░░░░░░░░░░░░   14.02 %
 ```
 
-
-📊 **This Week I Spent My Time On** 
+📊 **This Week I Spent My Time On**
 
 ```text
 🕑︎ Time Zone: Africa/Lagos
 
-💬 Programming Languages: 
-Rust                     3 hrs 2 mins        ███████████░░░░░░░░░░░░░░   42.78 % 
-TypeScript               1 hr 6 mins         ████░░░░░░░░░░░░░░░░░░░░░   15.53 % 
-Markdown                 39 mins             ██░░░░░░░░░░░░░░░░░░░░░░░   09.37 % 
-JavaScript               37 mins             ██░░░░░░░░░░░░░░░░░░░░░░░   08.79 % 
-Other                    29 mins             ██░░░░░░░░░░░░░░░░░░░░░░░   06.99 % 
+💬 Programming Languages:
+Rust                     3 hrs 2 mins        ███████████░░░░░░░░░░░░░░   42.78 %
+TypeScript               1 hr 6 mins         ████░░░░░░░░░░░░░░░░░░░░░   15.53 %
+Markdown                 39 mins             ██░░░░░░░░░░░░░░░░░░░░░░░   09.37 %
+JavaScript               37 mins             ██░░░░░░░░░░░░░░░░░░░░░░░   08.79 %
+Other                    29 mins             ██░░░░░░░░░░░░░░░░░░░░░░░   06.99 %
 
-🔥 Editors: 
-VS Code                  7 hrs 6 mins        █████████████████████████   100.00 % 
+🔥 Editors:
+VS Code                  7 hrs 6 mins        █████████████████████████   100.00 %
 
-🐱‍💻 Projects: 
-princemuel.com           1 hr 59 mins        ███████░░░░░░░░░░░░░░░░░░   28.05 % 
-learn-rust               1 hr 53 mins        ███████░░░░░░░░░░░░░░░░░░   26.68 % 
-guessing_game            1 hr 51 mins        ███████░░░░░░░░░░░░░░░░░░   26.09 % 
-rust-by-practice         50 mins             ███░░░░░░░░░░░░░░░░░░░░░░   11.75 % 
-rust-by-practise         18 mins             █░░░░░░░░░░░░░░░░░░░░░░░░   04.23 % 
+🐱‍💻 Projects:
+princemuel.com           1 hr 59 mins        ███████░░░░░░░░░░░░░░░░░░   28.05 %
+learn-rust               1 hr 53 mins        ███████░░░░░░░░░░░░░░░░░░   26.68 %
+guessing_game            1 hr 51 mins        ███████░░░░░░░░░░░░░░░░░░   26.09 %
+rust-by-practice         50 mins             ███░░░░░░░░░░░░░░░░░░░░░░   11.75 %
+rust-by-practise         18 mins             █░░░░░░░░░░░░░░░░░░░░░░░░   04.23 %
 
-💻 Operating System: 
-Linux                    7 hrs 6 mins        █████████████████████████   100.00 % 
+💻 Operating System:
+Linux                    7 hrs 6 mins        █████████████████████████   100.00 %
 ```
 
-**I Mostly Code in TypeScript** 
+**I Mostly Code in TypeScript**
 
 ```text
-TypeScript               37 repos            ████████████░░░░░░░░░░░░░   48.68 % 
-Python                   5 repos             ██░░░░░░░░░░░░░░░░░░░░░░░   06.58 % 
-Rust                     1 repo              ░░░░░░░░░░░░░░░░░░░░░░░░░   01.32 % 
-XSLT                     1 repo              ░░░░░░░░░░░░░░░░░░░░░░░░░   01.32 % 
-C                        1 repo              ░░░░░░░░░░░░░░░░░░░░░░░░░   01.32 % 
+TypeScript               37 repos            ████████████░░░░░░░░░░░░░   48.68 %
+Python                   5 repos             ██░░░░░░░░░░░░░░░░░░░░░░░   06.58 %
+Rust                     1 repo              ░░░░░░░░░░░░░░░░░░░░░░░░░   01.32 %
+XSLT                     1 repo              ░░░░░░░░░░░░░░░░░░░░░░░░░   01.32 %
+C                        1 repo              ░░░░░░░░░░░░░░░░░░░░░░░░░   01.32 %
 ```
-
-
-
 
 <!--END_SECTION:waka-->
 
@@ -102,14 +100,4 @@ C                        1 repo              ░░░░░░░░░░░�
 ## Blog posts
 
 <!-- BLOG-POST-LIST:START -->
- - 🔥 <a href='https://princemuel.vercel.app/blog/how-to-add-an-estimated-reading-time/?&ref=github-profile-readme'>Adding Estimated Reading Time In AstroPaper</a>
- - 🚀 <a href='https://princemuel.vercel.app/blog/how-to-add-estimated-reading-time/?&ref=github-profile-readme'>Adding Estimated Reading Time In AstroPaper</a>
- - 👨‍💻 <a href='https://princemuel.vercel.app/blog/how-to-update-dependencies/?&ref=github-profile-readme'>Updating AstroPaper&#39;s dependencies</a>
- - 👀 <a href='https://princemuel.vercel.app/blog/dynamic-og-images/?&ref=github-profile-readme'>Dynamic OG image generation in AstroPaper</a>
- - ✍🏽 <a href='https://princemuel.vercel.app/blog/predefined-color-schemes/?&ref=github-profile-readme'>Predefined color schemes in the AstroPaper blog theme</a>
- - 🥳 <a href='https://princemuel.vercel.app/blog/customizing-astropaper-theme-color-schemes/?&ref=github-profile-readme'>Customizing AstroPaper theme</a>
- - 💯 <a href='https://princemuel.vercel.app/blog/adding-new-post/?&ref=github-profile-readme'>Add New Posts in AstroPaper</a>
- - 💫 <a href='https://princemuel.vercel.app/blog/how-to-configure-astropaper-theme/?&ref=github-profile-readme'>Configuring the AstroPaper theme</a>
- - 🌮 <a href='https://princemuel.vercel.app/blog/tailwind-typography/?&ref=github-profile-readme'>The Tailwind Typography Plugin</a>
- - ⚡️ <a href='https://princemuel.vercel.app/blog/terminal-development/?&ref=github-profile-readme'>Developing A Terminal Portfolio Website with React</a>
- - 🔥 <a href='https://princemuel.vercel.app/blog/portfolio-website-development/?&ref=github-profile-readme'>Develop Your Portfolio Website and Blog</a><!-- BLOG-POST-LIST:END -->
+<!-- BLOG-POST-LIST:END -->
