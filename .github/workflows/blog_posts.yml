@@ -1,11 +1,10 @@
 name: Latest Blog Post Workflow
 on:
-  schedule:
-    - cron: "30 0 * * *"
+  # schedule:
+  #   # - cron: "30 0 * * *"
   workflow_dispatch:
 permissions:
   contents: write
-
 jobs:
   update-readme-with-blog:
     name: Update Github Profile README with latest blog posts
@@ -23,4 +22,4 @@ jobs:
           template: "$newline - $emojiKey(🔥,🚀,👨‍💻,👀,✍🏽,🥳,💯,💫,🌮,⚡️) <a href='$url?&ref=github-profile-readme'>$title</a>"
           committer_username: princemuel
           committer_email: vansomecsam@gmail.com
-          commit_message: "docs: :memo: updated blog list"
+          commit_message: "docs: updated blog posts"
