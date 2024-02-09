@@ -1,4 +1,4 @@
-# Hi, there <img src='/assets/wave.gif' alt='Just saying hello' width='100' height='100' />
+# Hi, there <img src='/assets/wave.gif' alt='Just saying hello' width='30' height='30' />
 
 <!--
 **princemuel/princemuel** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
