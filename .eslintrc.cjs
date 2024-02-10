@@ -7,12 +7,13 @@ module.exports = {
     worker: true,
     "shared-node-browser": true,
   },
-  extends: ["eslint:recommended", "plugin:astro/recommended", "plugin:astro/jsx-a11y-strict"],
+  extends: ["eslint:recommended"],
   parserOptions: {
     ecmaVersion: "latest",
     sourceType: "module",
     ecmaFeatures: {
       impliedStrict: true,
+      experimentalObjectRestSpread: true,
     },
     tsconfigRootDir: __dirname,
     project: "./tsconfig.json",
@@ -40,17 +41,7 @@ module.exports = {
         "no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
       },
     },
-    {
-      files: ["*.d.ts"],
-      parser: "@typescript-eslint/parser",
-      extends: [
-        "plugin:@typescript-eslint/recommended",
-        "plugin:@typescript-eslint/recommended-requiring-type-checking",
-      ],
-      rules: {
-        "@typescript-eslint/triple-slash-reference": "off",
-      },
-    },
+
     {
       files: ["*.tsx"],
       plugins: ["react", "@typescript-eslint"],
@@ -64,16 +55,102 @@ module.exports = {
         "plugin:@typescript-eslint/recommended-requiring-type-checking",
       ],
       rules: {
+        // These rules are turned on in the core rules but aren't needed for TypeScript code
+        "no-dupe-class-members": "off",
         "no-undef": "off",
-        // "@typescript-eslint/restrict-template-expressions": "off",
         "no-unused-vars": "off",
-        "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
+
+        // These stylistic rules don't match our preferences
+        "no-use-before-define": "off",
+        "prefer-const": "off",
+
+        // TODO: These rules might be nice to enable...we should investigate eventually!
+        "@typescript-eslint/ban-ts-comment": "off",
+        "@typescript-eslint/ban-types": "off",
+        "@typescript-eslint/no-empty-function": "off",
+        "@typescript-eslint/no-empty-interface": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-inferrable-types": "off",
+        "@typescript-eslint/no-namespace": "off",
+        "@typescript-eslint/no-var-requires": "off",
         "@typescript-eslint/no-non-null-assertion": "off",
+        "@typescript-eslint/restrict-template-expressions": "off",
+        // "@typescript-eslint/triple-slash-reference": "off",
+        "no-var": "off",
+        "prefer-rest-params": "off",
+
+        // These rules are nice and we want to configure over the defaults
+        "@typescript-eslint/no-use-before-define": [
+          "error",
+          {
+            functions: false,
+            classes: false,
+            variables: false,
+            typedefs: false,
+          },
+        ],
+        "@typescript-eslint/no-unused-expressions": [
+          "error",
+          {
+            allowShortCircuit: true,
+            allowTernary: true,
+            allowTaggedTemplates: true,
+          },
+        ],
+        "@typescript-eslint/no-unused-vars": [
+          "error",
+          {
+            args: "none",
+            ignoreRestSiblings: true,
+            // argsIgnorePattern: "^_",
+          },
+        ],
+
+        // These rules should eventually come from @typescript-eslint/stylistic
+        // in typescript-eslint@6
+        "@typescript-eslint/consistent-type-assertions": "warn",
+        "@typescript-eslint/consistent-type-imports": "warn",
+      },
+    },
+    {
+      files: ["*.d.ts"],
+      parser: "@typescript-eslint/parser",
+      extends: [
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking",
+      ],
+      rules: {
+        "@typescript-eslint/triple-slash-reference": "off",
       },
     },
     {
       files: ["**/*.astro/*.js", "*.astro/*.js"],
       parser: "@typescript-eslint/parser",
+    },
+    {
+      // all code blocks in .md files
+      files: ["**/*.md/*.js?(x)", "**/*.md/*.ts?(x)"],
+      rules: {
+        "no-unreachable": "off",
+        "no-unused-expressions": "off",
+        "no-unused-labels": "off",
+        "no-unused-vars": "off",
+        "prefer-const": "warn",
+        "jsx-a11y/alt-text": "off",
+        "jsx-a11y/anchor-has-content": "off",
+        "prefer-let/prefer-let": "off",
+        "react/jsx-no-comment-textnodes": "off",
+        "react/jsx-no-undef": "off",
+      },
+    },
+    {
+      // all ```ts & ```tsx code blocks in .md files
+      files: ["**/*.md/*.ts?(x)"],
+      rules: {
+        "import/no-duplicates": "off",
+        "@typescript-eslint/no-unused-expressions": "off",
+        "@typescript-eslint/no-unused-vars": "off",
+      },
     },
   ],
 };
