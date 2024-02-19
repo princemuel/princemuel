@@ -3,7 +3,7 @@ title: Updating AstroPaper's dependencies
 alternate: How to update AstroPaper's dependencies
 type: article
 featured: false
-headline: Updating your project's dependencies and the AstroPaper template
+summary: Updating your project's dependencies and the AstroPaper template
 description: Step by step process to update the dependencies in your project AstroPaper's template
 media:
   image: "../../assets/forrest-gump-quote.webp"
@@ -18,7 +18,7 @@ author:
   contact: vansomecsam@email.com
   avatar: https://github.com/princemuel.png
 publishedAt: 2023-07-20T15:33:05.569Z
-status: published
+status: draft
 ---
 
 Updating the dependencies of a project can be tedious. However, neglecting to update project dependencies is not a good idea either 😬. In this post, I will share how I usually update my projects, focusing on AstroPaper as an example. Nonetheless, these steps can be applied to other js/node projects as well.

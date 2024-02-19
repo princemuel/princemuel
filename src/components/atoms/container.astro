@@ -1,0 +1,14 @@
+---
+import { tw } from "@/helpers/utils";
+import type { HTMLTag, Polymorphic } from "astro/types";
+
+type Props<E extends HTMLTag> = Polymorphic<{ as: E }>;
+
+const { as, class: className, ...attrs } = Astro.props;
+
+let Tag = as || "div";
+---
+
+<Tag {...attrs} class:list={tw("container", className)}>
+  <slot />
+</Tag>

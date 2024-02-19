@@ -1,16 +1,19 @@
-import { getSortedResource } from "@/lib/utils";
+import { fetchResource } from "@/lib/utils";
 import rss from "@astrojs/rss";
 import type { APIRoute } from "astro";
 
 export const GET: APIRoute = async (context) => {
-  const resource = await getSortedResource("posts");
+  const resource = await fetchResource("posts");
+  const author = "Prince Muel";
+
+  const base = new URL("/", context.site).toString();
 
   return rss({
     xmlns: {
       atom: "http://www.w3.org/2005/Atom",
       media: "http://search.yahoo.com/mrss/",
     },
-    title: "Prince Muel | Blog RSS Feed",
+    title: `${author} | Blog RSS Feed`,
     description:
       "My Personal Website scaffolded with Astro. If you subscribe to this RSS feed you will receive updates and summaries of my new posts",
     site: new URL("/", context.site),
@@ -27,13 +30,15 @@ export const GET: APIRoute = async (context) => {
         width="${item.data.media?.cover?.width}"
         height="${item.data.media?.cover?.height}"
         medium="image"
-        url="${context.site}${item.data.media?.cover?.src || ""}" />
+        url="${base}${item.data.media?.cover?.src || ""}" />
     `,
       };
     }),
-    customData: `<atom:link href="${context.site}rss.xml" rel='self'
+    customData: `<atom:link href="${base}rss.xml" rel='self'
     type='application/rss+xml' xmlns:atom='http://www.w3.org/2005/Atom'
-    xmlns:content='http://purl.org/rss/1.0/modules/content/'></atom:link>`,
+    xmlns:content='http://purl.org/rss/1.0/modules/content/'></atom:link>
+    <language>en-US</language>
+    `,
     stylesheet: "/styles.xsl",
   });
 };

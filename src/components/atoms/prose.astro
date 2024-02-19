@@ -11,30 +11,16 @@ const { as: Tag, class: className, ...rest } = Astro.props;
   {...rest}
   class:list={tw([
     "prose max-w-full dark:prose-invert",
-    "prose-pre:border prose-inline-code:border",
-    "prose-pre:border-gray-900/20 prose-inline-code:border-gray-900/20",
-    "dark:prose-inline-code:border-gray-100/10",
+    "prose-inline-code:border prose-inline-code:border-gray-900/20",
+    "prose-inline-code:px-1 dark:prose-inline-code:border-gray-100/10",
     "prose-inline-code:rounded-lg prose-inline-code:font-normal",
-    "prose-pre:px-6 prose-pre:py-4 prose-inline-code:px-1",
     "prose-h2:text-blue-600",
     "prose-h2:text-3xl prose-h2:font-semibold prose-h2:tracking-tight",
-    "",
-    "",
+    // "",
+    // "",
+
+    className,
   ])}
 >
   <slot />
 </Tag>
-
-{/* Dark Mode: https://shikiji.netlify.app/guide/dual-themes*/}
-<style is:global>
-  :where([data-darkreader-theme="light"] [data-theme*=" "]),
-  :where([data-darkreader-theme="light"] [data-theme*=" "] span) {
-    color: var(--shiki-light) !important;
-    background-color: var(--shiki-light-bg) !important;
-  }
-  :where([data-darkreader-theme="dark"] [data-theme*=" "]),
-  :where([data-darkreader-theme="dark"] [data-theme*=" "] span) {
-    color: var(--shiki-dark) !important;
-    background-color: var(--shiki-dark-bg) !important;
-  }
-</style>
