@@ -1,8 +1,5 @@
 {
-  "parserPreset": "conventional-changelog-atom",
   "formatter": "@commitlint/format",
   "extends": ["@commitlint/config-conventional"],
-  "rules": {
-    "type-enum": [2, "always", ["foo"]]
-  }
+  "rules": {}
 }

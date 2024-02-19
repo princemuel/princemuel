@@ -3,24 +3,37 @@
     "prefix": "astro:iife",
     "description": "This is an immediately invoked function expression",
     "isFileTemplate": false,
-    "body": "{(()=> {\n${1}\n})()}"
+    "body": "{(()=> {\n${1}\n})()}",
   },
   "Immediately Invoked Generator Expression": {
-    "body": ["{(function* () {\n", "for(const ${0:item} of ${0:item}s) {\n${1}\n}\n", "})()\n}"],
+    "body": [
+      "{(function* () {\n",
+      "for(const ${0:item} of ${0:item}s) {\n${1}\n}\n",
+      "})()\n}",
+    ],
     "prefix": "astro:iige",
-    "description": "This is an generator expression"
+    "description": "This is an generator expression",
   },
   "Astro Base": {
     "prefix": "astro:base",
     "description": "This is a basic scaffold for a component in Astro",
     "isFileTemplate": true,
-    "body": ["---\n${3}\n---", "<${1:div}>\n", "</div>\n", "<style>\n${2}\n</style>"]
+    "body": [
+      "---\n${3}\n---",
+      "<${1:div}>\n",
+      "</div>\n",
+      "<style>\n${2}\n</style>",
+    ],
   },
   "Astro Client Script Base": {
     "prefix": "astro:cbase",
     "description": "Astro Single File Component w Client Script",
     "isFileTemplate": true,
-    "body": ["<${0:div}>\n</div>\n", "<style>\n${1}\n</style>\n", "<script>\n</script>"]
+    "body": [
+      "<${0:div}>\n</div>\n",
+      "<style>\n${1}\n</style>\n",
+      "<script>\n</script>",
+    ],
   },
   "Header Main Footer Component ": {
     "prefix": "astro:base-hmf",
@@ -42,20 +55,20 @@
       "<footer>\n${3}\n</footer>\n",
       "</body>",
       "</html>\n",
-      "<style>\n${4}\n</style>"
-    ]
+      "<style>\n${4}\n</style>",
+    ],
   },
   "Fragment Set HTML": {
     "prefix": "astro:frag--html",
     "description": "This is a fragment with set html",
     "isFileTemplate": false,
-    "body": "<Fragment set:html={${0}} />"
+    "body": "<Fragment set:html={${0}} />",
   },
   "Fragment Slot Name": {
     "prefix": "astro:frag--slot",
     "description": "This is a fragment with a slot name in it",
     "isFileTemplate": false,
-    "body": "<Fragment slot='${1}'>\n${2}\n</Fragment>"
+    "body": "<Fragment slot='${1}'>\n${2}\n</Fragment>",
   },
   "Pre-rendered Page": {
     "prefix": "astro:base-pr-pg",
@@ -64,8 +77,8 @@
     "body": [
       "---\nexport const prerender = true\n---",
       "<${1:div}>\n</div>\n",
-      "<style>\n${2}\n</style>"
-    ]
+      "<style>\n${2}\n</style>",
+    ],
   },
   "Pre rendered Page with getStaticPaths": {
     "prefix": "astro:base-pr-pg--gsp",
@@ -87,8 +100,8 @@
       "type Props = InferGetStaticPropsType<typeof getStaticPaths>\n",
       "const {${3}} = Astro.props\n",
       "---",
-      "<${1:div}>\n</div>"
-    ]
+      "<${1:div}>\n</div>",
+    ],
   },
   "Page with getStaticPaths": {
     "prefix": "astro:base-gsp",
@@ -109,8 +122,8 @@
       "type Props = InferGetStaticPropsType<typeof getStaticPaths>\n",
       "const {${3}} = Astro.props\n",
       "---",
-      "<${1:div}>\n</div>\n"
-    ]
+      "<${1:div}>\n</div>\n",
+    ],
   },
   "Astro Component": {
     "prefix": "astro:base-cmp",
@@ -122,8 +135,8 @@
       "const {${3}} = Astro.props\n",
       "---",
       "<${1:div}>\n</div>\n",
-      "<style>\n${4}\n</style>"
-    ]
+      "<style>\n${4}\n</style>",
+    ],
   },
   "Astro Component with Client Script": {
     "prefix": "astro:base-cmp--csc",
@@ -137,14 +150,18 @@
       "<${2:div}>\n</${2:div}>\n",
       "<style>\n${1}\n</style>\n",
       "<script>${5}</script>",
-      ""
-    ]
+      "",
+    ],
   },
   "Layout Page": {
     "prefix": "astro:base-lpg",
     "description": "This a page with layout scaffold",
     "isFileTemplate": true,
-    "body": ["---${4}---", "<${1:Layout}>\n${2}\n</${1:Layout}>\n", "<style>\n${3}\n</style>"]
+    "body": [
+      "---${4}---",
+      "<${1:Layout}>\n${2}\n</${1:Layout}>\n",
+      "<style>\n${3}\n</style>",
+    ],
   },
   "Layout Page with Header and Footer slot": {
     "prefix": "astro:base-lpg--hmf",
@@ -156,8 +173,8 @@
       "<slot name='header'>\n${2}\n</slot>\n",
       "${3}",
       "<slot name='footer'>\n${4}\n</slot>\n",
-      "</${1:Layout}>"
-    ]
+      "</${1:Layout}>",
+    ],
   },
   "Content Collections Page with getStaticPaths": {
     "prefix": "astro:base-gsp--gc",
@@ -180,25 +197,25 @@
       "---",
       "<h1>{title}</h1>\n",
       "<article>\n<Content frontmatter={entry.data}  />\n</article>",
-      "<style>\n${3}\n</style>"
-    ]
+      "<style>\n${3}\n</style>",
+    ],
   },
   "Map Expression ": {
     "prefix": "astro:map",
     "description": "This is a simple map expression for Astro",
     "isFileTemplate": false,
-    "body": ["{ ${1:item}s.map((${1:item}) => ${2:item} }) }"]
+    "body": ["{ ${1:item}s.map((${1:item}) => (${2:item})) }"],
   },
   "Map Expression Using a Block": {
     "prefix": "astro:map--an-fn",
     "description": "This is a map expression for Astro using a anonymous function",
     "isFileTemplate": false,
-    "body": ["{\n${1:item}s.map((${1:item}) =>{\nreturn ${2:item}\n})\n}"]
+    "body": ["{\n${1:item}s.map((${1:item}) =>{\nreturn ${2:item}\n})\n}"],
   },
   "Ternary Expression": {
     "prefix": "astro:tern",
     "description": "A ternary expression scaffold",
     "isFileTemplate": false,
-    "body": ["{ ${1:expression} ? ${2} : ${3:null} }"]
-  }
+    "body": ["{ ${1:expression} ? ${2} : ${3:null} }"],
+  },
 }
