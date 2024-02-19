@@ -1,17 +1,17 @@
 {
   "extends": "astro/tsconfigs/strictest",
   "compilerOptions": {
-    "allowJs": true,
     "jsx": "react-jsx",
-    "jsxImportSource": "react",
+    "jsxImportSource": "@builder.io/qwik",
 
     "noErrorTruncation": true,
     "exactOptionalPropertyTypes": false,
+    "allowArbitraryExtensions": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
-    },
+      "@/*": ["./src/*"]
+    }
   },
   "include": ["**/*"],
-  "exclude": ["node_modules", "dist", ".vercel", "public"],
+  "exclude": ["node_modules", "dist", ".vercel", "public"]
 }
