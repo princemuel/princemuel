@@ -1,8 +1,8 @@
 import mdx from "@astrojs/mdx";
-import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
 import { pluginCollapsibleSections } from "@expressive-code/plugin-collapsible-sections";
+import qwik from "@qwikdev/astro";
 import pwa from "@vite-pwa/astro";
 import ec from "astro-expressive-code";
 import defaultTheme from "tailwindcss/defaultTheme";
@@ -32,7 +32,7 @@ export const integrations = [
   ec(codeBlockOptions),
   mdx({ optimize: true }),
   tailwind({ applyBaseStyles: false, nesting: true }),
-  react({ include: ["**/react/*"] }),
+  qwik({ include: ["**/qwik/*"] }),
   sitemap({
     changefreq: "daily",
     priority: 0.7,

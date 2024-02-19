@@ -5,7 +5,8 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 /** @type {import('astro').RehypePlugins} */
 export const rehypePlugins = [
   rehypeHeadingIds,
-  rehypeAccessibleEmojis,
+  //@ts-expect-error
+  [rehypeAccessibleEmojis, {}],
   [
     rehypeAutolinkHeadings,
     {

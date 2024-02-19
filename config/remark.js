@@ -36,4 +36,9 @@ function remarkModifiedTime() {
 }
 
 /** @type {import('astro').RemarkPlugins} */
-export const remarkPlugins = [remarkDeruntify, remarkReadingTime, remarkModifiedTime, remarkToc];
+export const remarkPlugins = [
+  remarkDeruntify,
+  remarkReadingTime,
+  remarkModifiedTime,
+  remarkToc,
+];
