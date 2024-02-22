@@ -10,3 +10,8 @@ type A = { name: string; age: number; address: { zip: string } };
 type B = { email: string };
 
 type C = Prettify<A & B>;
+
+type IterableToArray<T> =
+  T extends Iterable<infer I> ? I[]
+  : T extends ArrayLike<infer A> ? A[]
+  : never;
