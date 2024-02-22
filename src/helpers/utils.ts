@@ -1,25 +1,19 @@
 import { cn, type CnOptions } from "tailwind-variants";
 
-export const tw = <T extends CnOptions>(...classes: T) => cn(...classes)({ twMerge: true });
+export const tw = <T extends CnOptions>(...classes: T) =>
+  cn(...classes)({ twMerge: true });
 
-export async function fetchAPI<JSON>(input: RequestInfo, init?: RequestInit): Promise<JSON> {
-  const res = await fetch(input, init);
-
-  if (!res.ok) {
-    const json = (await res.json()) as { error?: string };
-    if (json.error) {
-      const error = new Error(json.error) as Error & {
-        status: number;
-      };
-      error.status = res.status;
-      throw error;
-    } else {
-      throw new Error("An unexpected error occurred");
-    }
-  }
-
-  return res.json() as JSON;
+export function pluralize<
+  C extends number,
+  N extends string,
+  P extends string = `${N}s`,
+>(count: C, noun: N, plural?: P) {
+  return (count === 1 ? noun : plural ?? `${noun}s`) as C extends 1 ? N : P;
 }
+
+export const unique = <T>(array: T[]) => {
+  return [...new Set(array)];
+};
 
 export function nFormatter(num: number, digits?: number | undefined) {
   if (!num) return "0";
@@ -42,7 +36,10 @@ export function nFormatter(num: number, digits?: number | undefined) {
 
   const validDigits = digits ? Math.abs(digits) : 1;
 
-  return (num / value).toFixed(validDigits).replace(TRAILING_ZERO_REGEX, "$1") + symbol;
+  return (
+    (num / value).toFixed(validDigits).replace(TRAILING_ZERO_REGEX, "$1") +
+    symbol
+  );
 }
 
 export function capitalize(str: string) {

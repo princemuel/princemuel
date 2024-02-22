@@ -1,18 +1,25 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-export const invariant: Invariant = (predicate, message, ...positionals): asserts predicate => {
+
+export const invariant: Invariant = (
+  predicate,
+  message,
+  ...positionals
+): asserts predicate => {
   if (!predicate) throw new InvariantError(message, ...positionals);
 };
 
 invariant.as = (ErrorConstructor, predicate, message, ...positionals) => {
   if (!predicate) {
-    const formatMessage = positionals.length === 0 ? message : format(message, positionals);
+    const formatMessage =
+      positionals.length === 0 ? message : format(message, positionals);
     let error: Error;
 
     try {
-      error = Reflect.construct(ErrorConstructor as CustomErrorConstructor, [formatMessage]);
+      error = Reflect.construct(ErrorConstructor as CustomErrorConstructor, [
+        formatMessage,
+      ]);
     } catch (err) {
       error = (ErrorConstructor as CustomErrorFactory)(formatMessage);
     }
@@ -60,7 +67,11 @@ interface CustomErrorFactory {
 type CustomError = CustomErrorConstructor | CustomErrorFactory;
 
 type Invariant = {
-  (predicate: unknown, message: string, ...positionals: any[]): asserts predicate;
+  (
+    predicate: unknown,
+    message: string,
+    ...positionals: any[]
+  ): asserts predicate;
 
   as(
     ErrorConstructor: CustomError,
@@ -108,17 +119,20 @@ function format(message: string, ...positionals: any[]): string {
   if (positionals.length === 0) return message;
 
   let positionalIndex = 0;
-  let formattedMessage = message.replace(POSITIONALS_EXP, (match, isEscaped, _, flag) => {
-    const positional = positionals[positionalIndex];
-    const value = serializePositional(positional, flag);
+  let formattedMessage = message.replace(
+    POSITIONALS_EXP,
+    (match, isEscaped, _, flag) => {
+      const positional = positionals[positionalIndex];
+      const value = serializePositional(positional, flag);
 
-    if (!isEscaped) {
-      positionalIndex++;
-      return value;
-    }
+      if (!isEscaped) {
+        positionalIndex++;
+        return value;
+      }
 
-    return match;
-  });
+      return match;
+    },
+  );
 
   // Append unresolved positionals to string as-is.
   if (positionalIndex < positionals.length) {
