@@ -12,6 +12,9 @@ const envVars = loadEnv(process.env.NODE_ENV, process.cwd(), "");
 export default defineConfig({
   site: envVars.PUBLIC_SITE_URL,
   output: "hybrid",
+  server: { port: 3000 },
+  markdown: { remarkPlugins, rehypePlugins },
+  integrations: integrations,
   adapter: vercel({
     edgeMiddleware: true,
     maxDuration: 20,
@@ -24,7 +27,4 @@ export default defineConfig({
     globalRoutePriority: true,
     contentCollectionCache: true,
   },
-  server: { port: 3000 },
-  markdown: { remarkPlugins, rehypePlugins },
-  integrations: integrations,
 });

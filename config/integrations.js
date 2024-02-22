@@ -5,6 +5,7 @@ import { pluginCollapsibleSections } from "@expressive-code/plugin-collapsible-s
 import qwik from "@qwikdev/astro";
 import pwa from "@vite-pwa/astro";
 import ec from "astro-expressive-code";
+import simpleStackForm from "simple-stack-form";
 import defaultTheme from "tailwindcss/defaultTheme";
 
 /** @type {import('astro-expressive-code').AstroExpressiveCodeOptions} */
@@ -39,4 +40,5 @@ export const integrations = [
     lastmod: new Date(),
     filter: (page) => !(page.includes("/api/") || page.includes(".xml")),
   }),
+  simpleStackForm(),
 ];
