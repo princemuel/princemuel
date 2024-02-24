@@ -1,113 +1,129 @@
 ---
-// import type { Props } from "astro";
+import "@/globals.css";
+import { formatCanonicalURL } from "@/helpers/seo";
+import { defaultKeywords, delimiter } from "@/lib/config";
 
-// import { createHeadMeta } from "@/lib/head";
-// import type { MetaSchema } from "@/lib/schema";
-// import type { z } from "astro/zod";
-// import config from "virtual:starlight/user-config";
-// import { version } from "../../../package.json";
-// import { fileWithBase } from "../utils/base";
-// import { localizedUrl } from "../utils/localizedUrl";
+type Props = Meta & { og?: OpenGraph; twitter?: Twitter };
 
-// const { entry, lang } = Astro.props;
-// const { data } = entry;
+const { title, description, image, tags, canonical, publishedAt, updatedAt } =
+  Astro.props;
 
-// const canonical = Astro.site
-//   ? new URL(Astro.url.pathname, Astro.site)
-//   : undefined;
-// const description = data.description || config.description;
+const og = {
+  type: "website",
+  ...Astro.props.og,
+} satisfies OpenGraph;
 
-// const headDefaults: z.input<ReturnType<typeof MetaSchema>> = [
-//   { tag: "meta", attrs: { charset: "utf-8" } },
-//   {
-//     tag: "meta",
-//     attrs: { name: "viewport", content: "width=device-width, initial-scale=1" },
-//   },
-//   {
-//     tag: "title",
-//     content: `${data.title} ${config.titleDelimiter} ${config.title}`,
-//   },
-//   { tag: "link", attrs: { rel: "canonical", href: canonical?.href } },
-//   { tag: "meta", attrs: { name: "generator", content: Astro.generator } },
-//   {
-//     tag: "meta",
-//     attrs: { name: "generator", content: `Starlight v${version}` },
-//   },
-//   // Favicon
-//   {
-//     tag: "link",
-//     attrs: {
-//       rel: "shortcut icon",
-//       href: fileWithBase(config.favicon.href),
-//       type: config.favicon.type,
-//     },
-//   },
-//   // OpenGraph Tags
-//   { tag: "meta", attrs: { property: "og:title", content: data.title } },
-//   { tag: "meta", attrs: { property: "og:type", content: "article" } },
-//   { tag: "meta", attrs: { property: "og:url", content: canonical?.href } },
-//   { tag: "meta", attrs: { property: "og:locale", content: lang } },
-//   { tag: "meta", attrs: { property: "og:description", content: description } },
-//   { tag: "meta", attrs: { property: "og:site_name", content: config.title } },
-//   // Twitter Tags
-//   {
-//     tag: "meta",
-//     attrs: { name: "twitter:card", content: "summary_large_image" },
-//   },
-//   { tag: "meta", attrs: { name: "twitter:title", content: data.title } },
-//   { tag: "meta", attrs: { name: "twitter:description", content: description } },
-// ];
+const twitter = {
+  handle: "@iamprincemuel",
+  card: "summary_large_image",
+  ...Astro.props.twitter,
+} satisfies Twitter;
 
-// if (description)
-//   headDefaults.push({
-//     tag: "meta",
-//     attrs: { name: "description", content: description },
-//   });
+const name = "Prince Muel";
+const siteUrl = import.meta.env.PUBLIC_SITE_URL;
+const defaultImage = "static/assets/princemuel-open-graph-image-2024.jpg";
+const locale = "en";
 
-// // Link to language alternates.
-// if (canonical && config.isMultilingual) {
-//   for (const locale in config.locales) {
-//     const localeOpts = config.locales[locale];
-//     if (!localeOpts) continue;
-//     headDefaults.push({
-//       tag: "link",
-//       attrs: {
-//         rel: "alternate",
-//         hreflang: localeOpts.lang,
-//         href: localizedUrl(canonical, locale).href,
-//       },
-//     });
-//   }
-// }
-
-// // Link to sitemap, but only when `site` is set.
-// if (Astro.site) {
-//   headDefaults.push({
-//     tag: "link",
-//     attrs: {
-//       rel: "sitemap",
-//       href: fileWithBase("/sitemap-index.xml"),
-//     },
-//   });
-// }
-
-// // Link to Twitter account if set in Starlight config.
-// if (config.social?.twitter) {
-//   headDefaults.push({
-//     tag: "meta",
-//     attrs: {
-//       name: "twitter:site",
-//       content: new URL(config.social.twitter.url).pathname,
-//     },
-//   });
-// }
-
-// const head = createHeadMeta(headDefaults, config.head, data.head);
+const htmlTitle = `${name} ${delimiter} ${title}`;
+const linkCanonical = formatCanonicalURL(
+  canonical || new URL(Astro.url.pathname, Astro.site),
+);
+const ogImage = image
+  ? image
+  : { src: `${siteUrl}/${defaultImage}`, alt: description };
+const seoKeywords = tags ? tags : defaultKeywords;
+const application_name = `${name}'s Personal Website`;
 ---
 
-<!-- {
-  head.map(({ tag: Tag, attrs, content }) => (
-    <Tag {...attrs} set:html={content} />
-  ))
-} -->
-<h1>barf</h1>
+<title>{htmlTitle}</title>
+
+<meta name="generator" content={Astro.generator} />
+<meta name="application-name" content={application_name} />
+<meta name="referrer" content="origin-when-cross-origin" />
+<meta name="color-scheme" content="dark light" />
+<meta
+  name="theme-color"
+  content="#111111"
+  media="(prefers-color-scheme: dark)"
+/>
+<meta
+  name="theme-color"
+  content="#fafaf9"
+  media="(prefers-color-scheme: light)"
+/>
+<meta name="robots" content="index, follow" />
+<meta
+  name="googlebot"
+  content="index, follow, max-snippet:160, max-image-preview:large, max-video-preview:-1"
+/>
+
+<meta name="description" content={description} />
+<meta name="image" content={ogImage.src} />
+<meta name="image:alt" content={ogImage.alt} />
+<meta name="keywords" content={seoKeywords.join(", ")} />
+
+<meta name="author" content={name} />
+<meta name="creator" content={name} />
+<meta name="publisher" content={name} />
+<link rel="author" href="https://github.com/princemuel" />
+<link rel="canonical" href={linkCanonical} />
+
+<!-- Facebook -->
+<meta property="og:type" content={og.type} />
+<meta property="og:locale" content={locale} />
+<meta property="og:site_name" content={application_name} />
+<meta property="og:title" content={htmlTitle} />
+<meta property="og:url" content={linkCanonical} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={ogImage.src} />}
+<meta property="og:image:alt" content={ogImage.alt} />}
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:creator" content={twitter.handle} />}
+<meta name="twitter:title" content={htmlTitle} />
+<meta name="twitter:url" content={linkCanonical} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage.src} />}
+<meta name="twitter:image:alt" content={ogImage.alt} />}
+
+<!-- Favicons -->
+<link rel="mask-icon" href="/favicon.svg" color="#8D46E7" />
+<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16" />
+<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32" />
+<link
+  rel="apple-touch-icon"
+  href="/apple-icon.png"
+  type="image/png"
+  sizes="114x114"
+/>
+
+<link
+  rel="manifest"
+  href="/manifest.webmanifest"
+  crossorigin="use-credentials"
+/>
+<link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  title={`${name} ${delimiter} Blog RSS Feed`}
+  href="/rss.xml"
+/>
+
+{
+  publishedAt && (
+    <meta property="article:published_time" content={publishedAt} />
+  )
+}
+{updatedAt && <meta property="article:modified_time" content={updatedAt} />}
+
+<meta name="format-detection" content="telephone=no, address=no, email=no" />
+<meta name="google-site-verification" content="google" />
+<meta name="y_key" content="yahoo" />
+<meta name="yandex-verification" content="yandex" />
+<meta name="bing" content="msvalidate.01=0" />
+<meta name="me" content="vansomecsam@gmail.com" />
+<meta name="me" content="my-link" />
