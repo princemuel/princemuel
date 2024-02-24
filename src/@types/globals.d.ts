@@ -5,4 +5,3 @@ declare global {
     entries<T extends {}>(object: T): ReadonlyArray<Misc.Entry<T>>;
   }
 }
-
