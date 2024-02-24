@@ -20,8 +20,8 @@ export default defineConfig({
     maxDuration: 20,
     functionPerRoute: false,
     imageService: true,
-    webAnalytics: { enabled: true },
-    speedInsights: { enabled: true },
+    webAnalytics: { enabled: envVars.NODE_ENV === "production" },
+    speedInsights: { enabled: envVars.NODE_ENV === "production" },
   }),
   experimental: {
     globalRoutePriority: true,
