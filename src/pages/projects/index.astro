@@ -1,28 +1,30 @@
 ---
-import RootLayout from "@/layouts/root.astro";
+import Root from "@/layouts/root.astro";
 import { fetchResource } from "@/lib/utils";
-import { Image } from "astro:assets";
 
-const allProjects = await fetchResource("projects");
+const allProjects = await fetchResource("projects", { sort: true, select: 2 });
 ---
 
-<RootLayout title="Prince Muel - Projects" description="">
+<Root title="Prince Muel - Projects" description="">
   <main class="min-h-full">
     <section class="container">
       {
         allProjects.map((project) => (
           <div>
-            <p>
-              {project.data.media?.cover ? (
-                <Image src={project.data.media.cover} alt={project.data.media?.coverAlt || ""} />
-              ) : null}
-            </p>
             <h2>
               <a href={`/projects/${project.slug}`}>{project.data.title}</a>
             </h2>
           </div>
+          // <p>
+          //   {project.data.media?.cover ? (
+          //     <Image
+          //       src={project.data.media.cover}
+          //       alt={project.data.media?.coverAlt || ""}
+          //     />
+          //   ) : null}
+          // </p>
         ))
       }
     </section>
   </main>
-</RootLayout>
+</Root>
