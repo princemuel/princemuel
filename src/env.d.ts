@@ -9,6 +9,7 @@ interface ImportMetaEnv {
   readonly PUBLIC_SITE_URL: string;
   readonly GOOGLE_DRIVE_API_KEY: string;
   readonly GOOGLE_DRIVE_FILE_ID: string;
+  readonly ENABLE_RESOURCE_PREVIEW: string;
 }
 
 interface ImportMeta {

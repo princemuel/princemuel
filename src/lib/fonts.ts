@@ -7,17 +7,17 @@ export const fontSans = {
     {
       weight: "600",
       style: "normal",
-      path: "./public/fonts/WotfardSemiBold.woff2",
+      path: "./public/static/fonts/WotfardSemiBold.woff2",
     },
     {
       weight: "500",
       style: "normal",
-      path: "./public/fonts/WotfardMedium.woff2",
+      path: "./public/static/fonts/WotfardMedium.woff2",
     },
     {
       weight: "400",
       style: "normal",
-      path: "./public/fonts/WotfardRegular.woff2",
+      path: "./public/static/fonts/WotfardRegular.woff2",
       css: {
         "font-feature-settings": "normal",
       },
@@ -39,12 +39,12 @@ export const fontMono = {
     {
       weight: "400",
       style: "italic",
-      path: "./public/fonts/MonoLisaVariableItalic.woff2",
+      path: "./public/static/fonts/MonoLisaVariableItalic.woff2",
     },
     {
       weight: "400",
       style: "normal",
-      path: "./public/fonts/MonoLisaVariableNormal.woff2",
+      path: "./public/static/fonts/MonoLisaVariableNormal.woff2",
       css: {
         "font-feature-settings": "normal",
       },
@@ -65,12 +65,12 @@ export const fontAccent = {
     {
       // weight: "400",
       style: "italic",
-      path: "./public/fonts/JetBrainsMonoVariableItalic.ttf",
+      path: "./public/static/fonts/JetBrainsMonoVariableItalic.ttf",
     },
     {
       // weight: "400",
       style: "normal",
-      path: "./public/fonts/JetBrainsMonoVariableNormal.ttf",
+      path: "./public/static/fonts/JetBrainsMonoVariableNormal.ttf",
       css: {
         "font-feature-settings": "normal",
       },
