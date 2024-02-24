@@ -4,23 +4,21 @@ import type { HTMLAttributes } from "astro/types";
 
 type Props = RequireSome<HTMLAttributes<"a">, "href">;
 
-const { href: url, ...rest } = Astro.props;
-
 invariant(
-  url,
+  Astro.props.href,
   `Expected \`href\` to be of type \`%s\` but received type \`%s\``,
   "URL or string",
   undefined,
 );
 
-const href = url.toString();
+const href = Astro.props.href.toString();
 
 const props =
   href?.startsWith("/") || href?.startsWith("#")
-    ? { ...rest }
-    : { ...rest, target: "_blank", rel: "noopener noreferrer" };
+    ? { ...Astro.props }
+    : { ...Astro.props, target: "_blank", rel: "noopener noreferrer" };
 ---
 
-<a href={href} {...props}>
+<a {...props} href={href}>
   <slot />
 </a>

@@ -1,8 +1,8 @@
 ---
 import { getCollection } from "astro:content";
-import ThemeSwitch from "../atoms/theme-toggle.astro";
-import DesktopNav from "../molecules/nav.desktop.astro";
-import MobileNav from "../react/nav.mobile";
+import ThemeSwitch from "./theme-toggle.astro";
+import DesktopNavigation from "./nav.desktop.astro";
+import { MobileNavigation } from "./nav.mobile";
 
 const response = await getCollection("routes");
 
@@ -15,17 +15,17 @@ const routes = response
 
 <header class="sticky top-0 transition-all ease-in-out container">
   <div class="flex items-center justify-between md:py-6">
-    <MobileNav routes={routes} client:visible>
+    <MobileNavigation routes={routes}>
       <ThemeSwitch class="pointer-events-auto block md:hidden" slot="toggle" />
-    </MobileNav>
+    </MobileNavigation>
 
-    <DesktopNav routes={routes} />
+    <DesktopNavigation routes={routes} />
 
     <ThemeSwitch class="pointer-events-auto hidden md:block" />
   </div>
 </header>
 
-<script>
+<!-- <script>
   import { getElement } from "@/helpers";
   import { DEFAULT_SITE_THEME } from "@/lib/config";
 
@@ -50,7 +50,11 @@ const routes = response
   });
 
   document.addEventListener("astro:before-swap", (e) => {
-    // @ts-expect-error newDocument type not in event
-    setTheme(localStorage.getItem("site-theme") || DEFAULT_SITE_THEME, e.newDocument);
+    setTheme(
+      localStorage.getItem("site-theme") || DEFAULT_SITE_THEME,
+      // @ts-expect-error newDocument type not in event
+      e.newDocument,
+    );
   });
-</script>
+</script> -->
+../nav.mobile

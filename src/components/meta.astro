@@ -16,7 +16,8 @@ type Twitter = Partial<Meta> & {
 };
 type Props = Meta & { og?: OpenGraph; twitter?: Twitter };
 
-const { title, description, image, canonical, publishedAt, updatedAt } = Astro.props;
+const { title, description, image, canonical, publishedAt, updatedAt } =
+  Astro.props;
 
 const og = {
   title,
@@ -42,14 +43,20 @@ const application_name = "Prince Muel's Personal Website";
 ---
 
 <!-- Global Metadata -->
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <meta name="generator" content={Astro.generator} />
 <meta name="application-name" content={application_name} />
 <meta name="color-scheme" content="dark light" />
-<meta name="theme-color" content="#111111" media="(prefers-color-scheme: dark)" />
-<meta name="theme-color" content="#fafaf9" media="(prefers-color-scheme: light)" />
+<meta
+  name="theme-color"
+  content="#111111"
+  media="(prefers-color-scheme: dark)"
+/>
+<meta
+  name="theme-color"
+  content="#fafaf9"
+  media="(prefers-color-scheme: light)"
+/>
 
 <!-- Primary Meta Tags -->
 <title>{title}</title>
@@ -73,8 +80,16 @@ const application_name = "Prince Muel's Personal Website";
 <meta name="author" content="Prince Muel" />
 
 {canonical && <link rel="canonical" href={formatCanonicalURL(canonical)} />}
-{og.canonical && <meta property="og:url" content={formatCanonicalURL(og.canonical)} />}
-{publishedAt && <meta property="article:published_time" content={publishedAt} />}
+{
+  og.canonical && (
+    <meta property="og:url" content={formatCanonicalURL(og.canonical)} />
+  )
+}
+{
+  publishedAt && (
+    <meta property="article:published_time" content={publishedAt} />
+  )
+}
 {updatedAt && <meta property="article:modified_time" content={updatedAt} />}
 
 {/*  Open Graph / Facebook Tags */}

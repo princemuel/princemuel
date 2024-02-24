@@ -4,12 +4,17 @@ import { getCollection } from "astro:content";
 const links = await getCollection("social");
 ---
 
-<ul aria-label="Connect With Me On Social Media" class="flex items-center gap-6 self-start">
+<ul
+  aria-label="Connect With Me On Social Media"
+  class="flex items-center gap-6 self-start"
+>
   {
     links.map((link) => (
       <li
         title={link.data.text}
-        class:list={["transition-transform duration-300 ease-out hover:scale-125"]}
+        class:list={[
+          "transition-transform duration-300 ease-out hover:scale-125",
+        ]}
       >
         <a
           href={link.data.href}

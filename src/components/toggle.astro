@@ -1,0 +1,11 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+type Props = HTMLAttributes<"div">;
+
+const { class: className } = Astro.props;
+---
+
+<form class={className}>
+  <input type="radio" />
+</form>

@@ -8,6 +8,10 @@ const { class: className, name, ...rest } = Astro.props;
 const href = `/sprites.svg#${name}`;
 ---
 
-<svg class:list={["size-[1em] fill-current", className]} role="presentation" {...rest}>
+<svg
+  class:list={["size-[1em] fill-current", className]}
+  role="presentation"
+  {...rest}
+>
   <use href={href}></use>
 </svg>
