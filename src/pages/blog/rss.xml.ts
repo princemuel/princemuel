@@ -1,3 +1,4 @@
+import { delimiter } from "@/lib/config";
 import { fetchResource } from "@/lib/utils";
 import rss from "@astrojs/rss";
 import type { APIRoute } from "astro";
@@ -13,9 +14,9 @@ export const GET: APIRoute = async (context) => {
       atom: "http://www.w3.org/2005/Atom",
       media: "http://search.yahoo.com/mrss/",
     },
-    title: `${author} | Blog RSS Feed`,
+    title: `${author} ${delimiter} Blog RSS Feed`,
     description:
-      "My Personal Website scaffolded with Astro. If you subscribe to this RSS feed you will receive updates and summaries of my new posts",
+      "My Personal Website scaffolded with Astro. If you subscribe to this RSS feed, you will receive updates and summaries of my new posts",
     site: new URL("/", context.site),
     items: (resource ?? []).map((item) => {
       return {
