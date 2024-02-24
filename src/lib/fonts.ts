@@ -57,3 +57,29 @@ export const fontMono = {
   fallbackName: "__FontMono_Fallback",
   // cssVariable: "font-mono",
 };
+
+export const fontAccent = {
+  name: "__FontAccent",
+  basePath: "./public",
+  src: [
+    {
+      // weight: "400",
+      style: "italic",
+      path: "./public/fonts/JetBrainsMonoVariableItalic.ttf",
+    },
+    {
+      // weight: "400",
+      style: "normal",
+      path: "./public/fonts/JetBrainsMonoVariableNormal.ttf",
+      css: {
+        "font-feature-settings": "normal",
+      },
+    },
+  ],
+  preload: true,
+  display: "swap",
+  selector: ".__accent__",
+  fallback: "__FontAccent, " + defaultTheme.fontFamily.mono.join(", "),
+  fallbackName: "__FontAccent_Fallback",
+  // cssVariable: "font-accent",
+};
