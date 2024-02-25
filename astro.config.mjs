@@ -13,7 +13,7 @@ export default defineConfig({
   site: envVars.PUBLIC_SITE_URL,
   output: "hybrid",
   server: { port: 3000 },
-  markdown: { remarkPlugins, rehypePlugins },
+  markdown: { syntaxHighlight: false, remarkPlugins, rehypePlugins },
   integrations: integrations,
   adapter: vercel({
     edgeMiddleware: true,

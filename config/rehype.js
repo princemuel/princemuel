@@ -6,7 +6,7 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 export const rehypePlugins = [
   rehypeHeadingIds,
   //@ts-expect-error
-  [rehypeAccessibleEmojis, {}],
+  rehypeAccessibleEmojis,
   [
     rehypeAutolinkHeadings,
     {

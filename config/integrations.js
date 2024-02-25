@@ -5,8 +5,9 @@ import { pluginCollapsibleSections } from "@expressive-code/plugin-collapsible-s
 import qwik from "@qwikdev/astro";
 import pwa from "@vite-pwa/astro";
 import ec from "astro-expressive-code";
-import simpleStackForm from "simple-stack-form";
 import defaultTheme from "tailwindcss/defaultTheme";
+// @ts-expect-error
+import simpleStackForm from "simple-stack-form";
 
 /** @type {import('astro-expressive-code').AstroExpressiveCodeOptions} */
 const codeBlockOptions = {
@@ -23,6 +24,10 @@ const codeBlockOptions = {
 
 /** @type {import('astro').AstroUserConfig['integrations']} */
 export const integrations = [
+  tailwind({ applyBaseStyles: false, nesting: true }),
+  ec(codeBlockOptions),
+  mdx(),
+  qwik(),
   pwa({
     registerType: "autoUpdate",
     includeAssets: ["/favicon.svg"],
@@ -30,10 +35,6 @@ export const integrations = [
       directoryAndTrailingSlashHandler: true,
     },
   }),
-  ec(codeBlockOptions),
-  mdx({ optimize: true }),
-  tailwind({ applyBaseStyles: false, nesting: true }),
-  qwik({ include: ["**/qwik/*"] }),
   sitemap({
     changefreq: "daily",
     priority: 0.7,
