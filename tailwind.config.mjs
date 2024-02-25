@@ -12,13 +12,9 @@ export default {
     "./src/components/**/*.{astro,js[x,],ts[x,],md[x,]}",
     "./src/content/**/*.{md[x,]}",
   ],
-  corePlugins: {
-    float: false,
-    container: false,
-  },
-  future: {
-    hoverOnlyWhenSupported: true,
-  },
+  corePlugins: { float: false, container: false },
+  future: { hoverOnlyWhenSupported: true },
+  safelist: ["pl-4", "pl-6", "pl-8"],
   theme: {
     screens: {
       "3xs": "24em", // @media (min-width: 384px) { ... }
@@ -45,7 +41,7 @@ export default {
       fontFamily: {
         sans: ["__FontSans", ...defaultTheme.fontFamily.sans],
         mono: ["__FontMono", ...defaultTheme.fontFamily.mono],
-        serif: ["var(--font-serif)", ...defaultTheme.fontFamily.serif],
+        accent: ["__FontAccent", ...defaultTheme.fontFamily.mono],
       },
       screens: {
         xs: "36em", // @media (min-width: 576px) { ... },

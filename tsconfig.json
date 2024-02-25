@@ -12,6 +12,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["env.d.ts", "**/*.ts", "**/*.tsx", "**/*.astro"],
+  "include": ["env.d.ts", "**/*.astro", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules", "dist", ".vercel", "public"]
 }
