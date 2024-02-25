@@ -63,14 +63,8 @@ export const fontAccent = {
   basePath: "./public",
   src: [
     {
-      // weight: "400",
-      style: "italic",
-      path: "./public/static/fonts/JetBrainsMonoVariableItalic.ttf",
-    },
-    {
-      // weight: "400",
       style: "normal",
-      path: "./public/static/fonts/JetBrainsMonoVariableNormal.ttf",
+      path: "./public/static/fonts/Inconsolata.ttf",
       css: {
         "font-feature-settings": "normal",
       },
