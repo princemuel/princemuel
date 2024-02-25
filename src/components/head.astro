@@ -75,17 +75,17 @@ const application_name = `${name}'s Personal Website`;
 <meta property="og:title" content={htmlTitle} />
 <meta property="og:url" content={linkCanonical} />
 <meta property="og:description" content={description} />
-<meta property="og:image" content={ogImage.src} />}
-<meta property="og:image:alt" content={ogImage.alt} />}
+<meta property="og:image" content={ogImage.src} />
+<meta property="og:image:alt" content={ogImage.alt} />
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:creator" content={twitter.handle} />}
+<meta name="twitter:creator" content={twitter.handle} />
 <meta name="twitter:title" content={htmlTitle} />
 <meta name="twitter:url" content={linkCanonical} />
 <meta name="twitter:description" content={description} />
-<meta name="twitter:image" content={ogImage.src} />}
-<meta name="twitter:image:alt" content={ogImage.alt} />}
+<meta name="twitter:image" content={ogImage.src} />
+<meta name="twitter:image:alt" content={ogImage.alt} />
 
 <!-- Favicons -->
 <link rel="mask-icon" href="/favicon.svg" color="#8D46E7" />
@@ -99,7 +99,7 @@ const application_name = `${name}'s Personal Website`;
   type="image/png"
   sizes="114x114"
 />
-
+<!-- Other -->
 <link
   rel="manifest"
   href="/manifest.webmanifest"
@@ -114,11 +114,13 @@ const application_name = `${name}'s Personal Website`;
 />
 
 {
-  publishedAt && (
-    <meta property="article:published_time" content={publishedAt} />
+  og.type === "article" && (
+    <>
+      <meta property="article:published_time" content={publishedAt} />
+      <meta property="article:modified_time" content={updatedAt} />
+    </>
   )
 }
-{updatedAt && <meta property="article:modified_time" content={updatedAt} />}
 
 <meta name="format-detection" content="telephone=no, address=no, email=no" />
 <meta name="google-site-verification" content="google" />

@@ -1,0 +1,82 @@
+---
+import ForestGumpWebP from "@/assets/forrest-gump-quote.webp";
+import PlaceholderGIF from "@/assets/placeholder.avif";
+import { Link, TechIcon } from "@/components";
+import { tw } from "@/helpers";
+import type { HTMLTag, Polymorphic } from "astro/types";
+import AstroImage from "./astro-image.astro";
+import Time from "./time.astro";
+
+type Props<E extends HTMLTag> = Prettify<Polymorphic<{ as: E }>>;
+
+const { as, class: className, ...rest } = Astro.props;
+
+const As = as || "article";
+---
+
+<As
+  {...rest}
+  class:list={tw([
+    "cursor-pointer rounded border border-white/60 shadow-lg",
+    "transition duration-500 ease-in-out hover:-translate-y-2",
+    "",
+    className,
+  ])}
+>
+  <div class="relative overflow-hidden">
+    <Link
+      href={"/"}
+      class={tw([
+        "flex flex-col items-center gap-3 md:flex-row md:gap-6",
+        "rounded border border-white/60 p-4",
+      ])}
+    >
+      <strong
+        data-latest="true"
+        class="absolute right-8 top-4 hidden size-8 w-full translate-x-1/2 rotate-45 transform items-center justify-center bg-tahiti-400 text-center font-semibold uppercase text-white shadow-lg data-[latest=true]:flex"
+      >
+        new
+      </strong>
+      <AstroImage
+        src={ForestGumpWebP}
+        width={576}
+        resize="video"
+        alt={"Great Quote"}
+        class={"w-full md:w-1/2"}
+      />
+
+      <div class="flex flex-col gap-2">
+        <span class="flex flex-col gap-2 sm:flex-row sm:items-center">
+          <>
+            <div class="flex items-center gap-2">
+              <AstroImage
+                src={PlaceholderGIF}
+                width={24}
+                resize="square"
+                alt={"publication"}
+                class=""
+              />
+              <small class="text-xs text-tahiti-500">{"The New Stack"}</small>
+            </div>
+            <span class="hidden sm:inline-block">&bull;</span>
+          </>
+          <Time class="text-xs font-bold text-tahiti-500" />
+        </span>
+        <h3 class="block text-xl text-white">Cloud Regions Country Flags</h3>
+        <p class="font-sans text-sm font-light">
+          {
+            `Project Overview In April 2020 I released the first interation of MDX Embed.  MDX Embed allows you to easily embed popul...`
+          }
+        </p>
+
+        <ul class={"flex flex-wrap gap-2"}>
+          {
+            ["AlpineJS", "Node.JS", "Docker"].map((item) => (
+              <TechIcon id={item} class="bg-blue-700 text-xs  text-red-600" />
+            ))
+          }
+        </ul>
+      </div>
+    </Link>
+  </div>
+</As>

@@ -1,0 +1,40 @@
+---
+import type { MarkdownHeading } from "astro";
+
+type Props = { headings: MarkdownHeading[] };
+
+const { headings } = Astro.props;
+
+const padding = new Map([
+  [2, "4"],
+  [3, "6"],
+  [4, "8"],
+  [5, "10"],
+  [6, "12"],
+]);
+---
+
+{
+  headings.length > 0 ? (
+    <div class="px-2">
+      <h5 class="capitalize">on this page</h5>
+      <ul class="list-none">
+        {headings.map((heading) => {
+          return (
+            <li
+              data-depth={heading.depth}
+              class={`m-0 py-0.5 pl-${padding.get(heading.depth)}`}
+            >
+              <a
+                href={`#${heading.slug}`}
+                class="p-1 text-[0.65rem] no-underline"
+              >
+                {heading.text}
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  ) : null
+}

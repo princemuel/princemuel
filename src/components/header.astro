@@ -1,8 +1,5 @@
 ---
 import { getCollection } from "astro:content";
-import ThemeSwitch from "./theme-toggle.astro";
-import DesktopNavigation from "./nav.desktop.astro";
-import { MobileNavigation } from "./nav.mobile";
 
 const response = await getCollection("routes");
 
@@ -13,48 +10,6 @@ const routes = response
   .sort((a, b) => a.data.order - b.data.order);
 ---
 
-<header class="sticky top-0 transition-all ease-in-out container">
-  <div class="flex items-center justify-between md:py-6">
-    <MobileNavigation routes={routes}>
-      <ThemeSwitch class="pointer-events-auto block md:hidden" slot="toggle" />
-    </MobileNavigation>
-
-    <DesktopNavigation routes={routes} />
-
-    <ThemeSwitch class="pointer-events-auto hidden md:block" />
-  </div>
+<header class="sticky top-0 transition-all ease-in-out">
+  {JSON.stringify(routes, null, 2)}
 </header>
-
-<!-- <script>
-  import { getElement } from "@/helpers";
-  import { DEFAULT_SITE_THEME } from "@/lib/config";
-
-  function setTheme(theme: string, document: Document) {
-    document.documentElement.dataset.darkReaderTheme = theme;
-    document.documentElement.dataset.theme = `github-${theme}`;
-  }
-
-  document.addEventListener("astro:page-load", () => {
-    const $root = document.documentElement;
-    const $toggle = getElement("[data-id='theme-switch']", HTMLButtonElement);
-
-    $toggle.addEventListener("click", handleToggle);
-
-    function handleToggle() {
-      const currentTheme = localStorage.getItem("site-theme");
-      setTheme(currentTheme === "dark" ? "light" : "dark", document);
-
-      const theme = $root.getAttribute("data-dark-reader-theme");
-      localStorage.setItem("site-theme", theme || DEFAULT_SITE_THEME);
-    }
-  });
-
-  document.addEventListener("astro:before-swap", (e) => {
-    setTheme(
-      localStorage.getItem("site-theme") || DEFAULT_SITE_THEME,
-      // @ts-expect-error newDocument type not in event
-      e.newDocument,
-    );
-  });
-</script> -->
-../nav.mobile

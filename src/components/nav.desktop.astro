@@ -8,23 +8,15 @@ type Props = { routes: CollectionEntry<"routes">[] };
 const { routes } = Astro.props;
 ---
 
-<nav aria-label="Primary Navigation" class="mx-auto hidden md:block">
-  <div
-    class={tw([
-      "flex rounded-full px-3 text-sm font-medium",
-      "bg-white/90 text-zinc-800 dark:bg-zinc-800/90 dark:text-zinc-200",
-      "shadow-lg shadow-zinc-800/5 backdrop-blur",
-      "ring-1 ring-zinc-900/5 dark:ring-white/10",
-    ])}
-  >
+<nav aria-label="Primary Navigation" class="">
+  <div class={tw("")}>
     {
       routes.map((route) => (
         <NavLink
           href={route.data.href}
-          class="group relative block px-3 py-2 capitalize transition-all duration-300 ease-out aria-[current=page]:text-tahiti-500 hocus:text-tahiti-500 dark:aria-[current=page]:text-tahiti-400 dark:hocus:text-tahiti-400"
+          class="group relative flex capitalize transition-all duration-300 ease-out"
         >
           <span>{route.data.text}</span>
-          <span class="absolute inset-x-1 -bottom-px hidden h-px bg-gradient-to-r from-tahiti-500/0 via-tahiti-500/40 to-tahiti-500/0 group-aria-[current=page]:inline dark:from-tahiti-400/0 dark:via-tahiti-400/40 dark:to-tahiti-400/0" />
         </NavLink>
       ))
     }
