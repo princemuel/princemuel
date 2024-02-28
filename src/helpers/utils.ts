@@ -15,7 +15,18 @@ export const unique = <T>(array: T[]) => {
   return [...new Set(array)];
 };
 
-export function nFormatter(num: number, digits?: number | undefined) {
+/**
+ * Safely parses a value to a number and guards against NaN and negative zero.
+ * @param {any} value - The value to be parsed.
+ * @param {number} [defaultValue=0] - The default value to be returned if parsing fails.
+ * @returns {number} The parsed number or the default value.
+ */
+export const numberGuard = (value: any, defaultValue: number = 0): number => {
+  const parsed = Number(value);
+  return Number.isNaN(parsed) || Object.is(parsed, -0) ? defaultValue : parsed;
+};
+
+export function formatNumber(num: number, digits?: number | undefined) {
   if (!num) return "0";
 
   const LOOKUP = [
@@ -50,4 +61,22 @@ export function capitalize(str: string) {
 export const truncate = (str: string, length: number) => {
   if (!str || typeof str !== "string" || str.length <= length) return str;
   return `${str.slice(0, length)}...`;
+};
+
+export const formatDate = (
+  dateString: string | number | Date,
+  showTime = false,
+) => {
+  const date = new Date(dateString);
+
+  const dateStamp = new Date(dateString).toLocaleString("en-US", {
+    timeZone: "UTC",
+    day: "numeric",
+    month: "long",
+    weekday: "long",
+    year: "numeric",
+  });
+  const timeStamp = date.toLocaleTimeString();
+
+  return `${dateStamp} ${showTime ? `@${timeStamp}` : ""}`;
 };

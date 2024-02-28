@@ -120,36 +120,3 @@ const unionExpectedVals = (expectedVals: Set<unknown>) =>
 
 const flattenErrorPath = (errorPath: (string | number)[]) =>
   errorPath.join(".");
-
-/**
- * An error thrown when a timeout occurs
- * @example
- * try {
- *   let result = await timeout(fetch("https://example.com"), { ms: 100 });
- * } catch (error) {
- *   if (error instanceof TimeoutError) {
- *    // Handle timeout
- *   }
- * }
- */
-export class TimeoutError extends Error {
-  status: number;
-  statusText: string;
-  override name = "TimeoutError";
-  constructor(message?: string, status?: number) {
-    super(message);
-    this.status = status || 504;
-    this.statusText = "Request Timeout";
-  }
-}
-
-export class NetworkError extends Error {
-  status: number;
-  statusText: string;
-  override name = "NetworkError";
-  constructor(message?: string, status?: number) {
-    super(message);
-    this.status = status || 503;
-    this.statusText = "Gateway Timeout";
-  }
-}
