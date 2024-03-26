@@ -1,9 +1,15 @@
-import type { z } from "zod";
+import type { ZodErrorMap } from "zod";
 
 /** Helper for throwing errors in expression positions */
 export function raise(error: unknown): never {
   throw typeof error === "string" ? new Error(error) : error;
 }
+
+export const parseError = (error: unknown): string => {
+  if (error instanceof Error) return error.message;
+  if (typeof error === "string") return error;
+  return "An unknown error occurred";
+};
 
 /**
  *
@@ -18,7 +24,7 @@ type TypeOrLiteralErrByPathEntry = {
   expected: unknown[];
 };
 
-export const errorMap: z.ZodErrorMap = (issue, ctx) => {
+export const errorMap: ZodErrorMap = (issue, ctx) => {
   const issuePath = flattenErrorPath(issue.path);
   if (issue.code === "invalid_union") {
     // Optimization: Combine type and literal errors for keys that are common across ALL union types
@@ -66,7 +72,8 @@ export const errorMap: z.ZodErrorMap = (issue, ctx) => {
             )
             .map(([key, error]) =>
               key === issuePath
-                ? `> ${getTypeOrLiteralMsg(error)}` // Avoid printing the key again if it's a base error
+                ? // Avoid printing the key again if it's a base error
+                  `> ${getTypeOrLiteralMsg(error)}`
                 : `> ${prefix(key, getTypeOrLiteralMsg(error))}`,
             ),
         )
