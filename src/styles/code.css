@@ -1,0 +1,3 @@
+:where(.expressive-code + .expressive-code) {
+  @apply mt-6;
+}
