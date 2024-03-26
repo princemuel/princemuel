@@ -5,8 +5,9 @@ import { integrations } from "./config/integrations";
 import { rehypePlugins } from "./config/rehype";
 import { remarkPlugins } from "./config/remark";
 
-//@ts-expect-error
-const envVars = loadEnv(process.env.NODE_ENV, process.cwd(), "");
+const mode =
+  process.env.NODE_ENV === "production" ? "production" : "development";
+const envVars = loadEnv(mode, process.cwd(), "");
 
 // https://astro.build/config
 export default defineConfig({
