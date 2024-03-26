@@ -4,10 +4,11 @@ import {
   UnsupportedContentTypeError,
 } from "./error-classes";
 
-const handleJson = async (response: Response) => response.json();
-const handleText = async (response: Response) => response.text();
-const handleArrayBuffer = async (response: Response) => response.arrayBuffer();
-const handleBlob = async (response: Response) => response.blob();
+const handleJson = (response: Response) => response.json();
+const handleText = (response: Response) => response.text();
+const handleArrayBuffer = (response: Response) => response.arrayBuffer();
+const handleBlob = (response: Response) => response.blob();
+const handleFormData = (response: Response) => response.formData();
 
 const handlers = new Map<string, (response: Response) => Promise<unknown>>([
   ["blob", handleBlob],
@@ -17,6 +18,7 @@ const handlers = new Map<string, (response: Response) => Promise<unknown>>([
   ["image/png", handleArrayBuffer],
   ["application/pdf", handleArrayBuffer],
   ["application/octet-stream", handleArrayBuffer],
+  ["XXXXX", handleFormData],
   // Add more content types and handlers as needed
 ]);
 
@@ -45,11 +47,9 @@ export async function request<T>(
 
     return handler(response) as T;
   } catch (error) {
-    switch (true) {
-      case error instanceof DOMException && error.name === "AbortError":
-        return Promise.reject(new TimeoutError("Request Failed"));
-      default:
-        return Promise.reject(error);
+    if (error instanceof DOMException && error.name === "AbortError") {
+      return Promise.reject(new TimeoutError("Request Aborted"));
     }
+    return Promise.reject(error);
   }
 }

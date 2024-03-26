@@ -80,3 +80,11 @@ export const formatDate = (
 
   return `${dateStamp} ${showTime ? `@${timeStamp}` : ""}`;
 };
+
+export function singleton<T>(name: string, callback: () => T): NonNullable<T> {
+  const g = globalThis as any;
+  g.__singletons ??= new Map();
+
+  if (!g.__singletons.has(name)) g.__singletons.set(name, callback());
+  return g.__singletons.get(name);
+}
