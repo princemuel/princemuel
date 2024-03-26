@@ -1,8 +1,10 @@
 import { z, type SchemaContext } from "astro:content";
-
 const ResourceLink = z.object({ href: z.string().url(), text: z.string() });
-const ResourceStatus = z.enum(["draft", "preview", "published"]).default("draft");
-const ResourceType = (type: "project" | "article") => z.enum(["project", "article"]).default(type);
+const ResourceStatus = z
+  .enum(["draft", "preview", "published"])
+  .default("draft");
+const ResourceType = (type: "project" | "article") =>
+  z.enum(["project", "article"]).default(type);
 
 const AuthorSchema = z.object({
   name: z.string(),
@@ -33,9 +35,20 @@ export const MetaSchema = () =>
     .array(
       z.object({
         /** Name of the HTML tag to add to `<head>`, e.g. `'meta'`, `'link'`, or `'script'`. */
-        tag: z.enum(["title", "base", "link", "style", "meta", "script", "noscript", "template"]),
+        tag: z.enum([
+          "title",
+          "base",
+          "link",
+          "style",
+          "meta",
+          "script",
+          "noscript",
+          "template",
+        ]),
         /** Attributes to set on the tag, e.g. `{ rel: 'stylesheet', href: '/custom.css' }`. */
-        attrs: z.record(z.union([z.string(), z.boolean(), z.undefined()])).default({}),
+        attrs: z
+          .record(z.union([z.string(), z.boolean(), z.undefined()]))
+          .default({}),
         /** Content to place inside the tag (optional). */
         content: z.string().default(""),
       }),
@@ -49,19 +62,27 @@ const ContactFormSchema = z.object({
 });
 
 const BaseSchema = z.object({
-  title: z.string().min(2),
+  title: z.string().min(2).describe("The resource's Name or Title"),
   alternate: z.string().min(2).optional(),
-  summary: z.string().min(2),
-  description: z.string().min(2),
+  summary: z
+    .string()
+    .min(2)
+    .describe("The resource's short summary. For SEO purposes"),
+  description: z
+    .string()
+    .min(2)
+    .describe("The resource's description. For SEO purposes"),
   featured: z.boolean().default(false),
   order: z.number().min(0).default(0),
   author: AuthorSchema,
   contributors: z.array(AuthorSchema).optional(),
-  tags: z.array(z.string()),
+  tags: z.array(z.string().describe("Tag/Keyword for this resource")),
   footnote: z.string().optional(),
-  status: ResourceStatus,
-  publishedAt: ResourceDateTime,
-  updatedAt: ResourceDateTime.optional(),
+  status: ResourceStatus.describe("The resource's publication status"),
+  publishedAt: ResourceDateTime.describe("The creation time of the resource"),
+  updatedAt: ResourceDateTime.optional().describe(
+    "The last update time of the resource",
+  ),
   duration: z.string().optional(),
   permalink: z.string().optional(),
 });
