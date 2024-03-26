@@ -4,11 +4,17 @@
 /// <reference types="simple-stack-form/types" />
 
 interface ImportMetaEnv {
-  readonly RESEND_API_KEY: string;
-  readonly PUBLIC_SITE_URL: string;
-  readonly GOOGLE_DRIVE_API_KEY: string;
+  readonly GOOGLE_DRIVE_TOKEN: string;
   readonly GOOGLE_DRIVE_FILE_ID: string;
+
+  readonly RESEND_ADDRESS_FROM: string;
+  readonly RESEND_ADDRESS_TO: string;
+  readonly RESEND_AUDIENCE_ID: string;
+  readonly RESEND_TOKEN: string;
+
+  readonly OCTOKIT_TOKEN: string;
   readonly ENABLE_RESOURCE_PREVIEW: string;
+  readonly PUBLIC_SITE_URL: string;
 }
 
 interface ImportMeta {
