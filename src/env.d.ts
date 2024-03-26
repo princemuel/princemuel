@@ -1,7 +1,6 @@
-/// <reference types="astro/client" />
+/// <reference path="../.astro/db-types.d.ts" />
 /// <reference path="../.astro/types.d.ts" />
-/// <reference types="vite-plugin-pwa/client" />
-/// <reference types="vite-plugin-pwa/info" />
+/// <reference types="astro/client" />
 /// <reference types="simple-stack-form/types" />
 
 interface ImportMetaEnv {
@@ -17,6 +16,11 @@ interface ImportMeta {
 }
 
 interface Window {
-  // eslint-disable-next-line @typescript-eslint/consistent-type-imports
   Alpine: import("alpinejs").Alpine;
+}
+
+declare module "*.astro" {
+  type Props = import("astro").AstroGlobal["props"];
+  const load: (_props: Props) => any;
+  export default load;
 }
