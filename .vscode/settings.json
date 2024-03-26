@@ -18,22 +18,32 @@
   "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "autoimport.doubleQuotes": false,
-  // "eslint.experimental.useFlatConfig": true,
-  // "eslint.format.enable": true,
-  // "eslint.lintTask.enable": true,
-  // "eslint.codeAction.showDocumentation": {
-  //   "enable": true
-  // },
-  // "eslint.probe": [
-  //   "javascript",
-  //   "javascriptreact",
-  //   "typescript",
-  //   "typescriptreact",
-  //   "html",
-  //   "vue",
-  //   "markdown",
-  //   "astro"
-  // ],
+  "eslint.experimental.useFlatConfig": true,
+  "eslint.format.enable": true,
+  "eslint.lintTask.enable": true,
+  "eslint.codeAction.showDocumentation": {
+    "enable": true
+  },
+  "eslint.probe": [
+    "astro",
+    "markdown",
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  "eslint.validate": [
+    "astro",
+    "markdown",
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  "prettier.documentSelectors": ["**/*.astro"],
+  "[astro]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "workbench.iconTheme": "material-icon-theme",
   "workbench.preferredDarkColorTheme": "GitHub Dark Default",
   "workbench.colorTheme": "GitHub Dark Default",
