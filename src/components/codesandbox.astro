@@ -1,11 +1,15 @@
 ---
-const { id } = Astro.props;
+import type { HTMLAttributes } from "astro/types";
+
+type Props = HTMLAttributes<"iframe">;
+
+const { id, ...rest } = Astro.props;
 ---
 
 <iframe
   data-testid="codesandbox"
+  {...rest}
   title={`codesandbox-${id}`}
-  class=""
   src={`https://codesandbox.io/embed/${id}`}
   allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media; usb"
   sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"

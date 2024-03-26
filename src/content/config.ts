@@ -1,4 +1,9 @@
-import { BaseSchema, MediaObject, ResourceLink, ResourceType } from "@/lib/schema";
+import {
+  BaseSchema,
+  MediaObject,
+  ResourceLink,
+  ResourceType,
+} from "@/lib/content-schema";
 import { defineCollection, z } from "astro:content";
 
 const projects = defineCollection({
