@@ -81,6 +81,12 @@ export const formatDate = (
   return `${dateStamp} ${showTime ? `@${timeStamp}` : ""}`;
 };
 
+export const difference = <T>(a: T[], b: T[]) =>
+  a.filter((item) => !b.includes(item));
+
+export const intersection = <T>(arr: T[], ...args: T[][]) =>
+  arr.filter((item) => args.every((value) => value.includes(item)));
+
 export function singleton<T>(name: string, callback: () => T): NonNullable<T> {
   const g = globalThis as any;
   g.__singletons ??= new Map();
