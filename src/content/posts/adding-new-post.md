@@ -5,12 +5,13 @@ type: article
 featured: true
 summary: Rules and Recommendations for creating new posts using the AstroPaper theme.
 description: Some rules & recommendations for creating or adding new posts using AstroPaper theme.
-tags:
-  - docs
+tags: [docs, warts]
 author:
-  name: Prince Muel
-  contact: vansomecsam@email.com
-  avatar: https://github.com/princemuel.png
+  {
+    name: Prince Muel,
+    contact: vansomecsam@email.com,
+    avatar: https://github.com/princemuel.png,
+  }
 publishedAt: 2022-09-23T15:22:00Z
 updatedAt: 2023-12-21T09:12:47.400Z
 status: draft

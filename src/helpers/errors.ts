@@ -1,9 +1,15 @@
-import { z } from "zod";
+import type { ZodErrorMap } from "zod";
 
 /** Helper for throwing errors in expression positions */
 export function raise(error: unknown): never {
   throw typeof error === "string" ? new Error(error) : error;
 }
+
+export const parseError = (error: unknown): string => {
+  if (error instanceof Error) return error.message;
+  if (typeof error === "string") return error;
+  return "An unknown error occurred";
+};
 
 /**
  *
@@ -18,7 +24,7 @@ type TypeOrLiteralErrByPathEntry = {
   expected: unknown[];
 };
 
-export const errorMap: z.ZodErrorMap = (issue, ctx) => {
+export const errorMap: ZodErrorMap = (issue, ctx) => {
   const issuePath = flattenErrorPath(issue.path);
   if (issue.code === "invalid_union") {
     // Optimization: Combine type and literal errors for keys that are common across ALL union types
@@ -26,12 +32,18 @@ export const errorMap: z.ZodErrorMap = (issue, ctx) => {
     // raise a single error when `key` does not match:
     // > Did not match union.
     // > key: Expected `'tutorial' | 'blog'`, received 'foo'
-    const typeOrLiteralErrByPath: Map<string, TypeOrLiteralErrByPathEntry> = new Map();
+    const typeOrLiteralErrByPath: Map<string, TypeOrLiteralErrByPathEntry> =
+      new Map();
     for (const unionError of issue.unionErrors.map((e) => e.errors).flat()) {
-      if (unionError.code === "invalid_type" || unionError.code === "invalid_literal") {
+      if (
+        unionError.code === "invalid_type" ||
+        unionError.code === "invalid_literal"
+      ) {
         const flattenedErrorPath = flattenErrorPath(unionError.path);
         if (typeOrLiteralErrByPath.has(flattenedErrorPath)) {
-          typeOrLiteralErrByPath.get(flattenedErrorPath)!.expected.push(unionError.expected);
+          typeOrLiteralErrByPath
+            .get(flattenedErrorPath)!
+            .expected.push(unionError.expected);
         } else {
           typeOrLiteralErrByPath.set(flattenedErrorPath, {
             code: unionError.code,
@@ -44,7 +56,9 @@ export const errorMap: z.ZodErrorMap = (issue, ctx) => {
     const messages: string[] = [
       prefix(
         issuePath,
-        typeOrLiteralErrByPath.size ? "Did not match union:" : "Did not match union.",
+        typeOrLiteralErrByPath.size
+          ? "Did not match union:"
+          : "Did not match union.",
       ),
     ];
     return {
@@ -53,10 +67,13 @@ export const errorMap: z.ZodErrorMap = (issue, ctx) => {
           [...typeOrLiteralErrByPath.entries()]
             // If type or literal error isn't common to ALL union types,
             // filter it out. Can lead to confusing noise.
-            .filter(([, error]) => error.expected.length === issue.unionErrors.length)
+            .filter(
+              ([, error]) => error.expected.length === issue.unionErrors.length,
+            )
             .map(([key, error]) =>
               key === issuePath
-                ? `> ${getTypeOrLiteralMsg(error)}` // Avoid printing the key again if it's a base error
+                ? // Avoid printing the key again if it's a base error
+                  `> ${getTypeOrLiteralMsg(error)}`
                 : `> ${prefix(key, getTypeOrLiteralMsg(error))}`,
             ),
         )
@@ -96,7 +113,8 @@ const getTypeOrLiteralMsg = (error: TypeOrLiteralErrByPathEntry): string => {
   }
 };
 
-const prefix = (key: string, msg: string) => (key.length ? `**${key}**: ${msg}` : msg);
+const prefix = (key: string, msg: string) =>
+  key.length ? `**${key}**: ${msg}` : msg;
 
 const unionExpectedVals = (expectedVals: Set<unknown>) =>
   [...expectedVals]
@@ -107,4 +125,5 @@ const unionExpectedVals = (expectedVals: Set<unknown>) =>
     })
     .join("");
 
-const flattenErrorPath = (errorPath: (string | number)[]) => errorPath.join(".");
+const flattenErrorPath = (errorPath: (string | number)[]) =>
+  errorPath.join(".");

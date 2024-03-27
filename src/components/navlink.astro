@@ -1,0 +1,25 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"a"> {}
+
+const toPathname = Astro.props.href?.toString() ?? "";
+const locationPathname = Astro.url.pathname;
+const startSlashPosition =
+  toPathname !== "/" && toPathname.startsWith("/")
+    ? toPathname.length - 1
+    : toPathname.length;
+const endSlashPosition =
+  toPathname !== "/" && toPathname.endsWith("/")
+    ? toPathname.length - 1
+    : toPathname.length;
+const isActive =
+  locationPathname === toPathname ||
+  (locationPathname.endsWith(toPathname) &&
+    (locationPathname.charAt(endSlashPosition) === "/" ||
+      locationPathname.charAt(startSlashPosition) === "/"));
+---
+
+<a {...Astro.props} aria-current={isActive && "page"}>
+  <slot />
+</a>

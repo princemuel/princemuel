@@ -1,27 +1,32 @@
 import { cn, type CnOptions } from "tailwind-variants";
 
-export const tw = <T extends CnOptions>(...classes: T) => cn(...classes)({ twMerge: true });
+export const tw = <T extends CnOptions>(...classes: T) =>
+  cn(...classes)({ twMerge: true });
 
-export async function fetchAPI<JSON>(input: RequestInfo, init?: RequestInit): Promise<JSON> {
-  const res = await fetch(input, init);
-
-  if (!res.ok) {
-    const json = (await res.json()) as { error?: string };
-    if (json.error) {
-      const error = new Error(json.error) as Error & {
-        status: number;
-      };
-      error.status = res.status;
-      throw error;
-    } else {
-      throw new Error("An unexpected error occurred");
-    }
-  }
-
-  return res.json() as JSON;
+export function pluralize<
+  C extends number,
+  N extends string,
+  P extends string = `${N}s`,
+>(count: C, noun: N, plural?: P) {
+  return (count === 1 ? noun : plural ?? `${noun}s`) as C extends 1 ? N : P;
 }
 
-export function nFormatter(num: number, digits?: number | undefined) {
+export const unique = <T>(array: T[]) => {
+  return [...new Set(array)];
+};
+
+/**
+ * Safely parses a value to a number and guards against NaN and negative zero.
+ * @param {any} value - The value to be parsed.
+ * @param {number} [defaultValue=0] - The default value to be returned if parsing fails.
+ * @returns {number} The parsed number or the default value.
+ */
+export const numberGuard = (value: any, defaultValue: number = 0): number => {
+  const parsed = Number(value);
+  return Number.isNaN(parsed) || Object.is(parsed, -0) ? defaultValue : parsed;
+};
+
+export function formatNumber(num: number, digits?: number | undefined) {
   if (!num) return "0";
 
   const LOOKUP = [
@@ -42,7 +47,10 @@ export function nFormatter(num: number, digits?: number | undefined) {
 
   const validDigits = digits ? Math.abs(digits) : 1;
 
-  return (num / value).toFixed(validDigits).replace(TRAILING_ZERO_REGEX, "$1") + symbol;
+  return (
+    (num / value).toFixed(validDigits).replace(TRAILING_ZERO_REGEX, "$1") +
+    symbol
+  );
 }
 
 export function capitalize(str: string) {
@@ -54,3 +62,35 @@ export const truncate = (str: string, length: number) => {
   if (!str || typeof str !== "string" || str.length <= length) return str;
   return `${str.slice(0, length)}...`;
 };
+
+export const formatDate = (
+  dateString: string | number | Date,
+  showTime = false,
+) => {
+  const date = new Date(dateString);
+
+  const dateStamp = new Date(dateString).toLocaleString("en-US", {
+    timeZone: "UTC",
+    day: "numeric",
+    month: "long",
+    weekday: "long",
+    year: "numeric",
+  });
+  const timeStamp = date.toLocaleTimeString();
+
+  return `${dateStamp} ${showTime ? `@${timeStamp}` : ""}`;
+};
+
+export const difference = <T>(a: T[], b: T[]) =>
+  a.filter((item) => !b.includes(item));
+
+export const intersection = <T>(arr: T[], ...args: T[][]) =>
+  arr.filter((item) => args.every((value) => value.includes(item)));
+
+export function singleton<T>(name: string, callback: () => T): NonNullable<T> {
+  const g = globalThis as any;
+  g.__singletons ??= new Map();
+
+  if (!g.__singletons.has(name)) g.__singletons.set(name, callback());
+  return g.__singletons.get(name);
+}

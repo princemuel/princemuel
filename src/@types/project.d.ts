@@ -1,6 +1,17 @@
-// eslint-disable-next-line @typescript-eslint/ban-types
-type Prettify<T> = { [K in keyof T]: T[K] } & {};
-
-type RequireSome<T, P extends keyof T> = Omit<T, P> & Required<Pick<T, P>>;
-
-type MapKeys<M extends Map<unknown, unknown>> = Prettify<Array<Parameters<M["get"]>[0]>>;
+type Meta = {
+  title: string;
+  description: string;
+  tags?: string[];
+  image?: { src?: string; alt?: string };
+  canonical?: string | URL | null;
+  type?: "website" | "article";
+  publishedAt?: string;
+  updatedAt?: string;
+};
+type OpenGraph = {
+  type?: "website" | "article";
+};
+type Twitter = {
+  handle?: string;
+  card?: "summary" | "summary_large_image";
+};

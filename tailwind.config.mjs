@@ -12,13 +12,9 @@ export default {
     "./src/components/**/*.{astro,js[x,],ts[x,],md[x,]}",
     "./src/content/**/*.{md[x,]}",
   ],
-  corePlugins: {
-    float: false,
-    container: false,
-  },
-  future: {
-    hoverOnlyWhenSupported: true,
-  },
+  corePlugins: { float: false, container: false },
+  future: { hoverOnlyWhenSupported: true },
+  safelist: ["pl-4", "pl-6", "pl-8"],
   theme: {
     screens: {
       "3xs": "24em", // @media (min-width: 384px) { ... }
@@ -45,7 +41,7 @@ export default {
       fontFamily: {
         sans: ["__FontSans", ...defaultTheme.fontFamily.sans],
         mono: ["__FontMono", ...defaultTheme.fontFamily.mono],
-        serif: ["var(--font-serif)", ...defaultTheme.fontFamily.serif],
+        accent: ["__FontAccent", ...defaultTheme.fontFamily.mono],
       },
       screens: {
         xs: "36em", // @media (min-width: 576px) { ... },
@@ -99,7 +95,8 @@ export default {
           maskImage: "radial-gradient(rgba(0, 0, 0, 0.8), transparent 60%)",
         },
         ".mask-linear-gradient-to-b": {
-          maskImage: "linear-gradient(to bottom, white 0%, white 33%, transparent 90%)",
+          maskImage:
+            "linear-gradient(to bottom, white 0%, white 33%, transparent 90%)",
         },
       });
       addUtilities({
@@ -112,7 +109,8 @@ export default {
           "--padding-inline": theme("spacing.4"),
 
           "--content-maxW": "65rem",
-          "--content-size": "min(100% - (var(--padding-inline) * 2), var(--content-maxW))",
+          "--content-size":
+            "min(100% - (var(--padding-inline) * 2), var(--content-maxW))",
 
           "--breakout-maxW": "80rem",
           "--breakout-size": `calc((var(--breakout-maxW) - var(--content-maxW)) / 2)`,

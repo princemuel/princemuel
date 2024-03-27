@@ -1,68 +1,75 @@
 ---
-import SocialLinks from "@/components/molecules/social.astro";
-import { ContactForm } from "@/components/react/contact-form";
-import { ContactFormSchema as schema } from "@/lib/schema";
-import { parse } from "@conform-to/zod";
-import RootLayout from "../layouts/root.astro";
+import SocialLinks from "@/components/social.astro";
+import { createForm } from "simple:form";
+import { z } from "zod";
+import Root from "../layouts/root.astro";
+
+const contact = createForm({
+  name: z.string({ required_error: "Name is required" }).min(2),
+  email: z.string({ required_error: "Email is required" }).email(),
+  message: z.string({ required_error: "Message is required" }).min(15),
+});
+
+let result;
 
 if (Astro.request.method === "POST") {
   try {
-    const formData = await Astro.request.formData();
+    result = await Astro.locals.form.getData(contact);
 
-    const submission = parse(formData, { schema });
+    //     const message = {
+    //       to: "vansomecsam@gmail.com",
+    //       from: result.email,
+    //       replyTo: { email: result.email, name: result.name },
+    //       subject: `Contact Form Submission From ${result.name}`,
+    //       text: result.message,
+    //     };
 
-    if (!submission.value || submission.intent !== "submit") {
-      throw submission.error;
-    }
-
-    const result = submission.value;
-
-    const message = {
-      to: "vansomecsam@gmail.com",
-      from: result.email,
-      replyTo: { email: result.email, name: result.name },
-      subject: `Contact Form Submission From ${result.name}`,
-      text: result.message,
-    };
-
-    console.log(message);
+    if (result?.data) console.log(result?.data);
   } catch (e) {
     console.log("SUBMISSION_ERROR", e);
   }
 }
 
-const title = "Prince Muel - Contact Me";
+const title = "Contact Me";
 const description =
   "Please feel free to reach out to me. I'd love to hear about what you're working on and how I could help.";
 ---
 
-<RootLayout title={title} description={description}>
-  <main id="main" aria-labelledby="page-heading" class="flex min-h-full flex-col gap-20 py-20">
+<Root title={title} description={description}>
+  <main
+    id="main"
+    aria-labelledby="page-heading"
+    class="flex min-h-full flex-col gap-20 py-20"
+  >
     <h1 id="page-heading" class="sr-only">Want to reach out?</h1>
 
     <section class="container">
       <div
         class="flex flex-col gap-8 border-y border-zinc-800/20 py-12 dark:border-zinc-200/20 md:flex-row"
       >
-        <h2 class="flex-1 text-4xl font-semibold tracking-tight text-blue-600">Get in Touch</h2>
+        <h2 class="flex-1 text-4xl font-semibold tracking-tight text-blue-600">
+          Get in Touch
+        </h2>
 
         <div class="flex flex-1 flex-col gap-6">
           <p>
-            Hi there! Thanks for sticking with me till this point. If you're looking for a fast,
-            performant, user-friendly, SEO and accessibility compliant website to represent your
-            product or business, want a consultation or you'd just like to say hi (wave emoji),
-            please feel free to reach out. I'd love to hear about what you're working on and how I
-            could help.
+            Hi there! Thanks for sticking with me till this point. If you're
+            looking for a fast, performant, user-friendly, SEO and accessibility
+            compliant website to represent your product or business, want a
+            consultation or you'd just like to say hi (wave emoji), please feel
+            free to reach out. I'd love to hear about what you're working on and
+            how I could help.
           </p>
 
           <p>
-            I'm also currently looking for a new role as a Frontend Engineer and open to a wide
-            range of opportunities. My preference would be to work remotely... But I'd also be happy
-            to hear about opportunites that don't fit that description. I'm a hard-working and
-            positive person who will always approach each task with a sense of purpose and attention
-            to detail. Please, do feel free to check out my online profiles below and/or send me a
-            message using the form below. I will do my best to respond in a timely manner. (smile
-            emoji)
+            I'm also currently looking for a new role as a Frontend Engineer and
+            open to a wide range of opportunities. My preference would be to
+            work remotely... But I'd also be happy to hear about opportunites
+            that don't fit that description. I'm a hard-working and positive
+            person who will always approach each task with a sense of purpose
+            and attention to detail. Please, do feel free to check out my online
+            profiles below and/or send me a message using the form below. I will
+            do my best to respond in a timely manner. (smile emoji)
           </p>
 
           <SocialLinks />
@@ -72,10 +79,86 @@ const description =
 
     <section class="container">
       <div class="flex flex-col gap-8 md:flex-row">
-        <h2 class="flex-1 text-4xl font-semibold tracking-tight text-blue-600">Contact Me</h2>
+        <h2 class="flex-1 text-4xl font-semibold tracking-tight text-blue-600">
+          Contact Me
+        </h2>
 
-        <ContactForm client:load />
+        <form method="POST" class="flex-1 space-y-8">
+          <div class="space-y-2">
+            <label class="block text-sm font-semibold" for="fields.name.input">
+              Name
+            </label>
+            <input
+              {...contact.inputProps.name}
+              id="fields.name.input"
+              class="w-full bg-zinc-800/20 px-5 py-3 dark:bg-zinc-200/20"
+              placeholder="Jane Appleseed"
+              autocomplete="name"
+              aria-errormessage="fields.name.errorId"
+            />
+            <span
+              role="alert"
+              aria-live="polite"
+              id="fields.name.errorId"
+              class="text-sm text-red-400"
+            >
+              {result?.fieldErrors?.name?.[0]}
+            </span>
+          </div>
+
+          <div class="space-y-2">
+            <label class="block text-sm font-semibold" for="fields.email.input">
+              Email Address
+            </label>
+            <input
+              {...contact.inputProps.email}
+              id="fields.email.input"
+              class="w-full bg-zinc-800/20 px-5 py-3 dark:bg-zinc-200/20"
+              placeholder="email@example.com"
+              autocomplete="email"
+              aria-errormessage="fields.email.errorId"
+            />
+
+            <span
+              role="alert"
+              aria-live="polite"
+              id="fields.email.errorId"
+              class="text-sm text-red-400"
+            >
+              {result?.fieldErrors?.email?.[0]}
+            </span>
+          </div>
+
+          <div class="space-y-2">
+            <label
+              class="block text-sm font-semibold"
+              for="fields.message.input"
+            >
+              Message
+            </label>
+            <textarea
+              id="fields.message.input"
+              class="min-h-min w-full bg-zinc-800/20 px-5 py-3"
+              placeholder="How can I help"
+              aria-errormessage="fields.message.errorId"></textarea>
+            <span
+              role="alert"
+              aria-live="polite"
+              id="fields.message.errorId"
+              class="text-sm text-red-400"
+            >
+              {result?.fieldErrors?.message?.[0]}
+            </span>
+          </div>
+
+          <button
+            type="submit"
+            class="inline-flex items-center bg-tahiti-500 px-5 py-3 text-white"
+          >
+            Send Message
+          </button>
+        </form>
       </div>
     </section>
   </main>
-</RootLayout>
+</Root>

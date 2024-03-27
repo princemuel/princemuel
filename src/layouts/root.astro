@@ -1,36 +1,22 @@
 ---
-import Links from "@/components/meta/links.astro";
-import Meta from "@/components/meta/meta.astro";
-import Footer from "@/components/organisms/footer.astro";
-import Header from "@/components/organisms/header.astro";
-import { BreakpointIndicator } from "@/components/react/indicator";
-import { tw } from "@/helpers/utils";
-import { fontMono, fontSans } from "@/lib/fonts";
-import "@/globals.css";
+import { Head, Indicator } from "@/components";
+import { raise, tw } from "@/helpers";
+import { fontMono, fontSans, fontAccent } from "@/lib/fonts";
 import { AstroFont as Fonts } from "astro-font";
 import { ViewTransitions } from "astro:transitions";
-import { cn } from "tailwind-variants";
-import { DEFAULT_SITE_THEME } from "@/lib/config";
-import { pwaInfo } from "virtual:pwa-info";
 
-export interface Props {
-  title: string;
-  description: string;
-  image?: { src?: string; alt?: string };
-  canonical?: string | URL | null;
-  type?: "website" | "article";
-  publishedAt?: string;
-}
+type Props = Meta & { type?: OpenGraph["type"] };
 
 const {
-  description = "",
-  type = "website",
-  image = { src: "/favicon.svg", alt: "Prince Muel's Logo" },
+  title,
+  image,
+  tags,
+  type,
   canonical,
+  description,
   publishedAt,
+  updatedAt,
 } = Astro.props;
-
-const title = [Astro.props.title].filter(Boolean).join(" - ");
 ---
 
 <!doctype html>
@@ -38,55 +24,55 @@ const title = [Astro.props.title].filter(Boolean).join(" - ");
   lang="en"
   dir="auto"
   data-dark-reader-mode="dynamic"
-  class={cn("__sans__ __serif__ __mono__")({ twMerge: true })}
+  data-dark-reader-theme="dark"
+  data-theme="github-dark"
+  class={tw("__sans__ __accent__ __mono__")}
 >
   <head>
-    <script define:vars={{ DEFAULT_SITE_THEME }}>
-      const theme = localStorage.getItem("site-theme");
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline define:vars={{ raise: raise }}>
+      let theme;
       const $root = document.documentElement;
-
-      if (!theme) {
-        const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
+      try {
+        theme = localStorage.getItem("site-theme");
+        if (!theme)
+          raise(
+            `Expected \`theme\` to be of type \`string\` but received type \`${theme}\``,
+          );
+      } catch (error) {
+        const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
+          .matches
           ? "dark"
           : "light";
         localStorage.setItem("site-theme", systemTheme);
+        theme = systemTheme;
       }
-      $root.dataset.darkReaderTheme = theme || DEFAULT_SITE_THEME;
-      $root.dataset.theme = `github-${theme}` || `github-${DEFAULT_SITE_THEME}`;
+      const resolvedTheme = theme || "dark";
+      $root.dataset.darkReaderTheme = resolvedTheme;
+      $root.dataset.theme = `github-${resolvedTheme}`;
     </script>
-
-    <Meta
+    <Head
       title={title}
       description={description}
       image={image}
-      twitter={{ image, canonical }}
-      og={{ type, image, canonical }}
+      og={{ type }}
+      tags={tags}
       publishedAt={publishedAt}
+      updatedAt={updatedAt}
       canonical={canonical}
     />
-    <Links />
-    {/* @ts-expect-error override expected font type  */}
-    <Fonts config={[fontSans, fontMono]} />
+    <Fonts config={[fontSans, fontMono, fontAccent]} />
     <ViewTransitions />
-
-    <script src="/src/scripts/pwa.ts"></script>
-    {pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} />}
+    <!-- <script src="/src/scripts/pwa.ts"></script> -->
   </head>
 
-  <body
-    class:list={tw([
-      "font-sans text-lg font-normal antialiased dark:bg-red-100",
-      "text-zinc-600 dark:text-stone-100",
-      "bg-white dark:bg-[#0e141b] ",
-    ])}
-  >
-    <Header />
+  <body class="antialiased dark:bg-[#0e141b]">
     <slot />
-    <Footer />
-    <BreakpointIndicator />
+
+    <Indicator />
 
     <script>
-      // @ts-expect-error
       const cssHasPseudo = (await import("css-has-pseudo/browser")).default;
       cssHasPseudo(document);
     </script>

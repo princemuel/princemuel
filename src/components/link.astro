@@ -1,0 +1,24 @@
+---
+import { invariant } from "@/helpers/invariant";
+import type { HTMLAttributes } from "astro/types";
+
+type Props = RequireSome<HTMLAttributes<"a">, "href">;
+
+invariant(
+  Astro.props.href,
+  `Expected \`href\` to be of type \`%s\` but received type \`%s\``,
+  "URL or string",
+  Astro.props.href,
+);
+
+const href = Astro.props.href.toString();
+
+const props =
+  href?.startsWith("/") || href?.startsWith("#")
+    ? { ...Astro.props }
+    : { ...Astro.props, target: "_blank", rel: "noopener noreferrer" };
+---
+
+<a {...props} href={href}>
+  <slot />
+</a>

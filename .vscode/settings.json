@@ -9,7 +9,7 @@
     "source.fixAll": "explicit"
   },
   "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
-  "eslint.codeActionsOnSave.mode": "problems",
+  // "eslint.codeActionsOnSave.mode": "problems",
   "tailwindCSS.rootFontSize": 16,
   "tailwindCSS.experimental.classRegex": [
     ["tv\\((([^()]*|\\([^()]*\\))*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]
@@ -18,25 +18,30 @@
   "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "autoimport.doubleQuotes": false,
-  // "eslint.experimental.useFlatConfig": true,
+  "eslint.experimental.useFlatConfig": true,
   "eslint.format.enable": true,
   "eslint.lintTask.enable": true,
   "eslint.codeAction.showDocumentation": {
     "enable": true
   },
   "eslint.probe": [
+    "astro",
+    "markdown",
     "javascript",
     "javascriptreact",
     "typescript",
-    "typescriptreact",
-    "html",
-    "vue",
-    "markdown",
-    "astro"
+    "typescriptreact"
   ],
-  "workbench.productIconTheme": "material-product-icons",
-  "workbench.iconTheme": "material-icon-theme",
-  "workbench.preferredDarkColorTheme": "GitHub Dark Default",
-  "workbench.colorTheme": "GitHub Dark Default",
-  "material-icon-theme.activeIconPack": "react_redux"
+  "eslint.validate": [
+    "astro",
+    "markdown",
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  "prettier.documentSelectors": ["**/*.astro"],
+  "[astro]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }
