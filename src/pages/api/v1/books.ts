@@ -1,4 +1,3 @@
-import { request } from "@/helpers";
 import type { APIRoute } from "astro";
 
 const titleOrISBN = "first to die";
@@ -8,10 +7,10 @@ export const GET: APIRoute = async () => {
   const queryParams = new URLSearchParams({ q: titleOrISBN });
 
   try {
-    const response = request(`${apiUrl}?${queryParams}`);
+    // const response = request(`${apiUrl}?${queryParams}`);
 
-    console.log(response);
-    return Response.json({ books: "books" });
+    // console.log(response);
+    return Response.json({ books: { apiUrl, queryParams } });
   } catch (error) {
     return new Response("Error", { status: 500 });
   }

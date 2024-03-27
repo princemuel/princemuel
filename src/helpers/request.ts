@@ -18,7 +18,7 @@ const handlers = new Map<string, (response: Response) => Promise<unknown>>([
   ["image/png", handleArrayBuffer],
   ["application/pdf", handleArrayBuffer],
   ["application/octet-stream", handleArrayBuffer],
-  ["XXXXX", handleFormData],
+  ["multipart/form-data", handleFormData],
   // Add more content types and handlers as needed
 ]);
 

@@ -1,4 +1,4 @@
-class ProjectError extends Error {
+class RequestError extends Error {
   status: number;
   statusText: string;
 
@@ -8,6 +8,7 @@ class ProjectError extends Error {
     this.status = status;
     this.statusText = statusText;
 
+    // Maintains proper stack trace (only available on V8)
     if (typeof Error.captureStackTrace === "function") {
       Error.captureStackTrace(this, this.constructor);
     }
@@ -25,19 +26,19 @@ class ProjectError extends Error {
  *   }
  * }
  */
-export class TimeoutError extends ProjectError {
+export class TimeoutError extends RequestError {
   constructor(message?: string, status = 408) {
     super(message || "Request Timeout", status || 408, "Request Timeout");
   }
 }
 
-export class NetworkError extends ProjectError {
+export class NetworkError extends RequestError {
   constructor(message?: string, status = 503) {
     super(message || "Service Unavailable", status, "Service Unavailable");
   }
 }
 
-export class UnsupportedContentTypeError extends ProjectError {
+export class UnsupportedContentTypeError extends RequestError {
   constructor(contentType: string) {
     super(
       `Unsupported content type: ${contentType}`,
