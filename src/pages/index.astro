@@ -1,5 +1,7 @@
 ---
+import { Card } from "@/components";
 import { homeKeywords } from "@/lib/config";
+import { Icon } from "astro-icon/components";
 import Root from "../layouts/root.astro";
 
 const title = "Home";
@@ -7,7 +9,45 @@ const description = "";
 ---
 
 <Root title={title} description={description} tags={homeKeywords}>
-  <main class="my-20 min-h-svh">
-    <!-- <Container /> -->
+  <main class="min-h-svh">
+    <Icon
+      name="lucide:home"
+      class="text-xl text-neutral-500 dark:text-neutral-400"
+    />
+    <Icon
+      name="lucide:notebook-pen"
+      class="text-xl text-neutral-500 dark:text-neutral-400"
+    />
+    <Icon
+      name="lucide:newspaper"
+      class="text-xl text-neutral-500 dark:text-neutral-400"
+    />
+    <Icon
+      name="lucide:layers"
+      class="text-xl text-neutral-500 dark:text-neutral-400"
+    />
+    <Icon
+      name="lucide:messages-square"
+      class="text-xl text-neutral-500 dark:text-neutral-400"
+    />
+    <Icon
+      name="lucide:sun-moon"
+      class="text-xl text-neutral-500 dark:text-neutral-400"
+    />
+    <Icon
+      name="lucide:folder-open-dot"
+      class="text-xl text-neutral-500 dark:text-neutral-400"
+    />
+    <Icon
+      name="lucide:briefcase-business"
+      class="text-xl text-neutral-500 dark:text-neutral-400"
+    />
+    <div class="mx-auto flex w-full max-w-4xl flex-col gap-8">
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+    </div>
   </main>
 </Root>

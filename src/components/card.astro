@@ -3,18 +3,16 @@ import ForestGumpWebP from "@/assets/forrest-gump-quote.webp";
 import PlaceholderGIF from "@/assets/placeholder.avif";
 import { Link, TechIcon } from "@/components";
 import { tw } from "@/helpers";
-import type { HTMLTag, Polymorphic } from "astro/types";
+import type { HTMLAttributes } from "astro/types";
 import AstroImage from "./astro-image.astro";
 import Time from "./time.astro";
 
-type Props<E extends HTMLTag> = Prettify<Polymorphic<{ as: E }>>;
+type Props = HTMLAttributes<"article">;
 
-const { as, class: className, ...rest } = Astro.props;
-
-const As = as || "article";
+const { class: className, ...rest } = Astro.props;
 ---
 
-<As
+<article
   {...rest}
   class:list={tw([
     "cursor-pointer rounded border border-white/60 shadow-lg",
@@ -79,4 +77,4 @@ const As = as || "article";
       </div>
     </Link>
   </div>
-</As>
+</article>
