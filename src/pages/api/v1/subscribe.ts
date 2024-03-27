@@ -1,6 +1,6 @@
 import { errorMap, parseError, raise } from "@/helpers";
+import { resend } from "@/lib/clients";
 import type { APIRoute } from "astro";
-import { Resend } from "resend";
 import { z } from "zod";
 
 const formSchema = z.object({
@@ -9,9 +9,6 @@ const formSchema = z.object({
 
 export const POST: APIRoute = async ({ request }) => {
   try {
-    const resend = new Resend(import.meta.env.RESEND_TOKEN);
-    const resend_audience_id = import.meta.env.RESEND_AUDIENCE_ID;
-
     const formData = formSchema.parse(
       Object.fromEntries(await request.formData()),
       { errorMap },
@@ -20,7 +17,7 @@ export const POST: APIRoute = async ({ request }) => {
     const response = await resend.contacts.create({
       email: formData.email,
       unsubscribed: false,
-      audienceId: resend_audience_id,
+      audienceId: import.meta.env.RESEND_AUDIENCE_ID,
     });
 
     if (response.error) raise(response.error.message);

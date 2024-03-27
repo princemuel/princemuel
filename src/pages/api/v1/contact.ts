@@ -1,14 +1,10 @@
 import { errorMap, parseError, raise } from "@/helpers/errors";
+import { resend } from "@/lib/clients";
 import { formSchema } from "@/lib/form";
 import type { APIRoute } from "astro";
-import { Resend } from "resend";
 
 export const POST: APIRoute = async ({ request }) => {
   try {
-    const resend = new Resend(import.meta.env.RESEND_TOKEN);
-    const resend_from = import.meta.env.RESEND_ADDRESS_FROM;
-    const resend_to = import.meta.env.RESEND_ADDRESS_TO;
-
     const formData = formSchema.parse(
       Object.fromEntries(await request.formData()),
       { errorMap },
@@ -23,8 +19,8 @@ export const POST: APIRoute = async ({ request }) => {
     // });
 
     const response = await resend.emails.send({
-      from: resend_from,
-      to: resend_to,
+      from: import.meta.env.RESEND_ADDRESS_FROM,
+      to: import.meta.env.RESEND_ADDRESS_TO,
       subject: `New ${formData.type} message from ${formData.name}`,
       reply_to: formData.email,
       text: formData.message,

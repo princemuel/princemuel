@@ -14,7 +14,7 @@ export async function fetchResource<K extends CollectionKey>(
 ): Promise<CollectionEntry<K>[]> {
   try {
     const status = ["draft", "preview", "published"] as const;
-    // @ts-expect-error ignored collection type "any"
+    // @ts-ignore ignored collection type "any"
     const resource = await getCollection<K>(key, ({ data }) => {
       return import.meta.env.PROD
         ? JSON.parse(import.meta.env.ENABLE_RESOURCE_PREVIEW) &&
@@ -27,9 +27,9 @@ export async function fetchResource<K extends CollectionKey>(
     const result = options?.sort
       ? resource.sort((a, b) => {
           return (
-            // @ts-expect-error ignored collection type "any"
+            // @ts-ignore ignored collection type "any"
             Number(b.data.updatedAt ?? b.data.publishedAt) -
-            // @ts-expect-error ignored collection type "any"
+            // @ts-ignore ignored collection type "any"
             Number(a.data.updatedAt ?? a.data.publishedAt)
           );
         })
