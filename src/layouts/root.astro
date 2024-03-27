@@ -1,6 +1,6 @@
 ---
 import { Head, Indicator } from "@/components";
-import { tw } from "@/helpers/utils";
+import { raise, tw } from "@/helpers";
 import { fontMono, fontSans, fontAccent } from "@/lib/fonts";
 import { AstroFont as Fonts } from "astro-font";
 import { ViewTransitions } from "astro:transitions";
@@ -31,32 +31,27 @@ const {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- <script define:vars="">
+    <script is:inline define:vars={{ raise: raise }}>
       let theme;
       const $root = document.documentElement;
       try {
         theme = localStorage.getItem("site-theme");
-        invariant(
-          theme,
-          `Expected \`theme\` to be of type \`%s\` but received type \`%s\``,
-          "string",
-          theme,
-        );
+        if (!theme)
+          raise(
+            `Expected \`theme\` to be of type \`string\` but received type \`${theme}\``,
+          );
       } catch (error) {
         const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
           .matches
           ? "dark"
           : "light";
         localStorage.setItem("site-theme", systemTheme);
-        theme = localStorage.getItem("site-theme");
+        theme = systemTheme;
       }
-
       const resolvedTheme = theme || "dark";
-
       $root.dataset.darkReaderTheme = resolvedTheme;
       $root.dataset.theme = `github-${resolvedTheme}`;
-    </script> -->
-
+    </script>
     <Head
       title={title}
       description={description}
@@ -67,11 +62,8 @@ const {
       updatedAt={updatedAt}
       canonical={canonical}
     />
-
-    {/* @ts-expect-error override expected font type  */}
     <Fonts config={[fontSans, fontMono, fontAccent]} />
     <ViewTransitions />
-
     <!-- <script src="/src/scripts/pwa.ts"></script> -->
   </head>
 

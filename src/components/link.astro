@@ -8,7 +8,7 @@ invariant(
   Astro.props.href,
   `Expected \`href\` to be of type \`%s\` but received type \`%s\``,
   "URL or string",
-  undefined,
+  Astro.props.href,
 );
 
 const href = Astro.props.href.toString();
