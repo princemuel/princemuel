@@ -1,16 +1,17 @@
 import { z, type SchemaContext } from "astro:content";
-const ResourceLink = z.object({ href: z.string().url(), text: z.string() });
-const ResourceStatus = z
-  .enum(["draft", "preview", "published"])
-  .default("draft");
-const ResourceType = (type: "project" | "article") =>
-  z.enum(["project", "article"]).default(type);
 
 const AuthorSchema = z.object({
   name: z.string(),
   contact: z.string().url().or(z.string().email()).optional(),
   avatar: z.string().url().optional(),
 });
+
+const ResourceLink = z.object({ href: z.string().url(), text: z.string() });
+const ResourceStatus = z
+  .enum(["draft", "preview", "published"])
+  .default("draft");
+const ResourceType = (type: "project" | "article") =>
+  z.enum(["project", "article"]).default(type);
 
 const ResourceDateTime = z
   .string()
