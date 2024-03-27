@@ -49,25 +49,27 @@ export const GET: APIRoute = async (context) => {
       } satisfies RSSFeedItem;
     }),
     customData: `
-    <language>en-US</language>
     <atom:link href="${new URL("/rss.xml", baseUrl)}" rel="self"
-      type="application/rss+xml" xmlns:atom="http://www.w3.org/2005/Atom"
-      xmlns:content="http://purl.org/rss/1.0/modules/content/"
+    type="application/rss+xml" xmlns:atom="http://www.w3.org/2005/Atom"
+    xmlns:content="http://purl.org/rss/1.0/modules/content/"
     />
     <image>
-      <url>${new URL("/blogimage_src", baseUrl).toString()}</url>
-      <title>${author} ${delimiter} Blog RSS Feed/title>
-      <description>
+    <url>${new URL("/blogimage_src", baseUrl).toString()}</url>
+    <title>${author} ${delimiter} Blog RSS Feed/title>
+    <description>
         My Personal Website scaffolded with Astro. If you subscribe to this RSS feed, you will receive updates and summaries of my new posts
       </description>
       <link>${baseUrl}</link>
       <width>142</width>
       <height>116</height>
-    </image>
-    <lastBuildDate>${new Date().toISOString()}</lastBuildDate>
-    <ttl>${ONE_WEEK_IN_MINUTES}</ttl>
-    <generator>${context.generator}</generator>
+      </image>
+    <managingEditor>${author}</managingEditor>
+    <webMaster>${author}</webMaster>
     <dc:creator>${author}</dc:creator>
+    <language>en-US</language>
+    <generator>${context.generator}</generator>
+    <ttl>${ONE_WEEK_IN_MINUTES}</ttl>
+    <lastBuildDate>${new Date().toISOString()}</lastBuildDate>
     `,
     stylesheet: "/styles.xsl",
   });
