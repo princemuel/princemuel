@@ -18,7 +18,7 @@ export default defineConfig({
   integrations: integrations,
   adapter: vercel({
     edgeMiddleware: true,
-    maxDuration: 20,
+    maxDuration: 10,
     functionPerRoute: false,
     imageService: true,
     webAnalytics: { enabled: envVars.NODE_ENV === "production" },
