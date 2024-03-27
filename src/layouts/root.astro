@@ -1,9 +1,10 @@
 ---
 import { Head, Indicator } from "@/components";
-import { raise, tw } from "@/helpers";
+import { tw } from "@/helpers";
 import { fontMono, fontSans, fontAccent } from "@/lib/fonts";
 import { AstroFont as Fonts } from "astro-font";
 import { ViewTransitions } from "astro:transitions";
+import Header from "./header.astro";
 
 type Props = Meta & { type?: OpenGraph["type"] };
 
@@ -31,26 +32,25 @@ const {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script is:inline define:vars={{ raise: raise }}>
-      let theme;
-      const $root = document.documentElement;
+    <script is:inline>
+      let t;
+      const $r = document.documentElement;
       try {
-        theme = localStorage.getItem("site-theme");
-        if (!theme)
-          raise(
+        t = localStorage.getItem("site-theme");
+        if (!t)
+          throw new Error(
             `Expected \`theme\` to be of type \`string\` but received type \`${theme}\``,
           );
-      } catch (error) {
-        const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
-          .matches
+      } catch (e) {
+        const s = window.matchMedia("(prefers-color-scheme: dark)").matches
           ? "dark"
           : "light";
-        localStorage.setItem("site-theme", systemTheme);
-        theme = systemTheme;
+        localStorage.setItem("site-theme", s);
+        t = s;
       }
-      const resolvedTheme = theme || "dark";
-      $root.dataset.darkReaderTheme = resolvedTheme;
-      $root.dataset.theme = `github-${resolvedTheme}`;
+      const r = t || "dark";
+      $r.dataset.darkReaderTheme = r;
+      $r.dataset.theme = `github-${r}`;
     </script>
     <Head
       title={title}
@@ -66,12 +66,11 @@ const {
     <ViewTransitions />
     <!-- <script src="/src/scripts/pwa.ts"></script> -->
   </head>
-
-  <body class="antialiased dark:bg-[#0e141b]">
+  <!-- dark:bg-[#0e141b] -->
+  <body class="bg-white font-sans antialiased dark:bg-neutral-950">
+    <Header />
     <slot />
-
     <Indicator />
-
     <script>
       const cssHasPseudo = (await import("css-has-pseudo/browser")).default;
       cssHasPseudo(document);
