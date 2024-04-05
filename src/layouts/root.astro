@@ -1,10 +1,12 @@
 ---
-import { Head, Indicator } from "@/components";
-import { tw } from "@/helpers";
+import { Indicator } from "@/components";
+import { ThemeToggle } from "@/components/theme-toggle";
+import Header from "./header.astro";
+import Meta from "./head.astro";
 import { fontMono, fontSans, fontAccent } from "@/lib/fonts";
 import { AstroFont as Fonts } from "astro-font";
 import { ViewTransitions } from "astro:transitions";
-import Header from "./header.astro";
+import { tw } from "@/helpers";
 
 type Props = Meta & { type?: OpenGraph["type"] };
 
@@ -21,38 +23,78 @@ const {
 ---
 
 <!doctype html>
-<html
-  lang="en"
-  dir="auto"
-  data-dark-reader-mode="dynamic"
-  data-dark-reader-theme="dark"
-  data-theme="github-dark"
-  class={tw("__sans__ __accent__ __mono__")}
->
+<html lang="en" dir="auto" class={tw("__sans__ __accent__ __mono__")}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script is:inline>
-      let t;
-      const $r = document.documentElement;
-      try {
-        t = localStorage.getItem("site-theme");
-        if (!t)
-          throw new Error(
-            `Expected \`theme\` to be of type \`string\` but received type \`${theme}\``,
+    <meta name="color-scheme" content="dark light" />
+    <script is:inline data-astro-rerun>
+      "use strict";
+      // using short variable names to avoid overbloating script
+      (function ($w, $r) {
+        var mql = $w.matchMedia("(prefers-color-scheme: dark)");
+        function st(theme = "dark") {
+          $r.setAttribute("data-theme", theme);
+          $r.setAttribute("data-dark-reader-theme", `github-${theme}`);
+        }
+        function ch(e) {
+          st(e.matches ? "dark" : "light");
+        }
+        function hm(theme = "auto") {
+          if (mql) {
+            theme === "auto"
+              ? mql.addEventListener("change", ch)
+              : mql.removeEventListener("change", ch);
+          }
+        }
+
+        var t = (function () {
+          function NotFoundError(message) {
+            this.message = message;
+            this.name = "NotFoundError";
+          }
+          NotFoundError.prototype = Object.create(Error.prototype);
+          NotFoundError.prototype.constructor = NotFoundError;
+          try {
+            var v = $w.localStorage.getItem("data-theme");
+            if (!v)
+              throw new NotFoundError(
+                "Expected `data-theme` to be set in localStorage but it is not.",
+              );
+            return v;
+          } catch (e) {
+            var s = $w.matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light";
+            if (e instanceof NotFoundError) {
+              $w.localStorage.setItem("data-theme", s);
+              return s;
+            } else if (
+              e instanceof DOMException &&
+              (e.code === 22 ||
+                e.code === 1014 ||
+                e.name === "QuotaExceededError" ||
+                e.name === "NS_ERROR_DOM_QUOTA_REACHED")
+            ) {
+              return s;
+            } else throw e;
+          }
+        })();
+
+        (function () {
+          /** @type HTMLMetaElement */
+          var meta = $r.querySelector("meta[name=color-scheme]");
+          meta?.setAttribute(
+            "content",
+            t === "dark" ? "dark light" : "light dark",
           );
-      } catch (e) {
-        const s = window.matchMedia("(prefers-color-scheme: dark)").matches
-          ? "dark"
-          : "light";
-        localStorage.setItem("site-theme", s);
-        t = s;
-      }
-      const r = t || "dark";
-      $r.dataset.darkReaderTheme = r;
-      $r.dataset.theme = `github-${r}`;
+          $r.setAttribute("data-dark-reader-theme", "github-" + t);
+          $r.setAttribute("data-theme", t);
+        })();
+      })(window, document.documentElement);
     </script>
-    <Head
+
+    <Meta
       title={title}
       description={description}
       image={image}
@@ -66,11 +108,23 @@ const {
     <ViewTransitions />
     <!-- <script src="/src/scripts/pwa.ts"></script> -->
   </head>
+
   <!-- dark:bg-[#0e141b] -->
   <body class="bg-white font-sans antialiased dark:bg-neutral-950">
     <Header />
+
+    <div class="me-3 text-black dark:text-white">
+      <!-- // themeQuery="theme" -->
+      <ThemeToggle
+        themeStorageKey="data-theme"
+        textSize="text-2xl"
+        myClass={"hover:text-pink-500"}
+      />
+    </div>
+
     <slot />
     <Indicator />
+
     <script>
       const cssHasPseudo = (await import("css-has-pseudo/browser")).default;
       cssHasPseudo(document);
