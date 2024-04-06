@@ -1,0 +1,77 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<theme-switch>
+  <button
+    type="button"
+    title="Toggle Theme"
+    id="theme-switch"
+    data-id="theme-switch"
+    aria-describedby="theme-text"
+    class="rotate-180 text-tahiti-500"
+  >
+    <Icon name="lucide:sun-moon" class="text-xl text-inherit" />
+    <span id="theme-text" class="sr-only">Toggle Theme</span>
+  </button>
+</theme-switch>
+
+<script>
+  import { DEFAULT_SITE_THEME } from "@/lib/config";
+  const $root = document.querySelector("html") as HTMLHtmlElement;
+
+  class ThemeSwitch extends HTMLElement {
+    button: HTMLButtonElement;
+    constructor() {
+      super();
+
+      this.button = this.querySelector("button") as HTMLButtonElement;
+
+      this.button.addEventListener("click", () => {
+        updateTheme($root);
+      });
+    }
+  }
+  customElements.define("theme-switch", ThemeSwitch);
+
+  // function changeThemeBehavior(node: ParentNode) {
+  //   const theme_selectors = node.querySelectorAll("[data-theme*=' ']");
+  //   theme_selectors.forEach((selector) => {
+  //     selector.addEventListener("click", () => {
+  //       updateTheme(node, selector.getAttribute("data-theme"));
+  //     });
+  //   });
+  // }
+
+  function setTheme(node: HTMLHtmlElement) {
+    const theme = localStorage.getItem("data-theme") || DEFAULT_SITE_THEME;
+    updateTheme(node, theme);
+  }
+
+  function updateTheme(
+    node: HTMLHtmlElement,
+    defaultTheme = DEFAULT_SITE_THEME,
+  ) {
+    const theme = node.getAttribute("data-theme") || defaultTheme;
+
+    if (theme === "dark") node.setAttribute("data-theme", "light");
+    else node.setAttribute("data-theme", "dark");
+
+    const updatedTheme = node.getAttribute("data-theme");
+
+    if (updatedTheme) {
+      localStorage.setItem("data-theme", updatedTheme);
+    }
+  }
+
+  setTheme($root);
+
+  document.addEventListener("astro:before-swap", (e) => {
+    const $root = e.newDocument.querySelector("html") as HTMLHtmlElement;
+    setTheme($root);
+  });
+
+  document.addEventListener("astro:after-swap", () => {
+    setTheme($root);
+  });
+</script>

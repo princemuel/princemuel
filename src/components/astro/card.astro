@@ -1,10 +1,11 @@
 ---
 import ForestGumpWebP from "@/assets/forrest-gump-quote.webp";
 import PlaceholderGIF from "@/assets/placeholder.avif";
-import { Link, TechIcon } from "@/components";
 import { tw } from "@/helpers";
 import type { HTMLAttributes } from "astro/types";
 import AstroImage from "./astro-image.astro";
+import Link from "./link.astro";
+import TechIcon from "./tech-stack-icon.astro";
 import Time from "./time.astro";
 
 type Props = HTMLAttributes<"article">;
@@ -78,3 +79,4 @@ const { class: className, ...rest } = Astro.props;
     </Link>
   </div>
 </article>
+@/components/astro

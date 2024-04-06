@@ -1,11 +1,9 @@
 export { default as AstroHeart } from "./astro-heart.astro";
 export { default as Button } from "./button.astro";
 export { default as Card } from "./card.astro";
-export { default as ClickToCopyEmail } from "./click-to-copy-email.tsx";
 export { default as CodeSandbox } from "./codesandbox.astro";
 export { default as Container } from "./container.astro";
 export { default as Footer } from "./footer.astro";
-export { default as Head } from "./head.astro";
 export { default as Indicator } from "./indicator.astro";
 export { default as Link } from "./link.astro";
 export { default as Nav } from "./nav.astro";

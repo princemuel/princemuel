@@ -4,7 +4,7 @@ const ClickToCopyEmail = component$(() => {
   const defaultMessage = "Click to Copy Email";
   const message = useSignal(defaultMessage);
 
-  const handleCopy = $(async (_e: PointerEvent, el: HTMLButtonElement) => {
+  const handleCopy = $(async (_e: MouseEvent, el: HTMLButtonElement) => {
     try {
       await navigator.clipboard.writeText(el.innerText);
       message.value = "Copied!";
