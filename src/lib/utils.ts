@@ -5,6 +5,7 @@ import {
   type CollectionEntry,
   type CollectionKey,
 } from "astro:content";
+import { envVars } from "./env.server";
 
 type ResourceOptions = { sort?: boolean; select?: number };
 
@@ -17,8 +18,7 @@ export async function fetchResource<K extends CollectionKey>(
     // @ts-ignore ignored collection type "any"
     const resource = await getCollection<K>(key, ({ data }) => {
       return import.meta.env.PROD
-        ? JSON.parse(import.meta.env.ENABLE_RESOURCE_PREVIEW) &&
-          data.status !== "draft"
+        ? envVars.ENABLE_PREVIEW && data.status !== "draft"
           ? status.includes(data.status)
           : data.status === "published"
         : true;
