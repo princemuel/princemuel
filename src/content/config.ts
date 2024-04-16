@@ -35,6 +35,7 @@ const routes = defineCollection({
   schema: z.object({
     text: z.string().min(1),
     href: z.string().min(1),
+    icon: z.string().min(1),
     order: z.number().int().nonnegative().safe().default(0),
   }),
 });

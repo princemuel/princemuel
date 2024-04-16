@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/ban-types */
 /*===============================*
           HELPER TYPES
  *===============================*
@@ -78,6 +76,8 @@ type KeyValuePair<K extends keyof any = string, V = string> = Record<K, V>;
 interface RecursiveKeyValuePair<K extends keyof any = string, V = string> {
   [key: K]: V | RecursiveKeyValuePair<K, V>;
 }
+
+type CSSRuleObject = RecursiveKeyValuePair<string, null | string | string[]>;
 
 type OptionalUnion<
   U extends Record<string, any>,

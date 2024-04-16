@@ -1,5 +1,12 @@
 import { cn, type CnOptions } from "tailwind-variants";
 
+export const isBrowser = (() =>
+  typeof window !== "undefined" &&
+  typeof HTMLElement !== "undefined" &&
+  !!window.document &&
+  String(HTMLElement).includes("[native code]"))();
+export const isServer = !isBrowser;
+
 export const tw = <T extends CnOptions>(...classes: T) =>
   cn(...classes)({ twMerge: true });
 

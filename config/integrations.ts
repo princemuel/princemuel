@@ -11,10 +11,8 @@ import {
   type AstroExpressiveCodeOptions,
 } from "astro-expressive-code";
 import icon from "astro-icon";
-import type { IntegrationOptions } from "astro-icon/typings/integration";
-import defaultTheme from "tailwindcss/defaultTheme";
-// @ts-expect-error
 import simpleStackForm from "simple-stack-form";
+import defaultTheme from "tailwindcss/defaultTheme";
 
 const codeBlockOptions = {
   themes: ["github-dark", "github-light"],
@@ -25,15 +23,13 @@ const codeBlockOptions = {
   // frames: {},
   plugins: [pluginCollapsibleSections()],
   useThemedSelectionColors: true,
-  themeCssSelector: (theme) => `[data-theme='${theme.name}']`,
+  themeCssSelector: (theme) => `[data-dark-reader-theme='${theme.name}']`,
 } satisfies AstroExpressiveCodeOptions;
 
 const iconOptions = {
   // iconDir: "src/assets/icons",
-  include: {
-    lucide: ["*"],
-  },
-} satisfies IntegrationOptions;
+  include: { lucide: ["*"] },
+} satisfies Parameters<typeof icon>[0];
 
 export const integrations: AstroUserConfig["integrations"] = [
   db(),
@@ -42,7 +38,7 @@ export const integrations: AstroUserConfig["integrations"] = [
   icon(iconOptions),
   mdx(),
   alpine({ entrypoint: "/src/scripts/alpinejs" }),
-  qwik(),
+  qwik({ include: "**/qwik/*" }),
   sitemap({
     changefreq: "daily",
     priority: 0.7,

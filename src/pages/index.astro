@@ -1,7 +1,7 @@
 ---
 import { Card } from "@/components";
 import { homeKeywords } from "@/lib/config";
-import { Icon } from "astro-icon/components";
+// import { Icon } from "astro-icon/components";
 import Root from "../layouts/root.astro";
 
 const title = "Home";
@@ -10,7 +10,7 @@ const description = "";
 
 <Root title={title} description={description} tags={homeKeywords}>
   <main class="min-h-svh">
-    <Icon
+    <!-- <Icon
       name="lucide:home"
       class="text-xl text-neutral-500 dark:text-neutral-400"
     />
@@ -41,7 +41,7 @@ const description = "";
     <Icon
       name="lucide:briefcase-business"
       class="text-xl text-neutral-500 dark:text-neutral-400"
-    />
+    /> -->
     <div class="mx-auto flex w-full max-w-4xl flex-col gap-8">
       <Card />
       <Card />

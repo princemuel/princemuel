@@ -5,7 +5,7 @@ import plugin from "tailwindcss/plugin";
 
 /** @type {import('tailwindcss').Config} */
 export default {
-  darkMode: ["class", '[data-dark-reader-theme="dark"]'],
+  darkMode: ["class", '[data-theme="dark"]'],
   content: [
     "./src/pages/**/*.{astro,js[x,],ts[x,],md[x,]}",
     "./src/layouts/**/*.{astro,js[x,],ts[x,],md[x,]}",
@@ -75,10 +75,10 @@ export default {
       addVariant("optional", "&:optional");
       addVariant("hocus", ["&:hover", "&:focus"]);
       addVariant("inverted-colors", "@media (inverted-colors: inverted)");
-      addVariant(
-        "prose-inline-code",
-        '&.prose :where(:not(pre)>code):not(:where([class~="not-prose"] *))',
-      );
+      // addVariant(
+      //   "prose-inline-code",
+      //   '&.prose :where(:not(pre)>code):not(:where([class~="not-prose"] *))',
+      // );
 
       matchUtilities({
         "fluid-cols": (value) => ({

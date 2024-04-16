@@ -1,9 +1,12 @@
 ---
-import { Head, Indicator } from "@/components";
-import { raise, tw } from "@/helpers";
+import { BreakPointIndicator, ThemeProvider } from "@/components/astro";
+import Header from "./header.astro";
+import RouterHead from "./head.astro";
 import { fontMono, fontSans, fontAccent } from "@/lib/fonts";
 import { AstroFont as Fonts } from "astro-font";
 import { ViewTransitions } from "astro:transitions";
+import { tw } from "@/helpers";
+import SpeedInsights from "@vercel/speed-insights/astro";
 
 type Props = Meta & { type?: OpenGraph["type"] };
 
@@ -23,36 +26,15 @@ const {
 <html
   lang="en"
   dir="auto"
-  data-dark-reader-mode="dynamic"
-  data-dark-reader-theme="dark"
-  data-theme="github-dark"
   class={tw("__sans__ __accent__ __mono__")}
+  data-theme="dark"
+  data-reader-theme="dracula"
 >
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script is:inline define:vars={{ raise: raise }}>
-      let theme;
-      const $root = document.documentElement;
-      try {
-        theme = localStorage.getItem("site-theme");
-        if (!theme)
-          raise(
-            `Expected \`theme\` to be of type \`string\` but received type \`${theme}\``,
-          );
-      } catch (error) {
-        const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
-          .matches
-          ? "dark"
-          : "light";
-        localStorage.setItem("site-theme", systemTheme);
-        theme = systemTheme;
-      }
-      const resolvedTheme = theme || "dark";
-      $root.dataset.darkReaderTheme = resolvedTheme;
-      $root.dataset.theme = `github-${resolvedTheme}`;
-    </script>
-    <Head
+    <meta name="color-scheme" content="dark light" />
+    <RouterHead
       title={title}
       description={description}
       image={image}
@@ -63,14 +45,17 @@ const {
       canonical={canonical}
     />
     <Fonts config={[fontSans, fontMono, fontAccent]} />
+    {import.meta.env.PROD && <SpeedInsights />}
     <ViewTransitions />
+    <ThemeProvider />
     <!-- <script src="/src/scripts/pwa.ts"></script> -->
   </head>
 
-  <body class="antialiased dark:bg-[#0e141b]">
-    <slot />
+  <body class="bg-white font-sans antialiased dark:bg-neutral-950">
+    <Header />
 
-    <Indicator />
+    <slot />
+    <BreakPointIndicator />
 
     <script>
       const cssHasPseudo = (await import("css-has-pseudo/browser")).default;

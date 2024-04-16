@@ -1,10 +1,29 @@
-import { column, defineDb, defineTable } from "astro:db";
+import { column, defineDb, defineTable, NOW } from "astro:db";
 
 const Comment = defineTable({
   columns: {
-    author: column.text(),
-    body: column.text(),
+    id: column.text({ primaryKey: true }),
+    authorId: column.text(),
+    content: column.text({ optional: true }),
+    likes: column.number({ optional: true }),
+    flagged: column.boolean({ optional: true }),
+    published: column.date({ default: NOW }),
+  },
+  indexes: {
+    author_idx: { on: ["authorId"], unique: true },
   },
 });
 
-export default defineDb({ tables: { Comment } });
+const User = defineTable({
+  columns: {},
+});
+
+export const Pets = defineTable({
+  columns: {
+    name: column.text(),
+    species: column.text(),
+    sound: column.text(),
+  },
+});
+
+export default defineDb({ tables: { Comment, User, Pets } });

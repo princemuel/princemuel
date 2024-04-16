@@ -9,13 +9,12 @@ import { getEntry } from "astro:content";
 
 type Props = Prettify<
   Omit<HTMLAttributes<"li">, "id"> & {
-    id?: LooseAutocomplete<NonNullable<CollectionEntry<"stacks">["slug"]>>;
+    id: LooseAutocomplete<CollectionEntry<"stacks">["slug"]>;
   }
 >;
 
 const { class: className, id, ...rest } = Astro.props;
 
-// @ts-expect-error
 const entry = await getEntry("stacks", strip(id));
 const { name } = entry?.data || {};
 
@@ -28,10 +27,8 @@ try {
   }
 } catch (error) {}
 
-function strip<T extends string>(input?: T): T {
-  return ((input ?? "").match(/\b[a-zA-Z]+\b/g) ?? [])
-    .join("")
-    .toLowerCase() as T;
+function strip(input: Props["id"]) {
+  return ((input ?? "").match(/\b[a-zA-Z]+\b/g) ?? []).join("").toLowerCase();
 }
 ---
 

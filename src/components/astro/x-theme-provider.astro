@@ -1,0 +1,36 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<template data-id="x-theme-icons">
+  <Icon name="lucide:sun" data-id="x-light" class="animate-rotate" />
+  <Icon name="lucide:moon-star" data-id="x-dark" class="animate-rotate" />
+  <Icon name="x-auto" data-id="x-auto" class="animate-rotate" />
+</template>
+
+{/* This is intentionally inlined to avoid FOUC. */}
+<script is:inline>
+  window.XThemeProvider = (function () {
+    const storedTheme =
+      typeof localStorage !== "undefined" && localStorage.getItem("x-theme");
+    const mql = window.matchMedia("(prefers-color-scheme: light)");
+    const theme = storedTheme || (mql.matches ? "light" : "dark");
+    document.documentElement.dataset.theme =
+      theme === "light" ? "light" : "dark";
+    return {
+      updateWidget(theme = storedTheme || "auto") {
+        const widget = document.querySelector("x-theme-widget");
+        /** @type {HTMLTemplateElement | null} */
+        const tmpl = document.querySelector(`[data-id="x-theme-icons"]`);
+        const themeIcon =
+          tmpl && tmpl.content.querySelector(`[data-id="x-${theme}"]`);
+        widget.querySelector("svg")?.remove();
+        if (themeIcon) {
+          widget
+            .querySelector("span")
+            ?.insertAdjacentElement("afterend", themeIcon.cloneNode(true));
+        }
+      },
+    };
+  })();
+</script>

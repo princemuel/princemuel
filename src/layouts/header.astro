@@ -1,0 +1,27 @@
+---
+import { Nav, ThemeWidget } from "@/components/astro";
+import { Icon } from "astro-icon/components";
+import { getCollection } from "astro:content";
+
+const response = await getCollection("routes");
+
+const excludedRoutes = ["resources", "snippets"];
+// const excludedRoutes = [""];
+
+const routes = response
+  .filter((route) => !excludedRoutes.includes(route.id))
+  .sort((a, b) => a.data.order - b.data.order);
+---
+
+<header class="relative transition-all ease-in-out container">
+  <div class="relative flex items-center justify-between md:py-6">
+    <Nav routes={routes} class="mx-auto" />
+
+    <ThemeWidget />
+
+    <Icon
+      name="lucide:messages-square"
+      class="text-xl text-neutral-500 dark:text-neutral-400"
+    />
+  </div>
+</header>
