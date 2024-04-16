@@ -14,7 +14,7 @@
     "prefix": "qcomponent$ + props",
     "description": "Qwik component w/ props",
     "body": [
-      "export interface ${1:${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}}Props {",
+      "type ${1:${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}}Props = {",
       "  $2",
       "}",
       "",

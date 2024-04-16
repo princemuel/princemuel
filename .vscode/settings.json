@@ -17,7 +17,7 @@
     // https://github.com/microsoft/vscode/commit/083bf9020407ea5a91199eb1f0b373859df8d600#diff-88456bc9b7caa2f8126aea0107b4671db0f094961aaf39a7c689f890e23aaaba
     "output.selfClosingStyle": "xhtml"
   },
-  "material-icon-theme.activeIconPack": "qwik",
+  "material-icon-theme.activeIconPack": "react_redux",
   "window.autoDetectColorScheme": true,
   "workbench.productIconTheme": "Default",
   "workbench.iconTheme": "material-icon-theme",
@@ -35,7 +35,7 @@
   "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "autoimport.doubleQuotes": false,
-  // "eslint.experimental.useFlatConfig": true,
+  "eslint.experimental.useFlatConfig": true,
   "eslint.format.enable": true,
   "eslint.lintTask.enable": true,
   "eslint.codeAction.showDocumentation": {
