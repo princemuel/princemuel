@@ -5,19 +5,14 @@ interface Props extends HTMLAttributes<"a"> {}
 
 const toPathname = Astro.props.href?.toString() ?? "";
 const locationPathname = Astro.url.pathname;
-const startSlashPosition =
-  toPathname !== "/" && toPathname.startsWith("/")
-    ? toPathname.length - 1
-    : toPathname.length;
-const endSlashPosition =
+
+const href =
   toPathname !== "/" && toPathname.endsWith("/")
-    ? toPathname.length - 1
-    : toPathname.length;
+    ? toPathname.slice(0, -1)
+    : toPathname;
+
 const isActive =
-  locationPathname === toPathname ||
-  (locationPathname.endsWith(toPathname) &&
-    (locationPathname.charAt(endSlashPosition) === "/" ||
-      locationPathname.charAt(startSlashPosition) === "/"));
+  href === locationPathname || locationPathname.startsWith(`${href}/`);
 ---
 
 <a {...Astro.props} aria-current={isActive ? "page" : "false"}>
