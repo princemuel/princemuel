@@ -1,5 +1,9 @@
+---
+const isProduction = import.meta.env.PROD;
+---
+
 {
-  import.meta.env.PROD ? null : (
+  isProduction ? null : (
     <div
       aria-hidden
       class:list={[

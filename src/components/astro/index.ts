@@ -1,4 +1,3 @@
-export { default as AstroHeart } from "./astro-heart.astro";
 export { default as Button } from "./button.astro";
 export { default as Card } from "./card.astro";
 export { default as CodeSandbox } from "./codesandbox.astro";
@@ -12,5 +11,6 @@ export { default as Prose } from "./prose.astro";
 export { default as Social } from "./social.astro";
 export { default as TOC } from "./table-of-contents.astro";
 export { default as TechIcon } from "./tech-stack-icon.astro";
+export { default as XHeart } from "./x-heart.astro";
 export { default as ThemeProvider } from "./x-theme-provider.astro";
 export { default as ThemeWidget } from "./x-theme-widget.astro";

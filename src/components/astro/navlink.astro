@@ -20,6 +20,6 @@ const isActive =
       locationPathname.charAt(startSlashPosition) === "/"));
 ---
 
-<a {...Astro.props} aria-current={isActive && "page"}>
+<a {...Astro.props} aria-current={isActive ? "page" : "false"}>
   <slot />
 </a>

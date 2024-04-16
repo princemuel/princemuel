@@ -1,5 +1,7 @@
 ---
+import { Icon } from "astro-icon/components";
 import { getCollection } from "astro:content";
+import Link from "./link.astro";
 
 const links = await getCollection("social");
 ---
@@ -16,20 +18,10 @@ const links = await getCollection("social");
           "transition-transform duration-300 ease-out hover:scale-125",
         ]}
       >
-        <a
-          href={link.data.href}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="flex size-8 items-center"
-        >
-          <span class="sr-only"> {link.data.text}</span>
-          <img
-            loading="eager"
-            src={link.data.icon}
-            alt=""
-            class="backdrop-brightness-100 backdrop-contrast-100"
-          />
-        </a>
+        <Link href={link.data.href} class="flex size-8 items-center">
+          <span class="sr-only">{link.data.text}</span>
+          <Icon name={link.data.platform} />
+        </Link>
       </li>
     ))
   }

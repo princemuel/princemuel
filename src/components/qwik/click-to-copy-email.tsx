@@ -26,7 +26,7 @@ const ClickToCopyEmail = component$(() => {
         fill="none"
         viewBox="0 0 24 24"
         stroke-width="1.5"
-        class="stroke-brand-500 size-4"
+        class="size-4 stroke-brand-500"
       >
         <path
           stroke-linecap="round"
