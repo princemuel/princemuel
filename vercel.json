@@ -10,7 +10,7 @@
       "headers": [
         {
           "key": "Cache-Control",
-          "value": "public, max-age=86400"
+          "value": "public, max-age=31536000"
         }
       ]
     },
@@ -31,7 +31,7 @@
     },
     {
       "source": "/chat/",
-      "destination": "https://discord.gg/grF4GTXXYm"
+      "destination": "https://discordapp.com/users/738221142229385297"
     },
     {
       "source": "/linkedin/",
