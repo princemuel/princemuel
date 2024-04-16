@@ -2,7 +2,6 @@ export * from "./dom";
 export * from "./error-classes";
 export * from "./errors";
 export * from "./http";
-export * from "./invariant";
 export * from "./promise-hash";
 export * from "./request";
 export * from "./seo";
