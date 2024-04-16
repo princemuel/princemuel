@@ -1,5 +1,5 @@
 ---
-import { Card } from "@/components";
+import { Card } from "@/components/astro";
 import { homeKeywords } from "@/lib/config";
 // import { Icon } from "astro-icon/components";
 import Root from "../layouts/root.astro";
@@ -43,10 +43,9 @@ const description = "";
       class="text-xl text-neutral-500 dark:text-neutral-400"
     /> -->
     <div class="mx-auto flex w-full max-w-4xl flex-col gap-8">
+      <!-- @ts-ignore -->
       <Card />
-      <Card />
-      <Card />
-      <Card />
+      <!-- @ts-ignore -->
       <Card />
     </div>
   </main>

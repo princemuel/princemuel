@@ -5,9 +5,9 @@ import type { APIRoute } from "astro";
 
 const ONE_WEEK_IN_MINUTES = 7 * 24 * 60 * 1;
 
-export const GET: APIRoute = async (context) => {
+export const GET: APIRoute = async (ctx) => {
   const author = "Prince Muel";
-  const baseUrl = new URL("/blog", context.site).toString();
+  const baseUrl = new URL("/blog", ctx.site).toString();
   const resource = await fetchResource("posts");
 
   //https://openlibrary.org/developers/api
@@ -18,8 +18,7 @@ export const GET: APIRoute = async (context) => {
       dc: "http://purl.org/dc/elements/1.1/",
     },
     title: `${author} ${delimiter} Blog RSS Feed`,
-    description:
-      "My Personal Website scaffolded with Astro. If you subscribe to this RSS feed, you will receive updates and summaries of my new posts",
+    description: `${author}'s Personal Website scaffolded with Astro. If you subscribe to this RSS feed, you will receive updates and summaries of ${author}'s new posts`,
     site: new URL("/", baseUrl),
     items: (resource ?? []).map((item) => {
       return {
@@ -51,23 +50,22 @@ export const GET: APIRoute = async (context) => {
     customData: `
     <atom:link href="${new URL("/rss.xml", baseUrl)}" rel="self"
     type="application/rss+xml" xmlns:atom="http://www.w3.org/2005/Atom"
-    xmlns:content="http://purl.org/rss/1.0/modules/content/"
-    />
+    xmlns:content="http://purl.org/rss/1.0/modules/content/"/>
     <image>
-    <url>${new URL("/blogimage_src", baseUrl).toString()}</url>
-    <title>${author} ${delimiter} Blog RSS Feed/title>
-    <description>
-        My Personal Website scaffolded with Astro. If you subscribe to this RSS feed, you will receive updates and summaries of my new posts
+      <url>${new URL("/blogimage_src", baseUrl).toString()}</url>
+      <title>${author} ${delimiter} Blog RSS Feed/title>
+      <description>
+        ${author}'s Personal Website scaffolded with Astro. If you subscribe to this RSS feed, you will receive updates and summaries of ${author}'s new posts
       </description>
       <link>${baseUrl}</link>
       <width>142</width>
       <height>116</height>
-      </image>
+    </image>
     <managingEditor>${author}</managingEditor>
     <webMaster>${author}</webMaster>
     <dc:creator>${author}</dc:creator>
     <language>en-US</language>
-    <generator>${context.generator}</generator>
+    <generator>${ctx.generator}</generator>
     <ttl>${ONE_WEEK_IN_MINUTES}</ttl>
     <lastBuildDate>${new Date().toISOString()}</lastBuildDate>
     `,

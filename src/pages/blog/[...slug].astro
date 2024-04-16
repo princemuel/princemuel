@@ -1,6 +1,8 @@
 ---
+import Root from "@/layouts/root.astro";
 import { fetchResource } from "@/lib/utils";
-import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
+import type { GetStaticPaths, Params } from "astro";
+import type { CollectionEntry } from "astro:content";
 
 export const getStaticPaths = (async () => {
   const entries = await fetchResource("posts");
@@ -12,17 +14,17 @@ export const getStaticPaths = (async () => {
   });
 }) satisfies GetStaticPaths;
 
-type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+type Props = Prettify<{ entry: CollectionEntry<"posts"> } & { params: Params }>;
 
 const { entry } = Astro.props;
 const {
-  headings,
-  remarkPluginFrontmatter: remark,
+  // headings,
+  // remarkPluginFrontmatter: remark,
   Content,
 } = await entry.render();
-
-headings;
-remark;
 ---
 
-<Content slot="content" />
+<Root title={entry.data.title} description={entry.data.description}>
+  <Content />
+  <!-- <Content  slot="content" /> -->
+</Root>
