@@ -12,31 +12,31 @@ author:
   contact: vansomecsam@email.com
   avatar: https://github.com/princemuel.png
 publishedAt: 2023-07-21T10:11:06.130Z
-updatedAt: 2023-12-26T08:39:25.181Z
 status: draft
 ---
 
-As the [Astro docs](https://docs.astro.build/en/recipes/reading-time/) say, we can use remark plugin to add a reading time property in our frontmatter. However, for some reason, we can't add this feature by following what stated in Astro docs. Therefore, to achieve this, we have to tweak a little bit. This post will demonstrate how we can do that. 🔥
+As the [Astro docs](https://docs.astro.build/en/recipes/reading-time/) say, we can use remark plugin to add a reading time property in our frontmatter. However, for some reason, we can't add this feature by following what stated in Astro docs. Therefore, to achieve this, we have to tweak a little bit. This post will demonstrate how we can do that.
 
-## Table of Contents
+## Table of contents
 
 ## Add reading time in PostDetails
 
-### Step (1) Install required dependencies.
+Step (1) Install required dependencies.
 
-```sh
+```bash
 npm install reading-time mdast-util-to-string
 ```
 
-### Step (2) Create `remark-reading-time.mjs` file under `utils` directory
-
-```js title="multiply.js" {3}
-const multiply = (a, b) => a * b;
-
-multiply(2, 2); // 4
+```js {1,3-4}
+console.log("line1"); // highlighted
+console.log("line2");
+console.log("line3"); // highlighted
+console.log("line4"); // highlighted
 ```
 
-```js showLineNumbers
+Step (2) Create `remark-reading-time.mjs` file under `utils` directory
+
+```js title="reading-time.js" showLineNumbers
 import getReadingTime from "reading-time";
 import { toString } from "mdast-util-to-string";
 
@@ -49,31 +49,17 @@ export function remarkReadingTime() {
 }
 ```
 
-```js title="src/routes/blog/[slug]/$asset[.jpg]"
+```js {1,3-4}
+// src/routes/blog/[slug]/$asset[.jpg]
+
 export const loader = async ({ request }) => {
-  const url = new URL(request.url);
+  const url = new URL(request.url); // [!code highlight]
   const assetPath = await resolveAsset(url.pathname);
   const buffer = await fs.readFile(assetPath);
   return new Response(buffer, {
     headers: { "Content-Type": "image/jpg" },
   });
 };
-```
-
-```tsx {"1":5} del={"2":7-8} ins={"3":10-12}
-// labeled-line-markers.jsx
-<button
-  role="button"
-  {...props}
-  value={value}
-  className={buttonClassName}
-  disabled={disabled}
-  active={active}
->
-  {children &&
-    !active &&
-    (typeof children === "string" ? <span>{children}</span> : children)}
-</button>
 ```
 
 Step (3) Add the plugin to `astro.config.ts`
@@ -244,7 +230,7 @@ export default getSortedPosts;
 
 Step (2) Make sure to refactor every file which uses `getSortedPosts` function. You can simply add `await` keyword in front of `getSortedPosts` function.
 
-Files that use `getSortedPosts` function are as follows
+Files that use `getSortedPosts` function are as follow
 
 - src/pages/index.astro
 - src/pages/posts/index.astro
@@ -253,14 +239,9 @@ Files that use `getSortedPosts` function are as follows
 
 All you have to do is like this
 
-```ts title='posts/[slug].astro' del={1} ins={2}
-const sortedPosts = getSortedPosts(posts);
-const sortedPosts = await getSortedPosts(posts);
-```
-
-```diff lang='ts' title='posts/[slug].astro'
-- const sortedPosts = getSortedPosts(posts);
-+ const sortedPosts = await getSortedPosts(posts);
+```ts
+const sortedPosts = getSortedPosts(posts); // old code ❌
+const sortedPosts = await getSortedPosts(posts); // new code ✅
 ```
 
 Now you can access `readingTime` in other places besides `PostDetails`

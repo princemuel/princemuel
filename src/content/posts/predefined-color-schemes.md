@@ -23,7 +23,7 @@ If you don't know how you can configure color schemes, check [this blog post](ht
 
 ## Light color schemes
 
-Light color scheme has to be defined using the css selector `:root` and `html[data-dark-reader-theme="light"]`.
+Light color scheme has to be defined using the css selector `:root` and `html[data-theme="light"]`.
 
 ### Lobster
 
@@ -31,7 +31,7 @@ Light color scheme has to be defined using the css selector `:root` and `html[da
 
 ```css
 :root,
-html[data-dark-reader-theme="light"] {
+html[data-theme="light"] {
   --color-fill: 246, 238, 225;
   --color-text-base: 1, 44, 86;
   --color-accent: 225, 74, 57;
@@ -47,7 +47,7 @@ html[data-dark-reader-theme="light"] {
 
 ```css
 :root,
-html[data-dark-reader-theme="light"] {
+html[data-theme="light"] {
   --color-fill: 242, 245, 236;
   --color-text-base: 53, 53, 56;
   --color-accent: 17, 88, 209;
@@ -63,7 +63,7 @@ html[data-dark-reader-theme="light"] {
 
 ```css
 :root,
-html[data-dark-reader-theme="light"] {
+html[data-theme="light"] {
   --color-fill: 250, 252, 252;
   --color-text-base: 34, 46, 54;
   --color-accent: 211, 0, 106;
@@ -75,14 +75,14 @@ html[data-dark-reader-theme="light"] {
 
 ## Dark color schemes
 
-Light color scheme has to be defined as `html[data-dark-reader-theme="dark"]`.
+Light color scheme has to be defined as `html[data-theme="dark"]`.
 
 ### AstroPaper 1 original Dark Theme
 
 ![AstroPaper 1 default dark theme](https://user-images.githubusercontent.com/53733092/215769153-13b0ad8d-5ba2-44b1-af06-e5ae61293f62.png)
 
 ```css
-html[data-dark-reader-theme="dark"] {
+html[data-theme="dark"] {
   --color-fill: 47, 55, 65;
   --color-text-base: 230, 230, 230;
   --color-accent: 26, 217, 217;
@@ -97,7 +97,7 @@ html[data-dark-reader-theme="dark"] {
 ![deep-oyster-color-scheme](https://user-images.githubusercontent.com/53733092/192314524-45ec5904-3d8f-450a-9edf-1e32c5e11d6c.png)
 
 ```css
-html[data-dark-reader-theme="dark"] {
+html[data-theme="dark"] {
   --color-fill: 33, 35, 61;
   --color-text-base: 244, 247, 245;
   --color-accent: 255, 82, 86;
@@ -112,7 +112,7 @@ html[data-dark-reader-theme="dark"] {
 ![pinky-dark-color-scheme](https://user-images.githubusercontent.com/53733092/192307050-fbd55326-911c-4001-87c6-a8ad9378ac2e.png)
 
 ```css
-html[data-dark-reader-theme="dark"] {
+html[data-theme="dark"] {
   --color-fill: 53, 54, 64;
   --color-text-base: 233, 237, 241;
   --color-accent: 255, 120, 200;
@@ -127,7 +127,7 @@ html[data-dark-reader-theme="dark"] {
 ![astro-dark-color-scheme](https://user-images.githubusercontent.com/53733092/215680520-59427bb0-f4cb-48c0-bccc-f182a428d72d.svg)
 
 ```css
-html[data-dark-reader-theme="dark"] {
+html[data-theme="dark"] {
   --color-fill: 16, 23, 42; /* higher contrast bgColor */
   --color-fill: 33, 39, 55;
   --color-text-base: 234, 237, 243;
@@ -143,7 +143,7 @@ html[data-dark-reader-theme="dark"] {
 ![new dark color scheme - low contrast](https://user-images.githubusercontent.com/53733092/215772856-d5b7ae35-ddaa-4ed6-b0bf-3fa5dbcf834c.png)
 
 ```css
-html[data-dark-reader-theme="dark"] {
+html[data-theme="dark"] {
   --color-fill: 33, 39, 55; /* lower contrast bgColor */
   --color-text-base: 234, 237, 243;
   --color-accent: 255, 107, 1;
@@ -158,7 +158,7 @@ html[data-dark-reader-theme="dark"] {
 ![AstroPaper v3 new theme](https://github.com/satnaing/astro-paper/assets/53733092/c8b5d7e1-a3bc-4852-a5ad-4abf7b3cec79)
 
 ```css
-html[data-dark-reader-theme="dark"] {
+html[data-theme="dark"] {
   --color-fill: 33, 39, 55;
   --color-text-base: 234, 237, 243;
   --color-accent: 235, 63, 211;
