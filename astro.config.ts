@@ -5,9 +5,7 @@ import { integrations } from "./config/integrations";
 import { rehypePlugins } from "./config/rehype";
 import { remarkPlugins } from "./config/remark";
 
-const mode =
-  process.env.NODE_ENV === "production" ? "production" : "development";
-const envVars = loadEnv(mode, process.cwd(), "");
+const envVars = loadEnv(process.env.NODE_ENV!, process.cwd(), "");
 
 // https://astro.build/config
 export default defineConfig({
@@ -21,10 +19,11 @@ export default defineConfig({
     functionPerRoute: false,
     imageService: true,
     webAnalytics: { enabled: envVars.NODE_ENV === "production" },
-    speedInsights: { enabled: envVars.NODE_ENV === "production" },
+    isr: { expiration: 60 * 60 * 24 * 1.2 },
   }),
   experimental: {
     globalRoutePriority: true,
-    contentCollectionCache: true,
+    contentCollectionCache: envVars.NODE_ENV === "production",
+    security: { csrfProtection: { origin: true } },
   },
 });

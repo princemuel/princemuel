@@ -9,8 +9,16 @@ interface ImportMeta {
   readonly env: ImportMetaEnv;
 }
 
+declare namespace App {
+  type EdgeLocals = import("@astrojs/vercel").EdgeLocals;
+  interface Locals extends EdgeLocals {}
+}
+
 interface Window {
   Alpine: import("alpinejs").Alpine;
+  XThemeProvider: {
+    updateWidget(theme?: string): void;
+  };
 }
 
 declare module "*.astro" {

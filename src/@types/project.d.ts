@@ -1,8 +1,16 @@
+type ImageProps =
+  | import("astro:assets").LocalImageProps
+  | import("astro:assets").RemoteImageProps;
+type ImageSrc = ImageProps["src"];
+
 type Meta = {
   title: string;
   description: string;
   tags?: string[];
-  image?: { src?: string; alt?: string };
+  image?: {
+    src: string;
+    alt: string;
+  };
   canonical?: string | URL | null;
   type?: "website" | "article";
   publishedAt?: string;

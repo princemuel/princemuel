@@ -23,6 +23,17 @@ export default {
     },
     extend: {
       colors: {
+        brand: {
+          100: "#cffafe",
+          200: "#a5f3fc",
+          300: "#67e8f9",
+          400: "#22d3ee",
+          500: "#06b6d4",
+          600: "#0891b2",
+          700: "#0e7490",
+          800: "#155e75",
+          900: "#164e63",
+        },
         tahiti: {
           100: "#cffafe",
           200: "#a5f3fc",
@@ -55,11 +66,16 @@ export default {
 
       animation: {
         float: "float 6s ease-in-out infinite",
+        rotate: "rotate 1s ease-out",
       },
       keyframes: {
         float: {
           "0%, 100%": { transform: "translate3d(0px, -8px, 0)" },
           "50%": { transform: "translate3d(0px, 8px, 0)" },
+        },
+        rotate: {
+          "0%": { transform: "rotate(-45deg)" },
+          "100%": { transform: "rotate(0deg)" },
         },
       },
       cursor: {
@@ -82,13 +98,14 @@ export default {
 
       matchUtilities({
         "fluid-cols": (value) => ({
-          gridTemplateColumns: `repeat(auto-fit, minmax(min(100%, ${value}), 1fr))`,
+          "--tw-fluid-value": "var(--tw-fluid-cols-repeat, auto-fit)",
+          gridTemplateColumns: `repeat(var(--tw-fluid-value), minmax(min(100%, ${value}), 1fr))`,
         }),
       });
 
       addUtilities({
-        ".fluid-cols-fit": { "--fluid-cols-repeat": "auto-fit" },
-        ".fluid-cols-fill": { "--fluid-cols-repeat": "auto-fill" },
+        ".fluid-cols-fit": { "--tw-fluid-cols-repeat": "auto-fit" },
+        ".fluid-cols-fill": { "--tw-fluid-cols-repeat": "auto-fill" },
       });
       addUtilities({
         ".mask-radial-gradient": {
