@@ -1,7 +1,7 @@
 ---
+import { Nav, ThemeWidget } from "@/components/astro";
 import { Icon } from "astro-icon/components";
 import { getCollection } from "astro:content";
-import { Nav } from "../components";
 
 const response = await getCollection("routes");
 
@@ -16,18 +16,12 @@ const routes = response
 <header class="relative transition-all ease-in-out container">
   <div class="relative flex items-center justify-between md:py-6">
     <Nav routes={routes} class="mx-auto" />
-    <button
-      type="button"
-      title="Toggle Theme"
-      id="theme-switch"
-      data-id="theme-switch"
-      aria-describedby="theme-text"
-    >
-      <Icon
-        name="lucide:sun-moon"
-        class="text-xl text-neutral-500 dark:text-neutral-400"
-      />
-      <span id="theme-text" class="sr-only">Toggle Theme</span>
-    </button>
+
+    <ThemeWidget />
+
+    <Icon
+      name="lucide:messages-square"
+      class="text-xl text-neutral-500 dark:text-neutral-400"
+    />
   </div>
 </header>
