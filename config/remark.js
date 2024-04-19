@@ -9,7 +9,7 @@ function remarkReadingTime() {
     const textOnPage = toString(tree);
     const readingTime = getReadingTime(textOnPage);
     file.data.astro.frontmatter.words = readingTime.words;
-    file.data.astro.frontmatter.duration = readingTime.minutes;
+    file.data.astro.frontmatter.duration = readingTime.text;
   };
 }
 
@@ -32,7 +32,9 @@ function remarkModifiedTime() {
     const filepath = file.history[0];
     const output = execSync(`git log -1 --pretty="format:%cI" "${filepath}"`);
     const timestamp = output.toString().trim();
-    file.data.astro.frontmatter.updatedAt = new Date(timestamp).toISOString();
+    file.data.astro.frontmatter.updatedAt = new Date(
+      timestamp || Date.now(),
+    ).toISOString();
   };
 }
 

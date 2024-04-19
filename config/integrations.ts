@@ -1,20 +1,23 @@
 import alpine from "@astrojs/alpinejs";
-import db from "@astrojs/db";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
 import { pluginCollapsibleSections } from "@expressive-code/plugin-collapsible-sections";
 import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
 import qwik from "@qwikdev/astro";
+import sentry from "@sentry/astro";
+import spotlightjs from "@spotlightjs/astro";
 import { AstroUserConfig } from "astro";
 import {
   astroExpressiveCode as ec,
   type AstroExpressiveCodeOptions,
 } from "astro-expressive-code";
+import htmx from "astro-htmx";
 import icon from "astro-icon";
 import simpleStackForm from "simple-stack-form";
 import simpleStackStream from "simple-stack-stream";
 import defaultTheme from "tailwindcss/defaultTheme";
+import { envVars } from "./env.config";
 import { pluginErrorPreview, pluginFirstWordRed } from "./plugins";
 
 const codeBlockOptions = {
@@ -44,8 +47,8 @@ const iconOptions = {
   include: { lucide: ["*"] },
 } satisfies Parameters<typeof icon>[0];
 
+envVars;
 export const integrations: AstroUserConfig["integrations"] = [
-  db(),
   tailwind({ applyBaseStyles: false, nesting: true }),
   ec(codeBlockOptions),
   icon(iconOptions),
@@ -58,6 +61,17 @@ export const integrations: AstroUserConfig["integrations"] = [
     lastmod: new Date(),
     filter: (page) => !(page.includes("/api/") || page.includes(".xml")),
   }),
+  htmx(),
   simpleStackForm(),
   simpleStackStream(),
+  sentry({
+    dsn: envVars.SENTRY_DSN,
+    release: "0.3.0",
+    environment: envVars.NODE_ENV,
+    sourceMapsUploadOptions: {
+      project: "website",
+      authToken: envVars.SENTRY_AUTH_TOKEN,
+    },
+  }),
+  spotlightjs(),
 ];

@@ -16,6 +16,10 @@ export const envVars = createEnv({
       .string()
       .refine((s) => s === "true" || s === "false")
       .transform((s) => s === "true"),
+    UPSTASH_REDIS_REST_URL: z.string().url(),
+    UPSTASH_REDIS_REST_TOKEN: z.string().min(1),
+    UPSTASH_LIMIT_TOKEN: z.coerce.number(),
+    UPSTASH_LIMIT_WINDOW: z.string().min(1),
   },
 
   /**
