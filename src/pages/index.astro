@@ -1,11 +1,12 @@
 ---
-import { Card } from "@/components/astro";
 import { homeKeywords } from "@/lib/config";
 // import { Icon } from "astro-icon/components";
 import Root from "../layouts/root.astro";
 
 const title = "Home";
 const description = "";
+
+export const prerender = false;
 ---
 
 <Root title={title} description={description} tags={homeKeywords}>
@@ -43,10 +44,11 @@ const description = "";
       class="text-xl text-neutral-500 dark:text-neutral-400"
     /> -->
     <div class="mx-auto flex w-full max-w-4xl flex-col gap-8">
-      <!-- @ts-ignore -->
-      <Card />
-      <!-- @ts-ignore -->
-      <Card />
+      <h1 class="text-brand-100">Hello</h1>
+
+      <button onclick="throw new Error('This is a test error')">
+        Throw test error
+      </button>
     </div>
   </main>
 </Root>

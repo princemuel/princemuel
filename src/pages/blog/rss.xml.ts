@@ -1,4 +1,3 @@
-import { delimiter } from "@/lib/config";
 import { fetchResource } from "@/lib/utils";
 import rss, { type RSSFeedItem } from "@astrojs/rss";
 import type { APIRoute } from "astro";
@@ -17,7 +16,7 @@ export const GET: APIRoute = async (ctx) => {
       media: "http://search.yahoo.com/mrss/",
       dc: "http://purl.org/dc/elements/1.1/",
     },
-    title: `${author} ${delimiter} Blog RSS Feed`,
+    title: `${author}'s Blog RSS Feed`,
     description: `${author}'s Personal Website scaffolded with Astro. If you subscribe to this RSS feed, you will receive updates and summaries of ${author}'s new posts`,
     site: new URL("/", baseUrl),
     items: (resource ?? []).map((item) => {
@@ -26,6 +25,7 @@ export const GET: APIRoute = async (ctx) => {
         description: item.data.description,
         categories: item.data.tags,
         pubDate: item.data.publishedAt,
+        author: item?.data.author,
         link: new URL(`/${item.slug}`, baseUrl).toString(),
         commentsUrl: "https://github.com/princemuel/princemuel.com/discussions",
         enclosure: {
@@ -53,7 +53,7 @@ export const GET: APIRoute = async (ctx) => {
     xmlns:content="http://purl.org/rss/1.0/modules/content/"/>
     <image>
       <url>${new URL("/blogimage_src", baseUrl).toString()}</url>
-      <title>${author} ${delimiter} Blog RSS Feed/title>
+      <title>${author}'s Blog RSS Feed/title>
       <description>
         ${author}'s Personal Website scaffolded with Astro. If you subscribe to this RSS feed, you will receive updates and summaries of ${author}'s new posts
       </description>

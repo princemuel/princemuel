@@ -7,7 +7,7 @@ export const GENERATE_SLUG_FROM_TITLE = true;
 export const ENABLE_TRANSITIONS_API = true;
 export const DEFAULT_SITE_THEME = "dark";
 export const ONE_DAY_IN_MS = 1000 * 60 * 60 * 24 * 1;
-export const delimiter = "|";
+export const delimiter = "-";
 export const homeKeywords = [
   "princemuel",
   "iamprincemuel",

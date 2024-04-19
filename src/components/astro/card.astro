@@ -14,15 +14,20 @@ type InternalProps = Omit<Meta, ""> & {
     name: string;
     image?: string;
   };
+  basePath: IResource;
+  href: string;
 };
 
 const {
+  title,
+  basePath,
   class: className,
+  description,
   image,
   tags,
   publishedAt,
   platform,
-
+  href,
   ...rest
 } = Astro.props;
 
@@ -41,7 +46,7 @@ const isNew = (value?: ConstructorParameters<typeof Date>[0]) => {
 <article
   {...rest}
   class:list={tw([
-    "rounded border border-white/60 shadow-lg",
+    "rounded border border-[#232140] bg-[#16142c] shadow-lg",
     "transition duration-500 ease-in-out hover:-translate-y-2",
     "",
     className,
@@ -49,18 +54,18 @@ const isNew = (value?: ConstructorParameters<typeof Date>[0]) => {
 >
   <div class="relative overflow-hidden">
     <Link
-      href={"/"}
+      href={`/${basePath}/${href}`}
       class={tw([
         "flex flex-col items-center gap-3 md:flex-row md:gap-6",
         "rounded border border-white/60 p-4",
       ])}
     >
-      <strong
-        data-latest={isNew(publishedAt)}
+      <em
+        data-latest={`${isNew(publishedAt)}`}
         class="absolute right-8 top-4 hidden size-8 w-full translate-x-1/2 rotate-45 transform items-center justify-center bg-brand-400 text-center font-semibold uppercase text-white shadow-lg data-[latest=true]:flex"
       >
         New
-      </strong>
+      </em>
       {
         image && (
           <Image
@@ -72,7 +77,6 @@ const isNew = (value?: ConstructorParameters<typeof Date>[0]) => {
           />
         )
       }
-
       <div class="flex flex-col gap-2">
         <span class="flex flex-col gap-2 sm:flex-row sm:items-center">
           {
@@ -96,21 +100,20 @@ const isNew = (value?: ConstructorParameters<typeof Date>[0]) => {
             )
           }
         </span>
-
         <Time class="text-xs font-bold text-brand-500" />
-
-        <h3 class="block text-xl text-white">Lorem ipsum dolor sit.</h3>
+        <h3 class="text-xl text-white">{title}</h3>
         <p class="text-sm font-light">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio earum
-          nobis, alias reiciendis doloribus pariatur excepturi sit maiores id
-          minus?...
+          {description}
         </p>
-
         <ul class={"flex flex-wrap gap-2"}>
           {
-            (tags || ["AlpineJS", "Node.JS", "Docker"]).map((item) => (
-              <TechIcon id={item} class="bg-blue-700 text-xs  text-red-600" />
-            ))
+            (tags || ["AlpineJS", "Node.JS", "Docker", "Next.js"]).map(
+              (item) => (
+                <TechIcon id={item} class="bg-blue-700 text-xs  text-red-600">
+                  {item}
+                </TechIcon>
+              ),
+            )
           }
         </ul>
       </div>

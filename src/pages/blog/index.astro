@@ -1,13 +1,12 @@
 ---
-import { Link } from "@/components/astro";
+import { Card, Link } from "@/components/astro";
 import Root from "@/layouts/root.astro";
 import { fetchResource } from "@/lib/utils";
-import { Image } from "astro:assets";
 
 const allPosts = await fetchResource("posts");
 ---
 
-<Root title="Prince Muel - Blog" description="">
+<Root title="Blog" description="">
   <main class="min-h-full">
     <section class="container">
       <p>
@@ -15,28 +14,25 @@ const allPosts = await fetchResource("posts");
         my experimentation, learning, and front-end development discoveries that
         were worth a share with the world wide web. All feedback is always
         welcome. Below is the whole collection, starting with the most recent
-        stuff. Follow my <Link href="/rss.xml">RSS feed</Link> to stay in the loop
-        when new content gets published.
+        stuff. Follow my <Link href="/blog/rss.xml">RSS feed</Link> to stay in the
+        loop when new content gets published.
       </p>
     </section>
     <section class="container">
       {
-        allPosts.map((post) => (
-          <div>
-            <p>
-              {post.data.media?.cover ? (
-                <Image
-                  src={post.data.media.cover}
-                  alt={post.data.media?.coverAlt || ""}
-                />
-              ) : null}
-            </p>
-
-            <h2>
-              <a href={`/blog/${post.slug}`}>{post.data.title}</a>
-            </h2>
-          </div>
-        ))
+        allPosts.map((post) => {
+          const { title, description, base, tags, publishedAt } = post.data;
+          return (
+            <Card
+              title={title}
+              description={description}
+              basePath={base}
+              href={post.slug}
+              tags={tags}
+              publishedAt={publishedAt}
+            />
+          );
+        })
       }
     </section>
   </main>

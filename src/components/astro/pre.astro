@@ -1,0 +1,11 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+type Props = Prettify<HTMLAttributes<"pre"> & { value: any }>;
+
+const { value, ...rest } = Astro.props;
+---
+
+<pre
+  {...rest}
+  class="text-xs text-blue-500">{JSON.stringify( value, null, 2)}</pre>

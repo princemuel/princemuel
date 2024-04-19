@@ -10,7 +10,7 @@ const { datetime, ...attrs } = Astro.props;
 const value = new Date(datetime || Date.now());
 ---
 
-<time datetime={value.toISOString()} {...attrs}>
+<time datetime={value?.toISOString()} {...attrs}>
   <slot>
     {
       value.toLocaleDateString("en-US", {
