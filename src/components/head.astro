@@ -26,7 +26,7 @@ const name = "Prince Muel";
 // const defaultImage = "static/assets/princemuel-open-graph-image-2024.jpg";
 const locale = "en";
 
-const htmlTitle = `${name} ${delimiter} ${title}`;
+const htmlTitle = `${title} ${delimiter} ${name}`;
 const linkCanonical = formatCanonicalURL(
   canonical || new URL(Astro.url.pathname, Astro.site),
 );
@@ -35,6 +35,7 @@ const ogImageSrc = new URL(
   getOgImageUrl(Astro.params?.["slug"], "/open-graph/"),
   Astro.site,
 );
+
 const ogImage = image
   ? image
   : {
@@ -72,15 +73,6 @@ const application_name = `${name}'s Personal Website`;
 <meta name="author" content={name} />
 <link rel="author" href="https://github.com/princemuel" />
 <link rel="canonical" href={linkCanonical} />
-{
-  og.type === "article" && (
-    <>
-      <meta property="article:published_time" content={publishedAt} />
-      <meta property="article:modified_time" content={updatedAt} />
-    </>
-  )
-}
-
 <!-- Facebook -->
 <meta property="og:type" content={og.type} />
 <meta property="og:locale" content={locale} />
@@ -99,6 +91,22 @@ const application_name = `${name}'s Personal Website`;
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={ogImage.src} />
 <meta name="twitter:image:alt" content={ogImage.alt} />
+{
+  og.type === "article" && publishedAt && (
+    <meta
+      property="article:published_time"
+      content={new Date(publishedAt).toISOString()}
+    />
+  )
+}
+{
+  og.type === "article" && updatedAt && (
+    <meta
+      property="article:modified_time"
+      content={new Date(updatedAt).toISOString()}
+    />
+  )
+}
 
 <!-- Favicons -->
 <!-- {pwaAssetsHead.links.map((link) => <link {...link} />)} -->
@@ -107,7 +115,7 @@ const application_name = `${name}'s Personal Website`;
 <link
   rel="alternate"
   type="application/rss+xml"
-  title={`${name} ${delimiter} Blog RSS Feed`}
+  title={`${name}'s Blog RSS Feed`}
   href="/rss.xml"
 />
 

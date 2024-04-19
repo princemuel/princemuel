@@ -26,10 +26,13 @@ const {
 <html
   lang="en"
   dir="auto"
-  class={tw("__sans__ __accent__ __mono__")}
-  data-theme="dark"
+  class={tw([
+    "__sans__ __accent__ __mono__",
+    "scrollbar-thumb-sky-700 scrollbar-track-sky-300",
+  ])}
   data-reader-theme="dracula"
 >
+  <!-- data-theme="dark" -->
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -45,21 +48,19 @@ const {
       canonical={canonical}
     />
     <Fonts config={[fontSans, fontMono, fontAccent]} />
-    {import.meta.env.PROD && <SpeedInsights />}
+    {import.meta.env.MODE === "production" ? <SpeedInsights /> : null}
     <ViewTransitions />
     <ThemeProvider />
     <!-- <script src="/src/scripts/pwa.ts"></script> -->
   </head>
 
-  <body class="bg-white font-sans antialiased dark:bg-neutral-950">
+  <body class="bg-neutral-50 font-sans antialiased dark:bg-brand-900">
     <Header />
-
     <slot />
-    <BreakPointIndicator />
-
     <script>
-      const cssHasPseudo = (await import("css-has-pseudo/browser")).default;
+      import cssHasPseudo from "css-has-pseudo/browser";
       cssHasPseudo(document);
     </script>
+    <BreakPointIndicator />
   </body>
 </html>
