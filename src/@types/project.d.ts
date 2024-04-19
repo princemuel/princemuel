@@ -13,8 +13,8 @@ type Meta = {
   };
   canonical?: string | URL | null;
   type?: "website" | "article";
-  publishedAt?: string;
-  updatedAt?: string;
+  publishedAt?: ConstructorParameters<typeof Date>[0];
+  updatedAt?: ConstructorParameters<typeof Date>[0];
 };
 type OpenGraph = {
   type?: "website" | "article";
@@ -23,3 +23,5 @@ type Twitter = {
   handle?: string;
   card?: "summary" | "summary_large_image";
 };
+
+type IResource = "projects" | "articles" | "blog";

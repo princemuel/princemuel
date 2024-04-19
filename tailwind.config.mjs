@@ -1,16 +1,19 @@
-import typography from "@tailwindcss/typography";
-import animate from "tailwindcss-animate";
-import defaultTheme from "tailwindcss/defaultTheme";
-import plugin from "tailwindcss/plugin";
+import twTypography from "@tailwindcss/typography";
+import twScrollbar from "tailwind-scrollbar";
+import twAnimate from "tailwindcss-animate";
+import twDefaultTheme from "tailwindcss/defaultTheme";
+import twPlugin from "tailwindcss/plugin";
+import config from "./config.json";
+import { createColorsObject } from "./scripts/config.mjs";
 
 /** @type {import('tailwindcss').Config} */
 export default {
   darkMode: ["class", '[data-theme="dark"]'],
   content: [
-    "./src/pages/**/*.{astro,js[x,],ts[x,],md[x,]}",
-    "./src/layouts/**/*.{astro,js[x,],ts[x,],md[x,]}",
-    "./src/components/**/*.{astro,js[x,],ts[x,],md[x,]}",
-    "./src/content/**/*.{md[x,]}",
+    "./src/pages/**/*.{astro,js,jsx,ts,tsx,md,mdx}",
+    "./src/layouts/**/*.{astro,js,jsx,ts,tsx,md,mdx}",
+    "./src/components/**/*.{astro,js,jsx,ts,tsx,md,mdx}",
+    "./src/content/**/*.{md,mdx}",
   ],
   corePlugins: { float: false, container: false },
   future: { hoverOnlyWhenSupported: true },
@@ -19,40 +22,20 @@ export default {
     screens: {
       "3xs": "24em", // @media (min-width: 384px) { ... }
       "2xs": "30em", // @media (min-width: 480px) { ... }
-      ...defaultTheme.screens,
+      ...twDefaultTheme.screens,
     },
     extend: {
       colors: {
-        brand: {
-          100: "#cffafe",
-          200: "#a5f3fc",
-          300: "#67e8f9",
-          400: "#22d3ee",
-          500: "#06b6d4",
-          600: "#0891b2",
-          700: "#0e7490",
-          800: "#155e75",
-          900: "#164e63",
-        },
-        tahiti: {
-          100: "#cffafe",
-          200: "#a5f3fc",
-          300: "#67e8f9",
-          400: "#22d3ee",
-          500: "#06b6d4",
-          600: "#0891b2",
-          700: "#0e7490",
-          800: "#155e75",
-          900: "#164e63",
-        },
+        brand: createColorsObject(config.theme.colors.brand),
+        accent: createColorsObject(config.theme.colors.accent),
       },
       borderRadius: {
         pill: "100vmax",
       },
       fontFamily: {
-        sans: ["__FontSans", ...defaultTheme.fontFamily.sans],
-        mono: ["__FontMono", ...defaultTheme.fontFamily.mono],
-        accent: ["__FontAccent", ...defaultTheme.fontFamily.mono],
+        sans: ["__FontSans", ...twDefaultTheme.fontFamily.sans],
+        mono: ["__FontMono", ...twDefaultTheme.fontFamily.mono],
+        accent: ["__FontAccent", ...twDefaultTheme.fontFamily.mono],
       },
       screens: {
         xs: "36em", // @media (min-width: 576px) { ... },
@@ -78,16 +61,14 @@ export default {
           "100%": { transform: "rotate(0deg)" },
         },
       },
-      cursor: {
-        pointer:
-          'url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAAUCAYAAABvVQZ0AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAI6SURBVHgBnZRBaxNBGIYnu9uNSW1NlkgMVAl4Cyg5CAUPJlYFTyaX3CohePKUn5BcBA9CfkAvAf+B4sVLBC8eChv05ClKVaQIiUKjabOO77s7E8bUBpsXnrwzu9lvvvm+2bXFccWADRw1XlpWJpNZg+8ACV4kEomNVqtliSW0Am2mUik5HA5luVxmwEe5XC4pltBZ27a38/m8pHq9HoP54KI47ZbT6fQ52H1mRjE7jnFtK5vNrjJzhSuiui5cYA2Z3YN/HwwGYcBischgH8En8BLsKZ5w8VqtdiwoJ5bneeuO49zGeBdFD4OVSqVwu77vh1nS9VgF3SoUCq4ZiJObzAgcgK8sPtVsNqWWvka1221d011wgckI9cPJ5263K7k9NkDXbZH4Xzz3DRRVLcPDycmYBTe6KPV8kUR0Hm+AM0JFvA4+6DpRnU5nNq5UKn85A5jBUOdb8ITO7CrY4dZ0F+dX/5cbmd0Fq6zXb7CPI/F6NBq9bTQa4n/V7/dpI2QmZxfZWugKhm3eNLdI6S5q1/VkozB+BjZB3Dwe6+COZVlP4Ufs7CLV63UGeg8egksieiNmspPJZA6+DZ6DX/MZVqvVMDt1JA6w8GP4NV38ebnxePwy/IEK+FMVWHMIhmr8BnWuwj2hDqwzF+xwMpnsIeCr6XQ6DoJgIKIvhhuLxaZIjm/IEZgAH/ffwX+IqIknvvU8e+fBBlb38JALDxBwrLKTWGwf/gWMzcKfJP3pXjGuBcqlyjAwH/gDZjDKatJ5fJYAAAAASUVORK5CYII="), pointer;',
-      },
+      cursor: { pointer: config.theme.cursor },
     },
   },
   plugins: [
-    animate,
-    typography(),
-    plugin(function ({ theme, addUtilities, addVariant, matchUtilities }) {
+    twAnimate,
+    twTypography(),
+    twScrollbar({ nocompatible: true, preferredStrategy: "pseudoelements" }),
+    twPlugin(function ({ theme, addUtilities, addVariant, matchUtilities }) {
       addVariant("optional", "&:optional");
       addVariant("hocus", ["&:hover", "&:focus"]);
       addVariant("inverted-colors", "@media (inverted-colors: inverted)");
@@ -150,11 +131,6 @@ export default {
           gridColumn: "full-width",
         },
       });
-
-      // ".grid-cols-auto": {
-      //   "--min": "15rem",
-      //   gridTemplateColumns: `repeat(auto-fit, minmax(min(100%, var(--min)), 1fr))`,
-      // },
     }),
   ],
 };
