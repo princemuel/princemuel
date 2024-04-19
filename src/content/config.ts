@@ -1,8 +1,8 @@
 import {
   BaseSchema,
   MediaObject,
+  ResourceBasePath,
   ResourceLink,
-  ResourceType,
 } from "@/lib/content-schema";
 import { defineCollection, z } from "astro:content";
 
@@ -10,11 +10,10 @@ const projects = defineCollection({
   type: "content",
   schema: ({ image }) =>
     BaseSchema.extend({
-      type: ResourceType("project"),
+      base: ResourceBasePath("projects"),
+      tools: z.array(z.string()).default([]),
       media: MediaObject(image).optional(),
-      tools: z.array(z.string()).optional(),
-      stars: z.number().int().nonnegative().safe().default(0),
-      links: z.array(ResourceLink).optional().default([]),
+      links: z.array(ResourceLink).default([]),
     }),
 });
 
@@ -22,10 +21,8 @@ const posts = defineCollection({
   type: "content",
   schema: ({ image }) =>
     BaseSchema.extend({
-      type: ResourceType("article"),
+      base: ResourceBasePath("blog"),
       media: MediaObject(image).optional(),
-      likes: z.number().int().nonnegative().safe().default(0),
-      canonical: z.string().url().optional(),
       language: z.enum(["en", "es", "fr"]).default("en"),
     }),
 });

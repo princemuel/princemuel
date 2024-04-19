@@ -1,18 +1,13 @@
 ---
 title: The Tailwind Typography Plugin
-alternate: Using the Tailwind Typography Plugin
-type: article
 featured: false
 summary: How to use the Tailwind Typography Plugin
 description: About the Tailwind Typography Plugin and how you can use it effectively.
 tags:
   - TypeScript
   - Astro
-author:
-  name: Prince Muel
-  contact: vansomecsam@email.com
-  avatar: https://github.com/princemuel.png
-publishedAt: 2022-07-05T02:05:51Z
+author: Prince Muel
+publishedAt: 2024-04-18T04:30:14.388Z
 status: draft
 ---
 
