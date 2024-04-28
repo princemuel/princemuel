@@ -1,6 +1,6 @@
 {
-  "text": "contact me",
-  "href": "/contact",
+  "text": "about me",
+  "href": "/about",
   "icon": "lucide:messages-square",
   "order": 6
 }

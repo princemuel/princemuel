@@ -6,8 +6,8 @@ description: About the Tailwind Typography Plugin and how you can use it effecti
 tags:
   - TypeScript
   - Astro
-author: Prince Muel
-publishedAt: 2024-04-18T04:30:14.388Z
+author: princemuel
+publishedAt: "2024-04-18T04:30:14.388Z"
 status: draft
 ---
 
