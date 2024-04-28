@@ -17,6 +17,8 @@ import { Icon } from "astro-icon/components";
     const theme = storedTheme || (mql.matches ? "light" : "dark");
     document.documentElement.dataset.theme =
       theme === "light" ? "light" : "dark";
+    document.documentElement.dataset.readerTheme =
+      theme === "light" ? "min-light" : "min-dark";
     return {
       updateWidget(theme = storedTheme || "auto") {
         const widget = document.querySelector("x-theme-widget");

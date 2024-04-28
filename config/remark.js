@@ -1,9 +1,12 @@
+// @ts-nocheck
 import { toString } from "mdast-util-to-string";
 import { execSync } from "node:child_process";
 import getReadingTime from "reading-time";
+import remarkEmoji from "remark-emoji";
 import remarkToc from "remark-toc";
 import { visit } from "unist-util-visit";
 
+/** @type {import('@astrojs/markdown-remark').RemarkPlugin} */
 function remarkReadingTime() {
   return function (tree, file) {
     const textOnPage = toString(tree);
@@ -12,9 +15,9 @@ function remarkReadingTime() {
     file.data.astro.frontmatter.duration = readingTime.text;
   };
 }
-
+/** @type {import('@astrojs/markdown-remark').RemarkPlugin} */
 function remarkDeruntify() {
-  function transformer(tree) {
+  return function (tree) {
     visit(tree, "text", function (node) {
       const wordCount = node.value.split(" ").length;
 
@@ -22,18 +25,16 @@ function remarkDeruntify() {
         node.value = node.value.replace(/ ([^ ]*)$/, "\u00A0$1");
       }
     });
-  }
-
-  return transformer;
+  };
 }
 
+/** @type {import('@astrojs/markdown-remark').RemarkPlugin} */
 function remarkModifiedTime() {
-  return function (tree, file) {
+  return function (_, file) {
     const filepath = file.history[0];
     const output = execSync(`git log -1 --pretty="format:%cI" "${filepath}"`);
-    const timestamp = output.toString().trim();
     file.data.astro.frontmatter.updatedAt = new Date(
-      timestamp || Date.now(),
+      output.toString().trim() || Date.now(),
     ).toISOString();
   };
 }
@@ -44,4 +45,5 @@ export const remarkPlugins = [
   remarkReadingTime,
   remarkModifiedTime,
   remarkToc,
+  [remarkEmoji, { accessible: true }],
 ];

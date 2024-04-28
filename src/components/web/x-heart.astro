@@ -13,7 +13,7 @@
 
       let count = 0;
 
-      const heartButton = getElement(":scope button", HTMLButtonElement, this);
+      const heartButton = getElement("button", HTMLButtonElement, this);
       const countSpan = getElement("[data-id='count']", HTMLSpanElement, this);
 
       heartButton.addEventListener("click", () => {

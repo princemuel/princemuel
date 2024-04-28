@@ -1,14 +1,18 @@
 ---
-import { BreakPointIndicator, ThemeProvider } from "@/components/astro";
+import { BreakPointIndicator, Profile } from "@/components/astro";
 import Header from "./header.astro";
 import RouterHead from "@/components/head.astro";
-import { fontMono, fontSans, fontAccent } from "@/lib/fonts";
+import { fontAccent, fontMono, fontSans } from "@/lib/fonts";
 import { AstroFont as Fonts } from "astro-font";
 import { ViewTransitions } from "astro:transitions";
 import { tw } from "@/helpers";
 import SpeedInsights from "@vercel/speed-insights/astro";
+import { ThemeProvider } from "@/components/web";
 
-type Props = Meta & { type?: OpenGraph["type"] };
+type Props = Meta & {
+  type?: OpenGraph["type"];
+  className?: string;
+};
 
 const {
   title,
@@ -16,9 +20,11 @@ const {
   tags,
   type,
   canonical,
+  className,
   description,
   publishedAt,
   updatedAt,
+  jsonld,
 } = Astro.props;
 ---
 
@@ -28,11 +34,11 @@ const {
   dir="auto"
   class={tw([
     "__sans__ __accent__ __mono__",
-    "scrollbar-thumb-sky-700 scrollbar-track-sky-300",
+    "scrollbar-track-sky-300 scrollbar-thumb-sky-700",
   ])}
-  data-reader-theme="dracula"
+  data-theme="dark"
+  data-reader-theme="min-dark"
 >
-  <!-- data-theme="dark" -->
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -47,20 +53,52 @@ const {
       updatedAt={updatedAt}
       canonical={canonical}
     />
-    <Fonts config={[fontSans, fontMono, fontAccent]} />
-    {import.meta.env.MODE === "production" ? <SpeedInsights /> : null}
-    <ViewTransitions />
     <ThemeProvider />
+    <Fonts config={[fontSans, fontMono, fontAccent]} />
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify(jsonld)}
+    />
     <!-- <script src="/src/scripts/pwa.ts"></script> -->
+    <ViewTransitions />
+    {import.meta.env.MODE === "production" ? <SpeedInsights /> : null}
   </head>
 
-  <body class="bg-neutral-50 font-sans antialiased dark:bg-brand-900">
+  <body
+    class={tw([
+      "relative font-sans font-normal antialiased",
+      "bg-yellow-50 dark:bg-brand-950",
+      // "bg-neutral-50 dark:bg-brand-950",e
+      className,
+    ])}
+  >
+    <!-- <a class="flex bg-background-contrast focus:absolute focus:left-2 focus:not-sr-only focus:p-2 outline-offset-0 sr-only text-primary underline" href="#main">Skip to main content</a> -->
     <Header />
-    <slot />
+
+    <div class="mx-auto w-full max-w-screen-xl px-4 py-8 sm:px-6 md:px-8">
+      <div class="relative flex w-full items-start gap-2 pb-28">
+        <div class="grow-[9999] basis-[37.5rem]">
+          <slot />
+        </div>
+
+        <aside
+          class="sticky top-24 block grow basis-[22rem] overflow-y-auto px-6 max-md:hidden"
+        >
+          <div class="flex flex-col items-center">
+            <Profile />
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <footer>
+      <BreakPointIndicator />
+    </footer>
+
     <script>
       import cssHasPseudo from "css-has-pseudo/browser";
       cssHasPseudo(document);
     </script>
-    <BreakPointIndicator />
   </body>
 </html>

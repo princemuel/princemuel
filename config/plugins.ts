@@ -6,8 +6,9 @@ import {
 import { h } from "@expressive-code/core/hast";
 
 class SquigglesAnnotation extends ExpressiveCodeAnnotation {
-  /** @param {import('@expressive-code/core').AnnotationRenderOptions} context */
-  render({ nodesToTransform }) {
+  render({
+    nodesToTransform,
+  }: import("@expressive-code/core").AnnotationRenderOptions) {
     return nodesToTransform.map((node) => {
       return h("span.error-squiggles", node);
     });
@@ -15,8 +16,9 @@ class SquigglesAnnotation extends ExpressiveCodeAnnotation {
 }
 
 class ErrorMessageAnnotation extends ExpressiveCodeAnnotation {
-  /** @param {import('@expressive-code/core').AnnotationRenderOptions} context */
-  render({ nodesToTransform }) {
+  render({
+    nodesToTransform,
+  }: import("@expressive-code/core").AnnotationRenderOptions) {
     return nodesToTransform.map((node) => {
       return h("span.error-message", node);
     });
