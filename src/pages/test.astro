@@ -1,0 +1,83 @@
+---
+// https://mfrachet.com/blog/en/astro-progressively-enhanced-forms
+import { parseError } from "@/helpers";
+import { action } from "@/lib/action";
+import { z, ZodError } from "zod";
+
+export const prerender = false;
+
+const formSchema = z.object({
+  name: z.string().min(1).max(255),
+  email: z.string().email(),
+});
+
+const { result, response } = await action(Astro.request, async (request) => {
+  try {
+    const formData = await request.formData();
+    if (formData.get("bot-field")) throw new Error("Invalid Submission");
+
+    const result = formSchema.parse(Object.fromEntries(formData.entries()));
+
+    return {
+      status: "success",
+      errors: null,
+      // data: "Thanks! Your message has been sent.",
+      data: JSON.stringify(result),
+    };
+  } catch (e) {
+    let errors: Record<string, string> = {};
+    if (e instanceof ZodError) {
+      errors.name = e.formErrors?.fieldErrors?.name?.[0] ?? "";
+      errors.email = e.formErrors?.fieldErrors?.email?.[0] ?? "";
+      return { status: "error", errors, data: null };
+    }
+
+    errors.unknown = parseError(e);
+    return { status: "error", errors, data: null };
+  }
+});
+
+if (response) return response;
+---
+
+<main>
+  <h1>Welcome</h1>
+
+  <p data-form-success-id="">{result?.data}</p>
+
+  <form data-id="form" method="post">
+    <input name="bot-field" placeholder="do not fill this" type="hidden" />
+    <label>
+      Name
+      <input type="text" name="name" aria-errormessage="fields.name" />
+    </label>
+    <p id="fields.name" data-form-error-id="name">{result?.errors?.name}</p>
+
+    <label>
+      Email
+      <input type="email" name="email" aria-errormessage="fields.email" />
+    </label>
+    <p id="fields.email" data-form-error-id="email">{result?.errors?.email}</p>
+
+    <button>Submit</button>
+  </form>
+</main>
+
+<script>
+  import { getElement, getElements } from "@/helpers";
+  import { handleForm } from "@/lib/form";
+
+  const form = getElement('[data-id="form"]', HTMLFormElement);
+  const errors = getElements("[data-form-error-id]", HTMLParagraphElement);
+  const success = getElement("[data-form-success-id]", HTMLParagraphElement);
+
+  handleForm(form, (response: any) => {
+    errors.forEach((slot) => {
+      const attr = slot.getAttribute("data-form-error-id") ?? "";
+      slot.textContent = response?.errors?.[attr] ?? "";
+    });
+
+    if (response.status === "success") form.reset();
+    success.textContent = response.data;
+  });
+</script>
