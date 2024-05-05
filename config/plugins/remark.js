@@ -3,7 +3,6 @@ import { toString } from "mdast-util-to-string";
 import { execSync } from "node:child_process";
 import getReadingTime from "reading-time";
 import remarkEmoji from "remark-emoji";
-import remarkToc from "remark-toc";
 import { visit } from "unist-util-visit";
 
 /** @type {import('@astrojs/markdown-remark').RemarkPlugin} */
@@ -44,6 +43,6 @@ export const remarkPlugins = [
   remarkDeruntify,
   remarkReadingTime,
   remarkModifiedTime,
-  remarkToc,
+  // remarkToc,
   [remarkEmoji, { accessible: true }],
 ];

@@ -8,12 +8,7 @@ export const rehypePlugins = [
     rehypeAutolinkHeadings,
     {
       behavior: "wrap",
-      properties: {
-        "data-linked": "true",
-        class: "linked",
-        ariaHidden: true,
-        tabIndex: -1,
-      },
+      properties: { class: "linked", ariaHidden: true, tabIndex: -1 },
     },
   ],
 ];

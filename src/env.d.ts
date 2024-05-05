@@ -1,6 +1,5 @@
 /// <reference path="../.astro/types.d.ts" />
 /// <reference types="astro/client" />
-/// <reference types="simple-stack-form/types" />
 
 interface ImportMetaEnv {}
 
@@ -14,14 +13,11 @@ declare namespace App {
 }
 
 interface Window {
-  Alpine: import("alpinejs").Alpine;
-  XThemeProvider: {
-    updateWidget(theme?: string): void;
-  };
+  ThemeProvider: { updateWidget(theme?: string): void };
 }
 
 declare module "*.astro" {
   type Props = import("astro").AstroGlobal["props"];
-  const load: (_props: Props) => any;
-  export default load;
+  const component: (_props: Props) => any;
+  export default component;
 }
