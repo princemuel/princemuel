@@ -78,6 +78,7 @@ const authors = defineCollection({
       url: z.string().url().optional(),
       email: z.string().email().optional(),
       avatar: z.string().optional(),
+      social: z.record(z.string(), z.string().url()).optional(),
     }),
   }),
 });
