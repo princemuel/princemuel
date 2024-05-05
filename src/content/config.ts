@@ -7,7 +7,7 @@ import {
 } from "@/schema";
 import { defineCollection, reference, z } from "astro:content";
 
-const projects = defineCollection({
+const projectCollection = defineCollection({
   type: "content",
   schema: ({ image }) =>
     baseSchema.extend({
@@ -18,7 +18,7 @@ const projects = defineCollection({
     }),
 });
 
-const posts = defineCollection({
+const blogCollection = defineCollection({
   type: "content",
   schema: ({ image }) =>
     baseSchema.extend({
@@ -29,7 +29,7 @@ const posts = defineCollection({
     }),
 });
 
-const routes = defineCollection({
+const routeCollection = defineCollection({
   type: "data",
   schema: z.object({
     text: z.string().min(1),
@@ -39,7 +39,7 @@ const routes = defineCollection({
   }),
 });
 
-const stacks = defineCollection({
+const stackCollection = defineCollection({
   type: "content",
   schema: z.object({
     name: z.string().min(1),
@@ -47,7 +47,7 @@ const stacks = defineCollection({
   }),
 });
 
-const changelog = defineCollection({
+const changelogCollection = defineCollection({
   type: "content",
   schema: z.object({
     title: z.string().min(2),
@@ -59,7 +59,7 @@ const changelog = defineCollection({
   }),
 });
 
-const social = defineCollection({
+const socialCollection = defineCollection({
   type: "data",
   schema: z.object({
     platform: z.string().min(1),
@@ -69,7 +69,7 @@ const social = defineCollection({
   }),
 });
 
-const authors = defineCollection({
+const authorCollection = defineCollection({
   type: "data",
   schema: z.object({
     alternate: z.string().min(1).max(255).optional(),
@@ -83,7 +83,7 @@ const authors = defineCollection({
   }),
 });
 
-const publications = defineCollection({
+const publicationCollection = defineCollection({
   type: "data",
   schema: z.object({
     name: z.string().min(1),
@@ -93,12 +93,12 @@ const publications = defineCollection({
 });
 
 export const collections = {
-  posts,
-  routes,
-  projects,
-  social,
-  stacks,
-  changelog,
-  authors,
-  publications,
+  posts: blogCollection,
+  projects: projectCollection,
+  authors: authorCollection,
+  social: socialCollection,
+  routes: routeCollection,
+  stacks: stackCollection,
+  changelog: changelogCollection,
+  publications: publicationCollection,
 };
