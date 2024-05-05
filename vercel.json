@@ -4,26 +4,6 @@
   "trailingSlash": true,
   "cleanUrls": true,
   "outputDirectory": null,
-  "headers": [
-    {
-      "source": "/assets/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000"
-        }
-      ]
-    },
-    {
-      "source": "/_astro/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "immutable, max-age=31536000"
-        }
-      ]
-    }
-  ],
   "redirects": [
     {
       "source": "/twitter/",
