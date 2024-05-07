@@ -1,22 +1,52 @@
 ---
-import ForestGumpWebP from "@/assets/forrest-gump-quote.webp";
-import PlaceholderGIF from "@/assets/placeholder.avif";
 import { tw } from "@/helpers";
+import { ONE_DAY_IN_MS } from "@/lib/config";
 import type { HTMLAttributes } from "astro/types";
-import AstroImage from "./astro-image.astro";
+import { Image } from "astro:assets";
 import Link from "./link.astro";
 import TechIcon from "./tech-stack-icon.astro";
 import Time from "./time.astro";
 
-type Props = HTMLAttributes<"article">;
+type Props = Prettify<HTMLAttributes<"article"> & InternalProps>;
 
-const { class: className, ...rest } = Astro.props;
+type InternalProps = Omit<Meta, ""> & {
+  platform?: {
+    name: string;
+    image?: string;
+  };
+  basePath: IResource;
+  href: string;
+};
+
+const {
+  title,
+  basePath,
+  class: className,
+  description,
+  image,
+  tags,
+  publishedAt,
+  platform,
+  href,
+  ...rest
+} = Astro.props;
+
+const latest = (value?: typeof publishedAt) => {
+  if (!value) return false;
+  // if (!value) throw new SyntaxError("Invalid Date");
+  const difference = new Date().getTime() - new Date(value).getTime();
+  return difference / ONE_DAY_IN_MS < 30;
+};
+
+// const response = await import("@/assets/forrest-gump-quote.webp");
+
+// console.log(response.default);
 ---
 
 <article
   {...rest}
   class:list={tw([
-    "cursor-pointer rounded border border-white/60 shadow-lg",
+    "rounded border border-[#232140] bg-[#16142c] shadow-lg",
     "transition duration-500 ease-in-out hover:-translate-y-2",
     "",
     className,
@@ -24,54 +54,43 @@ const { class: className, ...rest } = Astro.props;
 >
   <div class="relative overflow-hidden">
     <Link
-      href={"/"}
-      class={tw([
-        "flex flex-col items-center gap-3 md:flex-row md:gap-6",
-        "rounded border border-white/60 p-4",
-      ])}
+      href={`/${basePath}/${href}`}
+      class={tw(["flex flex-col items-center gap-3 md:flex-row md:gap-6", "rounded border border-white/60 p-4"])}
     >
-      <strong
-        data-latest="true"
-        class="absolute right-8 top-4 hidden size-8 w-full translate-x-1/2 rotate-45 transform items-center justify-center bg-tahiti-400 text-center font-semibold uppercase text-white shadow-lg data-[latest=true]:flex"
+      <em
+        data-latest={`${latest(publishedAt)}`}
+        class="absolute right-8 top-4 hidden size-8 w-full translate-x-1/2 rotate-45 transform items-center justify-center bg-brand-400 text-center font-semibold uppercase text-white shadow-lg data-[latest=true]:flex"
       >
-        new
-      </strong>
-      <AstroImage
-        src={ForestGumpWebP}
-        width={576}
-        resize="video"
-        alt={"Great Quote"}
-        class={"w-full md:w-1/2"}
-      />
-
+        New
+      </em>
+      {image && <Image src={image.src} width={576} height={324} alt={image.alt} class={"w-full md:w-1/2"} />}
       <div class="flex flex-col gap-2">
         <span class="flex flex-col gap-2 sm:flex-row sm:items-center">
-          <>
-            <div class="flex items-center gap-2">
-              <AstroImage
-                src={PlaceholderGIF}
-                width={24}
-                resize="square"
-                alt={"publication"}
-                class=""
-              />
-              <small class="text-xs text-tahiti-500">{"The New Stack"}</small>
-            </div>
-            <span class="hidden sm:inline-block">&bull;</span>
-          </>
-          <Time class="text-xs font-bold text-tahiti-500" />
-        </span>
-        <h3 class="block text-xl text-white">Cloud Regions Country Flags</h3>
-        <p class="text-sm font-light">
           {
-            `Project Overview In April 2020 I released the first interation of MDX Embed.  MDX Embed allows you to easily embed popul...`
+            platform && (
+              <>
+                {platform.image && (
+                  <div class="flex items-center gap-2">
+                    <Image src={platform.image} width="24" height="24" alt={platform.name} />
+                    <small class="text-xs text-brand-500">{platform.name}</small>
+                  </div>
+                )}
+                <span class="hidden sm:inline-block">&bull;</span>
+              </>
+            )
           }
+        </span>
+        <Time class="text-xs font-bold text-brand-500" />
+        <h3 class="text-xl text-white">{title}</h3>
+        <p class="text-sm font-light">
+          {description}
         </p>
-
         <ul class={"flex flex-wrap gap-2"}>
           {
-            ["AlpineJS", "Node.JS", "Docker"].map((item) => (
-              <TechIcon id={item} class="bg-blue-700 text-xs  text-red-600" />
+            (tags || ["AlpineJS", "Node.JS", "Docker", "Next.js"]).map((item) => (
+              <TechIcon id={item} class="bg-blue-700 text-xs  text-red-600">
+                {item}
+              </TechIcon>
             ))
           }
         </ul>
@@ -79,4 +98,3 @@ const { class: className, ...rest } = Astro.props;
     </Link>
   </div>
 </article>
-@/components/astro

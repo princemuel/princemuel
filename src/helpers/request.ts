@@ -1,8 +1,4 @@
-import {
-  NetworkError,
-  TimeoutError,
-  UnsupportedContentTypeError,
-} from "./error-classes";
+import { NetworkError, TimeoutError, UnsupportedContentTypeError } from "./error-classes";
 
 const handleJson = (response: Response) => response.json();
 const handleText = (response: Response) => response.text();
@@ -22,9 +18,7 @@ const handlers = new Map<string, (response: Response) => Promise<unknown>>([
   // Add more content types and handlers as needed
 ]);
 
-export async function request<T>(
-  ...args: Parameters<typeof fetch>
-): Promise<T> {
+export async function request<T>(...args: Parameters<typeof fetch>): Promise<T> {
   try {
     const response = await fetch(...args);
 
@@ -33,17 +27,14 @@ export async function request<T>(
         const json = (await response.json()) as { error?: string };
         return Promise.reject(new NetworkError(json?.error, response.status));
       } catch (jsonError) {
-        return Promise.reject(
-          new NetworkError("Failed to parse error response", response.status),
-        );
+        return Promise.reject(new NetworkError("Failed to parse error response", response.status));
       }
     }
 
     const contentType = response.headers.get("content-type") ?? "";
     const handler = handlers.get(contentType);
 
-    if (!handler)
-      return Promise.reject(new UnsupportedContentTypeError(contentType));
+    if (!handler) return Promise.reject(new UnsupportedContentTypeError(contentType));
 
     return handler(response) as T;
   } catch (error) {

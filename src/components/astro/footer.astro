@@ -1,4 +1,5 @@
 ---
+import Link from "./link.astro";
 import Time from "./time.astro";
 
 const datetime = new Date("2021-06-28");
@@ -12,7 +13,9 @@ const datetime = new Date("2021-06-28");
         <span>Prince Muel. All Rights Reserved.</span>
       </p>
 
-      <p>Built with <a href="https://astro.build">{Astro.generator}</a></p>
+      <p>
+        Built with <Link href="https://docs.astro.build/en/concepts/why-astro/">{Astro.generator}</Link>
+      </p>
       <slot />
     </div>
   </div>

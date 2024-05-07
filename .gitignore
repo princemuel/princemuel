@@ -171,6 +171,8 @@ dist
 dist
 dist-ssr
 local
+tmp
+tmp-*
 
 *.pem
 *.local.*

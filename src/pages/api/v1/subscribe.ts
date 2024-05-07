@@ -1,27 +1,12 @@
 import { errorMap, parseError, raise } from "@/helpers";
 import { resend } from "@/lib/clients";
 import { envVars } from "@/lib/env.server";
+import { subscribeSchema } from "@/schema";
 import type { APIRoute } from "astro";
-import { z } from "zod";
-
-const formSchema = z.object({
-  firstName: z
-    .string({ required_error: "FirstName is required" })
-    .min(1)
-    .max(255),
-  lastName: z
-    .string({ required_error: "LastName is required" })
-    .min(1)
-    .max(255),
-  email: z.string({ required_error: "Email is required" }).email(),
-});
 
 export const POST: APIRoute = async ({ request }) => {
   try {
-    const formData = formSchema.parse(
-      Object.fromEntries(await request.formData()),
-      { errorMap },
-    );
+    const formData = subscribeSchema.parse(Object.fromEntries(await request.formData()), { errorMap });
 
     const response = await resend.contacts.create({
       firstName: formData.firstName,
@@ -43,8 +28,5 @@ export const POST: APIRoute = async ({ request }) => {
 };
 
 export const ALL: APIRoute = ({ request }) => {
-  return Response.json(
-    { status: "error", message: `${request.method} not allowed` },
-    { status: 405 },
-  );
+  return Response.json({ status: "error", message: `${request.method} not allowed` }, { status: 405 });
 };

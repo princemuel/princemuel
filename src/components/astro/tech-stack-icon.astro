@@ -16,7 +16,7 @@ type Props = Prettify<
 const { class: className, id, ...rest } = Astro.props;
 
 const entry = await getEntry("stacks", strip(id));
-const { name } = entry?.data || {};
+const name = entry?.data?.name;
 
 let Icon: AstroComponentFactory | null = null;
 

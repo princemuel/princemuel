@@ -3,31 +3,35 @@ import { tw } from "@/helpers";
 import { Icon } from "astro-icon/components";
 import type { HTMLAttributes } from "astro/types";
 import type { CollectionEntry } from "astro:content";
-import NavLink from "./navlink.astro";
+import Navlink from "./navlink.astro";
 
 type Props = HTMLAttributes<"nav"> & { routes: CollectionEntry<"routes">[] };
 
 const { routes, class: className, ...rest } = Astro.props;
 ---
 
-<nav {...rest} aria-label="Primary Navigation" class={tw(className)}>
+<nav {...rest} class={tw(className)}>
   <menu
-    class="flex items-center rounded-full bg-white/90 px-3 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10"
+    aria-label="Primary Navigation"
+    class={tw([
+      "flex rounded-pill px-3",
+      "text-sm font-medium text-stone-800 dark:text-stone-200",
+      "ring-1 ring-stone-900/5 dark:bg-stone-800/90 dark:ring-white/10",
+      "shadow-lg shadow-stone-800/5",
+      "bg-stone-700/10 backdrop-blur-sm backdrop-opacity-10 backdrop-filter",
+    ])}
   >
     {
-      routes.map((route) => (
-        <li class="">
-          <NavLink
+      (routes ?? []).map((route) => (
+        <li class="capitalize">
+          <Navlink
+            class="group relative flex px-3 py-2 transition aria-[current=page]:text-teal-500 hocus:text-teal-500 dark:aria-[current=page]:text-emerald-400 dark:hocus:text-emerald-400"
             href={route.data.href}
-            class="group relative block px-3 py-2 capitalize transition-all duration-300 ease-out aria-[current=page]:text-tahiti-500 hocus:text-tahiti-500 dark:aria-[current=page]:text-tahiti-400 dark:hocus:text-tahiti-400"
           >
-            <Icon
-              name={route.data.icon}
-              class="text-xl text-inherit md:hidden"
-            />
+            <Icon name={route.data.icon} class="text-base text-inherit xs:text-lg sm:text-xl md:hidden" />
             <span class="sr-only md:not-sr-only">{route.data.text}</span>
-            <span class="absolute inset-x-1 -bottom-px hidden h-px bg-gradient-to-r from-tahiti-500/0 via-tahiti-500/40 to-tahiti-500/0 group-aria-[current=page]:inline dark:from-tahiti-400/0 dark:via-tahiti-400/40 dark:to-tahiti-400/40" />
-          </NavLink>
+            <span class="absolute inset-x-1 -bottom-px hidden h-px bg-gradient-to-r from-teal-500/0 via-teal-500/40 to-teal-500/0 group-aria-[current=page]:inline dark:from-emerald-400/0 dark:via-emerald-400/40 dark:to-emerald-400/0" />
+          </Navlink>
         </li>
       ))
     }

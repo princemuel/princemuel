@@ -1,10 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import {
-  getCollection,
-  type CollectionEntry,
-  type CollectionKey,
-} from "astro:content";
+import { getCollection, type CollectionEntry, type CollectionKey } from "astro:content";
 import { envVars } from "./env.server";
 
 type ResourceOptions = { sort?: boolean; select?: number };
@@ -16,8 +12,8 @@ export async function fetchResource<K extends CollectionKey>(
   try {
     const status = ["draft", "preview", "published"] as const;
     // @ts-ignore ignored collection type "any"
-    const resource = await getCollection<K>(key, ({ data }) => {
-      return import.meta.env.PROD
+    const resource = await getCollection(key, ({ data }) => {
+      return import.meta.env.MODE === "production"
         ? envVars.ENABLE_PREVIEW && data.status !== "draft"
           ? status.includes(data.status)
           : data.status === "published"
@@ -34,9 +30,9 @@ export async function fetchResource<K extends CollectionKey>(
           );
         })
       : resource;
-
     return result.slice(0, options?.select);
   } catch (error) {
+    import.meta.env.MODE !== "production" && console.log(error);
     return [];
   }
 }

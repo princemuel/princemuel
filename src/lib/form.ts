@@ -1,18 +1,17 @@
-import { z } from "zod";
+type CallbackAction<T> = (data: T) => void;
 
-export const formSchema = z.object({
-  firstName: z
-    .string({ required_error: "FirstName is required" })
-    .min(1)
-    .max(255),
-  lastName: z
-    .string({ required_error: "LastName is required" })
-    .min(1)
-    .max(255),
-  email: z.string({ required_error: "Email is required" }).email(),
-  message: z
-    .string({ required_error: "Message is required" })
-    .min(15)
-    .max(1000),
-  type: z.enum(["general", "contract", "advisory", "agency"]),
-});
+export const handleForm = <T>(form: HTMLFormElement, callback: CallbackAction<T>) => {
+  // listen to the submit event of the form
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    fetch(form.action, {
+      method: form.method,
+      body: new FormData(form),
+      headers: { accept: "application/json" },
+    })
+      .then((response) => response.json())
+      .then((r) => {
+        callback(r as T);
+      });
+  });
+};

@@ -7,7 +7,7 @@
     "worker": true,
     "shared-node-browser": true
   },
-  "extends": ["eslint/recommended", "plugin:oxlint/recommended"],
+  "extends": ["eslint:recommended", "plugin:oxlint/recommended"],
   "parserOptions": {
     "ecmaVersion": "latest",
     "sourceType": "module",
@@ -31,10 +31,14 @@
       },
       "rules": {
         "no-undef": "off",
-        "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }]
+        "no-unused-vars": [
+          "error",
+          {
+            "argsIgnorePattern": "^_"
+          }
+        ]
       }
     },
-
     {
       "files": ["*.tsx"],
       "plugins": ["qwik", "@typescript-eslint"],
@@ -52,11 +56,9 @@
         "no-dupe-class-members": "off",
         "no-undef": "off",
         "no-unused-vars": "off",
-
         // These stylistic rules don't match our preferences
         "no-use-before-define": "off",
         "prefer-const": "off",
-
         // TODO: These rules might be nice to enable...we should investigate eventually!
         "@typescript-eslint/ban-ts-comment": "off",
         "@typescript-eslint/ban-types": "off",
@@ -71,17 +73,8 @@
         // "@typescript-eslint/triple-slash-reference": "off",
         "no-var": "off",
         "prefer-rest-params": "off",
-
         // These rules are nice and we want to configure over the defaults
-        "@typescript-eslint/no-use-before-define": [
-          "error",
-          {
-            "functions": false,
-            "classes": false,
-            "variables": false,
-            "typedefs": false
-          }
-        ],
+        "@typescript-eslint/no-use-before-define": "off",
         "@typescript-eslint/no-unused-expressions": [
           "error",
           {
@@ -98,11 +91,17 @@
             // argsIgnorePattern: "^_",
           }
         ],
-
         // These rules should eventually come from @typescript-eslint/stylistic
         // in typescript-eslint@6
         "@typescript-eslint/consistent-type-assertions": "warn",
-        "@typescript-eslint/consistent-type-imports": "warn"
+        "@typescript-eslint/consistent-type-imports": [
+          1,
+          {
+            "prefer": "type-imports",
+            "disallowTypeAnnotations": false,
+            "fixStyle": "separate-type-imports"
+          }
+        ]
       }
     },
     {

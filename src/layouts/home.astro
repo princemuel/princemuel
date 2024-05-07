@@ -1,0 +1,9 @@
+---
+import BaseLayout from "./root.astro";
+---
+
+{/* @ts-expect-error */}
+<BaseLayout>
+  <slot name="head" slot="head" />
+  <slot />
+</BaseLayout>

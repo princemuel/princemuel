@@ -40,10 +40,6 @@ export class NetworkError extends RequestError {
 
 export class UnsupportedContentTypeError extends RequestError {
   constructor(contentType: string) {
-    super(
-      `Unsupported content type: ${contentType}`,
-      415,
-      "Unsupported Media Type",
-    );
+    super(`Unsupported content type: ${contentType}`, 415, "Unsupported Media Type");
   }
 }

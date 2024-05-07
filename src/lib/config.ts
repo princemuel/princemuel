@@ -6,8 +6,8 @@ export const SITE_DESCRIPTION = "";
 export const GENERATE_SLUG_FROM_TITLE = true;
 export const ENABLE_TRANSITIONS_API = true;
 export const DEFAULT_SITE_THEME = "dark";
-export const delimiter = "|";
-
+export const ONE_DAY_IN_MS = 1000 * 60 * 60 * 24 * 1;
+export const delimiter = "-";
 export const homeKeywords = [
   "princemuel",
   "iamprincemuel",
@@ -122,11 +122,6 @@ export type ViewInput = {
 
 export type ViewType = "blog" | "page" | "project" | "snippet";
 
-export type SocialType =
-  | "twitter"
-  | "linkedin"
-  | "instagram"
-  | "github"
-  | "email";
+export type SocialType = "twitter" | "linkedin" | "instagram" | "github" | "email";
 
 export type PostClickedFrom = "recent" | "suggested" | "previous" | "next";

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 /*===============================*
           HELPER TYPES
  *===============================*
@@ -7,17 +8,10 @@ type LooseAutocomplete<T extends string> = T | Omit<string, T>;
 
 type Prettify<T> = { [K in keyof T]: T[K] } & NonNullable<unknown>;
 type Lookup<T> = { [K in keyof T]: { key: K } }[keyof T];
-type MapKeys<M extends Map<unknown, unknown>> = Prettify<
-  Array<Parameters<M["get"]>[0]>
->;
-type IterableToArray<T> =
-  T extends Iterable<infer I>
-    ? I[]
-    : T extends ArrayLike<infer A>
-      ? A[]
-      : never;
+type MapKeys<M extends Map<unknown, unknown>> = Prettify<Array<Parameters<M["get"]>[0]>>;
+type IterableToArray<T> = T extends Iterable<infer I> ? I[] : T extends ArrayLike<infer A> ? A[] : never;
 
-type ObjectEntry<T extends {}> = T extends object
+type ObjectEntry<T extends NonNullable<unknown>> = T extends object
   ? { [K in keyof T]: [K, Required<T>[K]] }[keyof T] extends infer E
     ? E extends [infer K extends string | number, infer V]
       ? [`${K}`, V]
@@ -25,15 +19,14 @@ type ObjectEntry<T extends {}> = T extends object
     : never
   : never;
 
-type TupleEntry<
-  T extends readonly unknown[],
-  I extends unknown[] = [],
-  R = never,
-> = T extends readonly [infer Head, ...infer Tail]
+type TupleEntry<T extends readonly unknown[], I extends unknown[] = [], R = never> = T extends readonly [
+  infer Head,
+  ...infer Tail,
+]
   ? TupleEntry<Tail, [...I, unknown], R | [`${I["length"]}`, Head]>
   : R;
 
-type Entry<T extends {}> = T extends readonly [unknown, ...unknown[]]
+type Entry<T extends NonNullable<unknown>> = T extends readonly [unknown, ...unknown[]]
   ? TupleEntry<T>
   : T extends ReadonlyArray<infer U>
     ? [`${number}`, U]
@@ -49,7 +42,7 @@ type Expand<T> = T extends (...args: infer A) => infer R
 
 type RequireSome<T, P extends keyof T> = Omit<T, P> & Required<Pick<T, P>>;
 type RequiredKeys<T> = {
-  [K in keyof T]-?: {} extends { [P in K]: T[K] } ? never : K;
+  [K in keyof T]-?: NonNullable<unknown> extends { [P in K]: T[K] } ? never : K;
 }[keyof T];
 
 type DeepRequired<T> = T extends BrowserNativeObject | Blob
@@ -71,34 +64,30 @@ type DeepPartialObject<T> = {
 };
 type DeepPartialArray<T> = Array<DeepPartial<T>>;
 
-type KeyValuePair<K extends keyof any = string, V = string> = Record<K, V>;
+type KeyValuePair<K extends keyof unknown = string, V = string> = Record<K, V>;
 
-interface RecursiveKeyValuePair<K extends keyof any = string, V = string> {
+interface RecursiveKeyValuePair<K extends keyof unknown = string, V = string> {
   [key: K]: V | RecursiveKeyValuePair<K, V>;
 }
 
 type CSSRuleObject = RecursiveKeyValuePair<string, null | string | string[]>;
 
 type OptionalUnion<
-  U extends Record<string, any>,
+  U extends Record<string, unknown>,
   A extends keyof U = U extends U ? keyof U : never,
 > = U extends unknown ? { [P in Exclude<A, keyof U>]?: never } & U : never;
 
-type IfAvailable<T, Fallback = void> = true | false extends (
-  T extends never ? true : false
-)
+type IfAvailable<T, Fallback = void> = true | false extends (T extends never ? true : false)
   ? Fallback
   : keyof T extends never
     ? Fallback
     : T;
 
-type WeakReferences =
-  | IfAvailable<WeakMap<any, any>>
-  | IfAvailable<WeakSet<any>>;
+type WeakReferences = IfAvailable<WeakMap<unknown, unknown>> | IfAvailable<WeakSet<unknown>>;
 /**
  * A type of a function accepting an arbitrary amount of arguments
  */
-type VariadicFunction = (...args: any[]) => any;
+type VariadicFunction = (...args: unknown[]) => unknown;
 
 type GuardQualifier<Function extends VariadicFunction> = [
   validator: <Result extends boolean>(...args: Parameters<Function>) => Result,
@@ -108,15 +97,12 @@ type GuardQualifier<Function extends VariadicFunction> = [
 /**
  * A type of a function accepting exactly one argument
  */
-type UnaryFunction = (arg: any) => any;
+type UnaryFunction = (arg: unknown) => unknown;
 
 /**
  * Makes a composition of functions from received arguments.
  */
-type Compose<
-  Arguments extends any[],
-  Functions extends any[] = [],
-> = Arguments["length"] extends 0
+type Compose<Arguments extends unknown[], Functions extends unknown[] = []> = Arguments["length"] extends 0
   ? Functions
   : Arguments extends [infer A, infer B]
     ? [...Functions, (arg: A) => B]
@@ -127,15 +113,11 @@ type Compose<
 /**
  * Destructures a composition of functions into arguments.
  */
-type Decompose<
-  Functions extends UnaryFunction[],
-  Arguments extends any[] = [],
-> = Functions extends [(arg: infer Arg) => infer Return]
+type Decompose<Functions extends UnaryFunction[], Arguments extends unknown[] = []> = Functions extends [
+  (arg: infer Arg) => infer Return,
+]
   ? [...Arguments, Arg, Return]
-  : Functions extends [
-        ...infer Rest extends UnaryFunction[],
-        (arg: infer Arg) => any,
-      ]
+  : Functions extends [...infer Rest extends UnaryFunction[], (arg: infer Arg) => unknown]
     ? Decompose<Rest, [...Arguments, Arg]>
     : [];
 
@@ -148,16 +130,9 @@ type JSONValue =
       [k: string]: JSONValue;
     };
 
-type PrimitiveType =
-  | string
-  | number
-  | bigint
-  | boolean
-  | symbol
-  | null
-  | undefined;
+type PrimitiveType = string | number | bigint | boolean | symbol | null | undefined;
 
-type AtomicObject = Function | RegExp | Promise<any> | Date;
+type AtomicObject = Function | RegExp | Promise<unknown> | Date;
 type BrowserNativeObject = Date | FileList | File;
 
 // get method names in an object

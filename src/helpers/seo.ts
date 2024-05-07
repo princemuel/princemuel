@@ -6,10 +6,6 @@
  * @returns {string} - The formatted canonical URL.
  */
 export function formatCanonicalURL(url: string | URL): string {
-  let path = url.toString();
-  const hasQueryParams = path.includes("?");
-
-  path = hasQueryParams ? path.replace(/\/?$/, "") : path.replace(/\/?$/, "/");
-
-  return path;
+  const path = url.toString();
+  return path.includes("?") ? path.replace(/\/?$/, "") : path.replace(/\/?$/, "/");
 }

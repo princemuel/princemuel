@@ -4,26 +4,6 @@
   "trailingSlash": true,
   "cleanUrls": true,
   "outputDirectory": null,
-  "headers": [
-    {
-      "source": "/assets/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=86400"
-        }
-      ]
-    },
-    {
-      "source": "/_astro/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "immutable, max-age=31536000"
-        }
-      ]
-    }
-  ],
   "redirects": [
     {
       "source": "/twitter/",
@@ -31,7 +11,7 @@
     },
     {
       "source": "/chat/",
-      "destination": "https://discord.gg/grF4GTXXYm"
+      "destination": "https://discordapp.com/users/738221142229385297"
     },
     {
       "source": "/linkedin/",

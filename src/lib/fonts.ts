@@ -9,23 +9,23 @@ export const fontSans = {
     {
       weight: "600",
       style: "normal",
-      path: "./public/static/fonts/WotfardSemiBold.woff2",
+      path: "./public/static/fonts/WotfardSemiBold.ttf",
     },
     {
       weight: "500",
       style: "normal",
-      path: "./public/static/fonts/WotfardMedium.woff2",
+      path: "./public/static/fonts/WotfardMedium.ttf",
     },
     {
       weight: "400",
       style: "normal",
-      path: "./public/static/fonts/WotfardRegular.woff2",
+      path: "./public/static/fonts/WotfardRegular.ttf",
       css: {
         "font-feature-settings": "normal",
       },
     },
   ],
-  preload: true,
+
   display: "swap",
   selector: ".__sans__",
   fallback: "sans-serif",
@@ -51,12 +51,12 @@ export const fontMono = {
       },
     },
   ],
-  preload: true,
+
   display: "swap",
   selector: ".__mono__",
   fallback: "monospace",
   fallbackName: "__FontMono_Fallback",
-  // cssVariable: "font-mono",
+  cssVariable: "font-mono",
 } satisfies FontConfig;
 
 export const fontAccent = {
@@ -71,10 +71,10 @@ export const fontAccent = {
       },
     },
   ],
-  preload: true,
+
   display: "swap",
   selector: ".__accent__",
   fallback: "sans-serif",
   fallbackName: "__FontAccent_Fallback",
-  // cssVariable: "font-accent",
+  cssVariable: "font-accent",
 } satisfies FontConfig;

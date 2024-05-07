@@ -12,7 +12,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
-          repository: "princemuel/webapp"
+          repository: "princemuel/princemuel.com"
 
       - id: label-the-PR
         name: Set PR Labels

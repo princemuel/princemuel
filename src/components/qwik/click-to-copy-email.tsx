@@ -1,6 +1,8 @@
-import { $, component$, useSignal } from "@builder.io/qwik";
+import { $, component$, useSignal, type HTMLAttributes } from "@builder.io/qwik";
 
-const ClickToCopyEmail = component$(() => {
+type Props = HTMLAttributes<HTMLDivElement>;
+
+export const ClickToCopyEmail = component$(({ class: className }: Props) => {
   const defaultMessage = "Click to Copy Email";
   const message = useSignal(defaultMessage);
 
@@ -20,13 +22,16 @@ const ClickToCopyEmail = component$(() => {
   });
 
   return (
-    <div class="group relative flex w-max items-center gap-2">
+    <div
+      // @ts-expect-error
+      class={["group relative flex w-max items-center gap-2", className]}
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
         stroke-width="1.5"
-        class="stroke-brand-500 size-4"
+        class="size-4 stroke-brand-500"
       >
         <path
           stroke-linecap="round"
@@ -35,11 +40,7 @@ const ClickToCopyEmail = component$(() => {
         ></path>
       </svg>
 
-      <button
-        class="text-sm text-white no-underline"
-        onClick$={handleCopy}
-        onMouseOut$={handleMouseOut}
-      >
+      <button class="text-sm text-white no-underline" onClick$={handleCopy} onMouseOut$={handleMouseOut}>
         vansomecsam@gmail.com
       </button>
 
@@ -49,5 +50,3 @@ const ClickToCopyEmail = component$(() => {
     </div>
   );
 });
-
-export default ClickToCopyEmail;
