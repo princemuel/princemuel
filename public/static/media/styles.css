@@ -198,8 +198,8 @@ textarea {
   line-height: inherit;
 }
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
-    sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 14px;
   line-height: 1.5;
   color: #24292e;
@@ -321,15 +321,13 @@ dd {
 }
 code,
 tt {
-  font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier,
-    monospace;
+  font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
   font-size: 12px;
 }
 pre {
   margin-top: 0;
   margin-bottom: 0;
-  font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier,
-    monospace;
+  font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
   font-size: 12px;
 }
 .octicon {
@@ -1000,11 +998,7 @@ pre {
   background-color: #f5f0ff !important;
 }
 .bg-shade-gradient {
-  background-image: linear-gradient(
-    180deg,
-    rgba(27, 31, 35, 0.065),
-    rgba(27, 31, 35, 0)
-  ) !important;
+  background-image: linear-gradient(180deg, rgba(27, 31, 35, 0.065), rgba(27, 31, 35, 0)) !important;
   background-repeat: no-repeat !important;
   background-size: 100% 200px !important;
 }
@@ -3977,8 +3971,7 @@ pre {
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 .text-mono {
-  font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier,
-    monospace;
+  font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
 }
 .user-select-none {
   user-select: none !important;
@@ -4728,8 +4721,8 @@ pre {
   }
 }
 .markdown-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
-    sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 16px;
   line-height: 1.5;
   word-wrap: break-word;

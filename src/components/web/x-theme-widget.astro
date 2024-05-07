@@ -10,7 +10,7 @@
 
 {/* Inlined to avoid FOUC. Uses global scope from `theme-provider.astro` */}
 <script is:inline>
-  window.XThemeProvider.updateWidget();
+  window.ThemeProvider.updateWidget();
 </script>
 
 <script>
@@ -28,18 +28,12 @@
     theme === "auto" || theme === "dark" || theme === "light" ? theme : "auto";
 
   /** Load the user’s preference from `localStorage`. */
-  const loadTheme = (): Theme =>
-    parseTheme(
-      typeof localStorage !== "undefined" && localStorage.getItem(storageKey),
-    );
+  const loadTheme = (): Theme => parseTheme(typeof localStorage !== "undefined" && localStorage.getItem(storageKey));
 
   /** Store the user’s preference in `localStorage`. */
   function storeTheme(theme: Theme): void {
     if (typeof localStorage !== "undefined") {
-      localStorage.setItem(
-        storageKey,
-        theme === "light" || theme === "dark" ? theme : "",
-      );
+      localStorage.setItem(storageKey, theme === "light" || theme === "dark" ? theme : "");
     }
   }
 
@@ -59,9 +53,8 @@
 
   /** Update theme widget, document theme, and local storage state. */
   function onThemeChange(theme: Theme): void {
-    window.XThemeProvider.updateWidget(theme);
-    document.documentElement.dataset.theme =
-      theme === "auto" ? getPreferredColorScheme() : theme;
+    window.ThemeProvider.updateWidget(theme);
+    document.documentElement.dataset.theme = theme === "auto" ? getPreferredColorScheme() : theme;
     document.documentElement.dataset.readerTheme =
       theme === "auto" ? `min-${getPreferredColorScheme()}` : `min-${theme}`;
     storeTheme(theme);

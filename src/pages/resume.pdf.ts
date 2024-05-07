@@ -14,9 +14,7 @@ export async function GET() {
       key: apiKey,
     });
 
-    const response = await fetch(
-      `https://www.googleapis.com/drive/v3/files/${fileId}/export?${params.toString()}`,
-    );
+    const response = await fetch(`https://www.googleapis.com/drive/v3/files/${fileId}/export?${params.toString()}`);
 
     invariant.as(NetworkError, response.ok, "Failed to fetch resource");
 

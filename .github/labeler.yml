@@ -4,8 +4,7 @@ documentation:
 
 content:
   - changed-files:
-      - any-glob-to-any-file:
-          ["**/content/*.md", "**/content/*.mdx", "**/content/*.json"]
+      - any-glob-to-any-file: ["**/content/*.md", "**/content/*.mdx", "**/content/*.json"]
   - head-branch: ["^content", "content"]
 
 feature:

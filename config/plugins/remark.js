@@ -32,9 +32,7 @@ function remarkModifiedTime() {
   return function (_, file) {
     const filepath = file.history[0];
     const output = execSync(`git log -1 --pretty="format:%cI" "${filepath}"`);
-    file.data.astro.frontmatter.updatedAt = new Date(
-      output.toString().trim() || Date.now(),
-    ).toISOString();
+    file.data.astro.frontmatter.updatedAt = new Date(output.toString().trim() || Date.now()).toISOString();
   };
 }
 

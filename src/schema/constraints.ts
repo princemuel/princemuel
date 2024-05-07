@@ -9,12 +9,9 @@ export const Publication = z.object({
   image: z.string().optional(),
   name: z.string(),
 });
-export const ResourceStatus = z
-  .enum(["draft", "preview", "published"])
-  .default("draft");
+export const ResourceStatus = z.enum(["draft", "preview", "published"]).default("draft");
 
-export const ResourceBasePath = (type: IResource) =>
-  z.enum(["projects", "articles", "blog"]).default(type);
+export const ResourceBasePath = (type: IResource) => z.enum(["projects", "articles", "blog"]).default(type);
 
 // export const ResourceDateTime = z.string().transform((val) => new Date(val));
 export const ResourceDateTime = z.coerce.date();

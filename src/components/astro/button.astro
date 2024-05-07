@@ -27,14 +27,11 @@ const button = tv({
   },
 });
 
-type Props<E extends HTMLTag> = VariantProps<typeof button> &
-  Polymorphic<{ as: E }>;
+type Props<E extends HTMLTag> = VariantProps<typeof button> & Polymorphic<{ as: E }>;
 
 const { as, class: className, size, color, ...rest } = Astro.props;
 
 const As = as || "button";
 ---
 
-<As {...rest} class:list={button({ size, color, class: className })}
-  ><slot /></As
->
+<As {...rest} class:list={button({ size, color, class: className })}><slot /></As>

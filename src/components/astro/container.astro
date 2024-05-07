@@ -1,14 +1,18 @@
 ---
-import { tw } from "@/helpers/utils";
-import type { HTMLTag, Polymorphic } from "astro/types";
+import { tw } from "@/helpers";
+import type { HTMLAttributes } from "astro/types";
 
-type Props<E extends HTMLTag> = Polymorphic<{ as: E }>;
+type Props = HTMLAttributes<"div">;
 
-const { as, class: className, ...attrs } = Astro.props;
-
-let Tag = as || "div";
+const { class: className } = Astro.props;
 ---
 
-<Tag {...attrs} class:list={tw("", className)}>
-  <slot />
-</Tag>
+<div class={tw("sm:px-8", className)}>
+  <div class="mx-auto w-full max-w-7xl lg:px-8">
+    <div class="relative px-4 sm:px-8 xl:px-12">
+      <div class="mx-auto max-w-screen-md lg:max-w-screen-xl">
+        <slot />
+      </div>
+    </div>
+  </div>
+</div>

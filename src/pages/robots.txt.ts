@@ -9,12 +9,7 @@ export const GET: APIRoute = async (ctx) => {
   const request = await fetch("https://darkvisitors.com/robots-txt-builder");
   const response = await request.text();
 
-  const agents = [
-    ...new Set([
-      ...response.split("\n").filter((line) => matcher.test(line.trim())),
-      ...defaultAgents,
-    ]),
-  ];
+  const agents = [...new Set([...response.split("\n").filter((line) => matcher.test(line.trim())), ...defaultAgents])];
 
   const text = `# I, for one, welcome our new robotic overlords\n\nUser-Agent: *\nAllow: /\nDisallow: /api/\n\n# Block AI Bots\n\n${agents.map((agent) => `${agent}\nDisallow: /`).join("\n\n")}\n\nSitemap: ${new URL("/", ctx.site).toString()}sitemap-index.html`;
 

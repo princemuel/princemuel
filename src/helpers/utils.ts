@@ -24,11 +24,11 @@ export const truncate = (str: string, length: number) => {
   return `${str.slice(0, length)}...`;
 };
 
-export function pluralize<
-  C extends number,
-  N extends string,
-  P extends string = `${N}s`,
->(count: C, noun: N, plural?: P) {
+export function pluralize<C extends number, N extends string, P extends string = `${N}s`>(
+  count: C,
+  noun: N,
+  plural?: P,
+) {
   return (count === 1 ? noun : plural ?? `${noun}s`) as C extends 1 ? N : P;
 }
 
@@ -83,16 +83,10 @@ export function formatNumber(num: number, digits?: number | undefined) {
 
   const validDigits = digits ? Math.abs(digits) : 1;
 
-  return (
-    (num / value).toFixed(validDigits).replace(TRAILING_ZERO_REGEX, "$1") +
-    symbol
-  );
+  return (num / value).toFixed(validDigits).replace(TRAILING_ZERO_REGEX, "$1") + symbol;
 }
 
-export const formatDate = (
-  dateString: ConstructorParameters<typeof Date>[0] | null,
-  showTime = false,
-) => {
+export const formatDate = (dateString: ConstructorParameters<typeof Date>[0] | null, showTime = false) => {
   const date = dateString ? new Date(dateString) : new Date();
 
   const dateStamp = date.toLocaleString("en-US", {
@@ -112,23 +106,17 @@ export const formatDate = (
   ---------------------------------*
  */
 
-export function hasValues<T>(
-  value: T[] | null | undefined,
-): value is NonNullable<T[]> {
+export function hasValues<T>(value: T[] | null | undefined): value is NonNullable<T[]> {
   return Array.isArray(value) && value.length > 0;
 }
 
 export function range(start: number, stop: number, step: number) {
-  return Array.from(
-    { length: (stop - start) / step + 1 },
-    (_, i) => start + i * step,
-  );
+  return Array.from({ length: (stop - start) / step + 1 }, (_, i) => start + i * step);
 }
 
 export const unique = <T>(array: T[]) => [...new Set(array)];
 
-export const difference = <T>(a: T[], b: T[]) =>
-  a.filter((item) => !b.includes(item));
+export const difference = <T>(a: T[], b: T[]) => a.filter((item) => !b.includes(item));
 
 export const intersection = <T>(arr: T[], ...args: T[][]) =>
   arr.filter((item) => args.every((value) => value.includes(item)));
@@ -150,28 +138,17 @@ export function singleton<T>(name: string, callback: () => T) {
   return g.__singletons.get(name) as NonNullable<T>;
 }
 
-export function omitFields<T extends Record<string, any>, K extends keyof T>(
-  source: T,
-  fieldsToOmit: K[],
-): Omit<T, K> {
+export function omitFields<T extends Record<string, any>, K extends keyof T>(source: T, fieldsToOmit: K[]): Omit<T, K> {
   if (!isObject(source)) throw new Error("Source must be an object.");
 
-  return Object.fromEntries(
-    Object.entries(source).filter(([key]) => !fieldsToOmit.includes(key as K)),
-  ) as Omit<T, K>;
+  return Object.fromEntries(Object.entries(source).filter(([key]) => !fieldsToOmit.includes(key as K))) as Omit<T, K>;
 }
 
 export const isObject = (value: unknown): value is NonNullable<unknown> => {
   return Object.prototype.toString.call(value) === "[object Object]";
 };
 
-export function convertTime(
-  days = 0,
-  hours = 0,
-  minutes = 0,
-  seconds = 0,
-  milliseconds = 0,
-) {
+export function convertTime(days = 0, hours = 0, minutes = 0, seconds = 0, milliseconds = 0) {
   if (
     typeof days !== "number" ||
     typeof hours !== "number" ||
@@ -188,8 +165,7 @@ export function convertTime(
   }
 
   // Calculate total milliseconds
-  const totalMs =
-    (((days * 24 + hours) * 60 + minutes) * 60 + seconds) * 1000 + milliseconds;
+  const totalMs = (((days * 24 + hours) * 60 + minutes) * 60 + seconds) * 1000 + milliseconds;
 
   // Calculate other units
   const totalSecs = totalMs / 1000;

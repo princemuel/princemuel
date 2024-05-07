@@ -1,10 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import {
-  getCollection,
-  type CollectionEntry,
-  type CollectionKey,
-} from "astro:content";
+import { getCollection, type CollectionEntry, type CollectionKey } from "astro:content";
 import { envVars } from "./env.server";
 
 type ResourceOptions = { sort?: boolean; select?: number };

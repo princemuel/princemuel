@@ -7,10 +7,7 @@ import { marked as mkd } from "marked";
 
 export const GET: APIRoute = async (ctx) => {
   const baseUrl = new URL("/blog", ctx.site).toString();
-  const [author, collection] = await Promise.all([
-    getEntry("authors", "princemuel"),
-    fetchResource("posts"),
-  ]);
+  const [author, collection] = await Promise.all([getEntry("authors", "princemuel"), fetchResource("posts")]);
 
   const results = (collection ?? []).map(async (item) => {
     const author = await getEntry(item.data.author);

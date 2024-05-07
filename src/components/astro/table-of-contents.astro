@@ -21,14 +21,8 @@ const padding = new Map([
       <ul class="list-none">
         {headings.map((heading) => {
           return (
-            <li
-              data-depth={heading.depth}
-              class={`m-0 py-0.5 pl-${padding.get(heading.depth)}`}
-            >
-              <a
-                href={`#${heading.slug}`}
-                class="p-1 text-[0.65rem] no-underline"
-              >
+            <li data-depth={heading.depth} class={`m-0 py-0.5 pl-${padding.get(heading.depth)}`}>
+              <a href={`#${heading.slug}`} class="p-1 text-[0.65rem] no-underline">
                 {heading.text}
               </a>
             </li>

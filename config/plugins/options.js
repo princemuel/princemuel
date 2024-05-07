@@ -11,12 +11,7 @@ export const ecCodeOptions = {
     codeFontFamily: "__FontMono",
     uiFontFamily: "__FontSans",
   },
-  plugins: [
-    pluginCollapsibleSections(),
-    pluginLineNumbers(),
-    pluginFirstWordRed(),
-    pluginErrorPreview(),
-  ],
+  plugins: [pluginCollapsibleSections(), pluginLineNumbers(), pluginFirstWordRed(), pluginErrorPreview()],
   useThemedSelectionColors: false,
   themeCssSelector: (theme) => `[data-reader-theme='${theme.name}']`,
   defaultProps: { showLineNumbers: false },

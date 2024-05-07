@@ -7,10 +7,7 @@
     "worker": true,
     "shared-node-browser": true
   },
-  "extends": [
-    "eslint:recommended",
-    "plugin:oxlint/recommended"
-  ],
+  "extends": ["eslint:recommended", "plugin:oxlint/recommended"],
   "parserOptions": {
     "ecmaVersion": "latest",
     "sourceType": "module",
@@ -21,26 +18,16 @@
     "project": "./tsconfig.json"
   },
   "rules": {
-    "no-mixed-spaces-and-tabs": [
-      "error",
-      "smart-tabs"
-    ]
+    "no-mixed-spaces-and-tabs": ["error", "smart-tabs"]
   },
   "overrides": [
     {
-      "files": [
-        "*.astro"
-      ],
+      "files": ["*.astro"],
       "parser": "astro-eslint-parser",
-      "extends": [
-        "plugin:astro/recommended",
-        "plugin:astro/jsx-a11y-strict"
-      ],
+      "extends": ["plugin:astro/recommended", "plugin:astro/jsx-a11y-strict"],
       "parserOptions": {
         "parser": "@typescript-eslint/parser",
-        "extraFileExtensions": [
-          ".astro"
-        ]
+        "extraFileExtensions": [".astro"]
       },
       "rules": {
         "no-undef": "off",
@@ -53,24 +40,12 @@
       }
     },
     {
-      "files": [
-        "*.tsx"
-      ],
-      "plugins": [
-        "qwik",
-        "@typescript-eslint"
-      ],
-      "extends": [
-        "plugin:qwik/strict"
-      ]
+      "files": ["*.tsx"],
+      "plugins": ["qwik", "@typescript-eslint"],
+      "extends": ["plugin:qwik/strict"]
     },
     {
-      "files": [
-        "*.ts",
-        "*.mts",
-        "*.cts",
-        "*.tsx"
-      ],
+      "files": ["*.ts", "*.mts", "*.cts", "*.tsx"],
       "parser": "@typescript-eslint/parser",
       "extends": [
         "plugin:@typescript-eslint/recommended",
@@ -130,9 +105,7 @@
       }
     },
     {
-      "files": [
-        "*.d.ts"
-      ],
+      "files": ["*.d.ts"],
       "parser": "@typescript-eslint/parser",
       "extends": [
         "plugin:@typescript-eslint/recommended",
@@ -143,18 +116,12 @@
       }
     },
     {
-      "files": [
-        "**/*.astro/*.js",
-        "*.astro/*.js"
-      ],
+      "files": ["**/*.astro/*.js", "*.astro/*.js"],
       "parser": "@typescript-eslint/parser"
     },
     {
       // all code blocks in .md files
-      "files": [
-        "**/*.md/*.js?(x)",
-        "**/*.md/*.ts?(x)"
-      ],
+      "files": ["**/*.md/*.js?(x)", "**/*.md/*.ts?(x)"],
       "rules": {
         "no-unreachable": "off",
         "no-unused-expressions": "off",
@@ -168,9 +135,7 @@
     },
     {
       // all ```ts & ```tsx code blocks in .md files
-      "files": [
-        "**/*.md/*.ts?(x)"
-      ],
+      "files": ["**/*.md/*.ts?(x)"],
       "rules": {
         "import/no-duplicates": "off",
         "@typescript-eslint/no-unused-expressions": "off",

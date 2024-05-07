@@ -1,0 +1,77 @@
+@font-face {
+  font-weight: 600;
+  font-style: normal;
+  font-family: __FontSans;
+  font-display: swap;
+  src: url(/static/fonts/WotfardSemiBold.woff2);
+}
+@font-face {
+  font-weight: 500;
+  font-style: normal;
+  font-family: __FontSans;
+  font-display: swap;
+  src: url(/static/fonts/WotfardMedium.woff2);
+}
+@font-face {
+  font-feature-settings: normal;
+  font-weight: 400;
+  font-style: normal;
+  font-family: __FontSans;
+  font-display: swap;
+  src: url(/static/fonts/WotfardRegular.woff2);
+}
+@font-face {
+  font-weight: 400;
+  font-style: italic;
+  font-family: __FontMono;
+  font-display: swap;
+  src: url(/static/fonts/MonoLisaVariableItalic.woff2);
+}
+@font-face {
+  font-feature-settings: normal;
+  font-weight: 400;
+  font-style: normal;
+  font-family: __FontMono;
+  font-display: swap;
+  src: url(/static/fonts/MonoLisaVariableNormal.woff2);
+}
+@font-face {
+  font-feature-settings: normal;
+  font-style: normal;
+  font-family: __FontAccent;
+  font-display: swap;
+  src: url(/static/fonts/Inconsolata.ttf);
+}
+@font-face {
+  font-family: "__FontMono_Fallback";
+  size-adjust: 114.37%;
+  src: local("Courier New");
+  ascent-override: 92.68%;
+  descent-override: 27.98%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "__FontSans_Fallback";
+  size-adjust: 103.66%;
+  src: local("Arial");
+  ascent-override: 94.63%;
+  descent-override: 23.5%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "__FontAccent_Fallback";
+  size-adjust: 109.58%;
+  src: local("Arial");
+  ascent-override: 78.39%;
+  descent-override: 17.34%;
+  line-gap-override: 0%;
+}
+:root {
+  --font-sans: __FontSans, "__FontSans_Fallback", sans-serif;
+  --font-accent: __FontAccent, "__FontAccent_Fallback", sans-serif;
+  --font-mono: __FontMono, "__FontMono_Fallback", monospace;
+  --monospace-font-family: var(--font-mono);
+  --sans-serif-font-family: var(--font-sans);
+}

@@ -8,7 +8,7 @@ export const baseSchema = z.object({
   featured: z.boolean().default(false),
   author: reference("authors"),
   publication: reference("publications").optional(),
-  authors: z.array(z.string()).optional(),
+  authors: z.array(reference("authors")).optional(),
   tags: z.array(z.string()),
   footnote: z.string().optional(),
   status: ResourceStatus,

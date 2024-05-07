@@ -20,16 +20,7 @@
     min-block-size: 100svh;
   }
 
-  :is(
-      a,
-      button,
-      label,
-      select,
-      summary,
-      [role="button"],
-      [role="option"],
-      [role="menuitem"]
-    ) {
+  :is(a, button, label, select, summary, [role="button"], [role="option"], [role="menuitem"]) {
     @apply cursor-pointer;
   }
 

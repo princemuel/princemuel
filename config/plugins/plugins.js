@@ -1,8 +1,4 @@
-import {
-  ExpressiveCodeAnnotation,
-  InlineStyleAnnotation,
-  definePlugin,
-} from "@expressive-code/core";
+import { ExpressiveCodeAnnotation, InlineStyleAnnotation, definePlugin } from "@expressive-code/core";
 import { h } from "@expressive-code/core/hast";
 
 export function pluginByeToHello() {
