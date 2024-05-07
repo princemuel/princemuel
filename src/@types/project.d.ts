@@ -14,8 +14,8 @@ type Meta = {
   };
   canonical?: string | URL | null;
   type?: "website" | "article";
-  publishedAt?: ConstructorParameters<typeof Date>[0];
-  updatedAt?: ConstructorParameters<typeof Date>[0];
+  publishedAt?: ConstructorParameters<typeof Date>[0] | null;
+  updatedAt?: ConstructorParameters<typeof Date>[0] | null;
 };
 type OpenGraph = {
   type?: "website" | "article";

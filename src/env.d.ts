@@ -15,9 +15,12 @@ declare namespace App {
 interface Window {
   ThemeProvider: { updateWidget(theme?: string): void };
 }
+interface globalThis {
+  __singletons: Map<string, unknown>;
+}
 
 declare module "*.astro" {
   type Props = import("astro").AstroGlobal["props"];
-  const component: (_props: Props) => any;
+  const component: (_props: Props) => unknown;
   export default component;
 }
