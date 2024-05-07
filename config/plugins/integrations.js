@@ -3,9 +3,8 @@ import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
 import qwik from "@qwikdev/astro";
 import { astroExpressiveCode as ec } from "astro-expressive-code";
-import htmx from "astro-htmx";
+// import htmx from "astro-htmx";
 import icon from "astro-icon";
-import simpleStackStream from "simple-stack-stream";
 import { ecCodeOptions, sitemapOptions } from "./options";
 
 /** @type {import('astro').AstroConfig['integrations']} */
@@ -16,6 +15,5 @@ export const integrations = [
   mdx(),
   qwik({ include: "**/qwik/*" }),
   sitemap(sitemapOptions),
-  htmx(),
-  simpleStackStream(),
+  // htmx(),
 ];

@@ -1,38 +1,7 @@
 ---
-import { Card, Link } from "@/components/astro";
 import Root from "@/layouts/root.astro";
-import { fetchResource } from "@/lib/utils";
-
-const allProjects = await fetchResource("projects", { sort: true });
 ---
 
 <Root title="Projects" description="">
-  <main class="min-h-full">
-    <section class="container">
-      <p>
-        Sometimes general thoughts and rambles but more often these posts follow my experimentation, learning, and
-        front-end development discoveries that were worth a share with the world wide web. All feedback is always
-        welcome. Below is the whole collection, starting with the most recent stuff. Follow my <Link
-          href="/blog/rss.xml">RSS feed</Link
-        > to stay in the loop when new content gets published.
-      </p>
-    </section>
-    <section class="container">
-      {
-        allProjects.map((project) => {
-          const { title, description, base, tags, publishedAt } = project.data;
-          return (
-            <Card
-              title={title}
-              description={description}
-              basePath={base}
-              href={project.slug}
-              tags={tags}
-              publishedAt={publishedAt}
-            />
-          );
-        })
-      }
-    </section>
-  </main>
+  <main class="min-h-full"></main>
 </Root>

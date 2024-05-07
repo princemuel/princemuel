@@ -1,16 +1,16 @@
-import { baseSchema, MediaObject, ResourceBasePath, ResourceDateTime, ResourceLink } from "@/schema";
+import { baseSchema, MediaObject, ResourceBasePath, ResourceDateTime } from "@/schema";
 import { defineCollection, reference, z } from "astro:content";
 
-const projectCollection = defineCollection({
-  type: "content",
-  schema: ({ image }) =>
-    baseSchema.extend({
-      base: ResourceBasePath("projects"),
-      tools: z.array(z.string()).default([]),
-      media: MediaObject(image).optional(),
-      links: z.array(ResourceLink).default([]),
-    }),
-});
+// const projectCollection = defineCollection({
+//   type: "content",
+//   schema: ({ image }) =>
+//     baseSchema.extend({
+//       base: ResourceBasePath("projects"),
+//       tools: z.array(z.string()).default([]),
+//       media: MediaObject(image).optional(),
+//       links: z.array(ResourceLink).default([]),
+//     }),
+// });
 
 const blogCollection = defineCollection({
   type: "content",
@@ -88,7 +88,7 @@ const publicationCollection = defineCollection({
 
 export const collections = {
   posts: blogCollection,
-  projects: projectCollection,
+  // projects: projectCollection,
   authors: authorCollection,
   social: socialCollection,
   routes: routeCollection,
