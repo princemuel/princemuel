@@ -1,4 +1,4 @@
-import { calcTimeUnits } from "@/helpers";
+import { convertTime } from "@/helpers";
 import { fetchResource } from "@/lib/utils";
 import rss, { type RSSFeedItem } from "@astrojs/rss";
 import type { APIRoute } from "astro";
@@ -71,7 +71,7 @@ export const GET: APIRoute = async (ctx) => {
     <dc:creator>${author}</dc:creator>
     <language>en-US</language>
     <generator>${ctx.generator}</generator>
-    <ttl>${calcTimeUnits(7).mins}</ttl>
+    <ttl>${convertTime(7).mins}</ttl>
     <lastBuildDate>${new Date().toISOString()}</lastBuildDate>`,
     stylesheet: "/static/media/styles.xsl",
   });

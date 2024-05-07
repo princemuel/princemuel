@@ -1,4 +1,4 @@
-import { calcTimeUnits } from "@/helpers";
+import { convertTime } from "@/helpers";
 import {} from "@vercel/edge";
 import type { APIRoute } from "astro";
 
@@ -22,7 +22,7 @@ export const GET: APIRoute = async (ctx) => {
     status: 200,
     headers: {
       "Content-Type": "text/plain; charset=UTF-8",
-      "Cache-Control": `public, max-age=${calcTimeUnits(7).secs}, s-max-age=${calcTimeUnits(7).secs}, stale-while-revalidate=${calcTimeUnits(1).secs}`,
+      "Cache-Control": `public, max-age=${convertTime(7).secs}, s-max-age=${convertTime(7).secs}, stale-while-revalidate=${convertTime(1).secs}`,
     },
   });
 };

@@ -1,5 +1,5 @@
 import DefaultImage from "@/assets/images/placeholder.avif";
-import { calcTimeUnits } from "@/helpers";
+import { convertTime } from "@/helpers";
 import rss, { type RSSFeedItem } from "@astrojs/rss";
 import type { APIRoute } from "astro";
 import { getImage } from "astro:assets";
@@ -56,7 +56,7 @@ export const GET: APIRoute = async (ctx) => {
     <dc:creator>${author.data.name}</dc:creator>
     <language>en-US</language>
     <generator>${ctx.generator}</generator>
-    <ttl>${calcTimeUnits(7).mins}</ttl>
+    <ttl>${convertTime(7).mins}</ttl>
     <lastBuildDate>${new Date().toISOString()}</lastBuildDate>`,
     stylesheet: "/styles.xsl",
   });

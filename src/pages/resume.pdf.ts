@@ -1,4 +1,4 @@
-import { NetworkError, calcTimeUnits } from "@/helpers";
+import { NetworkError, convertTime } from "@/helpers";
 import { envVars } from "@/lib/env.server";
 import { invariant } from "outvariant";
 
@@ -26,7 +26,7 @@ export async function GET() {
       ...response,
       headers: {
         ...response.headers,
-        "Cache-Control": `public, max-age=${calcTimeUnits(7).secs}, s-max-age=${calcTimeUnits(7).secs}, stale-while-revalidate=${calcTimeUnits(1).secs}`,
+        "Cache-Control": `public, max-age=${convertTime(7).secs}, s-max-age=${convertTime(7).secs}, stale-while-revalidate=${convertTime(1).secs}`,
         "Content-Disposition": 'inline; filename="resume.pdf"',
       },
     });
