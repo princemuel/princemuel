@@ -1,13 +1,16 @@
 ---
-import { BreakPointIndicator, Profile } from "@/components/astro";
-import Header from "./header.astro";
+import {
+  BreakPointIndicator,
+  Container,
+  Header,
+  ThemeProvider,
+} from "@/components/astro";
 import RouterHead from "@/components/head.astro";
 import { fontAccent, fontMono, fontSans } from "@/lib/fonts";
 import { AstroFont as Fonts } from "astro-font";
 import { ViewTransitions } from "astro:transitions";
 import { tw } from "@/helpers";
 import SpeedInsights from "@vercel/speed-insights/astro";
-import { ThemeProvider } from "@/components/web";
 
 type Props = Meta & {
   type?: OpenGraph["type"];
@@ -20,11 +23,9 @@ const {
   tags,
   type,
   canonical,
-  className,
   description,
   publishedAt,
   updatedAt,
-  jsonld,
 } = Astro.props;
 ---
 
@@ -34,10 +35,12 @@ const {
   dir="auto"
   class={tw([
     "__sans__ __accent__ __mono__",
-    "scrollbar-track-sky-300 scrollbar-thumb-sky-700",
+    "scrollbar scrollbar-w-1 scrollbar-h-6",
+    "scrollbar-track-rounded-full scrollbar-thumb-rounded-full scrollbar-corner-rounded-full",
+    "scrollbar-track-teal-300 scrollbar-thumb-teal-700 scrollbar-corner-teal-500",
   ])}
   data-theme="dark"
-  data-reader-theme="min-dark"
+  data-reader-theme="vitesse-black"
 >
   <head>
     <meta charset="utf-8" />
@@ -55,11 +58,7 @@ const {
     />
     <ThemeProvider />
     <Fonts config={[fontSans, fontMono, fontAccent]} />
-    <script
-      is:inline
-      type="application/ld+json"
-      set:html={JSON.stringify(jsonld)}
-    />
+    <slot name="head" />
     <!-- <script src="/src/scripts/pwa.ts"></script> -->
     <ViewTransitions />
     {import.meta.env.MODE === "production" ? <SpeedInsights /> : null}
@@ -67,34 +66,55 @@ const {
 
   <body
     class={tw([
-      "relative font-sans font-normal antialiased",
-      "bg-yellow-50 dark:bg-brand-950",
-      // "bg-neutral-50 dark:bg-brand-950",e
-      className,
+      "relative font-sans font-normal antialiased ",
+      // "bg-yellow-50 dark:bg-black",
+      // "bg-neutral-100 dark:bg-neutral-950",
+      "bg-neutral-950",
+      // "bg-yellow-50 dark:bg-black",
+      // "bg-white dark:bg-black",
+      // "bg-white dark:bg-stone-950",
+
+      // "bg-gradient-to-br from-white from-10% via-yellow-100 via-30% to-blue-200 to-90%",
+      // "dark:from-black dark:from-0% dark:via-black dark:via-50% dark:to-black dark:to-100%",
     ])}
   >
-    <!-- <a class="flex bg-background-contrast focus:absolute focus:left-2 focus:not-sr-only focus:p-2 outline-offset-0 sr-only text-primary underline" href="#main">Skip to main content</a> -->
-    <Header />
+    <div class="min-h-screen">
+      <Container class="py-6">
+        <Header class:list={"text-[#111010]"} />
+      </Container>
 
-    <div class="mx-auto w-full max-w-screen-xl px-4 py-8 sm:px-6 md:px-8">
-      <div class="relative flex w-full items-start gap-2 pb-28">
-        <div class="grow-[9999] basis-[37.5rem]">
-          <slot />
-        </div>
+      <Container>
+        <main class="flex flex-grow flex-col py-8" aria-labelledby="heading">
+          <div class="grid grid-cols-1 gap-6 gap-y-12 lg:grid-cols-4">
+            <section
+              class:list={[
+                "max-w-none py-4 lg:col-span-3",
+                "prose prose-neutral dark:prose-invert",
+                "prose-headings:font-accent prose-headings:font-black",
+              ]}
+            >
+              <slot name="meta" />
+            </section>
 
-        <aside
-          class="sticky top-24 block grow basis-[22rem] overflow-y-auto px-6 max-md:hidden"
-        >
-          <div class="flex flex-col items-center">
-            <Profile />
+            <section class="hidden lg:block">
+              <slot name="profile" />
+            </section>
+
+            <section class="lg:col-span-3">
+              <slot name="main" />
+            </section>
+
+            <section class="relative w-full">
+              <slot name="aside" />
+            </section>
           </div>
-        </aside>
-      </div>
-    </div>
+        </main>
+      </Container>
 
-    <footer>
-      <BreakPointIndicator />
-    </footer>
+      <footer>
+        <BreakPointIndicator />
+      </footer>
+    </div>
 
     <script>
       import cssHasPseudo from "css-has-pseudo/browser";

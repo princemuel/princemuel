@@ -1,17 +1,19 @@
-import { singleton } from "@/helpers";
-import { Ratelimit } from "@upstash/ratelimit";
-import { redis } from "./clients";
-import { envVars } from "./env.server";
+import { ipAddress } from "@vercel/edge";
+import { rl } from "./clients";
 
-const tokens = envVars.UPSTASH_LIMIT_TOKEN;
-const duration = envVars.UPSTASH_LIMIT_WINDOW as Parameters<
-  typeof Ratelimit.slidingWindow
->[1];
+type RateLimitFunction = (
+  request: Request,
+  locals: App.Locals,
+) => ReturnType<typeof rl.limit>;
 
-export const rl = new Ratelimit({
-  redis: redis,
-  analytics: true,
-  limiter: Ratelimit.slidingWindow(tokens, duration),
-  prefix: "@upstash/ratelimit",
-  ephemeralCache: singleton("__rl_cache__", () => new Map<string, number>()),
-});
+export const rate_limit: RateLimitFunction = async (request, locals) => {
+  const ip =
+    ipAddress(request) || request.headers.get("x-forwarded-for") || "anonymous";
+
+  const response = await rl.limit(`ratelimit_${ip}`);
+  locals.vercel.edge.waitUntil(response.pending);
+
+  return response;
+};
+
+// console.error(`Error in /api PUT method: ${error as string}`);

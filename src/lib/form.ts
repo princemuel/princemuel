@@ -1,6 +1,9 @@
-type CallbackAction = (data: any) => void;
+type CallbackAction<T> = (data: T) => void;
 
-export const handleForm = (form: HTMLFormElement, callback: CallbackAction) => {
+export const handleForm = <T>(
+  form: HTMLFormElement,
+  callback: CallbackAction<T>,
+) => {
   // listen to the submit event of the form
   form.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -11,7 +14,7 @@ export const handleForm = (form: HTMLFormElement, callback: CallbackAction) => {
     })
       .then((response) => response.json())
       .then((r) => {
-        callback(r);
+        callback(r as T);
       });
   });
 };
