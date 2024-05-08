@@ -1,10 +1,10 @@
 import type { APIRoute } from "astro";
 
-import cssBase from "@/assets/media/base.css?raw";
-import feedXsl from "@/assets/media/feed.xsl?raw";
-import cssFonts from "@/assets/media/fonts.css?raw";
-import cssVars from "@/assets/media/vars.css?raw";
-import cssXmlFeed from "@/assets/media/xml-feed.css?raw";
+import cssBase from "@/styles/base.css?raw";
+import feedXsl from "@/styles/feed.xsl?raw";
+import cssFonts from "@/styles/fonts.css?raw";
+import cssVars from "@/styles/vars.css?raw";
+import cssXmlFeed from "@/styles/xml-feed.css?raw";
 
 export const GET: APIRoute = () => {
   const feedStyles = feedXsl

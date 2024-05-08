@@ -37,10 +37,6 @@ const latest = (value?: typeof publishedAt) => {
   const difference = new Date().getTime() - new Date(value).getTime();
   return difference / ONE_DAY_IN_MS < 30;
 };
-
-// const response = await import("@/assets/forrest-gump-quote.webp");
-
-// console.log(response.default);
 ---
 
 <article
