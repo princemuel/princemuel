@@ -10,14 +10,22 @@ import Link from "./link.astro";
   class="flex flex-col gap-4 rounded border border-stone-200 bg-transparent px-4 py-8 font-accent text-stone-900 dark:border-stone-900 dark:text-stone-50 sm:px-6"
 >
   <figure class="mx-auto size-16 overflow-hidden rounded-full border-2">
-    <Image width={60} height={60} alt="Sam Chukwuzube" src={PlaceholderImage} loading="eager" />
+    <Image
+      width={60}
+      height={60}
+      alt="Sam Chukwuzube"
+      src={PlaceholderImage}
+      loading="eager"
+    />
   </figure>
 
   <div class="flex flex-col items-center justify-center gap-4 text-center">
     <h2 class="text-base font-semibold uppercase">Sam Chukwuzube</h2>
 
     <p class="font-sans text-sm">
-      <Link href="/about" class="underline"> Frontend Engineer (Freelance) </Link>
+      <Link href="/about" class="underline">
+        Frontend Engineer (Freelance)
+      </Link>
     </p>
 
     <ClickToCopyEmail class="" />

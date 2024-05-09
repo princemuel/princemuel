@@ -131,7 +131,8 @@ export default {
           maskImage: "radial-gradient(rgba(0, 0, 0, 0.8), transparent 60%)",
         },
         ".mask-linear-gradient-to-b": {
-          maskImage: "linear-gradient(to bottom, white 0%, white 33%, transparent 90%)",
+          maskImage:
+            "linear-gradient(to bottom, white 0%, white 33%, transparent 90%)",
         },
       });
       addUtilities({
@@ -144,7 +145,8 @@ export default {
           "--padding-inline": theme("spacing.4"),
 
           "--content-maxW": "65rem",
-          "--content-size": "min(100% - (var(--padding-inline) * 2), var(--content-maxW))",
+          "--content-size":
+            "min(100% - (var(--padding-inline) * 2), var(--content-maxW))",
 
           "--breakout-maxW": "80rem",
           "--breakout-size": `calc((var(--breakout-maxW) - var(--content-maxW)) / 2)`,

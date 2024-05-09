@@ -58,9 +58,15 @@ const schema = {
 };
 ---
 
-<Root title={entry.data.title} description={entry.data.description} jsonld={schema}>
+<Root
+  title={entry.data.title}
+  description={entry.data.description}
+  jsonld={schema}
+>
   <Fragment slot="meta">
-    <dl class="flex items-center justify-between gap-2 font-accent font-semibold text-emerald-500">
+    <dl
+      class="flex items-center justify-between gap-2 font-accent font-semibold text-emerald-500"
+    >
       <dt class="text-sm text-inherit">Blog</dt>
       <dd
         class="rounded-sm border border-stone-300 bg-transparent px-2 py-1 text-xs text-inherit dark:border-stone-900"

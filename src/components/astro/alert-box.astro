@@ -4,7 +4,7 @@ import { AstroError } from "astro/errors";
 import type { HTMLAttributes } from "astro/types";
 import { tv, type VariantProps } from "tailwind-variants";
 
-const note = tv({
+const alertBox = tv({
   slots: {
     base: "mt-4 flex flex-col gap-2 border-s-4 border-solid p-4 text-white",
     label: "flex items-center gap-2 text-xs font-medium",
@@ -14,7 +14,7 @@ const note = tv({
   },
   variants: {
     variant: {
-      note: {
+      info: {
         base: "border-blue-500 bg-blue-900",
         label: "text-blue-200",
         icon: "text-blue-200",
@@ -43,21 +43,21 @@ const note = tv({
 });
 
 const icons = new Map([
-  ["note", "information"],
+  ["info", "information"],
   ["tip", "rocket"],
   ["caution", "warning"],
   ["danger", "error"],
 ] as const);
 
-type NoteVariants = VariantProps<typeof note>;
-type Props = Prettify<HTMLAttributes<"aside"> & NoteVariants>;
+type AlertBoxVariants = VariantProps<typeof alertBox>;
+type Props = Prettify<HTMLAttributes<"aside"> & AlertBoxVariants>;
 
-const { base, label, icon, content } = note();
-const { title, variant, ...rest } = Astro.props;
+const { base, label, icon, content } = alertBox();
+const { title, variant = "info", ...rest } = Astro.props;
 
 if (!variant)
   throw new AstroError(
-    "Invalid `variant` prop passed to the `<Note>` component.\n",
+    "Invalid `variant` prop passed to the `<AlertBox>` component.\n",
     `Received: ${JSON.stringify(variant)}\n` +
       `Expected one of ${[...icons.keys()].map((icon) => JSON.stringify(icon)).join(", ")}`,
   );

@@ -15,7 +15,9 @@ export const redis = new Redis({
 });
 
 const tokens = envVars.UPSTASH_LIMIT_TOKEN;
-const duration = envVars.UPSTASH_LIMIT_WINDOW as Parameters<typeof Ratelimit.slidingWindow>[1];
+const duration = envVars.UPSTASH_LIMIT_WINDOW as Parameters<
+  typeof Ratelimit.slidingWindow
+>[1];
 
 export const rl = new Ratelimit({
   redis: redis,

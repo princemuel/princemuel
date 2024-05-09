@@ -1,6 +1,10 @@
 import { fetchResource } from "@/lib/utils";
 import { ImageResponse } from "@vercel/og";
-import type { APIContext, GetStaticPaths, InferGetStaticPropsType } from "astro";
+import type {
+  APIContext,
+  GetStaticPaths,
+  InferGetStaticPropsType,
+} from "astro";
 import { readFileSync } from "node:fs";
 import path from "node:path";
 // import type { getStaticPaths } from "./index.astro";

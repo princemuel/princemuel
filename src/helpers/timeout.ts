@@ -39,7 +39,10 @@ const TIMEOUT = Symbol("TIMEOUT");
  *   }
  * }
  */
-export function timeout<T>(promise: Promise<T>, options: { controller?: AbortController; ms: number }): Promise<T> {
+export function timeout<T>(
+  promise: Promise<T>,
+  options: { controller?: AbortController; ms: number },
+): Promise<T> {
   return new Promise(function (resolve, reject) {
     let timer: NodeJS.Timeout | null = null;
 

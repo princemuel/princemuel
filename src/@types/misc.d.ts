@@ -8,8 +8,15 @@ type LooseAutocomplete<T extends string> = T | Omit<string, T>;
 
 type Prettify<T> = { [K in keyof T]: T[K] } & NonNullable<unknown>;
 type Lookup<T> = { [K in keyof T]: { key: K } }[keyof T];
-type MapKeys<M extends Map<unknown, unknown>> = Prettify<Array<Parameters<M["get"]>[0]>>;
-type IterableToArray<T> = T extends Iterable<infer I> ? I[] : T extends ArrayLike<infer A> ? A[] : never;
+type MapKeys<M extends Map<unknown, unknown>> = Prettify<
+  Array<Parameters<M["get"]>[0]>
+>;
+type IterableToArray<T> =
+  T extends Iterable<infer I>
+    ? I[]
+    : T extends ArrayLike<infer A>
+      ? A[]
+      : never;
 
 type ObjectEntry<T extends NonNullable<unknown>> = T extends object
   ? { [K in keyof T]: [K, Required<T>[K]] }[keyof T] extends infer E
@@ -19,14 +26,18 @@ type ObjectEntry<T extends NonNullable<unknown>> = T extends object
     : never
   : never;
 
-type TupleEntry<T extends readonly unknown[], I extends unknown[] = [], R = never> = T extends readonly [
-  infer Head,
-  ...infer Tail,
-]
+type TupleEntry<
+  T extends readonly unknown[],
+  I extends unknown[] = [],
+  R = never,
+> = T extends readonly [infer Head, ...infer Tail]
   ? TupleEntry<Tail, [...I, unknown], R | [`${I["length"]}`, Head]>
   : R;
 
-type Entry<T extends NonNullable<unknown>> = T extends readonly [unknown, ...unknown[]]
+type Entry<T extends NonNullable<unknown>> = T extends readonly [
+  unknown,
+  ...unknown[],
+]
   ? TupleEntry<T>
   : T extends ReadonlyArray<infer U>
     ? [`${number}`, U]
@@ -77,13 +88,17 @@ type OptionalUnion<
   A extends keyof U = U extends U ? keyof U : never,
 > = U extends unknown ? { [P in Exclude<A, keyof U>]?: never } & U : never;
 
-type IfAvailable<T, Fallback = void> = true | false extends (T extends never ? true : false)
+type IfAvailable<T, Fallback = void> = true | false extends (
+  T extends never ? true : false
+)
   ? Fallback
   : keyof T extends never
     ? Fallback
     : T;
 
-type WeakReferences = IfAvailable<WeakMap<unknown, unknown>> | IfAvailable<WeakSet<unknown>>;
+type WeakReferences =
+  | IfAvailable<WeakMap<unknown, unknown>>
+  | IfAvailable<WeakSet<unknown>>;
 /**
  * A type of a function accepting an arbitrary amount of arguments
  */
@@ -102,7 +117,10 @@ type UnaryFunction = (arg: unknown) => unknown;
 /**
  * Makes a composition of functions from received arguments.
  */
-type Compose<Arguments extends unknown[], Functions extends unknown[] = []> = Arguments["length"] extends 0
+type Compose<
+  Arguments extends unknown[],
+  Functions extends unknown[] = [],
+> = Arguments["length"] extends 0
   ? Functions
   : Arguments extends [infer A, infer B]
     ? [...Functions, (arg: A) => B]
@@ -113,11 +131,15 @@ type Compose<Arguments extends unknown[], Functions extends unknown[] = []> = Ar
 /**
  * Destructures a composition of functions into arguments.
  */
-type Decompose<Functions extends UnaryFunction[], Arguments extends unknown[] = []> = Functions extends [
-  (arg: infer Arg) => infer Return,
-]
+type Decompose<
+  Functions extends UnaryFunction[],
+  Arguments extends unknown[] = [],
+> = Functions extends [(arg: infer Arg) => infer Return]
   ? [...Arguments, Arg, Return]
-  : Functions extends [...infer Rest extends UnaryFunction[], (arg: infer Arg) => unknown]
+  : Functions extends [
+        ...infer Rest extends UnaryFunction[],
+        (arg: infer Arg) => unknown,
+      ]
     ? Decompose<Rest, [...Arguments, Arg]>
     : [];
 
@@ -130,7 +152,14 @@ type JSONValue =
       [k: string]: JSONValue;
     };
 
-type PrimitiveType = string | number | bigint | boolean | symbol | null | undefined;
+type PrimitiveType =
+  | string
+  | number
+  | bigint
+  | boolean
+  | symbol
+  | null
+  | undefined;
 
 type AtomicObject = Function | RegExp | Promise<unknown> | Date;
 type BrowserNativeObject = Date | FileList | File;

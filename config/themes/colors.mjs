@@ -7,8 +7,12 @@ function getHexColorLightness(hexColor = "") {
 }
 
 export function createColorsObject(colors = [""]) {
-  const sortedColors = colors.sort((a, b) => getHexColorLightness(b) - getHexColorLightness(a));
+  const sortedColors = colors.sort(
+    (a, b) => getHexColorLightness(b) - getHexColorLightness(a),
+  );
 
   let key = 50;
-  return Object.fromEntries(new Map(sortedColors.map((color) => [(key += 50), color])));
+  return Object.fromEntries(
+    new Map(sortedColors.map((color) => [(key += 50), color])),
+  );
 }

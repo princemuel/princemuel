@@ -1,4 +1,9 @@
-import { $, component$, useSignal, type HTMLAttributes } from "@builder.io/qwik";
+import {
+  $,
+  component$,
+  useSignal,
+  type HTMLAttributes,
+} from "@builder.io/qwik";
 
 type Props = HTMLAttributes<HTMLDivElement>;
 
@@ -40,7 +45,11 @@ export const ClickToCopyEmail = component$(({ class: className }: Props) => {
         ></path>
       </svg>
 
-      <button class="text-sm text-white no-underline" onClick$={handleCopy} onMouseOut$={handleMouseOut}>
+      <button
+        class="text-sm text-white no-underline"
+        onClick$={handleCopy}
+        onMouseOut$={handleMouseOut}
+      >
         vansomecsam@gmail.com
       </button>
 

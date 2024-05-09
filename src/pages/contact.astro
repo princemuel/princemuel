@@ -38,9 +38,17 @@ if (response) return response;
 ---
 
 <div>
-  <span role="alert" aria-live="polite" data-form-success="">{result?.data?.message}</span>
-  <form method="post" data-id="contact-form" style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-    <span role="alert" aria-live="polite" data-form-error="unknown">{result?.errors?.unknown}</span>
+  <span role="alert" aria-live="polite" data-form-success=""
+    >{result?.data?.message}</span
+  >
+  <form
+    method="post"
+    data-id="contact-form"
+    style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
+  >
+    <span role="alert" aria-live="polite" data-form-error="unknown"
+      >{result?.errors?.unknown}</span
+    >
     <input name="bot-field" placeholder="do not fill this" type="hidden" />
     <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
       <label for="fields.name.input">Name</label>
@@ -51,7 +59,12 @@ if (response) return response;
         autocomplete="name"
         aria-errormessage="fields.name.error"
       />
-      <span role="alert" aria-live="polite" id="fields.name.error" data-form-error="name">
+      <span
+        role="alert"
+        aria-live="polite"
+        id="fields.name.error"
+        data-form-error="name"
+      >
         {result?.errors?.name}
       </span>
     </div>
@@ -65,12 +78,21 @@ if (response) return response;
         autocomplete="email"
         aria-errormessage="fields.email.error"
       />
-      <span role="alert" aria-live="polite" id="fields.email.error" data-form-error="email">
+      <span
+        role="alert"
+        aria-live="polite"
+        id="fields.email.error"
+        data-form-error="email"
+      >
         {result?.errors?.email}
       </span>
     </div>
 
-    <button type="submit" style={{ display: "flex", flexDirection: "column", width: "100%" }}>Send Message</button>
+    <button
+      type="submit"
+      style={{ display: "flex", flexDirection: "column", width: "100%" }}
+      >Send Message</button
+    >
   </form>
 </div>
 

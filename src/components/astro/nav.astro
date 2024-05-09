@@ -28,7 +28,10 @@ const { routes, class: className, ...rest } = Astro.props;
             class="group relative flex px-3 py-2 transition aria-[current=page]:text-teal-500 hocus:text-teal-500 dark:aria-[current=page]:text-emerald-400 dark:hocus:text-emerald-400"
             href={route.data.href}
           >
-            <Icon name={route.data.icon} class="text-base text-inherit xs:text-lg sm:text-xl md:hidden" />
+            <Icon
+              name={route.data.icon}
+              class="text-base text-inherit xs:text-lg sm:text-xl md:hidden"
+            />
             <span class="sr-only md:not-sr-only">{route.data.text}</span>
             <span class="absolute inset-x-1 -bottom-px hidden h-px bg-gradient-to-r from-teal-500/0 via-teal-500/40 to-teal-500/0 group-aria-[current=page]:inline dark:from-emerald-400/0 dark:via-emerald-400/40 dark:to-emerald-400/0" />
           </Navlink>

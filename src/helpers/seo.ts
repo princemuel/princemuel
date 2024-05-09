@@ -7,5 +7,7 @@
  */
 export function formatCanonicalURL(url: string | URL): string {
   const path = url.toString();
-  return path.includes("?") ? path.replace(/\/?$/, "") : path.replace(/\/?$/, "/");
+  return path.includes("?")
+    ? path.replace(/\/?$/, "")
+    : path.replace(/\/?$/, "/");
 }

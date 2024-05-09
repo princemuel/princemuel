@@ -11,7 +11,8 @@ const response = await octokit.rest.activity.listPublicEventsForUser({
   per_page: 20,
 });
 
-const githubUrl = (url: string) => url.replace("api.", "").replace("/repos", "");
+const githubUrl = (url: string) =>
+  url.replace("api.", "").replace("/repos", "");
 
 const commitSchema = z
   .array(
@@ -28,8 +29,12 @@ const commitSchema = z
 
 <div class="rounded border border-stone-900 bg-black/30">
   <div class="p-4">
-    <div class="h-96 overflow-y-hidden rounded border border-stone-900 bg-neutral-950 p-4">
-      <div class:list={["flex h-full flex-col gap-4 overflow-y-auto scrollbar"]}>
+    <div
+      class="h-96 overflow-y-hidden rounded border border-stone-900 bg-neutral-950 p-4"
+    >
+      <div
+        class:list={["flex h-full flex-col gap-4 overflow-y-auto scrollbar"]}
+      >
         {
           (response.data ?? []).map((item, i) => {
             //@ts-expect-error
@@ -41,7 +46,10 @@ const commitSchema = z
                   aria-posinset={i + 1}
                   aria-setsize="-1"
                   aria-describedby=""
-                  class:list={["rounded border border-stone-900 bg-black/30", "flex flex-col gap-4 p-4 font-accent"]}
+                  class:list={[
+                    "rounded border border-stone-900 bg-black/30",
+                    "flex flex-col gap-4 p-4 font-accent",
+                  ]}
                 >
                   <header>
                     <dl class="flex items-center gap-2 text-lg">
@@ -67,7 +75,10 @@ const commitSchema = z
 
                       <dd class="text-sm font-light">{item.type}</dd>
                     </dl>
-                    <Time datetime={item.created_at} class="text-sm font-medium">
+                    <Time
+                      datetime={item.created_at}
+                      class="text-sm font-medium"
+                    >
                       {formatDate(item.created_at, true)}
                     </Time>
                   </header>
@@ -75,14 +86,20 @@ const commitSchema = z
                   <address class="not-italic">
                     <p class="flex items-center gap-2">
                       <span class="text-sm font-semibold">User:</span>
-                      <Link href={`https://github.com/${item.actor.login}`} class="text-sm font-light">
+                      <Link
+                        href={`https://github.com/${item.actor.login}`}
+                        class="text-sm font-light"
+                      >
                         {item.actor.login}
                       </Link>
                     </p>
 
                     <p class="flex items-center gap-2 text-lg">
                       <span class="text-sm font-semibold">Repo:</span>
-                      <Link class="text-sm font-light underline" href={githubUrl(item.repo.url)}>
+                      <Link
+                        class="text-sm font-light underline"
+                        href={githubUrl(item.repo.url)}
+                      >
                         {item.repo.name}
                       </Link>
                     </p>
@@ -92,9 +109,14 @@ const commitSchema = z
                     <div class="flex flex-col gap-1">
                       <div class="flex items-center gap-2">
                         <Icon name="message" class={"text-xl text-pink-700"} />
-                        <output class="text-sm font-medium">{pluralize(commits.length, "Message")}</output>
+                        <output class="text-sm font-medium">
+                          {pluralize(commits.length, "Message")}
+                        </output>
                       </div>
-                      <ul role="list" class="flex list-disc flex-col gap-1 pl-4 marker:text-pink-500">
+                      <ul
+                        role="list"
+                        class="flex list-disc flex-col gap-1 pl-4 marker:text-pink-500"
+                      >
                         {commits.map((commit) => (
                           <li role="listitem" class="text-sm ">
                             {commit.message}

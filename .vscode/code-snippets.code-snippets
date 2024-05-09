@@ -1,6 +1,10 @@
 {
   "Immediately Invoked Generator Expression": {
-    "body": ["(function* () {\n", "for(const ${0:item} of ${0:item}s) {\n${1}\n}\n", "})()\n"],
+    "body": [
+      "(function* () {\n",
+      "for(const ${0:item} of ${0:item}s) {\n${1}\n}\n",
+      "})()\n",
+    ],
     "prefix": "iige",
     "description": "This is an generator expression",
   },

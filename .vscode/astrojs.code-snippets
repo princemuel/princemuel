@@ -3,13 +3,22 @@
     "prefix": "astro:base",
     "description": "This is a basic scaffold for a component in Astro",
     "isFileTemplate": true,
-    "body": ["---\n${3}\n---", "<${1:div}>\n", "</div>\n", "<style>\n${2}\n</style>"],
+    "body": [
+      "---\n${3}\n---",
+      "<${1:div}>\n",
+      "</div>\n",
+      "<style>\n${2}\n</style>",
+    ],
   },
   "Astro Client Script Base": {
     "prefix": "astro:cbase",
     "description": "Astro Single File Component w Client Script",
     "isFileTemplate": true,
-    "body": ["<${0:div}>\n</div>\n", "<style>\n${1}\n</style>\n", "<script>\n</script>"],
+    "body": [
+      "<${0:div}>\n</div>\n",
+      "<style>\n${1}\n</style>\n",
+      "<script>\n</script>",
+    ],
   },
   "Header Main Footer Component ": {
     "prefix": "astro:base-hmf",
@@ -50,7 +59,11 @@
     "prefix": "astro:base-pr-pg",
     "description": "This is a pre-rendered page snippet",
     "isFileTemplate": false,
-    "body": ["---\nexport const prerender = true\n---", "<${1:div}>\n</div>\n", "<style>\n${2}\n</style>"],
+    "body": [
+      "---\nexport const prerender = true\n---",
+      "<${1:div}>\n</div>\n",
+      "<style>\n${2}\n</style>",
+    ],
   },
   "Pre rendered Page with getStaticPaths": {
     "prefix": "astro:base-pr-pg--gsp",
@@ -129,7 +142,11 @@
     "prefix": "astro:base-lpg",
     "description": "This a page with layout scaffold",
     "isFileTemplate": true,
-    "body": ["---${4}---", "<${1:Layout}>\n${2}\n</${1:Layout}>\n", "<style>\n${3}\n</style>"],
+    "body": [
+      "---${4}---",
+      "<${1:Layout}>\n${2}\n</${1:Layout}>\n",
+      "<style>\n${3}\n</style>",
+    ],
   },
   "Layout Page with Header and Footer slot": {
     "prefix": "astro:base-lpg--hmf",

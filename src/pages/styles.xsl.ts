@@ -8,7 +8,10 @@ import cssXmlFeed from "@/styles/xml-feed.css?raw";
 
 export const GET: APIRoute = () => {
   const feedStyles = feedXsl
-    .replace("<!-- {{ styles }} -->", `<style>\n${cssVars}\n${cssFonts}\n${cssBase}\n${cssXmlFeed}\n</style>`)
+    .replace(
+      "<!-- {{ styles }} -->",
+      `<style>\n${cssVars}\n${cssFonts}\n${cssBase}\n${cssXmlFeed}\n</style>`,
+    )
     .replaceAll(/\t|\n/giu, "")
     .replaceAll(/\s+/giu, " ");
 
@@ -17,7 +20,8 @@ export const GET: APIRoute = () => {
     headers: {
       "Content-Type": "application/xml; charset=utf-8",
       "Content-Disposition": "inline",
-      "Cache-Control": "public, max-age=604800, s-max-age=604800,stale-while-revalidate=86400",
+      "Cache-Control":
+        "public, max-age=604800, s-max-age=604800,stale-while-revalidate=86400",
     },
   });
 };

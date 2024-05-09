@@ -51,7 +51,10 @@ const latest = (value?: typeof publishedAt) => {
   <div class="relative overflow-hidden">
     <Link
       href={`/${basePath}/${href}`}
-      class={tw(["flex flex-col items-center gap-3 md:flex-row md:gap-6", "rounded border border-white/60 p-4"])}
+      class={tw([
+        "flex flex-col items-center gap-3 md:flex-row md:gap-6",
+        "rounded border border-white/60 p-4",
+      ])}
     >
       <em
         data-latest={`${latest(publishedAt)}`}
@@ -59,7 +62,17 @@ const latest = (value?: typeof publishedAt) => {
       >
         New
       </em>
-      {image && <Image src={image.src} width={576} height={324} alt={image.alt} class={"w-full md:w-1/2"} />}
+      {
+        image && (
+          <Image
+            src={image.src}
+            width={576}
+            height={324}
+            alt={image.alt}
+            class={"w-full md:w-1/2"}
+          />
+        )
+      }
       <div class="flex flex-col gap-2">
         <span class="flex flex-col gap-2 sm:flex-row sm:items-center">
           {
@@ -67,8 +80,15 @@ const latest = (value?: typeof publishedAt) => {
               <>
                 {platform.image && (
                   <div class="flex items-center gap-2">
-                    <Image src={platform.image} width="24" height="24" alt={platform.name} />
-                    <small class="text-xs text-brand-500">{platform.name}</small>
+                    <Image
+                      src={platform.image}
+                      width="24"
+                      height="24"
+                      alt={platform.name}
+                    />
+                    <small class="text-xs text-brand-500">
+                      {platform.name}
+                    </small>
                   </div>
                 )}
                 <span class="hidden sm:inline-block">&bull;</span>
@@ -83,11 +103,13 @@ const latest = (value?: typeof publishedAt) => {
         </p>
         <ul class={"flex flex-wrap gap-2"}>
           {
-            (tags || ["AlpineJS", "Node.JS", "Docker", "Next.js"]).map((item) => (
-              <TechIcon id={item} class="bg-blue-700 text-xs  text-red-600">
-                {item}
-              </TechIcon>
-            ))
+            (tags || ["AlpineJS", "Node.JS", "Docker", "Next.js"]).map(
+              (item) => (
+                <TechIcon id={item} class="bg-blue-700 text-xs  text-red-600">
+                  {item}
+                </TechIcon>
+              ),
+            )
           }
         </ul>
       </div>

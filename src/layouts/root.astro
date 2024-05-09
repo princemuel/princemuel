@@ -1,5 +1,10 @@
 ---
-import { BreakPointIndicator, Container, Header, ThemeProvider } from "@/components/astro";
+import {
+  BreakPointIndicator,
+  Container,
+  Header,
+  ThemeProvider,
+} from "@/components/astro";
 import RouterHead from "@/components/head.astro";
 import { fontAccent, fontMono, fontSans } from "@/lib/fonts";
 import { AstroFont as Fonts } from "astro-font";
@@ -12,7 +17,16 @@ type Props = Meta & {
   className?: string;
 };
 
-const { title, image, tags, type, canonical, description, publishedAt, updatedAt } = Astro.props;
+const {
+  title,
+  image,
+  tags,
+  type,
+  canonical,
+  description,
+  publishedAt,
+  updatedAt,
+} = Astro.props;
 ---
 
 <!doctype html>

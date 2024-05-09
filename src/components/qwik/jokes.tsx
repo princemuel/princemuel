@@ -1,25 +1,32 @@
-import { Resource, component$, useResource$, useSignal } from "@builder.io/qwik";
+import {
+  Resource,
+  component$,
+  useResource$,
+  useSignal,
+} from "@builder.io/qwik";
 
 export const Jokes = component$(() => {
   const query = useSignal("busy");
-  const jokes = useResource$<{ value: string }[]>(async ({ track, cleanup }) => {
-    track(() => query.value);
-    // A good practice is to use `AbortController` to abort the fetching of data if
-    // new request comes in. We create a new `AbortController` and register a `cleanup`
-    // function which is called when this function re-runs.
-    const controller = new AbortController();
-    cleanup(() => controller.abort());
+  const jokes = useResource$<{ value: string }[]>(
+    async ({ track, cleanup }) => {
+      track(() => query.value);
+      // A good practice is to use `AbortController` to abort the fetching of data if
+      // new request comes in. We create a new `AbortController` and register a `cleanup`
+      // function which is called when this function re-runs.
+      const controller = new AbortController();
+      cleanup(() => controller.abort());
 
-    if (query.value.length < 3) return [];
+      if (query.value.length < 3) return [];
 
-    const url = new URL("https://api.chucknorris.io/jokes/search");
-    url.searchParams.set("query", query.value);
+      const url = new URL("https://api.chucknorris.io/jokes/search");
+      url.searchParams.set("query", query.value);
 
-    const resp = await fetch(url, { signal: controller.signal });
-    const json = (await resp.json()) as { result: { value: string }[] };
+      const resp = await fetch(url, { signal: controller.signal });
+      const json = (await resp.json()) as { result: { value: string }[] };
 
-    return json.result;
-  });
+      return json.result;
+    },
+  );
 
   return (
     <>

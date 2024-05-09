@@ -46,5 +46,8 @@ export const profileSchema = {
   alternateName: "Prince Muel",
   url: new URL("/", import.meta.env.SITE).toString(),
   image: "",
-  sameAs: ["https://www.facebook.com/mikeychuks", "https://example.com/profile/therealangelohuff"],
+  sameAs: [
+    "https://www.facebook.com/mikeychuks",
+    "https://example.com/profile/therealangelohuff",
+  ],
 } satisfies WithContext<Person>;

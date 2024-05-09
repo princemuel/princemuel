@@ -1,3 +1,4 @@
+export { default as AlertBox } from "./alert-box.astro";
 export { default as Button } from "./button.astro";
 export { default as Card } from "./card.astro";
 export { default as CodeSandbox } from "./codesandbox.astro";

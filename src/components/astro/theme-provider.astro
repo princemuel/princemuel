@@ -12,7 +12,8 @@ import { Icon } from "astro-icon/components";
 <script is:inline>
   if (!window.ThemeProvider) {
     window.ThemeProvider = (function () {
-      const storedTheme = typeof localStorage !== "undefined" && localStorage.getItem("x-theme");
+      const storedTheme =
+        typeof localStorage !== "undefined" && localStorage.getItem("x-theme");
       const mql = window.matchMedia("(prefers-color-scheme: light)");
       const theme = storedTheme || (mql.matches ? "light" : "dark");
       document.documentElement.dataset.theme = theme;
@@ -24,10 +25,13 @@ import { Icon } from "astro-icon/components";
           const widget = document.querySelector("x-theme-widget");
           /** @type {HTMLTemplateElement | null} */
           const tmpl = document.querySelector(`[data-id="x-theme-icons"]`);
-          const themeIcon = tmpl && tmpl.content.querySelector(`[data-id="x-${theme}"]`);
+          const themeIcon =
+            tmpl && tmpl.content.querySelector(`[data-id="x-${theme}"]`);
           widget.querySelector("svg")?.remove();
           if (themeIcon) {
-            widget.querySelector("span")?.insertAdjacentElement("afterend", themeIcon.cloneNode(true));
+            widget
+              .querySelector("span")
+              ?.insertAdjacentElement("afterend", themeIcon.cloneNode(true));
           }
         },
       };

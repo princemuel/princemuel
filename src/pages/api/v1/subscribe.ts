@@ -6,7 +6,10 @@ import type { APIRoute } from "astro";
 
 export const POST: APIRoute = async ({ request }) => {
   try {
-    const formData = subscribeSchema.parse(Object.fromEntries(await request.formData()), { errorMap });
+    const formData = subscribeSchema.parse(
+      Object.fromEntries(await request.formData()),
+      { errorMap },
+    );
 
     const response = await resend.contacts.create({
       firstName: formData.firstName,
@@ -28,5 +31,8 @@ export const POST: APIRoute = async ({ request }) => {
 };
 
 export const ALL: APIRoute = ({ request }) => {
-  return Response.json({ status: "error", message: `${request.method} not allowed` }, { status: 405 });
+  return Response.json(
+    { status: "error", message: `${request.method} not allowed` },
+    { status: 405 },
+  );
 };

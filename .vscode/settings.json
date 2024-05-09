@@ -2,7 +2,7 @@
   "editor.tabSize": 2,
   "editor.inlineSuggest.enabled": true,
   "editor.wordWrap": "bounded",
-  "editor.wordWrapColumn": 120,
+  "editor.wordWrapColumn": 80,
   "editor.codeActionsOnSave": {
     "source.addMissingImports": "explicit",
     "source.organizeImports": "explicit",
@@ -25,7 +25,9 @@
   "workbench.tree.indent": 8,
   // "eslint.codeActionsOnSave.mode": "problems",
   "tailwindCSS.rootFontSize": 16,
-  "tailwindCSS.experimental.classRegex": [["tv\\((([^()]*|\\([^()]*\\))*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]],
+  "tailwindCSS.experimental.classRegex": [
+    ["tv\\((([^()]*|\\([^()]*\\))*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]
+  ],
   "dotenv.enableAutocloaking": false,
   "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
@@ -36,12 +38,30 @@
   "eslint.codeAction.showDocumentation": {
     "enable": true
   },
-  "eslint.probe": ["astro", "markdown", "javascript", "javascriptreact", "typescript", "typescriptreact"],
-  "eslint.validate": ["astro", "markdown", "javascript", "javascriptreact", "typescript", "typescriptreact"],
+  "eslint.probe": [
+    "astro",
+    "markdown",
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  "eslint.validate": [
+    "astro",
+    "markdown",
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
   "prettier.documentSelectors": ["**/*.astro"],
   "[astro]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "oxc_language_server.configPath": ".eslintrc.json",
-  "oxc_language_server.enable": true
+  "oxc_language_server.enable": true,
+  "xml.format.closingBracketNewLine": true,
+  "tailwindCSS.includeLanguages": {
+    "xslt": "html"
+  }
 }
