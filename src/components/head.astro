@@ -27,9 +27,7 @@ const name = "Prince Muel";
 const locale = "en";
 
 const htmlTitle = `${title} ${delimiter} ${name}`;
-const linkCanonical = formatCanonicalURL(
-  canonical || new URL(Astro.url.pathname, Astro.site),
-);
+const linkCanonical = formatCanonicalURL(canonical ?? Astro.url.pathname);
 
 const ogImageSrc = new URL(
   getOgImageUrl(Astro.params?.["slug"], "/open-graph/"),
