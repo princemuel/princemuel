@@ -58,6 +58,6 @@ export const GET: APIRoute = async (ctx) => {
     <generator>${ctx.generator}</generator>
     <ttl>${convertTime(7).mins}</ttl>
     <lastBuildDate>${new Date().toISOString()}</lastBuildDate>`,
-    stylesheet: "/styles.xsl",
+    // stylesheet: "/feed.xsl",
   });
 };

@@ -23,23 +23,6 @@ export const GET: APIRoute = async (ctx) => {
       author: author.data.links.email,
       link: new URL(`/${item.slug}`, baseUrl).toString(),
       commentsUrl: "https://github.com/princemuel/princemuel.com/discussions",
-      enclosure: {
-        url: new URL(item.data.media?.cover?.src || "", baseUrl).toString(),
-        type: `image/${item.data.media?.cover?.format}`,
-        length: 0,
-      },
-      customData: `
-      <media:content
-        url="${new URL(item.data.media?.cover?.src || "", baseUrl).toString()}"
-        type="image/${item.data.media?.cover?.format}"
-        width="${item.data.media?.cover?.width ?? "512"}"
-        height="${item.data.media?.cover?.height ?? "512"}"
-        medium="image"
-      />
-      <media:description type="plain">
-        ${item.data.media?.coverAlt ?? ""}
-      </media:description>
-  `,
     } as RSSFeedItem;
   });
 
@@ -49,6 +32,7 @@ export const GET: APIRoute = async (ctx) => {
       atom: "http://www.w3.org/2005/Atom",
       media: "http://search.yahoo.com/mrss/",
       dc: "http://purl.org/dc/elements/1.1/",
+      itunes: "http://www.itunes.com/dtds/podcast-1.0.dtd",
     },
     title: `${author.data.name}'s Blog RSS Feed`,
     description: `${author.data.name}'s Personal Website scaffolded with Astro. If you subscribe to this RSS feed, you will receive updates and summaries of ${author.data.name}'s new posts`,
@@ -73,6 +57,6 @@ export const GET: APIRoute = async (ctx) => {
     <generator>${ctx.generator}</generator>
     <ttl>${convertTime(7).mins}</ttl>
     <lastBuildDate>${new Date().toISOString()}</lastBuildDate>`,
-    stylesheet: "/static/media/styles.xsl",
+    // stylesheet: "/feed.xsl",
   });
 };

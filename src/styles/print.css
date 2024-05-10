@@ -64,17 +64,4 @@
   iframe {
     display: none;
   }
-
-  #post-share {
-    /* stylelint-disable-next-line declaration-no-important */
-    display: none !important;
-  }
-
-  #related-posts ul {
-    flex-wrap: wrap;
-  }
-
-  #post-contents p > img:only-child {
-    --image-size: 10rem;
-  }
 }
