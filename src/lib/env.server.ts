@@ -1,4 +1,4 @@
-import { isServer } from "@/helpers/utils";
+import { isServer, str_to_bool } from "@/helpers/utils";
 import { createEnv } from "@t3-oss/env-core";
 import { z } from "zod";
 
@@ -12,14 +12,12 @@ export const envVars = createEnv({
     RESEND_AUDIENCE: z.string().min(1),
     RESEND_TOKEN: z.string().min(1),
     OCTOKIT_TOKEN: z.string().min(1),
-    ENABLE_PREVIEW: z
-      .string()
-      .refine((s) => s === "true" || s === "false")
-      .transform((s) => s === "true"),
+    ENABLE_PREVIEW: z.string().transform((v) => str_to_bool(v)),
     UPSTASH_REDIS_REST_URL: z.string().url(),
     UPSTASH_REDIS_REST_TOKEN: z.string().min(1),
     UPSTASH_LIMIT_TOKEN: z.coerce.number(),
     UPSTASH_LIMIT_WINDOW: z.string().min(1),
+    DARK_VISITORS_TOKEN: z.string().min(1),
   },
 
   /**

@@ -11,8 +11,8 @@ const response = await octokit.rest.activity.listPublicEventsForUser({
   per_page: 20,
 });
 
-const githubUrl = (url: string) =>
-  url.replace("api.", "").replace("/repos", "");
+const githubUrl = (url: string | URL) =>
+  url.toString().replace("api.", "").replace("/repos", "");
 
 const commitSchema = z
   .array(

@@ -41,7 +41,7 @@
             aria-labelledby="heading"
             class="mt-16 flex flex-col items-start gap-12"
             >
-            <h1 class="flex items-center gap-2 font-bold text-4xl text-balance">
+            <h1 class="flex items-center gap-4 font-bold text-3xl md:text-4xl text-balance">
               <!-- https://commons.wikimedia.org/wiki/File:Feed-icon.svg -->
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -105,7 +105,7 @@
               </svg>
               <span class="text-inherit">RSS Feed Preview</span>
             </h1>
-            <h2 class="font-bold text-3xl">
+            <h2 class="font-bold text-2xl md:text-3xl">
               <xsl:value-of select="/rss/channel/title"/>
             </h2>
             <p><xsl:value-of select="/rss/channel/description"/></p>
@@ -123,9 +123,15 @@
               
               <div class="flex flex-col items-start gap-7">
                 <xsl:for-each select="/rss/channel/item">
-                  <article aria-posinset='' aria-setsize="-1">
+                  <article aria-setsize="-1">
                     <xsl:attribute name="aria-describedby">
-                      <xsl:value-of select="title"/>
+                      <xsl:value-of select="slug"/>
+                    </xsl:attribute>
+                    <xsl:attribute name="aria-labelledby">
+                      <xsl:value-of select="slug"/>
+                    </xsl:attribute>
+                    <xsl:attribute name="aria-posinset">
+                      <xsl:value-of select="position()"/>
                     </xsl:attribute>
                     
                     <p class="text-sm text-gray-600">
@@ -135,12 +141,12 @@
                     
                     <h3 class="font-bold text-lg">
                       <xsl:attribute name="id">
-                        <xsl:value-of select="title"/>
+                        <xsl:value-of select="slug"/>
                       </xsl:attribute>
                       <a
-                        aria-hidden="true"
                         target="_blank"
                         rel="noopener noreferrer"
+                        aria-hidden=""
                         class="cursor-pointer text-blue-500 hocus:underline hocus:underline-offset-4 hocus:decoration-2 touch-manipulation">
                         <xsl:attribute name="href">
                           <xsl:value-of select="link"/>
@@ -150,16 +156,16 @@
                     </h3>
                     
                     <p class="text-base">
-                      <xsl:value-of select="/rss/channel/description" />
+                      <xsl:value-of select="description" />
                     </p>
                     
                     <footer>
                       <xsl:if test="category">
                         <details>
-                          <summary>Tags</summary>
-                          <ul>
+                          <summary class='text-sm text-gray-600'>Tags</summary>
+                          <ul class='flex items-center gap-2 px-4'>
                             <xsl:for-each select="category">
-                              <li class="tag">
+                              <li class='text-sm text-blue-500'>
                                 <xsl:value-of select="." />
                               </li>
                             </xsl:for-each>

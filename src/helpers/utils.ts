@@ -24,6 +24,8 @@ export const truncate = (str: string, length: number) => {
   return `${str.slice(0, length)}...`;
 };
 
+export const str_to_bool = (value = "false") => JSON.parse(value) as boolean;
+
 export function pluralize<
   C extends number,
   N extends string,

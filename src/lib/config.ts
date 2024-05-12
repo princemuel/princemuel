@@ -8,6 +8,8 @@ export const ENABLE_TRANSITIONS_API = true;
 export const DEFAULT_SITE_THEME = "dark";
 export const ONE_DAY_IN_MS = 1000 * 60 * 60 * 24 * 1;
 export const delimiter = "-";
+export const website_date = new Date("2024-02-01T16:43:29.577Z");
+
 export const homeKeywords = [
   "princemuel",
   "iamprincemuel",
