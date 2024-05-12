@@ -10,14 +10,7 @@ export const contactSchema = z.object({
     .default("general"),
 });
 
-export const subscribeSchema = z.object({
-  firstName: z
-    .string({ required_error: "FirstName is required" })
-    .min(1)
-    .max(255),
-  lastName: z
-    .string({ required_error: "LastName is required" })
-    .min(1)
-    .max(255),
-  email: z.string({ required_error: "Email is required" }).email(),
+export const formSchema = z.object({
+  name: z.string().min(1, { message: "Name is required" }).max(255),
+  email: z.string().email(),
 });

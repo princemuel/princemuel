@@ -1,12 +1,18 @@
 import { errorMap, parseError, raise } from "@/helpers";
 import { resend } from "@/lib/clients";
 import { envVars } from "@/lib/env.server";
-import { subscribeSchema } from "@/schema";
 import type { APIRoute } from "astro";
+import { z } from "zod";
+
+const schema = z.object({
+  firstName: z.string().min(1, { message: "FirstName is required" }).max(255),
+  lastName: z.string().min(1, { message: "LastName is required" }).max(255),
+  email: z.string().email(),
+});
 
 export const POST: APIRoute = async ({ request }) => {
   try {
-    const formData = subscribeSchema.parse(
+    const formData = schema.parse(
       Object.fromEntries(await request.formData()),
       { errorMap },
     );

@@ -83,33 +83,7 @@ const {
         <Header class:list={"text-[#111010]"} />
       </Container>
 
-      <Container>
-        <main class="flex flex-grow flex-col py-8" aria-labelledby="heading">
-          <div class="grid grid-cols-1 gap-6 gap-y-12 lg:grid-cols-4">
-            <section
-              class:list={[
-                "max-w-none py-4 lg:col-span-3",
-                "prose prose-neutral dark:prose-invert",
-                "prose-headings:font-accent prose-headings:font-black",
-              ]}
-            >
-              <slot name="meta" />
-            </section>
-
-            <section class="hidden lg:block">
-              <slot name="profile" />
-            </section>
-
-            <section class="lg:col-span-3">
-              <slot name="main" />
-            </section>
-
-            <section class="relative w-full">
-              <slot name="aside" />
-            </section>
-          </div>
-        </main>
-      </Container>
+      <slot />
 
       <footer>
         <BreakPointIndicator />

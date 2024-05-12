@@ -45,7 +45,7 @@
 
   /** Yield the next theme, looping back to the first after reaching the end. */
   const themeGenerator = (function* () {
-    let index = 0;
+    let index = 1;
     while (true) {
       yield themes[index];
       index = (index + 1) % themes.length;
