@@ -1,9 +1,11 @@
 export { default as AlertBox } from "./alert-box.astro";
+export { default as Analytics } from "./analytics.astro";
 export { default as Button } from "./button.astro";
 export { default as Card } from "./card.astro";
 export { default as CodeSandbox } from "./codesandbox.astro";
 export { default as Container } from "./container.astro";
 export { default as Footer } from "./footer.astro";
+export { default as GithubActivity } from "./github-activity.astro";
 export { default as Header } from "./header.astro";
 export { default as BreakPointIndicator } from "./indicator.astro";
 export { default as Link } from "./link.astro";

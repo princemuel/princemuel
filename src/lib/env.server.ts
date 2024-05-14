@@ -12,7 +12,7 @@ export const envVars = createEnv({
     RESEND_AUDIENCE: z.string().min(1),
     RESEND_TOKEN: z.string().min(1),
     OCTOKIT_TOKEN: z.string().min(1),
-    ENABLE_PREVIEW: z.string().transform((v) => str_to_bool(v)),
+    ENABLE_PREVIEW: z.coerce.string().transform((v) => str_to_bool(v)),
     UPSTASH_REDIS_REST_URL: z.string().url(),
     UPSTASH_REDIS_REST_TOKEN: z.string().min(1),
     UPSTASH_LIMIT_TOKEN: z.coerce.number(),

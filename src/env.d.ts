@@ -14,6 +14,7 @@ declare namespace App {
 
 interface Window {
   ThemeProvider: { updateWidget(theme?: string): void };
+  AnalyticsService: { dispatch(): void };
 }
 interface globalThis {
   __singletons: Map<string, unknown>;
