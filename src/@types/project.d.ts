@@ -6,7 +6,7 @@ type ImageSrc = ImageProps["src"];
 type Meta = {
   title: string;
   description: string;
-  tags?: string[];
+  keywords?: string[];
   jsonld?: any;
   image?: {
     src: string;
@@ -18,7 +18,7 @@ type Meta = {
   updatedAt?: ConstructorParameters<typeof Date>[0] | null;
 };
 type OpenGraph = {
-  type?: "website" | "article";
+  type?: "website" | "article" | "book" | "profile";
 };
 type Twitter = {
   handle?: string;

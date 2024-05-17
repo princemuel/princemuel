@@ -34,6 +34,7 @@ export const GET: APIRoute = async (ctx) => {
     description: `My Personal Website scaffolded with Astro. If you subscribe to this RSS feed, you will receive updates and summaries of my new posts`,
     site: new URL("/", baseUrl),
     items: await Promise.all(results),
+    trailingSlash: true,
     customData: `
     <language>en-us</language>
     <pubDate>${website_date.toUTCString()}</pubDate>

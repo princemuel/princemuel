@@ -1,0 +1,32 @@
+{
+  "name": "Prince Muel's Personal Website",
+  "short_name": "Prince Muel",
+  "description": "My Website's Description",
+  "orientation": "natural",
+  "display_override": ["window-controls-overlay", "fullscreen", "minimal-ui"],
+  "background_color": "#252525",
+  "theme_color": "#0080ff",
+  "protocol_handlers": [
+    {
+      "protocol": "web+princemuel",
+      "url": "/?utm_source=pwa&utm_medium=protocol_handler&utm_campaign=web+princemuel&url=%s"
+    }
+  ],
+  "shortcuts": [],
+  "screenshots": [],
+  "categories": [
+    "princemuel",
+    "princemuel.com",
+    "iamprincemuel",
+    "princemuel_cs",
+    "pHoeniX-svg",
+    "Prince Muel",
+    "Muel",
+    "Samuel Chukwuzube",
+    "Sam Chukwuzube"
+  ],
+  "share_target": {},
+  "handle_links": "auto",
+  "launch_handler": { "client_mode": "navigate-existing" },
+  "edge_side_panel": { "preferred_width": 320 }
+}

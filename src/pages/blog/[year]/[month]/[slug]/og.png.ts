@@ -27,9 +27,10 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 export async function GET({ props }: APIContext<Props>) {
   const entry = props.entry;
 
-  const basePath = path.join(process.cwd(), "public", "static", "media");
-  const fontBase = readFileSync(basePath + "/wotfard-regular-webfont.ttf");
-  const fontMd = readFileSync(basePath + "/wotfard-semibold-webfont.ttf");
+  const basePath = path.join(process.cwd(), "public", "static", "fonts");
+  const fontBase = readFileSync(basePath + "/WotfardRegular.ttf");
+  const fontMedium = readFileSync(basePath + "/WotfardMedium.ttf");
+  const fontSemi = readFileSync(basePath + "/WotfardSemibold.ttf");
 
   const html = {
     type: "div",
@@ -118,7 +119,12 @@ export async function GET({ props }: APIContext<Props>) {
     fonts: [
       {
         name: "Wotfard SemiBold",
-        data: fontMd.buffer,
+        data: fontSemi.buffer,
+        style: "normal",
+      },
+      {
+        name: "Wotfard Medium",
+        data: fontMedium.buffer,
         style: "normal",
       },
       {

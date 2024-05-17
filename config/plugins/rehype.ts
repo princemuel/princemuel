@@ -1,8 +1,8 @@
 import { rehypeHeadingIds } from "@astrojs/markdown-remark";
+import type { RehypePlugins } from "astro";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 
-/** @type {import('astro').RehypePlugins} */
-export const rehypePlugins = [
+export const rehypePlugins: RehypePlugins = [
   rehypeHeadingIds,
   [
     rehypeAutolinkHeadings,

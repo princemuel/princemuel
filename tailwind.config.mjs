@@ -3,8 +3,8 @@ import twScrollbar from "tailwind-scrollbar";
 import twAnimate from "tailwindcss-animate";
 import twDefaultTheme from "tailwindcss/defaultTheme";
 import twPlugin from "tailwindcss/plugin";
-import { createColorsObject } from "./config/themes/colors.mjs";
-import config from "./config/themes/tailwind.json";
+import { createColorsObject } from "./config/data/colors.mjs";
+import config from "./config/data/tailwind.json";
 
 /** @type {import('tailwindcss').Config} */
 export default {
