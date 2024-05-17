@@ -173,6 +173,8 @@ dist-ssr
 ignored
 tmp
 tmp-*
+dev-dist
+
 
 *.pem
 *.ignored.*
