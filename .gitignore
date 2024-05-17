@@ -170,11 +170,11 @@ dist
 # misc
 dist
 dist-ssr
-local
+ignored
 tmp
 tmp-*
 
 *.pem
-*.local.*
+*.ignored.*
 
 styled-system
