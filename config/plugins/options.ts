@@ -7,7 +7,7 @@ import { pluginErrorPreview, pluginFirstWordRed } from "./plugins";
 import { runtime_cache } from "./pwa-caching";
 
 export const ecCodeOptions: AstroExpressiveCodeOptions = {
-  themes: ["vitesse-black"],
+  themes: ["min-dark", "min-light"],
   styleOverrides: {
     borderRadius: "0.2rem",
     frames: { editorActiveTabIndicatorHeight: "2px" },
@@ -44,20 +44,32 @@ const manifest = (async function () {
 
 export const pwaOptions: PwaOptions = {
   registerType: "autoUpdate",
-  minify: true,
-  includeAssets: ["/favicon.svg"],
   experimental: { directoryAndTrailingSlashHandler: true },
-  devOptions: { enabled: true, suppressWarnings: true, type: "module" },
+  devOptions: {
+    enabled: false,
+    navigateFallbackAllowlist: [/^\//],
+    suppressWarnings: true,
+    type: "module",
+  },
+  useCredentials: true,
   manifest: await manifest,
   pwaAssets: { config: true },
   workbox: {
-    maximumFileSizeToCacheInBytes: 1024 * 2048,
     cleanupOutdatedCaches: true,
-    clientsClaim: true,
-    skipWaiting: true,
+    maximumFileSizeToCacheInBytes: 3 * 1024 * 1024,
+    clientsClaim: false,
+    skipWaiting: false,
+    navigationPreload: true,
     navigateFallback: "/offline",
-    navigateFallbackDenylist: [/\.(?:png|gif|jpg|jpeg|avif|webp|svg|ico)$/iu],
-    directoryIndex: "index.html",
+    navigateFallbackAllowlist: [/^\/[^/]+(\/|$)/i],
+    navigateFallbackDenylist: [
+      /\.(?:png|gif|jpg|jpeg|webp|avif|svg|ico)$/iu,
+      /\.(?:ttf|otf|woff|woff2)$/iu,
+      /\.(?:css|js)$/iu,
+      /^\/api\//iu,
+      /\/sw\.js$/iu,
+      /\.(?:pdf|mp4|webm|ogg|mp3|wav)$/iu,
+    ],
     runtimeCaching: runtime_cache,
   },
 };

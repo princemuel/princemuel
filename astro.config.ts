@@ -17,6 +17,7 @@ export default defineConfig({
     webAnalytics: { enabled: envVars.NODE_ENV === "production" },
     isr: { expiration: 60 * 60 * 24 * 1.2 },
   }),
+  vite: { define: { __BUILD_DATE__: `'${new Date().toISOString()}'` } },
   experimental: {
     globalRoutePriority: true,
     contentCollectionCache: true,
