@@ -37,10 +37,10 @@ export function pluralize<
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 type EndsWith<W, S extends string> = W extends `${infer _}${S}` ? W : never;
 
-export const endsWith = <Word extends string, Suffix extends string>(
-  str: Word,
-  suffix: Suffix,
-): str is EndsWith<Word, Suffix> => {
+export const endsWith = <W extends string, S extends string>(
+  str: W,
+  suffix: S,
+): str is EndsWith<W, S> => {
   return str.endsWith(suffix);
 };
 
@@ -59,12 +59,12 @@ export function approximate(num = 0, fractionDigits = 2) {
  * @param {number} [defaultValue=0] - The default value to be returned if parsing fails.
  * @returns {number} The parsed number or the default value.
  */
-export const numberGuard = (value: any, defaultValue: number = 0): number => {
+export const number_guard = (value: any, defaultValue: number = 0): number => {
   const parsed = Number(value);
   return Number.isNaN(parsed) || Object.is(parsed, -0) ? defaultValue : parsed;
 };
 
-export function formatNumber(num: number, digits?: number | undefined) {
+export function format_num(num: number, digits?: number | undefined) {
   if (!num) return "0";
 
   const LOOKUP = [

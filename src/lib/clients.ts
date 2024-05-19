@@ -10,11 +10,7 @@ import { envVars } from "./env.server";
 export const octokit = new Octokit({ auth: envVars.OCTOKIT_TOKEN });
 export const resend = new Resend(envVars.RESEND_TOKEN);
 
-export const db = singleton("__db__", () => {
-  const client = new PrismaClient();
-  client.$connect();
-  return client;
-});
+export const db = singleton("__db__", () => new PrismaClient());
 
 export const redis = new Redis({
   url: envVars.UPSTASH_REDIS_REST_URL,

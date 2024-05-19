@@ -85,31 +85,6 @@ export const defaultKeywords = [
   "UI/UX",
 ];
 
-export const recentPostsLimit = 4;
-
-export const heroImages = [
-  {
-    jpg: "/static/images/hero-image-1.jpg",
-    webp: "/static/images/hero-image-1.webp",
-  },
-  {
-    jpg: "/static/images/hero-image-2.jpg",
-    webp: "/static/images/hero-image-2.webp",
-  },
-  {
-    jpg: "/static/images/hero-image-3.jpg",
-    webp: "/static/images/hero-image-3.webp",
-  },
-  {
-    jpg: "/static/images/hero-image-4.jpg",
-    webp: "/static/images/hero-image-4.webp",
-  },
-  {
-    jpg: "/static/images/hero-image-5.jpg",
-    webp: "/static/images/hero-image-5.webp",
-  },
-];
-
 export type NewsletterFormInput = {
   email: string;
   first_name?: string;
