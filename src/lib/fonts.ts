@@ -7,19 +7,25 @@ export const fontSans = {
   basePath: "./public",
   src: [
     {
+      path: "./public/fonts/WotfardSemiBold.ttf",
       weight: "600",
       style: "normal",
-      path: "./public/static/fonts/WotfardSemiBold.ttf",
+      css: {
+        "font-feature-settings": "normal",
+      },
     },
     {
+      path: "./public/fonts/WotfardMedium.ttf",
       weight: "500",
       style: "normal",
-      path: "./public/static/fonts/WotfardMedium.ttf",
+      css: {
+        "font-feature-settings": "normal",
+      },
     },
     {
+      path: "./public/fonts/WotfardRegular.ttf",
       weight: "400",
       style: "normal",
-      path: "./public/static/fonts/WotfardRegular.ttf",
       css: {
         "font-feature-settings": "normal",
       },
@@ -38,14 +44,15 @@ export const fontMono = {
   basePath: "./public",
   src: [
     {
-      weight: "400",
+      path: "./public/fonts/JetBrainsMonoItalic.woff2",
       style: "italic",
-      path: "./public/static/fonts/MonoLisaVariableItalic.woff2",
+      css: {
+        "font-feature-settings": "normal",
+      },
     },
     {
-      weight: "400",
+      path: "./public/fonts/JetBrainsMonoNormal.woff2",
       style: "normal",
-      path: "./public/static/fonts/MonoLisaVariableNormal.woff2",
       css: {
         "font-feature-settings": "normal",
       },
@@ -64,8 +71,8 @@ export const fontAccent = {
   basePath: "./public",
   src: [
     {
+      path: "./public/fonts/Inconsolata.ttf",
       style: "normal",
-      path: "./public/static/fonts/Inconsolata.ttf",
       css: {
         "font-feature-settings": "normal",
       },

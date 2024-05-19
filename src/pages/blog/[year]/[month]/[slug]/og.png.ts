@@ -27,7 +27,7 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 export async function GET({ props }: APIContext<Props>) {
   const entry = props.entry;
 
-  const basePath = path.join(process.cwd(), "public", "static", "fonts");
+  const basePath = path.join(process.cwd(), "public", "fonts");
   const fontBase = readFileSync(basePath + "/WotfardRegular.ttf");
   const fontMedium = readFileSync(basePath + "/WotfardMedium.ttf");
   const fontSemi = readFileSync(basePath + "/WotfardSemibold.ttf");
