@@ -4,7 +4,7 @@
   font-display: swap;
   src:
     local("Nunito"),
-    url(/fonts/Nunito.ttf) format("truetype");
+    url(/static/fonts/Nunito.ttf) format("truetype");
 }
 @font-face {
   font-family: "__FontSans_Fallback";
