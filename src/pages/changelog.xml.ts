@@ -1,5 +1,5 @@
 import { convertTime } from "@/helpers";
-import { website_date } from "@/lib/config";
+import { published_date } from "@/lib/config";
 import rss, { type RSSFeedItem } from "@astrojs/rss";
 import type { APIRoute } from "astro";
 import { getCollection, getEntry } from "astro:content";
@@ -36,7 +36,7 @@ export const GET: APIRoute = async (ctx) => {
     trailingSlash: true,
     customData: `
     <language>en-us</language>
-    <pubDate>${website_date.toUTCString()}</pubDate>
+    <pubDate>${published_date.toUTCString()}</pubDate>
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
     <docs>${new URL("rss-specification", "https://www.rssboard.org/")}</docs>
     <generator>${ctx.generator}</generator>

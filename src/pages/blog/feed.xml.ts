@@ -1,9 +1,9 @@
 import { convertTime } from "@/helpers";
-import { website_date } from "@/lib/config";
+import { published_date } from "@/lib/config";
 import { fetchResource } from "@/lib/utils";
 import rss, { type RSSFeedItem } from "@astrojs/rss";
 import type { APIRoute } from "astro";
-import { getEntry } from "astro:content";
+import { getEntries, getEntry } from "astro:content";
 
 export const GET: APIRoute = async (ctx) => {
   const baseUrl = new URL("/", ctx.site).toString();
@@ -15,10 +15,12 @@ export const GET: APIRoute = async (ctx) => {
   const results = (collection ?? []).map(async (item) => {
     const author = await getEntry(item.data.author);
 
+    const keywords = await getEntries(item.data.keywords);
+
     return {
       title: item.data.title,
       description: item.data.description,
-      categories: item.data.tags,
+      categories: keywords.map((item) => item.data.name),
       pubDate: item.data.publishedAt,
       author: `${author.data.links.email} (${author.data.name})`,
       link: new URL(`/blog/${item.slug}`, baseUrl).toString(),
@@ -37,7 +39,7 @@ export const GET: APIRoute = async (ctx) => {
     trailingSlash: true,
     customData: `
     <language>en-us</language>
-    <pubDate>${website_date.toUTCString()}</pubDate>
+    <pubDate>${published_date.toUTCString()}</pubDate>
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
     <docs>${new URL("rss-specification", "https://www.rssboard.org/")}</docs>
     <generator>${ctx.generator}</generator>

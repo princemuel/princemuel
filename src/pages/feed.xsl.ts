@@ -17,7 +17,6 @@ export const GET: APIRoute = () => {
     status: 200,
     headers: {
       "Content-Type": "application/xml; charset=UTF-8",
-      "Content-Disposition": 'inline; filename="feed.xsl"',
       "X-Content-Type-Options": "nosniff",
     },
   });
