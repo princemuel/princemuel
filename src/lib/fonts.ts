@@ -1,8 +1,9 @@
-import type { Props as AstroFontProps } from "node_modules/astro-font/dist/utils";
+import type { AstroFont } from "astro-font";
+import type { ComponentProps } from "astro/types";
 
-type FontConfig = AstroFontProps["config"][0];
+type FontConfig = ComponentProps<typeof AstroFont>["config"][0];
 
-export const fontSans = {
+export const fontSans: FontConfig = {
   name: "__FontSans",
   basePath: "./public",
   src: [
@@ -39,7 +40,7 @@ export const fontSans = {
   cssVariable: "font-sans",
 } satisfies FontConfig;
 
-export const fontMono = {
+export const fontMono: FontConfig = {
   name: "__FontMono",
   basePath: "./public",
   src: [
@@ -66,7 +67,7 @@ export const fontMono = {
   cssVariable: "font-mono",
 } satisfies FontConfig;
 
-export const fontAccent = {
+export const fontAccent: FontConfig = {
   name: "__FontAccent",
   basePath: "./public",
   src: [

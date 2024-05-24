@@ -23,5 +23,5 @@ export default defineConfig({
       ['iPad Air 9.7"'],
     ),
   },
-  images: "public/favicons/favicon.svg",
+  images: "public/static/favicons/favicon.svg",
 });

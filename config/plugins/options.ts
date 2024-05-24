@@ -3,11 +3,17 @@ import { pluginCollapsibleSections } from "@expressive-code/plugin-collapsible-s
 import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
 import type { PwaOptions } from "@vite-pwa/astro";
 import type { AstroExpressiveCodeOptions } from "astro-expressive-code";
+import { cachePreset } from "./cache";
+import type { TIconOptions } from "./integrations";
 import { pluginErrorPreview, pluginFirstWordRed } from "./plugins";
-import { runtime_cache } from "./pwa-caching";
 
-export const ecCodeOptions: AstroExpressiveCodeOptions = {
-  themes: ["min-dark", "min-light"],
+export const IconOptions: TIconOptions = {
+  iconDir: "src/assets/icons",
+  include: { lucide: ["*"], logos: ["*"] },
+};
+
+export const CodeOptions: AstroExpressiveCodeOptions = {
+  themes: ["vitesse-dark", "vitesse-light"],
   styleOverrides: {
     borderRadius: "0.2rem",
     frames: { editorActiveTabIndicatorHeight: "2px" },
@@ -42,34 +48,30 @@ const manifest = (async function () {
   }
 })();
 
-export const pwaOptions: PwaOptions = {
+export const PWAOptions: PwaOptions = {
   registerType: "autoUpdate",
   experimental: { directoryAndTrailingSlashHandler: true },
-  devOptions: {
-    enabled: false,
-    navigateFallbackAllowlist: [/^\//],
-    suppressWarnings: true,
-    type: "module",
-  },
+  // selfDestroying: true,
+  devOptions: { enabled: true, suppressWarnings: true },
   useCredentials: true,
   manifest: await manifest,
   pwaAssets: { config: true },
   workbox: {
     cleanupOutdatedCaches: true,
-    maximumFileSizeToCacheInBytes: 3 * 1024 * 1024,
-    clientsClaim: false,
-    skipWaiting: false,
+    offlineGoogleAnalytics: true,
     navigationPreload: true,
     navigateFallback: "/offline",
-    navigateFallbackAllowlist: [/^\/[^/]+(\/|$)/i],
+    globPatterns: [
+      "**/*.{html,js,css,png,jpg,jpeg,svg,ico,woff,woff2,ttf,eot}",
+    ],
+    navigateFallbackAllowlist: [/^\/api\/v\d+\/.*$/iu],
     navigateFallbackDenylist: [
       /\.(?:png|gif|jpg|jpeg|webp|avif|svg|ico)$/iu,
       /\.(?:ttf|otf|woff|woff2)$/iu,
       /\.(?:css|js)$/iu,
-      /^\/api\//iu,
       /\/sw\.js$/iu,
       /\.(?:pdf|mp4|webm|ogg|mp3|wav)$/iu,
     ],
-    runtimeCaching: runtime_cache,
+    runtimeCaching: cachePreset,
   },
 };

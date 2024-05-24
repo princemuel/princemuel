@@ -1,3 +1,4 @@
+import AvatarImage from "@/assets/images/forrest-gump-quote.webp";
 import { fetchResource } from "@/lib/utils";
 import { ImageResponse } from "@vercel/og";
 import type {
@@ -5,10 +6,9 @@ import type {
   GetStaticPaths,
   InferGetStaticPropsType,
 } from "astro";
-import { readFileSync } from "node:fs";
-import path from "node:path";
-// import type { getStaticPaths } from "./index.astro";
-
+import { readFile } from "node:fs/promises";
+import { join, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 // export const prerender = false;
 
 export const getStaticPaths = (async () => {
@@ -27,10 +27,26 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 export async function GET({ props }: APIContext<Props>) {
   const entry = props.entry;
 
-  const basePath = path.join(process.cwd(), "public", "fonts");
-  const fontBase = readFileSync(basePath + "/WotfardRegular.ttf");
-  const fontMedium = readFileSync(basePath + "/WotfardMedium.ttf");
-  const fontSemi = readFileSync(basePath + "/WotfardSemibold.ttf");
+  const image_src = entry.data.media?.cover
+    ? entry.data.media.cover.src
+    : AvatarImage.src;
+
+  const image_path = import.meta.env.DEV
+    ? resolve(image_src.replace(/\?.*/, "").replace("/@fs", ""))
+    : resolve(image_src.replace("/", "dist/"));
+
+  console.log(image_path);
+
+  const basePath = fileURLToPath(
+    new URL("../../../../../../public/static/fonts", import.meta.url),
+  );
+
+  const [fontBase, fontMedium, fontSemi, _] = await Promise.all([
+    readFile(join(basePath, "WotfardRegular.ttf")),
+    readFile(join(basePath, "WotfardMedium.ttf")),
+    readFile(join(basePath, "WotfardSemiBold.ttf")),
+    readFile(image_path),
+  ]);
 
   const html = {
     type: "div",

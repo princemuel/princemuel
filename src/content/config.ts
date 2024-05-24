@@ -1,9 +1,4 @@
-import {
-  baseSchema,
-  MediaObject,
-  ResourceBasePath,
-  ResourceDateTime,
-} from "@/schema";
+import { baseSchema, MediaObject } from "@/schema";
 import { defineCollection, reference, z } from "astro:content";
 
 // const projectCollection = defineCollection({
@@ -21,11 +16,21 @@ const blogCollection = defineCollection({
   type: "content",
   schema: ({ image }) =>
     baseSchema.extend({
-      base: ResourceBasePath("blog"),
+      keywords: z.array(reference("keywords")).default([]),
       media: MediaObject(image).optional(),
       language: z.enum(["en", "es", "fr"]).default("en"),
       others: z.array(reference("blog")).optional(),
     }),
+});
+
+const categoryCollection = defineCollection({
+  type: "data",
+  schema: z.object({ name: z.string().min(1) }),
+});
+
+const keywordCollection = defineCollection({
+  type: "data",
+  schema: z.object({ name: z.string().min(1) }),
 });
 
 const routeCollection = defineCollection({
@@ -34,7 +39,7 @@ const routeCollection = defineCollection({
     text: z.string().min(1),
     href: z.string().min(1),
     icon: z.string().min(1),
-    order: z.number().int().nonnegative().safe().default(0),
+    order: z.number().int().nonnegative().safe().finite().default(0),
   }),
 });
 
@@ -46,6 +51,15 @@ const stackCollection = defineCollection({
   }),
 });
 
+const toolCollection = defineCollection({
+  type: "data",
+  schema: z.object({
+    name: z.string().min(1),
+    url: z.string().url(),
+    icon: z.string().optional(),
+  }),
+});
+
 const changelogCollection = defineCollection({
   type: "content",
   schema: z.object({
@@ -53,8 +67,8 @@ const changelogCollection = defineCollection({
     description: z.string().min(2),
     author: reference("authors"),
     version: z.string().min(1),
-    publishedAt: ResourceDateTime,
-    updatedAt: ResourceDateTime.optional(),
+    publishedAt: z.coerce.date(),
+    updatedAt: z.coerce.date().optional(),
   }),
 });
 
@@ -98,6 +112,9 @@ export const collections = {
   social: socialCollection,
   routes: routeCollection,
   stacks: stackCollection,
+  tools: toolCollection,
+  keywords: keywordCollection,
   changelog: changelogCollection,
   publications: publicationCollection,
+  categories: categoryCollection,
 };
