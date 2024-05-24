@@ -59,6 +59,9 @@ bower_components
 # Compiled binary addons (https://nodejs.org/api/addons.html)
 build/Release
 
+# Compiled Rust Directory
+target
+
 # Dependency directories
 node_modules/
 jspm_packages/

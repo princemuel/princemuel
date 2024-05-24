@@ -110,10 +110,6 @@ export default {
       addVariant("optional", "&:optional");
       addVariant("hocus", ["&:hover", "&:focus"]);
       addVariant("inverted-colors", "@media (inverted-colors: inverted)");
-      // addVariant(
-      //   "prose-inline-code",
-      //   '&.prose :where(:not(pre)>code):not(:where([class~="not-prose"] *))',
-      // );
 
       matchUtilities({
         "fluid-cols": (value) => ({
@@ -137,6 +133,7 @@ export default {
       });
       addUtilities({
         ".full-w-bg": {
+          backgroundColor: "currentColor",
           boxShadow: "0 0 0 100vmax currentColor, 0 0 2rem currentColor",
           clipPath: "inset(0 -100vmax)",
         },

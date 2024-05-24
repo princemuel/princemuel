@@ -7,7 +7,6 @@ type Meta = {
   title: string;
   description: string;
   keywords?: string[];
-  jsonld?: any;
   image?: {
     src: string;
     alt: string;

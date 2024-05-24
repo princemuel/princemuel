@@ -1,6 +1,5 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "version": 2,
   "trailingSlash": true,
   "cleanUrls": true,
   "outputDirectory": null,
@@ -10,7 +9,7 @@
       "headers": [
         {
           "key": "Cache-Control",
-          "value": "public, max-age=0, must-revalidate"
+          "value": "public, max-age=86400, must-revalidate"
         }
       ]
     },
@@ -26,50 +25,44 @@
     {
       "source": "/manifest.webmanifest",
       "headers": [
+        { "key": "Content-Type", "value": "application/manifest+json" },
         {
-          "key": "Content-Type",
-          "value": "application/manifest+json"
+          "key": "Cache-Control",
+          "value": "public, max-age=7776000, immutable"
         }
       ]
     },
     {
-      "source": "/assets/(.*)",
+      "source": "/_astro/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=604800, immutable" }
+      ]
+    },
+    {
+      "source": "/static/(.*)",
       "headers": [
         {
           "key": "Cache-Control",
-          "value": "max-age=31536000, immutable"
+          "value": "public, max-age=7776000, immutable"
         }
       ]
     },
     {
       "source": "/(.*)",
       "headers": [
-        {
-          "key": "X-Content-Type-Options",
-          "value": "nosniff"
-        },
-        {
-          "key": "X-Frame-Options",
-          "value": "DENY"
-        },
-        {
-          "key": "X-XSS-Protection",
-          "value": "1; mode=block"
-        }
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "X-XSS-Protection", "value": "1; mode=block" }
       ]
     }
   ],
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
-  ],
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }],
   "redirects": [
-    {
-      "source": "/twitter/",
-      "destination": "https://x.com/iamprincemuel"
-    },
+    { "source": "/404", "destination": "/404.html", "statusCode": 404 },
+    { "source": "/offline", "destination": "/offline.html", "statusCode": 200 },
+    { "source": "/twitter/", "destination": "https://x.com/iamprincemuel" },
+    { "source": "/youtube/", "destination": "https://youtube.com/@princemuel" },
+    { "source": "/github/", "destination": "https://github.com/princemuel" },
     {
       "source": "/chat/",
       "destination": "https://discordapp.com/users/738221142229385297"
@@ -77,14 +70,6 @@
     {
       "source": "/linkedin/",
       "destination": "https://www.linkedin.com/in/princemuel"
-    },
-    {
-      "source": "/youtube/",
-      "destination": "https://youtube.com/@princemuel"
-    },
-    {
-      "source": "/github/",
-      "destination": "https://github.com/princemuel"
     },
     {
       "source": "/sponsor-me/",
