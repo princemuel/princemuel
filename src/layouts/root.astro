@@ -1,12 +1,13 @@
 ---
 import {
   BreakPointIndicator,
-  Container,
   Header,
   ThemeProvider,
-  Analytics,
+  Footer,
 } from "@/components/astro";
+import SkipLink from "@/components/astro/skip-link.astro";
 import RouterHead from "@/components/head.astro";
+import { Analytics } from "@/components/web";
 import { tw } from "@/helpers";
 import SpeedInsights from "@vercel/speed-insights/astro";
 
@@ -15,12 +16,10 @@ type Props = Meta & {
   className?: string;
 };
 
-const isProduction = import.meta.env.MODE === "production";
-
 const {
   title,
   image,
-  tags,
+  keywords,
   type,
   canonical,
   description,
@@ -38,9 +37,11 @@ const {
     "scrollbar scrollbar-w-1 scrollbar-h-6",
     "scrollbar-track-rounded-full scrollbar-thumb-rounded-full scrollbar-corner-rounded-full",
     "scrollbar-track-teal-300 scrollbar-thumb-teal-700 scrollbar-corner-teal-500",
+    "selection:bg-teal-300 selection:text-teal-900",
+    "scroll-smooth",
   ])}
   data-theme="dark"
-  data-reader-theme="vitesse-black"
+  data-reader-theme="material-theme-ocean"
 >
   <head>
     <meta charset="utf-8" />
@@ -51,49 +52,36 @@ const {
       description={description}
       image={image}
       og={{ type }}
-      tags={tags}
+      keywords={keywords}
       publishedAt={publishedAt}
       updatedAt={updatedAt}
       canonical={canonical}
     />
     <ThemeProvider />
+    {import.meta.env.PROD && <SpeedInsights />}
+    {import.meta.env.PROD && <Analytics />}
     <slot name="head" />
-    {/* <script src="/src/scripts/pwa.ts"></script> */}
-
-    {isProduction ? <SpeedInsights /> : null}
-    {isProduction ? <Analytics /> : null}
+    <slot name="structured-data" />
   </head>
 
   <body
-    class={tw([
-      "relative font-sans font-normal antialiased ",
-      // "bg-yellow-50 dark:bg-black",
-      // "bg-neutral-100 dark:bg-neutral-950",
-      // "bg-neutral-950",
-      "bg-neutral-50 dark:bg-[color:#131127]",
-      // "bg-yellow-50 dark:bg-black",
-      // "bg-white dark:bg-black",
-      // "bg-white dark:bg-stone-950",
-
-      // "bg-gradient-to-br from-white from-10% via-yellow-100 via-30% to-blue-200 to-90%",
-      // "dark:from-black dark:from-0% dark:via-black dark:via-50% dark:to-black dark:to-100%",
-    ])}
+    class:list={[
+      "relative font-sans font-normal antialiased",
+      "bg-slate-50 dark:bg-[#080b16]",
+      // "bg-white/90 dark:bg-[hsl(227.1_46.7%_5.9%)]",
+    ]}
   >
-    <div class="min-h-screen">
-      <Container class="py-6">
-        <Header class:list={"text-[#111010]"} />
-      </Container>
-
+    <SkipLink />
+    <div class="grid min-h-screen grid-rows-[auto_1fr_auto]">
+      <Header />
       <slot />
-
-      <footer>
-        <BreakPointIndicator />
-      </footer>
+      <Footer />
     </div>
 
     <script>
       import cssHasPseudo from "css-has-pseudo/browser";
       cssHasPseudo(document);
     </script>
+    <BreakPointIndicator />
   </body>
 </html>
