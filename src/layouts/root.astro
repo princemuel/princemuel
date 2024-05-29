@@ -1,9 +1,13 @@
 ---
-import { BreakPointIndicator, Container, Header, ThemeProvider } from "@/components/astro";
+import {
+  BreakPointIndicator,
+  Header,
+  ThemeProvider,
+  Footer,
+} from "@/components/astro";
+import SkipLink from "@/components/astro/skip-link.astro";
 import RouterHead from "@/components/head.astro";
-import { fontAccent, fontMono, fontSans } from "@/lib/fonts";
-import { AstroFont as Fonts } from "astro-font";
-import { ViewTransitions } from "astro:transitions";
+import { Analytics } from "@/components/web";
 import { tw } from "@/helpers";
 import SpeedInsights from "@vercel/speed-insights/astro";
 
@@ -12,7 +16,16 @@ type Props = Meta & {
   className?: string;
 };
 
-const { title, image, tags, type, canonical, description, publishedAt, updatedAt } = Astro.props;
+const {
+  title,
+  image,
+  keywords,
+  type,
+  canonical,
+  description,
+  publishedAt,
+  updatedAt,
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -24,9 +37,11 @@ const { title, image, tags, type, canonical, description, publishedAt, updatedAt
     "scrollbar scrollbar-w-1 scrollbar-h-6",
     "scrollbar-track-rounded-full scrollbar-thumb-rounded-full scrollbar-corner-rounded-full",
     "scrollbar-track-teal-300 scrollbar-thumb-teal-700 scrollbar-corner-teal-500",
+    "selection:bg-teal-300 selection:text-teal-900",
+    "scroll-smooth",
   ])}
   data-theme="dark"
-  data-reader-theme="vitesse-black"
+  data-reader-theme="material-theme-ocean"
 >
   <head>
     <meta charset="utf-8" />
@@ -37,74 +52,36 @@ const { title, image, tags, type, canonical, description, publishedAt, updatedAt
       description={description}
       image={image}
       og={{ type }}
-      tags={tags}
+      keywords={keywords}
       publishedAt={publishedAt}
       updatedAt={updatedAt}
       canonical={canonical}
     />
     <ThemeProvider />
-    <Fonts config={[fontSans, fontMono, fontAccent]} />
+    {import.meta.env.PROD && <SpeedInsights />}
+    {import.meta.env.PROD && <Analytics />}
     <slot name="head" />
-    <!-- <script src="/src/scripts/pwa.ts"></script> -->
-    <ViewTransitions />
-    {import.meta.env.MODE === "production" ? <SpeedInsights /> : null}
+    <slot name="structured-data" />
   </head>
 
   <body
-    class={tw([
-      "relative font-sans font-normal antialiased ",
-      // "bg-yellow-50 dark:bg-black",
-      // "bg-neutral-100 dark:bg-neutral-950",
-      "bg-neutral-950",
-      // "bg-yellow-50 dark:bg-black",
-      // "bg-white dark:bg-black",
-      // "bg-white dark:bg-stone-950",
-
-      // "bg-gradient-to-br from-white from-10% via-yellow-100 via-30% to-blue-200 to-90%",
-      // "dark:from-black dark:from-0% dark:via-black dark:via-50% dark:to-black dark:to-100%",
-    ])}
+    class:list={[
+      "relative font-sans font-normal antialiased",
+      "bg-slate-50 dark:bg-[#080b16]",
+      // "bg-white/90 dark:bg-[hsl(227.1_46.7%_5.9%)]",
+    ]}
   >
-    <div class="min-h-screen">
-      <Container class="py-6">
-        <Header class:list={"text-[#111010]"} />
-      </Container>
-
-      <Container>
-        <main class="flex flex-grow flex-col py-8" aria-labelledby="heading">
-          <div class="grid grid-cols-1 gap-6 gap-y-12 lg:grid-cols-4">
-            <section
-              class:list={[
-                "max-w-none py-4 lg:col-span-3",
-                "prose prose-neutral dark:prose-invert",
-                "prose-headings:font-accent prose-headings:font-black",
-              ]}
-            >
-              <slot name="meta" />
-            </section>
-
-            <section class="hidden lg:block">
-              <slot name="profile" />
-            </section>
-
-            <section class="lg:col-span-3">
-              <slot name="main" />
-            </section>
-
-            <section class="relative w-full">
-              <slot name="aside" />
-            </section>
-          </div>
-        </main>
-      </Container>
-
-      <footer>
-        <BreakPointIndicator />
-      </footer>
+    <SkipLink />
+    <div class="grid min-h-screen grid-rows-[auto_1fr_auto]">
+      <Header />
+      <slot />
+      <Footer />
     </div>
 
     <script>
       import cssHasPseudo from "css-has-pseudo/browser";
       cssHasPseudo(document);
     </script>
+    <BreakPointIndicator />
   </body>
 </html>

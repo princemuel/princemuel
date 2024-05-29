@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Enable readline for path auto-completion
 if [ -f /etc/bash_completion ]; then

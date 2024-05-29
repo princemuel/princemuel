@@ -1,4 +1,4 @@
-platform: github
+order: 1
 href: https://github.com/princemuel
 text: Check out my projects on GitHub
-icon: /github.svg
+icon: mdi:github

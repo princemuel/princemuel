@@ -1,0 +1,90 @@
+---
+import AvatarImage from "@/assets/images/placeholder.avif";
+import { Article } from "@/components/astro";
+import ProfileLayout from "@/layouts/about-me.astro";
+import { published_date, remove_key, urlize } from "@/lib/config";
+import { profile_ld } from "@/schema/structured-data";
+import type {
+  BreadcrumbList,
+  Graph,
+  ImageObject,
+  ProfilePage,
+  WithContext,
+} from "schema-dts";
+
+const page_ld = {
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "@id": urlize("/about-me").toString(),
+  url: urlize("/about-me").toString(),
+  name: "Prince Muel - Frontend Engineer, Educator, Musician",
+  description: "",
+  isPartOf: { "@id": urlize("/about-me").toString() },
+  primaryImageOfPage: {
+    "@id": urlize(AvatarImage.src).toString(),
+  },
+  image: { "@id": urlize(AvatarImage.src).toString() },
+  thumbnailUrl: urlize(AvatarImage.src).toString(),
+  datePublished: published_date.toISOString(),
+  dateModified: new Date().toISOString(),
+  breadcrumb: { "@id": urlize("/about-me#breadcrumb").toString() },
+  inLanguage: "en-US",
+  potentialAction: [
+    {
+      "@type": "ReadAction",
+      target: [urlize("/about-me").toString()],
+    },
+  ],
+} satisfies WithContext<ProfilePage>;
+
+const image_ld = {
+  "@context": "https://schema.org",
+  "@type": "ImageObject",
+  "@id": urlize(AvatarImage.src).toString(),
+  url: urlize(AvatarImage.src).toString(),
+  width: "1200",
+  height: "630",
+} satisfies WithContext<ImageObject>;
+
+const breadcrumb_ld = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "@id": urlize(`/about-me/#breadcrumb`).toString(),
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home - Prince Muel",
+      item: urlize("/").toString(),
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Prince Muel - Frontend Engineer, Educator, Musician",
+      item: urlize("/about-me").toString(),
+    },
+  ],
+} as WithContext<BreadcrumbList>;
+
+const jsonld = {
+  "@context": "https://schema.org",
+  "@graph": remove_key(
+    [page_ld, image_ld, breadcrumb_ld, profile_ld],
+    "@context",
+  ),
+} satisfies Graph;
+---
+
+<ProfileLayout
+  title="Prince Muel - Frontend Engineer, Educator, Musician"
+  description=""
+>
+  <script
+    is:inline
+    type="application/ld+json"
+    slot="structured-data"
+    set:html={JSON.stringify(jsonld)}
+  />
+
+  <Article>HI</Article>
+</ProfileLayout>

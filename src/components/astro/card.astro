@@ -2,14 +2,15 @@
 import { tw } from "@/helpers";
 import { ONE_DAY_IN_MS } from "@/lib/config";
 import type { HTMLAttributes } from "astro/types";
-import { Image } from "astro:assets";
+import { Picture } from "astro:assets";
 import Link from "./link.astro";
 import TechIcon from "./tech-stack-icon.astro";
 import Time from "./time.astro";
 
 type Props = Prettify<HTMLAttributes<"article"> & InternalProps>;
 
-type InternalProps = Omit<Meta, ""> & {
+type InternalProps = Omit<Meta, "keywords"> & {
+  tags?: string[];
   platform?: {
     name: string;
     image?: string;
@@ -37,10 +38,6 @@ const latest = (value?: typeof publishedAt) => {
   const difference = new Date().getTime() - new Date(value).getTime();
   return difference / ONE_DAY_IN_MS < 30;
 };
-
-// const response = await import("@/assets/forrest-gump-quote.webp");
-
-// console.log(response.default);
 ---
 
 <article
@@ -55,15 +52,28 @@ const latest = (value?: typeof publishedAt) => {
   <div class="relative overflow-hidden">
     <Link
       href={`/${basePath}/${href}`}
-      class={tw(["flex flex-col items-center gap-3 md:flex-row md:gap-6", "rounded border border-white/60 p-4"])}
+      class={tw([
+        "flex flex-col items-center gap-3 md:flex-row md:gap-6",
+        "rounded border border-white/60 p-4",
+      ])}
     >
       <em
         data-latest={`${latest(publishedAt)}`}
-        class="absolute right-8 top-4 hidden size-8 w-full translate-x-1/2 rotate-45 transform items-center justify-center bg-brand-400 text-center font-semibold uppercase text-white shadow-lg data-[latest=true]:flex"
+        class="bg-brand-400 absolute right-8 top-4 hidden size-8 w-full translate-x-1/2 rotate-45 transform items-center justify-center text-center font-semibold uppercase text-white shadow-lg data-[latest=true]:flex"
       >
         New
       </em>
-      {image && <Image src={image.src} width={576} height={324} alt={image.alt} class={"w-full md:w-1/2"} />}
+      {
+        image && (
+          <Picture
+            src={image.src}
+            width={576}
+            height={324}
+            alt={image.alt}
+            class={"w-full md:w-1/2"}
+          />
+        )
+      }
       <div class="flex flex-col gap-2">
         <span class="flex flex-col gap-2 sm:flex-row sm:items-center">
           {
@@ -71,8 +81,15 @@ const latest = (value?: typeof publishedAt) => {
               <>
                 {platform.image && (
                   <div class="flex items-center gap-2">
-                    <Image src={platform.image} width="24" height="24" alt={platform.name} />
-                    <small class="text-xs text-brand-500">{platform.name}</small>
+                    <Picture
+                      src={platform.image}
+                      width="24"
+                      height="24"
+                      alt={platform.name}
+                    />
+                    <small class="text-brand-500 text-xs">
+                      {platform.name}
+                    </small>
                   </div>
                 )}
                 <span class="hidden sm:inline-block">&bull;</span>
@@ -80,14 +97,15 @@ const latest = (value?: typeof publishedAt) => {
             )
           }
         </span>
-        <Time class="text-xs font-bold text-brand-500" />
+        <Time class="text-brand-500 text-xs font-bold" />
         <h3 class="text-xl text-white">{title}</h3>
         <p class="text-sm font-light">
           {description}
         </p>
+
         <ul class={"flex flex-wrap gap-2"}>
           {
-            (tags || ["AlpineJS", "Node.JS", "Docker", "Next.js"]).map((item) => (
+            (tags || []).map((item) => (
               <TechIcon id={item} class="bg-blue-700 text-xs  text-red-600">
                 {item}
               </TechIcon>

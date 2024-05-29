@@ -1,4 +1,4 @@
-import { isServer } from "@/helpers/utils";
+import { isServer, str_to_bool } from "@/helpers/utils";
 import { createEnv } from "@t3-oss/env-core";
 import { z } from "zod";
 
@@ -8,14 +8,13 @@ export const envVars = createEnv({
   server: {
     GOOGLE_DRIVE_TOKEN: z.string().min(1),
     GOOGLE_DRIVE_FILE_ID: z.string().min(1),
+    DIRECT_URL: z.string().min(1),
+    DATABASE_URL: z.string().min(1),
     RESEND_ADDRESS: z.string().min(1).email(),
     RESEND_AUDIENCE: z.string().min(1),
     RESEND_TOKEN: z.string().min(1),
     OCTOKIT_TOKEN: z.string().min(1),
-    ENABLE_PREVIEW: z
-      .string()
-      .refine((s) => s === "true" || s === "false")
-      .transform((s) => s === "true"),
+    ENABLE_PREVIEW: z.coerce.string().transform((v) => str_to_bool(v)),
     UPSTASH_REDIS_REST_URL: z.string().url(),
     UPSTASH_REDIS_REST_TOKEN: z.string().min(1),
     UPSTASH_LIMIT_TOKEN: z.coerce.number(),

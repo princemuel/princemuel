@@ -1,6 +1,8 @@
 // Place any global data in this file.
 // You can import this data from anywhere in your site by using the `import` keyword.
 
+import { isObject } from "@/helpers";
+
 export const SITE_TITLE = "Prince Muel | Personal Portfolio Website Template";
 export const SITE_DESCRIPTION = "";
 export const GENERATE_SLUG_FROM_TITLE = true;
@@ -8,6 +10,22 @@ export const ENABLE_TRANSITIONS_API = true;
 export const DEFAULT_SITE_THEME = "dark";
 export const ONE_DAY_IN_MS = 1000 * 60 * 60 * 24 * 1;
 export const delimiter = "-";
+export const published_date = new Date("2024-02-01T16:43:29.577Z");
+
+export const urlize = (path: string) => new URL(path, import.meta.env.SITE);
+
+export function remove_key<T>(data: T, k: string): T {
+  if (Array.isArray(data)) {
+    return data.map((item) => remove_key(item, k)) as unknown as T;
+  } else if (isObject(data)) {
+    const entries = Object.entries(data)
+      .filter(([key]) => key !== k)
+      .map(([key, value]) => [key, remove_key(value, k)]);
+    return Object.fromEntries(entries) as T;
+  }
+  return data;
+}
+
 export const homeKeywords = [
   "princemuel",
   "iamprincemuel",
@@ -83,31 +101,6 @@ export const defaultKeywords = [
   "UI/UX",
 ];
 
-export const recentPostsLimit = 4;
-
-export const heroImages = [
-  {
-    jpg: "/static/images/hero-image-1.jpg",
-    webp: "/static/images/hero-image-1.webp",
-  },
-  {
-    jpg: "/static/images/hero-image-2.jpg",
-    webp: "/static/images/hero-image-2.webp",
-  },
-  {
-    jpg: "/static/images/hero-image-3.jpg",
-    webp: "/static/images/hero-image-3.webp",
-  },
-  {
-    jpg: "/static/images/hero-image-4.jpg",
-    webp: "/static/images/hero-image-4.webp",
-  },
-  {
-    jpg: "/static/images/hero-image-5.jpg",
-    webp: "/static/images/hero-image-5.webp",
-  },
-];
-
 export type NewsletterFormInput = {
   email: string;
   first_name?: string;
@@ -122,6 +115,11 @@ export type ViewInput = {
 
 export type ViewType = "blog" | "page" | "project" | "snippet";
 
-export type SocialType = "twitter" | "linkedin" | "instagram" | "github" | "email";
+export type SocialType =
+  | "twitter"
+  | "linkedin"
+  | "instagram"
+  | "github"
+  | "email";
 
 export type PostClickedFrom = "recent" | "suggested" | "previous" | "next";

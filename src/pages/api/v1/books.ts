@@ -1,16 +1,16 @@
 import type { APIRoute } from "astro";
 
-const titleOrISBN = "first to die";
+// const titleOrISBN = "first to die";
 
 export const GET: APIRoute = async () => {
-  const apiUrl = "https://www.googleapis.com/books/v1/volumes";
-  const queryParams = new URLSearchParams({ q: titleOrISBN });
+  // const apiUrl = "https://www.googleapis.com/books/v1/volumes";
+  // const queryParams = new URLSearchParams({ q: titleOrISBN });
 
   try {
     // const response = request(`${apiUrl}?${queryParams}`);
 
     // console.log(response);
-    return Response.json({ books: { apiUrl, queryParams } });
+    return Response.json({ greeting: "Hello" });
   } catch (error) {
     return new Response("Error", { status: 500 });
   }

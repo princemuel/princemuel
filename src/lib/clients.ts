@@ -1,4 +1,5 @@
-import { singleton } from "@/helpers";
+import { singleton } from "@/helpers/utils";
+import { PrismaClient } from "@prisma/client";
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
 import { Octokit } from "octokit";
@@ -9,13 +10,17 @@ import { envVars } from "./env.server";
 export const octokit = new Octokit({ auth: envVars.OCTOKIT_TOKEN });
 export const resend = new Resend(envVars.RESEND_TOKEN);
 
+export const db = singleton("__db__", () => new PrismaClient());
+
 export const redis = new Redis({
   url: envVars.UPSTASH_REDIS_REST_URL,
   token: envVars.UPSTASH_REDIS_REST_TOKEN,
 });
 
 const tokens = envVars.UPSTASH_LIMIT_TOKEN;
-const duration = envVars.UPSTASH_LIMIT_WINDOW as Parameters<typeof Ratelimit.slidingWindow>[1];
+const duration = envVars.UPSTASH_LIMIT_WINDOW as Parameters<
+  typeof Ratelimit.slidingWindow
+>[1];
 
 export const rl = new Ratelimit({
   redis: redis,

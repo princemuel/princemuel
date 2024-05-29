@@ -1,11 +1,12 @@
-type ImageProps = import("astro:assets").LocalImageProps | import("astro:assets").RemoteImageProps;
+type ImageProps =
+  | import("astro:assets").LocalImageProps
+  | import("astro:assets").RemoteImageProps;
 type ImageSrc = ImageProps["src"];
 
 type Meta = {
   title: string;
   description: string;
-  tags?: string[];
-  jsonld?: any;
+  keywords?: string[];
   image?: {
     src: string;
     alt: string;
@@ -16,7 +17,7 @@ type Meta = {
   updatedAt?: ConstructorParameters<typeof Date>[0] | null;
 };
 type OpenGraph = {
-  type?: "website" | "article";
+  type?: "website" | "article" | "book" | "profile";
 };
 type Twitter = {
   handle?: string;

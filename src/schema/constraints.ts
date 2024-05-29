@@ -9,12 +9,9 @@ export const Publication = z.object({
   image: z.string().optional(),
   name: z.string(),
 });
-export const ResourceStatus = z.enum(["draft", "preview", "published"]).default("draft");
-
-export const ResourceBasePath = (type: IResource) => z.enum(["projects", "articles", "blog"]).default(type);
-
-// export const ResourceDateTime = z.string().transform((val) => new Date(val));
-export const ResourceDateTime = z.coerce.date();
+export const ResourceStatus = z
+  .enum(["draft", "preview", "published"])
+  .default("draft");
 
 export const MediaObject = (image: SchemaContext["image"]) =>
   z.object({
@@ -23,7 +20,7 @@ export const MediaObject = (image: SchemaContext["image"]) =>
         message: "Cover picture must be at least 1080 pixels wide!",
       })
       .optional(),
-    coverAlt: z.string().optional(),
+    alt: z.string().optional(),
     image: z.string().optional(),
     thumbnail: z.string().optional(),
     audio: z.string().optional(),

@@ -7,7 +7,10 @@ import type { APIRoute } from "astro";
 
 export const POST: APIRoute = async ({ request, locals }) => {
   try {
-    const { success, limit, reset, remaining } = await rate_limit(request, locals);
+    const { success, limit, reset, remaining } = await rate_limit(
+      request,
+      locals,
+    );
 
     if (!success)
       return new Response("You have reached your request limit for the day.", {
@@ -63,5 +66,8 @@ export const POST: APIRoute = async ({ request, locals }) => {
 };
 
 export const ALL: APIRoute = ({ request }) => {
-  return Response.json({ status: "error", message: `${request.method} not allowed` }, { status: 405 });
+  return Response.json(
+    { status: "error", message: `${request.method} not allowed` },
+    { status: 405 },
+  );
 };

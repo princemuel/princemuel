@@ -1,5 +1,8 @@
-/// <reference path="../.astro/types.d.ts" />
 /// <reference types="astro/client" />
+/// <reference path="../.astro/types.d.ts" />
+/// <reference types="vite-plugin-pwa/vanillajs" />
+/// <reference types="vite-plugin-pwa/info" />
+/// <reference types="vite-plugin-pwa/pwa-assets" />
 
 interface ImportMetaEnv {}
 
@@ -14,6 +17,7 @@ declare namespace App {
 
 interface Window {
   ThemeProvider: { updateWidget(theme?: string): void };
+  AnalyticsService: { dispatch(): void };
 }
 interface globalThis {
   __singletons: Map<string, unknown>;

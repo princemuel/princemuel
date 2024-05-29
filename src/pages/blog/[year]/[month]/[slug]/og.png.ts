@@ -1,14 +1,26 @@
-import { fetchResource } from "@/lib/utils";
+import AvatarImage from "@/assets/images/forrest-gump-quote.webp";
+import { envVars } from "@/lib/env.server";
 import { ImageResponse } from "@vercel/og";
-import type { APIContext, GetStaticPaths, InferGetStaticPropsType } from "astro";
-import { readFileSync } from "node:fs";
-import path from "node:path";
-// import type { getStaticPaths } from "./index.astro";
-
-// export const prerender = false;
+import type {
+  APIContext,
+  GetStaticPaths,
+  InferGetStaticPropsType,
+} from "astro";
+import { getCollection } from "astro:content";
+import { readFile } from "node:fs/promises";
+import { join, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 
 export const getStaticPaths = (async () => {
-  const entries = await fetchResource("posts");
+  const status = ["draft", "preview", "published"] as const;
+  const entries = await getCollection("posts", ({ data }) => {
+    return import.meta.env.MODE === "production"
+      ? envVars.ENABLE_PREVIEW && data.status !== "draft"
+        ? status.includes(data.status)
+        : data.status === "published"
+      : true;
+  });
+
   return entries.map((entry) => {
     const [year, month, slug] = entry.slug.split("/");
     return {
@@ -23,9 +35,26 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 export async function GET({ props }: APIContext<Props>) {
   const entry = props.entry;
 
-  const basePath = path.join(process.cwd(), "public", "static", "media");
-  const fontBase = readFileSync(basePath + "/wotfard-regular-webfont.ttf");
-  const fontMd = readFileSync(basePath + "/wotfard-semibold-webfont.ttf");
+  const image_src = entry.data.media?.cover
+    ? entry.data.media.cover.src
+    : AvatarImage.src;
+
+  const image_path = import.meta.env.DEV
+    ? resolve(image_src.replace(/\?.*/, "").replace("/@fs", ""))
+    : resolve(image_src.replace("/", "dist/"));
+
+  console.log(image_path);
+
+  const basePath = fileURLToPath(
+    new URL("../../../../../../public/static/fonts", import.meta.url),
+  );
+
+  const [fontBase, fontMedium, fontSemi, _] = await Promise.all([
+    readFile(join(basePath, "WotfardRegular.ttf")),
+    readFile(join(basePath, "WotfardMedium.ttf")),
+    readFile(join(basePath, "WotfardSemiBold.ttf")),
+    readFile(image_path),
+  ]);
 
   const html = {
     type: "div",
@@ -114,13 +143,21 @@ export async function GET({ props }: APIContext<Props>) {
     fonts: [
       {
         name: "Wotfard SemiBold",
-        data: fontMd.buffer,
+        data: fontSemi.buffer,
         style: "normal",
+        weight: 600,
+      },
+      {
+        name: "Wotfard Medium",
+        data: fontMedium.buffer,
+        style: "normal",
+        weight: 500,
       },
       {
         name: "Wotfard Regular",
         data: fontBase.buffer,
         style: "normal",
+        weight: 400,
       },
     ],
   });

@@ -1,5 +1,5 @@
 import { reference, z } from "astro:content";
-import { ResourceDateTime, ResourceStatus } from "./constraints";
+import { ResourceStatus } from "./constraints";
 
 export const baseSchema = z.object({
   title: z.string().min(2),
@@ -7,13 +7,15 @@ export const baseSchema = z.object({
   description: z.string().min(2),
   featured: z.boolean().default(false),
   author: reference("authors"),
-  publication: reference("publications").optional(),
-  authors: z.array(reference("authors")).optional(),
-  tags: z.array(z.string()),
+  // publication: reference("publications").optional(),
+  contributors: z.array(reference("authors")).default([]),
+  tags: z.array(z.string()).default([]),
+  categories: z.array(reference("categories")).default([]),
   footnote: z.string().optional(),
   status: ResourceStatus,
-  publishedAt: ResourceDateTime,
-  updatedAt: ResourceDateTime.optional(),
+  publishedAt: z.coerce.date(),
+  updatedAt: z.coerce.date().optional(),
   duration: z.string().default("1 min read"),
+  words: z.number().default(200),
   permalink: z.string().url().optional(),
 });

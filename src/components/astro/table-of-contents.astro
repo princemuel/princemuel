@@ -1,34 +1,47 @@
 ---
+import { hasValues } from "@/helpers";
 import type { MarkdownHeading } from "astro";
+import TocHeading from "./toc-heading.astro";
 
-type Props = { headings: MarkdownHeading[] };
+type Props = { headings?: MarkdownHeading[] };
 
-const { headings } = Astro.props;
+const { headings: Headings } = Astro.props;
 
-const padding = new Map([
-  [2, "4"],
-  [3, "6"],
-  [4, "8"],
-  [5, "10"],
-  [6, "12"],
-]);
+interface Heading extends MarkdownHeading {
+  subheadings: Heading[];
+}
+
+function buildToc(headings?: MarkdownHeading[]): Heading[] {
+  if (!hasValues(headings)) return [];
+
+  const toc: Heading[] = [];
+  const parent = new Map<number, Heading>();
+
+  headings.forEach((h) => {
+    const heading: Heading = { ...h, subheadings: [] };
+    parent.set(heading.depth, heading);
+    // Change 2 to 1 if your markdown includes your <h1>
+    if (heading.depth === 2) toc.push(heading);
+    else parent.get(heading.depth - 1)?.subheadings.push(heading);
+  });
+
+  return toc;
+}
+
+const headings = buildToc(Headings);
 ---
 
 {
-  headings.length > 0 ? (
-    <div class="px-2">
-      <h5 class="capitalize">on this page</h5>
-      <ul class="list-none">
+  hasValues(headings) && (
+    <nav aria-label="Table of Contents" class="flex flex-col gap-4 font-accent">
+      <h5 class="pl-4 text-xl font-bold capitalize text-slate-500 dark:text-slate-400">
+        On this page
+      </h5>
+      <ul role="list" class="text-sm font-medium">
         {headings.map((heading) => {
-          return (
-            <li data-depth={heading.depth} class={`m-0 py-0.5 pl-${padding.get(heading.depth)}`}>
-              <a href={`#${heading.slug}`} class="p-1 text-[0.65rem] no-underline">
-                {heading.text}
-              </a>
-            </li>
-          );
+          return <TocHeading heading={heading} />;
         })}
       </ul>
-    </div>
-  ) : null
+    </nav>
+  )
 }

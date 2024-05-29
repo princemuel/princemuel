@@ -1,25 +1,32 @@
-import type { Props as AstroFontProps } from "node_modules/astro-font/dist/utils";
+import type { AstroFont } from "astro-font";
+import type { ComponentProps } from "astro/types";
 
-type FontConfig = AstroFontProps["config"][0];
+type FontConfig = ComponentProps<typeof AstroFont>["config"][0];
 
-export const fontSans = {
+export const fontSans: FontConfig = {
   name: "__FontSans",
   basePath: "./public",
   src: [
     {
+      path: "./public/static/fonts/WotfardSemiBold.ttf",
       weight: "600",
       style: "normal",
-      path: "./public/static/fonts/WotfardSemiBold.ttf",
+      css: {
+        "font-feature-settings": "normal",
+      },
     },
     {
+      path: "./public/static/fonts/WotfardMedium.ttf",
       weight: "500",
       style: "normal",
-      path: "./public/static/fonts/WotfardMedium.ttf",
+      css: {
+        "font-feature-settings": "normal",
+      },
     },
     {
+      path: "./public/static/fonts/WotfardRegular.ttf",
       weight: "400",
       style: "normal",
-      path: "./public/static/fonts/WotfardRegular.ttf",
       css: {
         "font-feature-settings": "normal",
       },
@@ -33,19 +40,20 @@ export const fontSans = {
   cssVariable: "font-sans",
 } satisfies FontConfig;
 
-export const fontMono = {
+export const fontMono: FontConfig = {
   name: "__FontMono",
   basePath: "./public",
   src: [
     {
-      weight: "400",
+      path: "./public/static/fonts/JetBrainsMonoItalic.ttf",
       style: "italic",
-      path: "./public/static/fonts/MonoLisaVariableItalic.woff2",
+      css: {
+        "font-feature-settings": "normal",
+      },
     },
     {
-      weight: "400",
+      path: "./public/static/fonts/JetBrainsMonoNormal.ttf",
       style: "normal",
-      path: "./public/static/fonts/MonoLisaVariableNormal.woff2",
       css: {
         "font-feature-settings": "normal",
       },
@@ -59,13 +67,13 @@ export const fontMono = {
   cssVariable: "font-mono",
 } satisfies FontConfig;
 
-export const fontAccent = {
+export const fontAccent: FontConfig = {
   name: "__FontAccent",
   basePath: "./public",
   src: [
     {
-      style: "normal",
       path: "./public/static/fonts/Inconsolata.ttf",
+      style: "normal",
       css: {
         "font-feature-settings": "normal",
       },

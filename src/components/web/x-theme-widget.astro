@@ -1,8 +1,8 @@
-<x-theme-widget>
+<x-theme-widget class="flex items-center justify-center">
   <button
     type="button"
     title="Toggle Theme"
-    class="relative text-xl text-blue-500 transition-transform delay-200 duration-200 ease-in"
+    class="relative text-2xl text-sky-600 transition-transform delay-200 duration-200 ease-in dark:text-sky-500"
   >
     <span class="sr-only">Toggle theme</span>
   </button>
@@ -28,18 +28,24 @@
     theme === "auto" || theme === "dark" || theme === "light" ? theme : "auto";
 
   /** Load the user’s preference from `localStorage`. */
-  const loadTheme = (): Theme => parseTheme(typeof localStorage !== "undefined" && localStorage.getItem(storageKey));
+  const loadTheme = (): Theme =>
+    parseTheme(
+      typeof localStorage !== "undefined" && localStorage.getItem(storageKey),
+    );
 
   /** Store the user’s preference in `localStorage`. */
   function storeTheme(theme: Theme): void {
     if (typeof localStorage !== "undefined") {
-      localStorage.setItem(storageKey, theme === "light" || theme === "dark" ? theme : "");
+      localStorage.setItem(
+        storageKey,
+        theme === "light" || theme === "dark" ? theme : "",
+      );
     }
   }
 
   /** Yield the next theme, looping back to the first after reaching the end. */
   const themeGenerator = (function* () {
-    let index = 0;
+    let index = 1;
     while (true) {
       yield themes[index];
       index = (index + 1) % themes.length;
@@ -54,9 +60,22 @@
   /** Update theme widget, document theme, and local storage state. */
   function onThemeChange(theme: Theme): void {
     window.ThemeProvider.updateWidget(theme);
-    document.documentElement.dataset.theme = theme === "auto" ? getPreferredColorScheme() : theme;
+    document.documentElement.dataset.theme =
+      theme === "auto" ? getPreferredColorScheme() : theme;
     document.documentElement.dataset.readerTheme =
-      theme === "auto" ? `min-${getPreferredColorScheme()}` : `min-${theme}`;
+      theme === "auto"
+        ? `material-theme-${getPreferredColorScheme()}er`
+        : `material-theme-${theme}er`;
+
+    document.documentElement.dataset.readerTheme =
+      theme === "auto"
+        ? getPreferredColorScheme() === "light"
+          ? "material-theme-lighter"
+          : "material-theme-ocean"
+        : theme === "light"
+          ? "material-theme-lighter"
+          : "material-theme-ocean";
+
     storeTheme(theme);
   }
 

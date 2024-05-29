@@ -24,21 +24,23 @@ export const truncate = (str: string, length: number) => {
   return `${str.slice(0, length)}...`;
 };
 
-export function pluralize<C extends number, N extends string, P extends string = `${N}s`>(
-  count: C,
-  noun: N,
-  plural?: P,
-) {
+export const str_to_bool = (value = "false") => JSON.parse(value) as boolean;
+
+export function pluralize<
+  C extends number,
+  N extends string,
+  P extends string = `${N}s`,
+>(count: C, noun: N, plural?: P) {
   return (count === 1 ? noun : plural ?? `${noun}s`) as C extends 1 ? N : P;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 type EndsWith<W, S extends string> = W extends `${infer _}${S}` ? W : never;
 
-export const endsWith = <Word extends string, Suffix extends string>(
-  str: Word,
-  suffix: Suffix,
-): str is EndsWith<Word, Suffix> => {
+export const endsWith = <W extends string, S extends string>(
+  str: W,
+  suffix: S,
+): str is EndsWith<W, S> => {
   return str.endsWith(suffix);
 };
 
@@ -57,12 +59,12 @@ export function approximate(num = 0, fractionDigits = 2) {
  * @param {number} [defaultValue=0] - The default value to be returned if parsing fails.
  * @returns {number} The parsed number or the default value.
  */
-export const numberGuard = (value: any, defaultValue: number = 0): number => {
+export const number_guard = (value: any, defaultValue: number = 0): number => {
   const parsed = Number(value);
   return Number.isNaN(parsed) || Object.is(parsed, -0) ? defaultValue : parsed;
 };
 
-export function formatNumber(num: number, digits?: number | undefined) {
+export function format_num(num: number, digits?: number | undefined) {
   if (!num) return "0";
 
   const LOOKUP = [
@@ -83,10 +85,16 @@ export function formatNumber(num: number, digits?: number | undefined) {
 
   const validDigits = digits ? Math.abs(digits) : 1;
 
-  return (num / value).toFixed(validDigits).replace(TRAILING_ZERO_REGEX, "$1") + symbol;
+  return (
+    (num / value).toFixed(validDigits).replace(TRAILING_ZERO_REGEX, "$1") +
+    symbol
+  );
 }
 
-export const formatDate = (dateString: ConstructorParameters<typeof Date>[0] | null, showTime = false) => {
+export const formatDate = (
+  dateString: ConstructorParameters<typeof Date>[0] | null | undefined,
+  showTime = false,
+) => {
   const date = dateString ? new Date(dateString) : new Date();
 
   const dateStamp = date.toLocaleString("en-US", {
@@ -101,22 +109,43 @@ export const formatDate = (dateString: ConstructorParameters<typeof Date>[0] | n
   return `${dateStamp} ${showTime ? `@${timeStamp}` : ""}`;
 };
 
+export const date_formatter = (
+  locales?: Intl.LocalesArgument,
+  options?: Intl.DateTimeFormatOptions,
+) => {
+  const language = locales || (isServer ? "en-US" : navigator.language);
+  return new Intl.DateTimeFormat(language, {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    ...options,
+  });
+};
+
 /*---------------------------------*
             ARRAY UTILS            *
   ---------------------------------*
  */
 
-export function hasValues<T>(value: T[] | null | undefined): value is NonNullable<T[]> {
+export function hasValues<T>(
+  value: T[] | null | undefined,
+): value is NonNullable<T[]> {
   return Array.isArray(value) && value.length > 0;
 }
 
 export function range(start: number, stop: number, step: number) {
-  return Array.from({ length: (stop - start) / step + 1 }, (_, i) => start + i * step);
+  return Array.from(
+    { length: (stop - start) / step + 1 },
+    (_, i) => start + i * step,
+  );
 }
 
 export const unique = <T>(array: T[]) => [...new Set(array)];
 
-export const difference = <T>(a: T[], b: T[]) => a.filter((item) => !b.includes(item));
+export const difference = <T>(a: T[], b: T[]) =>
+  a.filter((item) => !b.includes(item));
 
 export const intersection = <T>(arr: T[], ...args: T[][]) =>
   arr.filter((item) => args.every((value) => value.includes(item)));
@@ -138,17 +167,32 @@ export function singleton<T>(name: string, callback: () => T) {
   return g.__singletons.get(name) as NonNullable<T>;
 }
 
-export function omitFields<T extends Record<string, any>, K extends keyof T>(source: T, fieldsToOmit: K[]): Omit<T, K> {
+export function omitFields<T extends Record<string, any>, K extends keyof T>(
+  source: T,
+  fieldsToOmit: K[],
+): Omit<T, K> {
   if (!isObject(source)) throw new Error("Source must be an object.");
 
-  return Object.fromEntries(Object.entries(source).filter(([key]) => !fieldsToOmit.includes(key as K))) as Omit<T, K>;
+  return Object.fromEntries(
+    Object.entries(source).filter(([key]) => !fieldsToOmit.includes(key as K)),
+  ) as Omit<T, K>;
 }
 
 export const isObject = (value: unknown): value is NonNullable<unknown> => {
   return Object.prototype.toString.call(value) === "[object Object]";
 };
 
-export function convertTime(days = 0, hours = 0, minutes = 0, seconds = 0, milliseconds = 0) {
+export const isEmptyObject = (value: Record<string, unknown> = {}) => {
+  return isObject(value) && !Object.entries(value).length;
+};
+
+export function convertTime(
+  days = 0,
+  hours = 0,
+  minutes = 0,
+  seconds = 0,
+  milliseconds = 0,
+) {
   if (
     typeof days !== "number" ||
     typeof hours !== "number" ||
@@ -165,7 +209,8 @@ export function convertTime(days = 0, hours = 0, minutes = 0, seconds = 0, milli
   }
 
   // Calculate total milliseconds
-  const totalMs = (((days * 24 + hours) * 60 + minutes) * 60 + seconds) * 1000 + milliseconds;
+  const totalMs =
+    (((days * 24 + hours) * 60 + minutes) * 60 + seconds) * 1000 + milliseconds;
 
   // Calculate other units
   const totalSecs = totalMs / 1000;
