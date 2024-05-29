@@ -92,7 +92,7 @@ export function format_num(num: number, digits?: number | undefined) {
 }
 
 export const formatDate = (
-  dateString: ConstructorParameters<typeof Date>[0] | null,
+  dateString: ConstructorParameters<typeof Date>[0] | null | undefined,
   showTime = false,
 ) => {
   const date = dateString ? new Date(dateString) : new Date();
@@ -180,6 +180,10 @@ export function omitFields<T extends Record<string, any>, K extends keyof T>(
 
 export const isObject = (value: unknown): value is NonNullable<unknown> => {
   return Object.prototype.toString.call(value) === "[object Object]";
+};
+
+export const isEmptyObject = (value: Record<string, unknown> = {}) => {
+  return isObject(value) && !Object.entries(value).length;
 };
 
 export function convertTime(

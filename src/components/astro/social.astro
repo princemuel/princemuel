@@ -20,7 +20,7 @@ const links = await getCollection("social");
       >
         <Link href={link.data.href} class="flex size-8 items-center">
           <span class="sr-only">{link.data.text}</span>
-          <Icon name={link.data.platform} />
+          <Icon name={link.data.icon} />
         </Link>
       </li>
     ))
