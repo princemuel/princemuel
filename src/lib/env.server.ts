@@ -8,6 +8,8 @@ export const envVars = createEnv({
   server: {
     GOOGLE_DRIVE_TOKEN: z.string().min(1),
     GOOGLE_DRIVE_FILE_ID: z.string().min(1),
+    DIRECT_URL: z.string().min(1).email(),
+    DATABASE_URL: z.string().min(1),
     RESEND_ADDRESS: z.string().min(1).email(),
     RESEND_AUDIENCE: z.string().min(1),
     RESEND_TOKEN: z.string().min(1),
@@ -17,7 +19,6 @@ export const envVars = createEnv({
     UPSTASH_REDIS_REST_TOKEN: z.string().min(1),
     UPSTASH_LIMIT_TOKEN: z.coerce.number(),
     UPSTASH_LIMIT_WINDOW: z.string().min(1),
-    DARK_VISITORS_TOKEN: z.string().min(1),
   },
 
   /**
