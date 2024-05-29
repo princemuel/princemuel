@@ -17,11 +17,11 @@ import {
 export type TIconOptions = NonNullable<Parameters<typeof icon>[0]>;
 
 export const integrations: AstroIntegration[] = [
-  tailwind({ applyBaseStyles: false, nesting: true }),
+  tailwind({ applyBaseStyles: false }),
   icon(IconOptions),
-  ec(CodeOptions),
-  mdx(),
   qwik({ include: "**/qwik/*" }),
+  ec(CodeOptions),
+  mdx({ extendMarkdownConfig: true }),
   sitemap(sitemapOptions),
   pwa(PWAOptions),
   // htmx(),

@@ -5,17 +5,16 @@ import type { PwaOptions } from "@vite-pwa/astro";
 import type { AstroExpressiveCodeOptions } from "astro-expressive-code";
 import { cachePreset } from "./cache";
 import type { TIconOptions } from "./integrations";
-import { pluginErrorPreview, pluginFirstWordRed } from "./plugins";
 
 export const IconOptions: TIconOptions = {
   iconDir: "src/assets/icons",
-  include: { lucide: ["*"], logos: ["*"] },
+  include: { lucide: ["*"], logos: ["*"], mdi: ["*"] },
 };
 
 export const CodeOptions: AstroExpressiveCodeOptions = {
-  themes: ["vitesse-dark", "vitesse-light"],
+  themes: ["material-theme-ocean", "material-theme-lighter"],
   styleOverrides: {
-    borderRadius: "0.2rem",
+    borderRadius: "0.3rem",
     frames: { editorActiveTabIndicatorHeight: "2px" },
     codeFontFamily: "__FontMono",
     uiFontFamily: "__FontSans",
@@ -23,8 +22,8 @@ export const CodeOptions: AstroExpressiveCodeOptions = {
   plugins: [
     pluginCollapsibleSections(),
     pluginLineNumbers(),
-    pluginFirstWordRed(),
-    pluginErrorPreview(),
+    // pluginFirstWordRed(),
+    // pluginErrorPreview(),
   ],
   useThemedSelectionColors: false,
   themeCssSelector: (theme) => `[data-reader-theme='${theme.name}']`,
@@ -52,7 +51,7 @@ export const PWAOptions: PwaOptions = {
   registerType: "autoUpdate",
   experimental: { directoryAndTrailingSlashHandler: true },
   // selfDestroying: true,
-  devOptions: { enabled: true, suppressWarnings: true },
+  devOptions: { enabled: false, suppressWarnings: true },
   useCredentials: true,
   manifest: await manifest,
   pwaAssets: { config: true },
