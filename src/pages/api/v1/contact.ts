@@ -1,23 +1,30 @@
-import { ContactFormSchema } from "@/lib/schema";
-import { parse } from "@conform-to/zod";
+import { parseError } from "@/helpers/errors";
+import { resend } from "@/lib/clients";
+import { envVars } from "@/lib/env.server";
+import { rate_limit } from "@/lib/rate-limit";
+import { contactSchema } from "@/schema";
 import type { APIRoute } from "astro";
-// import { Resend } from "resend";
 
-// const resend = new Resend(import.meta.env.RESEND_API_KEY);
-
-export const POST: APIRoute = async ({ request }) => {
+export const POST: APIRoute = async ({ request, locals }) => {
   try {
-    const formData = await request.formData();
-    const submission = parse(formData, { schema: ContactFormSchema });
+    const { success, limit, reset, remaining } = await rate_limit(
+      request,
+      locals,
+    );
 
-    if (submission.intent !== "submit") {
-      return Response.json({ status: "idle", submission } as const);
-    }
-    if (!submission.value) {
-      return Response.json({ status: "error", submission } as const, { status: 400 });
-    }
+    if (!success)
+      return new Response("You have reached your request limit for the day.", {
+        headers: {
+          "X-RateLimit-Limit": limit.toString(),
+          "X-RateLimit-Remaining": remaining.toString(),
+          "X-RateLimit-Reset": reset.toString(),
+        },
+        status: 429,
+        statusText: "Rate limit exceeded",
+      });
 
-    const body = submission.value;
+    const formData = contactSchema.parse(await request.json());
+    // console.log("📧 Contact form submission", formData);
 
     // const data = await resend.emails.send({
     //   from: `${body.name} <onboarding@resend.dev>`,
@@ -26,14 +33,41 @@ export const POST: APIRoute = async ({ request }) => {
     //   react: EmailTemplate({ ...body }),
     // });
 
-    const data = { status: "success", ...body };
+    const response = await resend.emails.send({
+      from: `${formData.firstName} <${formData.email}>`,
+      to: envVars.RESEND_ADDRESS,
+      subject: `New ${formData.type} email from ${formData.firstName} ${formData.lastName}`,
+      reply_to: envVars.RESEND_ADDRESS,
+      text: formData.message,
+    });
 
-    return Response.json(data);
+    // console.log("📧 Email sent", { response });
+
+    if (response.error)
+      return Response.json(
+        {
+          status: "error",
+          message: response.error.message,
+        },
+        { statusText: response.error.name },
+      );
+
+    // console.log("📧 Contact form submission successful");
+
+    return Response.json({
+      status: "success",
+      message: "Thanks! Your message has been sent.",
+    });
   } catch (error) {
-    return Response.json({ status: "error", error });
+    const message = parseError(error);
+    console.error("📧 Contact form submission failed", { error: message });
+    return Response.json({ status: "error", message }, { status: 400 });
   }
 };
 
 export const ALL: APIRoute = ({ request }) => {
-  return Response.json({ error: `${request.method} not allowed` }, { status: 405 });
+  return Response.json(
+    { status: "error", message: `${request.method} not allowed` },
+    { status: 405 },
+  );
 };

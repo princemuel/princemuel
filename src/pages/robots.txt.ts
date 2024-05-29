@@ -1,24 +1,31 @@
 import type { APIRoute } from "astro";
 
-export const GET: APIRoute = (context) => {
-  try {
-    const base = new URL("/", context.site).toString();
-    const body = `# I, for one, welcome our new robotic overlords\n\nUser-Agent: *\nAllow: /\nDisallow: /private/\n\nSitemap: ${base}sitemap-index.html`;
+const defaultAgents = ["User-agent: ChatGPT-User", "User-agent: PerplexityBot"];
+const matcher = /^User-agent:.*/iu;
 
-    return new Response(body, {
-      status: 200,
-      headers: {
-        "Content-Type": "text/plain; charset=utf-8",
-        "Cache-Control": "public, max-age=604800, s-max-age=604800,stale-while-revalidate=86400",
-        "Access-Control-Allow-Credentials": "true",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET,OPTIONS,HEAD",
-        "Access-Control-Allow-Headers":
-          "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, If-Modified-Since, X-Api-Version",
-      },
-    });
-  } catch (error) {
-    console.error(`Error generating robots.txt: ${error instanceof Error ? error.message : ""}`);
-    return new Response("Internal Server Error", { status: 500 });
-  }
+export const GET: APIRoute = async (ctx) => {
+  const request = await fetch("https://darkvisitors.com/robots-txt-builder");
+  const response = await request.text();
+
+  const agents = [
+    ...new Set([
+      ...defaultAgents,
+      ...response.split("\n").filter((line) => matcher.test(line.trim())),
+    ]),
+  ];
+
+  const texts = [
+    "# I, for one, welcome our new robotic overlords",
+    "User-Agent: *\nAllow: /\nDisallow: /api/",
+    "# Block AI Bots",
+    `${agents.map((a) => `${a}\nDisallow: /`).join("\n\n")}`,
+    `Sitemap: ${new URL("/", ctx.site).toString()}sitemap-index.html`,
+  ];
+
+  return new Response(texts.join("\n\n").trim(), {
+    status: 200,
+    headers: {
+      "Content-Type": "text/plain; charset=UTF-8",
+    },
+  });
 };

@@ -1,0 +1,40 @@
+---
+import { Container, Main, TOC } from "@/components/astro";
+import type { MarkdownHeading } from "astro";
+import type { ComponentProps } from "astro/types";
+import RootLayout from "./root.astro";
+
+type Props = Prettify<
+  ComponentProps<typeof RootLayout> & {
+    jsonld: any;
+    headings?: MarkdownHeading[];
+  }
+>;
+
+const { jsonld, headings, ...rest } = Astro.props;
+---
+
+<RootLayout {...rest}>
+  <script
+    is:inline
+    type="application/ld+json"
+    slot="structured-data"
+    set:html={JSON.stringify(jsonld)}
+  />
+
+  <Container class="my-10">
+    <Main class="relative grid grid-cols-1 gap-4 lg:grid-cols-4 xl:gap-8">
+      <div class="col-span-3 max-lg:col-span-1">
+        <slot />
+      </div>
+
+      <div class="contents">
+        <aside
+          class="sticky top-28 col-span-1 flex h-fit flex-col gap-6 max-lg:hidden"
+        >
+          <TOC headings={headings} />
+        </aside>
+      </div>
+    </Main>
+  </Container>
+</RootLayout>

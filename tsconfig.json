@@ -1,17 +1,18 @@
 {
+  "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "astro/tsconfigs/strictest",
+  "include": ["./src"],
+  "exclude": ["node_modules", ".vercel"],
   "compilerOptions": {
-    "allowJs": true,
     "jsx": "react-jsx",
-    "jsxImportSource": "react",
+    "jsxImportSource": "@builder.io/qwik",
 
+    "incremental": true,
     "noErrorTruncation": true,
     "exactOptionalPropertyTypes": false,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
-    },
-  },
-  "include": ["**/*"],
-  "exclude": ["node_modules", "dist", ".vercel", "public"],
+      "@/*": ["./src/*"]
+    }
+  }
 }

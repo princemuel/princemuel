@@ -1,94 +1,87 @@
 ---
-import Links from "@/components/meta/links.astro";
-import Meta from "@/components/meta/meta.astro";
-import Footer from "@/components/organisms/footer.astro";
-import Header from "@/components/organisms/header.astro";
-import { BreakpointIndicator } from "@/components/react/indicator";
-import { tw } from "@/helpers/utils";
-import { fontMono, fontSans } from "@/lib/fonts";
-import "@/globals.css";
-import { AstroFont as Fonts } from "astro-font";
-import { ViewTransitions } from "astro:transitions";
-import { cn } from "tailwind-variants";
-import { DEFAULT_SITE_THEME } from "@/lib/config";
-import { pwaInfo } from "virtual:pwa-info";
+import {
+  BreakPointIndicator,
+  Header,
+  ThemeProvider,
+  Footer,
+} from "@/components/astro";
+import SkipLink from "@/components/astro/skip-link.astro";
+import RouterHead from "@/components/head.astro";
+import { Analytics } from "@/components/web";
+import { tw } from "@/helpers";
+import SpeedInsights from "@vercel/speed-insights/astro";
 
-export interface Props {
-  title: string;
-  description: string;
-  image?: { src?: string; alt?: string };
-  canonical?: string | URL | null;
-  type?: "website" | "article";
-  publishedAt?: string;
-}
+type Props = Meta & {
+  type?: OpenGraph["type"];
+  className?: string;
+};
 
 const {
-  description = "",
-  type = "website",
-  image = { src: "/favicon.svg", alt: "Prince Muel's Logo" },
+  title,
+  image,
+  keywords,
+  type,
   canonical,
+  description,
   publishedAt,
+  updatedAt,
 } = Astro.props;
-
-const title = [Astro.props.title].filter(Boolean).join(" - ");
 ---
 
 <!doctype html>
 <html
   lang="en"
   dir="auto"
-  data-dark-reader-mode="dynamic"
-  class={cn("__sans__ __serif__ __mono__")({ twMerge: true })}
+  class={tw([
+    "__sans__ __accent__ __mono__",
+    "scrollbar scrollbar-w-1 scrollbar-h-6",
+    "scrollbar-track-rounded-full scrollbar-thumb-rounded-full scrollbar-corner-rounded-full",
+    "scrollbar-track-teal-300 scrollbar-thumb-teal-700 scrollbar-corner-teal-500",
+    "selection:bg-teal-300 selection:text-teal-900",
+    "scroll-smooth",
+  ])}
+  data-theme="dark"
+  data-reader-theme="material-theme-ocean"
 >
   <head>
-    <script define:vars={{ DEFAULT_SITE_THEME }}>
-      const theme = localStorage.getItem("site-theme");
-      const $root = document.documentElement;
-
-      if (!theme) {
-        const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
-          ? "dark"
-          : "light";
-        localStorage.setItem("site-theme", systemTheme);
-      }
-      $root.dataset.darkReaderTheme = theme || DEFAULT_SITE_THEME;
-      $root.dataset.theme = `github-${theme}` || `github-${DEFAULT_SITE_THEME}`;
-    </script>
-
-    <Meta
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark light" />
+    <RouterHead
       title={title}
       description={description}
       image={image}
-      twitter={{ image, canonical }}
-      og={{ type, image, canonical }}
+      og={{ type }}
+      keywords={keywords}
       publishedAt={publishedAt}
+      updatedAt={updatedAt}
       canonical={canonical}
     />
-    <Links />
-    {/* @ts-expect-error override expected font type  */}
-    <Fonts config={[fontSans, fontMono]} />
-    <ViewTransitions />
-
-    <script src="/src/scripts/pwa.ts"></script>
-    {pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} />}
+    <ThemeProvider />
+    {import.meta.env.PROD && <SpeedInsights />}
+    {import.meta.env.PROD && <Analytics />}
+    <slot name="head" />
+    <slot name="structured-data" />
   </head>
 
   <body
-    class:list={tw([
-      "font-sans text-lg font-normal antialiased dark:bg-red-100",
-      "text-zinc-600 dark:text-stone-100",
-      "bg-white dark:bg-[#0e141b] ",
-    ])}
+    class:list={[
+      "relative font-sans font-normal antialiased",
+      "bg-slate-50 dark:bg-[#080b16]",
+      // "bg-white/90 dark:bg-[hsl(227.1_46.7%_5.9%)]",
+    ]}
   >
-    <Header />
-    <slot />
-    <Footer />
-    <BreakpointIndicator />
+    <SkipLink />
+    <div class="grid min-h-screen grid-rows-[auto_1fr_auto]">
+      <Header />
+      <slot />
+      <Footer />
+    </div>
 
     <script>
-      // @ts-expect-error
-      const cssHasPseudo = (await import("css-has-pseudo/browser")).default;
+      import cssHasPseudo from "css-has-pseudo/browser";
       cssHasPseudo(document);
     </script>
+    <BreakPointIndicator />
   </body>
 </html>

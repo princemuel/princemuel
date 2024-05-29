@@ -1,6 +1,27 @@
-// eslint-disable-next-line @typescript-eslint/ban-types
-type Prettify<T> = { [K in keyof T]: T[K] } & {};
+type ImageProps =
+  | import("astro:assets").LocalImageProps
+  | import("astro:assets").RemoteImageProps;
+type ImageSrc = ImageProps["src"];
 
-type RequireSome<T, P extends keyof T> = Omit<T, P> & Required<Pick<T, P>>;
+type Meta = {
+  title: string;
+  description: string;
+  keywords?: string[];
+  image?: {
+    src: string;
+    alt: string;
+  };
+  canonical?: string | URL | null;
+  type?: "website" | "article";
+  publishedAt?: ConstructorParameters<typeof Date>[0] | null;
+  updatedAt?: ConstructorParameters<typeof Date>[0] | null;
+};
+type OpenGraph = {
+  type?: "website" | "article" | "book" | "profile";
+};
+type Twitter = {
+  handle?: string;
+  card?: "summary" | "summary_large_image";
+};
 
-type MapKeys<M extends Map<unknown, unknown>> = Prettify<Array<Parameters<M["get"]>[0]>>;
+type IResource = "projects" | "articles" | "blog";

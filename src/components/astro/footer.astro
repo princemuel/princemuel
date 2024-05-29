@@ -1,0 +1,169 @@
+---
+import { published_date } from "@/lib/config";
+import { Icon } from "astro-icon/components";
+import type { HTMLAttributes } from "astro/types";
+import { getCollection } from "astro:content";
+import Container from "./container.astro";
+import Link from "./link.astro";
+import NewsletterForm from "./newsletter-form.astro";
+import Time from "./time.astro";
+
+const formatter = new Intl.DateTimeFormat("en-US", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+  hour: "numeric",
+  minute: "numeric",
+});
+
+const datetime = published_date;
+const buildDate = new Date(__BUILD_DATE__);
+
+type Props = HTMLAttributes<"footer">;
+
+const { class: className, ...rest } = Astro.props;
+
+const excluded = ["discord", "youtube"];
+
+const social = await getCollection(
+  "social",
+  (link) => !excluded.includes(link.id),
+);
+
+const routes = {
+  general: [
+    { href: "/", text: "Home" },
+    { href: "/about-me", text: "About Me" },
+    { href: "/blog", text: "Blog" },
+    { href: "/projects", text: "Projects" },
+    { href: "/dashboard", text: "Dashboard" },
+  ],
+  specifics: [
+    { href: "/sponsor-me", text: "Sponsor Me" },
+    { href: "/hire-me", text: "Hire Me" },
+    { href: "/resume", text: "Resume" },
+    { href: "/newsletter", text: "Newsletter" },
+    { href: "/sponsor-me", text: "Sponsor Me" },
+  ],
+  extras: [
+    { href: "/resources", text: "Setup" },
+    { href: "/tweets", text: "Tweets" },
+    { href: "/contact-me", text: "Contact Me" },
+    { href: "/tags", text: "Tags" },
+    { href: "/privacy-policy", text: "Privacy Policy" },
+  ],
+};
+---
+
+<footer {...rest} class:list={["pt-16", className]}>
+  <Container>
+    <nav
+      aria-label="Footer"
+      class="grid grid-cols-3 gap-x-4 gap-y-12 border-t border-slate-300 py-10 md:grid-cols-6 dark:border-slate-800"
+    >
+      <section class="col-span-1">
+        <h4 class="uppercase text-slate-900 dark:text-slate-200">General</h4>
+        <ul
+          role="list"
+          class="mt-4 space-y-3 text-sm text-slate-600 dark:text-slate-400"
+        >
+          {
+            routes.general.map((route) => (
+              <li role="listitem">
+                <Link href={route.href} class="text-inherit">
+                  {route.text}
+                </Link>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+
+      <section class="col-span-1">
+        <h4 class="uppercase text-slate-900 dark:text-slate-200">Specifics</h4>
+        <ul
+          role="list"
+          class="mt-4 space-y-3 text-sm text-slate-600 dark:text-slate-400"
+        >
+          {
+            routes.specifics.map((route) => (
+              <li role="listitem">
+                <Link href={route.href} class="text-inherit">
+                  {route.text}
+                </Link>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+
+      <section class="col-span-1">
+        <h4 class="uppercase text-slate-900 dark:text-slate-200">Extra</h4>
+        <ul
+          role="list"
+          class="mt-4 space-y-3 text-sm text-slate-600 dark:text-slate-400"
+        >
+          {
+            routes.extras.map((route) => (
+              <li role="listitem">
+                <Link href={route.href} class="text-inherit">
+                  {route.text}
+                </Link>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+
+      <section class="col-span-3">
+        <NewsletterForm />
+      </section>
+    </nav>
+
+    <div
+      class="flex flex-col items-center justify-between gap-4 py-16 md:flex-row"
+    >
+      <div class="order-1 flex items-center gap-4 text-2xl md:order-2">
+        {
+          social
+            .sort((a, b) => a.data.order - b.data.order)
+            .map((link) => (
+              <Link
+                href={link.data.href}
+                class:list={[
+                  "group flex items-center transition",
+                  "text-slate-800 hocus:text-sky-500",
+                  "dark:text-slate-400 dark:hocus:text-sky-500",
+                ]}
+              >
+                <Icon name={link.data.icon} class="" />
+                <span class="sr-only">{link.data.text}</span>
+              </Link>
+            ))
+        }
+      </div>
+
+      <p
+        class="order-2 text-base text-slate-800 md:order-1 dark:text-slate-400"
+      >
+        &copy;<Time datetime={datetime}>{datetime.getFullYear()}</Time>
+        <span>Prince Muel. All Rights Reserved</span>
+      </p>
+    </div>
+  </Container>
+
+  <div class="bg-slate-200 dark:bg-slate-900">
+    <Container class="flex items-center justify-center py-1">
+      <p
+        class="flex flex-wrap content-center items-center gap-1 text-xs text-gray-800 dark:text-white"
+      >
+        <span>Built with </span>
+        <Icon name="logos:astro-icon" />
+        <Link href="https://docs.astro.build/en/concepts/why-astro/"
+          >{Astro.generator}</Link
+        > on <Time datetime={__BUILD_DATE__}>{formatter.format(buildDate)}</Time
+        >
+      </p>
+    </Container>
+  </div>
+</footer>

@@ -1,29 +1,41 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-nocheck
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import { getCollection, type CollectionEntry, type CollectionKey } from "astro:content";
+import {
+  getCollection,
+  type CollectionEntry,
+  type CollectionKey,
+} from "astro:content";
+import { envVars } from "./env.server";
 
-type RequestOptions = { sort?: boolean };
+type ResourceOptions = { sort?: boolean; select?: number };
 
 export async function fetchResource<K extends CollectionKey>(
   key: K,
-  options?: RequestOptions,
+  options?: ResourceOptions,
 ): Promise<CollectionEntry<K>[]> {
-  const status = ["draft", "preview", "published"] as const;
-  // @ts-ignore ignored collection type
-  const resource = await getCollection(key, ({ data }) => {
-    if (import.meta.env.PROD) return data.status === "published";
-    return status.includes(data.status);
-  });
+  try {
+    const status = ["draft", "preview", "published"] as const;
 
-  return options?.sort
-    ? resource.sort((a, b) => {
-        return (
-          // @ts-ignore ignored collection type "any"
-          Number(b.data.updatedAt ?? b.data.publishedAt) -
-          // @ts-ignore ignored collection type
-          Number(a.data.updatedAt ?? a.data.publishedAt)
-        );
-      })
-    : resource;
+    const resource = await getCollection(key, ({ data }) => {
+      return import.meta.env.MODE === "production"
+        ? envVars.ENABLE_PREVIEW && data.status !== "draft"
+          ? status.includes(data.status)
+          : data.status === "published"
+        : true;
+    });
+
+    const result = options?.sort
+      ? resource.sort((a, b) => {
+          return (
+            Number(b.data.updatedAt ?? b.data.publishedAt) -
+            Number(a.data.updatedAt ?? a.data.publishedAt)
+          );
+        })
+      : resource;
+    return result.slice(0, options?.select);
+  } catch (error) {
+    import.meta.env.MODE !== "production" && console.log(error);
+    return [];
+  }
 }

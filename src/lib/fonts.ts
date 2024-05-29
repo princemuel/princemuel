@@ -1,59 +1,88 @@
-import defaultTheme from "tailwindcss/defaultTheme";
+import type { AstroFont } from "astro-font";
+import type { ComponentProps } from "astro/types";
 
-export const fontSans = {
+type FontConfig = ComponentProps<typeof AstroFont>["config"][0];
+
+export const fontSans: FontConfig = {
   name: "__FontSans",
   basePath: "./public",
   src: [
     {
+      path: "./public/static/fonts/WotfardSemiBold.ttf",
       weight: "600",
       style: "normal",
-      path: "./public/fonts/WotfardSemiBold.woff2",
+      css: {
+        "font-feature-settings": "normal",
+      },
     },
     {
+      path: "./public/static/fonts/WotfardMedium.ttf",
       weight: "500",
       style: "normal",
-      path: "./public/fonts/WotfardMedium.woff2",
+      css: {
+        "font-feature-settings": "normal",
+      },
     },
     {
+      path: "./public/static/fonts/WotfardRegular.ttf",
       weight: "400",
       style: "normal",
-      path: "./public/fonts/WotfardRegular.woff2",
       css: {
         "font-feature-settings": "normal",
       },
     },
   ],
-  preload: true,
+
   display: "swap",
   selector: ".__sans__",
-  fallback: "__FontSans, " + defaultTheme.fontFamily.sans.join(", "),
-  // fallback: "sans-serif" as const,
+  fallback: "sans-serif",
   fallbackName: "__FontSans_Fallback",
   cssVariable: "font-sans",
-};
+} satisfies FontConfig;
 
-export const fontMono = {
+export const fontMono: FontConfig = {
   name: "__FontMono",
   basePath: "./public",
   src: [
     {
-      weight: "400",
+      path: "./public/static/fonts/JetBrainsMonoItalic.ttf",
       style: "italic",
-      path: "./public/fonts/MonoLisaVariableItalic.woff2",
+      css: {
+        "font-feature-settings": "normal",
+      },
     },
     {
-      weight: "400",
+      path: "./public/static/fonts/JetBrainsMonoNormal.ttf",
       style: "normal",
-      path: "./public/fonts/MonoLisaVariableNormal.woff2",
       css: {
         "font-feature-settings": "normal",
       },
     },
   ],
-  preload: true,
+
   display: "swap",
   selector: ".__mono__",
-  fallback: "__FontMono, " + defaultTheme.fontFamily.mono.join(", "),
+  fallback: "monospace",
   fallbackName: "__FontMono_Fallback",
-  // cssVariable: "font-mono",
-};
+  cssVariable: "font-mono",
+} satisfies FontConfig;
+
+export const fontAccent: FontConfig = {
+  name: "__FontAccent",
+  basePath: "./public",
+  src: [
+    {
+      path: "./public/static/fonts/Inconsolata.ttf",
+      style: "normal",
+      css: {
+        "font-feature-settings": "normal",
+      },
+    },
+  ],
+
+  display: "swap",
+  selector: ".__accent__",
+  fallback: "sans-serif",
+  fallbackName: "__FontAccent_Fallback",
+  cssVariable: "font-accent",
+} satisfies FontConfig;
