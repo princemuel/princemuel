@@ -1,97 +1,188 @@
 ---
-import { Profile } from "@/components/astro";
-import Root from "@/layouts/root.astro";
-import { fetchResource } from "@/lib/utils";
-import { blogWebsite } from "@/schema";
+import Article from "@/components/astro/article.astro";
+import { formatDate, hasValues } from "@/helpers";
+import PostLayout from "@/layouts/post.astro";
+import { remove_key, urlize } from "@/lib/config";
+import { envVars } from "@/lib/env.server";
+import { blog_ld, profile_ld } from "@/schema";
 import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
-import { getEntry } from "astro:content";
-import type { BreadcrumbList, WithContext } from "schema-dts";
+import { getCollection, getEntry } from "astro:content";
+import type {
+  Article as BlogArticle,
+  BreadcrumbList,
+  Graph,
+  ImageObject,
+  WebPage,
+  WithContext,
+} from "schema-dts";
 
 export const getStaticPaths = (async () => {
-  const entries = await fetchResource("posts");
+  const status = ["draft", "preview", "published"] as const;
+  const entries = await getCollection("posts", ({ data }) => {
+    return import.meta.env.MODE === "production"
+      ? envVars.ENABLE_PREVIEW && data.status !== "draft"
+        ? status.includes(data.status)
+        : data.status === "published"
+      : true;
+  });
+
   return entries.map((entry) => {
     const [year, month, slug] = entry.slug.split("/");
-    return {
-      params: { year, month, slug },
-      props: { entry },
-    };
+    return { params: { year, month, slug }, props: { entry } };
   });
 }) satisfies GetStaticPaths;
 
-//@ts-expect-error
+// @ts-expect-error
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
 const { entry } = Astro.props;
-// const author = await getEntry(entry.data.author);
-// const blog_jsonld = await getBlogPostSchema(entry);
 
-const [author, data] = await Promise.all([
+const [author, markdown] = await Promise.all([
   getEntry(entry.data.author),
-  // getBlogPostSchema(entry),
+
   entry.render(),
 ]);
 
-const { Content } = data;
+const { Content, headings, remarkPluginFrontmatter } = markdown;
 
-const breadcrumbs = {
+const article_ld = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "@id": urlize(`/blog/${entry.slug}#article`).toString(),
+  isPartOf: { "@id": urlize(`/blog/${entry.slug}`).toString() },
+  author: { name: author.data.name, "@id": urlize("/about-me").toString() },
+  headline: entry.data.title,
+  description: entry.data.description,
+  datePublished: entry.data.publishedAt.toISOString(),
+  dateModified: new Date(remarkPluginFrontmatter.updatedAt).toISOString(),
+  mainEntityOfPage: { "@id": urlize(`/blog/${entry.slug}`).toString() },
+  wordCount: remarkPluginFrontmatter.words,
+  commentCount: 0,
+  publisher: { "@id": urlize("/about-me").toString() },
+  image: { "@id": urlize(`/blog/${entry.slug}/og.png`).toString() },
+  thumbnailUrl: urlize(`/blog/${entry.slug}/og.png`).toString(),
+  keywords: entry.data.tags,
+  inLanguage: "en-US",
+  potentialAction: [
+    {
+      "@type": "CommentAction",
+      name: "Comment",
+      target: [urlize(`/blog/${entry.slug}/#respond`).toString()],
+    },
+  ],
+  copyrightYear: entry.data.publishedAt.getFullYear(),
+  copyrightHolder: { "@id": urlize("/about-me").toString() },
+  accessibilityFeature: ["tableOfContents"],
+} satisfies WithContext<BlogArticle>;
+
+const page_ld = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": urlize(`/blog/${entry.slug}`).toString(),
+  url: urlize(`/blog/${entry.slug}`).toString(),
+  name: entry.data.title,
+  description: entry.data.description,
+  isPartOf: { "@id": urlize(`/blog/${entry.slug}`).toString() },
+  primaryImageOfPage: {
+    "@id": urlize(`/blog/${entry.slug}/og.png`).toString(),
+  },
+  image: { "@id": urlize(`/blog/${entry.slug}/og.png`).toString() },
+  thumbnailUrl: urlize(`/blog/${entry.slug}/og.png`).toString(),
+  datePublished: entry.data.publishedAt.toISOString(),
+  dateModified: new Date(remarkPluginFrontmatter.updatedAt).toISOString(),
+  breadcrumb: { "@id": urlize(`/blog/${entry.slug}#breadcrumb`).toString() },
+  inLanguage: "en-US",
+  potentialAction: [
+    {
+      "@type": "ReadAction",
+      target: [urlize(`/blog/${entry.slug}`).toString()],
+    },
+  ],
+} satisfies WithContext<WebPage>;
+
+const image_ld = {
+  "@context": "https://schema.org",
+  "@type": "ImageObject",
+  "@id": urlize(`/blog/${entry.slug}/og.png`).toString(),
+  url: urlize(`/blog/${entry.slug}/og.png`).toString(),
+  width: "1200",
+  height: "630",
+} satisfies WithContext<ImageObject>;
+
+const breadcrumb_ld = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
+  "@id": urlize(`/blog/${entry.slug}#breadcrumb`).toString(),
   itemListElement: [
     {
       "@type": "ListItem",
       position: 1,
-      name: "Blog",
-      item: new URL("/blog", import.meta.env.SITE).toString(),
+      name: "Prince Muel - Frontend Engineer, Educator, Musician",
+      item: urlize("/").toString(),
     },
     {
       "@type": "ListItem",
       position: 2,
+      name: "Blog",
+      item: urlize("/blog").toString(),
+    },
+    {
+      "@type": "ListItem",
+      position: 3,
       name: entry.data.title,
-      item: new URL(`/blog/${entry.slug}`, import.meta.env.SITE).toString(),
+      item: urlize(`/blog/${entry.slug}`).toString(),
     },
   ],
 } as WithContext<BreadcrumbList>;
 
-const schema = {
+const jsonld = {
   "@context": "https://schema.org",
-  "@graph": [breadcrumbs, blogWebsite],
-};
+  "@graph": remove_key(
+    [article_ld, page_ld, image_ld, breadcrumb_ld, blog_ld, profile_ld],
+    "@context",
+  ),
+} satisfies Graph;
 ---
 
-<Root
+<PostLayout
   title={entry.data.title}
   description={entry.data.description}
-  jsonld={schema}
+  jsonld={jsonld}
+  headings={headings}
 >
-  <Fragment slot="meta">
-    <dl
-      class="flex items-center justify-between gap-2 font-accent font-semibold text-emerald-500"
-    >
-      <dt class="text-sm text-inherit">Blog</dt>
-      <dd
-        class="rounded-sm border border-stone-300 bg-transparent px-2 py-1 text-xs text-inherit dark:border-stone-900"
-      >
-        {author.data.name}
-      </dd>
-    </dl>
-
-    <h1 id="heading" class="my-8">{entry.data.title}</h1>
-    <p class="">
-      {entry.data.description}
-    </p>
-  </Fragment>
-
-  <Fragment slot="main">
+  <Article class="">
     <div
-      class="prose prose-amber mx-auto max-w-none dark:prose-invert prose-headings:font-accent prose-headings:font-black"
+      class="flex items-center justify-between gap-2 font-accent font-semibold text-teal-600 dark:text-teal-500"
     >
-      <article class:list={["[&_.linked]:font-black [&_.linked]:no-underline"]}>
-        <Content />
-      </article>
+      <p class="text-sm text-inherit">
+        {formatDate(entry.data.publishedAt)}
+      </p>
+      <p class="text-xs text-inherit">
+        By {author.data.name}
+      </p>
     </div>
-  </Fragment>
 
-  <Fragment slot="profile">
-    <Profile />
-  </Fragment>
-</Root>
+    <h1 id="heading" class="mt-6">{entry.data.title}</h1>
+
+    <p>{formatDate(entry.data.updatedAt)}</p>
+
+    {
+      hasValues(entry.data.tags) && (
+        <ul
+          role="list"
+          class="not-prose flex items-center gap-3 text-xs text-rose-500/90"
+        >
+          {entry.data.tags.map((tag) => (
+            <li class="rounded border px-2 py-1 capitalize dark:border-slate-900">
+              {tag}
+            </li>
+          ))}
+        </ul>
+      )
+    }
+
+    <p class="">{entry.data.description}</p>
+
+    <Content />
+  </Article>
+</PostLayout>

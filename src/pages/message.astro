@@ -14,7 +14,7 @@ const { response, result } = await action(Astro.request, async (request) => {
     let data: Record<string, string> = {};
     const formData = await request.formData();
 
-    if (formData.get("bot-field")) throw new Error("Invalid Form Submission");
+    if (formData.get("honeypot")) throw new Error("Invalid Form Submission");
 
     const result = schema.parse(Object.fromEntries(formData.entries()));
 
@@ -46,7 +46,7 @@ if (response) return response;
       data-id="contact-form"
       style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
     >
-      <input type="hidden" name="bot-field" placeholder="do not fill this" />
+      <input type="hidden" name="honeypot" placeholder="do not fill this" />
       <span role="alert" aria-live="polite" data-form-error="unknown">
         {result?.errors?.unknown}
       </span>

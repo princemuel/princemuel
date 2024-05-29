@@ -1,17 +1,32 @@
 ---
 import { AlertBox } from "@/components/astro";
-import XAlertBox from "@/components/web/x-alert-box.astro";
-import Root from "@/layouts/root.astro";
+import Article from "@/components/astro/article.astro";
+import HomeLayout from "@/layouts/home.astro";
+
+import { GET } from "./api/v1/books";
+
+let response = await GET(Astro);
+const data = await response.json();
+
+const jsonld = "";
 ---
 
-<Root title="Home" , description="Home">
-  <main slot="main">
-    <XAlertBox><p>Hello</p></XAlertBox>
+<HomeLayout title="Home" description="Home">
+  <script
+    is:inline
+    type="application/ld+json"
+    slot="head"
+    set:html={JSON.stringify(jsonld)}
+  />
+
+  <Article class="">
+    <h1>{data.greeting}</h1>
+
     <AlertBox>
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus
       aut blanditiis possimus deserunt earum, ut iure veniam quibusdam non, ipsa
       accusantium ducimus sint quia alias neque iusto aliquam laboriosam
       deleniti!
     </AlertBox>
-  </main>
-</Root>
+  </Article>
+</HomeLayout>
