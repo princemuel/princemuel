@@ -57,6 +57,7 @@ const toolCollection = defineCollection({
     name: z.string().min(1),
     url: z.string().url(),
     icon: z.string().optional(),
+    className: z.string().default(""),
   }),
 });
 
