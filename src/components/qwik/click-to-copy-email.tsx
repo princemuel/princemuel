@@ -36,7 +36,7 @@ export const ClickToCopyEmail = component$(({ class: className }: Props) => {
         fill="none"
         viewBox="0 0 24 24"
         stroke-width="1.5"
-        class="size-4 stroke-brand-500"
+        class="stroke-brand-500 size-4"
       >
         <path
           stroke-linecap="round"

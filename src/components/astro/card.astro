@@ -59,7 +59,7 @@ const latest = (value?: typeof publishedAt) => {
     >
       <em
         data-latest={`${latest(publishedAt)}`}
-        class="absolute right-8 top-4 hidden size-8 w-full translate-x-1/2 rotate-45 transform items-center justify-center bg-brand-400 text-center font-semibold uppercase text-white shadow-lg data-[latest=true]:flex"
+        class="bg-brand-400 absolute right-8 top-4 hidden size-8 w-full translate-x-1/2 rotate-45 transform items-center justify-center text-center font-semibold uppercase text-white shadow-lg data-[latest=true]:flex"
       >
         New
       </em>
@@ -87,7 +87,7 @@ const latest = (value?: typeof publishedAt) => {
                       height="24"
                       alt={platform.name}
                     />
-                    <small class="text-xs text-brand-500">
+                    <small class="text-brand-500 text-xs">
                       {platform.name}
                     </small>
                   </div>
@@ -97,7 +97,7 @@ const latest = (value?: typeof publishedAt) => {
             )
           }
         </span>
-        <Time class="text-xs font-bold text-brand-500" />
+        <Time class="text-brand-500 text-xs font-bold" />
         <h3 class="text-xl text-white">{title}</h3>
         <p class="text-sm font-light">
           {description}

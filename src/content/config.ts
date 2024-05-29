@@ -30,7 +30,7 @@ const categoryCollection = defineCollection({
 
 const keywordCollection = defineCollection({
   type: "data",
-  schema: z.object({ name: z.string().min(1) }),
+  schema: z.object({ title: z.string().min(1) }),
 });
 
 const routeCollection = defineCollection({
