@@ -32,22 +32,8 @@
   ],
   "overrides": [
     {
-      "files": [".*", "*.json", "*.md", "*.mdx", "*.toml", "*.yml"],
-      "options": {
-        "useTabs": false
-      }
-    },
-    {
-      "files": ["*.md", "*.mdx"],
-      "options": {
-        "printWidth": 80
-      }
-    },
-    {
       "files": "*.astro",
-      "options": {
-        "parser": "astro"
-      }
+      "options": { "parser": "astro" }
     }
   ]
 }
