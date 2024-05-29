@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Function to move .mdx files to a subdirectory
 move_mdx_files() {

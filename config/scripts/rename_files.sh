@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 read -r -p "Enter the directory path (or press Enter for the current directory): " target_directory
 target_directory="${target_directory:-.}"
