@@ -1,18 +1,26 @@
 import AvatarImage from "@/assets/images/forrest-gump-quote.webp";
-import { fetchResource } from "@/lib/utils";
+import { envVars } from "@/lib/env.server";
 import { ImageResponse } from "@vercel/og";
 import type {
   APIContext,
   GetStaticPaths,
   InferGetStaticPropsType,
 } from "astro";
+import { getCollection } from "astro:content";
 import { readFile } from "node:fs/promises";
 import { join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-// export const prerender = false;
 
 export const getStaticPaths = (async () => {
-  const entries = await fetchResource("posts");
+  const status = ["draft", "preview", "published"] as const;
+  const entries = await getCollection("posts", ({ data }) => {
+    return import.meta.env.MODE === "production"
+      ? envVars.ENABLE_PREVIEW && data.status !== "draft"
+        ? status.includes(data.status)
+        : data.status === "published"
+      : true;
+  });
+
   return entries.map((entry) => {
     const [year, month, slug] = entry.slug.split("/");
     return {
@@ -137,16 +145,19 @@ export async function GET({ props }: APIContext<Props>) {
         name: "Wotfard SemiBold",
         data: fontSemi.buffer,
         style: "normal",
+        weight: 600,
       },
       {
         name: "Wotfard Medium",
         data: fontMedium.buffer,
         style: "normal",
+        weight: 500,
       },
       {
         name: "Wotfard Regular",
         data: fontBase.buffer,
         style: "normal",
+        weight: 400,
       },
     ],
   });
