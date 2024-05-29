@@ -8,7 +8,7 @@ export const envVars = createEnv({
   server: {
     GOOGLE_DRIVE_TOKEN: z.string().min(1),
     GOOGLE_DRIVE_FILE_ID: z.string().min(1),
-    DIRECT_URL: z.string().min(1).email(),
+    DIRECT_URL: z.string().min(1),
     DATABASE_URL: z.string().min(1),
     RESEND_ADDRESS: z.string().min(1).email(),
     RESEND_AUDIENCE: z.string().min(1),
