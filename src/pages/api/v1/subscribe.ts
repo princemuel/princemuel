@@ -1,25 +1,26 @@
-import { errorMap, parseError, raise } from "@/helpers";
+import { parseError, raise } from "@/helpers";
 import { resend } from "@/lib/clients";
 import { envVars } from "@/lib/env.server";
 import type { APIRoute } from "astro";
-import { z } from "zod";
+import { isbot } from "isbot";
+import { ZodError, z } from "zod";
 
 const schema = z.object({
-  firstName: z.string().min(1, { message: "FirstName is required" }).max(255),
-  lastName: z.string().min(1, { message: "LastName is required" }).max(255),
+  honeypot: z.string().max(0, "Invalid submission detected.").optional(),
   email: z.string().email(),
 });
 
+export const prerender = false;
+
 export const POST: APIRoute = async ({ request }) => {
   try {
-    const formData = schema.parse(
-      Object.fromEntries(await request.formData()),
-      { errorMap },
-    );
+    if (isbot(request.headers.get("User-Agent")))
+      raise("Invalid submission detected.");
+
+    const body = (await request.json()) as any;
+    const formData = schema.parse(body);
 
     const response = await resend.contacts.create({
-      firstName: formData.firstName,
-      lastName: formData.lastName,
       email: formData.email,
       unsubscribed: false,
       audienceId: envVars.RESEND_AUDIENCE,
@@ -31,8 +32,13 @@ export const POST: APIRoute = async ({ request }) => {
       status: "success",
       message: "Subscribed!",
     });
-  } catch (error) {
-    return Response.json({ status: "error", message: parseError(error) });
+  } catch (e) {
+    const message =
+      e instanceof ZodError ? "Invalid Submission" : parseError(e);
+    return Response.json(
+      { status: "error", message: message },
+      { status: 400 },
+    );
   }
 };
 
