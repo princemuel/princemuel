@@ -64,7 +64,7 @@ if (!variant)
 ---
 
 <aside aria-label={title} {...rest} class={base({ variant })}>
-  <p class={label({ variant })} aria-hidden="true">
+  <p class={label({ variant })} aria-hidden={true}>
     <Icon name={icons.get(variant)} class={icon({ variant })} />
     <span class="text-base capitalize text-inherit">{title}</span>
   </p>

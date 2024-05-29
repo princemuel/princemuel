@@ -1,29 +1,33 @@
 ---
-import PlaceholderImage from "@/assets/images/placeholder.avif";
+import AvatarImage from "@/assets/images/placeholder.avif";
 import { Icon } from "astro-icon/components";
-import { Image } from "astro:assets";
+import type { HTMLAttributes } from "astro/types";
+import { Picture } from "astro:assets";
 import { ClickToCopyEmail } from "../qwik";
 import Link from "./link.astro";
+
+type Props = HTMLAttributes<"article">;
+
+const { class: className, ...rest } = Astro.props;
 ---
 
 <article
-  class="flex flex-col gap-4 rounded border border-stone-200 bg-transparent px-4 py-8 font-accent text-stone-900 dark:border-stone-900 dark:text-stone-50 sm:px-6"
+  {...rest}
+  class:list={[
+    "flex h-fit flex-col gap-4 rounded border border-slate-200 bg-transparent px-4 py-8 font-accent text-stone-900 dark:border-slate-900 dark:text-stone-50 sm:px-6",
+    className,
+  ]}
 >
   <figure class="mx-auto size-16 overflow-hidden rounded-full border-2">
-    <Image
-      width={60}
-      height={60}
-      alt="Sam Chukwuzube"
-      src={PlaceholderImage}
-      loading="eager"
-    />
+    <Picture width={60} height={60} alt="Prince Muel" src={AvatarImage} />
+    <figcaption class="sr-only">Prince Muel</figcaption>
   </figure>
 
   <div class="flex flex-col items-center justify-center gap-4 text-center">
-    <h2 class="text-base font-semibold uppercase">Sam Chukwuzube</h2>
+    <h2 class="text-base font-semibold uppercase">Prince Muel</h2>
 
     <p class="font-sans text-sm">
-      <Link href="/about" class="underline">
+      <Link href="/about-me" class="underline">
         Frontend Engineer (Freelance)
       </Link>
     </p>
@@ -31,10 +35,10 @@ import Link from "./link.astro";
     <ClickToCopyEmail class="" />
   </div>
 
-  <hr class="my-1 border-stone-200 dark:border-stone-900" />
+  <hr class="my-1 border-slate-200 dark:border-slate-900" />
   <Link
     href={"https://x.com/iamprincemuel"}
-    class="flex items-center justify-center gap-3 rounded border border-stone-200 p-2 text-center font-accent text-sm transition duration-300 dark:border-stone-900"
+    class="flex items-center justify-center gap-3 rounded border border-slate-200 p-2 text-center font-accent text-sm transition duration-300 dark:border-slate-900"
   >
     <Icon name="twitterx" class="text-base" />
     <span>@iamprincemuel</span>

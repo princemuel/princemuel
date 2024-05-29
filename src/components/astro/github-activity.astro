@@ -6,7 +6,7 @@ import { z } from "zod";
 import Link from "./link.astro";
 import Time from "./time.astro";
 
-const response = await octokit.rest.activity.listPublicEventsForUser({
+const response = await octokit.rest.activity.listEventsForAuthenticatedUser({
   username: "princemuel",
   per_page: 20,
 });
@@ -27,110 +27,95 @@ const commitSchema = z
   .default([]);
 ---
 
-<div class="rounded border border-stone-900 bg-black/30">
-  <div class="p-4">
-    <div
-      class="h-96 overflow-y-hidden rounded border border-stone-900 bg-neutral-950 p-4"
-    >
-      <div
-        class:list={["flex h-full flex-col gap-4 overflow-y-auto scrollbar"]}
-      >
-        {
-          (response.data ?? []).map((item, i) => {
-            //@ts-expect-error
-            const commits = commitSchema.parse(item.payload.commits);
+{
+  (response.data ?? []).map((item, i) => {
+    //@ts-expect-error
+    const commits = commitSchema.parse(item.payload.commits);
 
-            return (
-              <Fragment>
-                <article
-                  aria-posinset={i + 1}
-                  aria-setsize="-1"
-                  aria-describedby=""
+    return (
+      <Fragment>
+        <article
+          aria-posinset={i + 1}
+          aria-setsize="-1"
+          aria-describedby=""
+          class:list={[
+            "rounded border border-stone-100/10",
+            "flex flex-col gap-4 p-4 font-accent",
+          ]}
+        >
+          <header>
+            <dl class="flex items-center gap-2 text-lg">
+              <dt class="flex items-center gap-2">
+                <span
+                  aria-hidden="true"
+                  data-event-type={item.type}
                   class:list={[
-                    "rounded border border-stone-900 bg-black/30",
-                    "flex flex-col gap-4 p-4 font-accent",
+                    'data-[event-type="PushEvent"]:bg-teal-500',
+                    'data-[event-type="CreateEvent"]:bg-lime-500',
+                    'data-[event-type="ForkEvent"]:bg-teal-500',
+                    'data-[event-type="WatchEvent"]:bg-teal-500',
+                    'data-[event-type="DeleteEvent"]:bg-red-600',
+                    'data-[event-type="IssueCommentEvent"]:bg-yellow-500',
+                    'data-[event-type="PullRequestReviewCommentEvent"]:bg-yellow-500',
+                    'data-[event-type="PullRequestEvent"]:bg-teal-500',
+                    'data-[event-type="PullRequestReviewEvent"]:bg-teal-500',
+                    "size-3 rounded-pill",
                   ]}
-                >
-                  <header>
-                    <dl class="flex items-center gap-2 text-lg">
-                      <dt class="flex items-center gap-2">
-                        <span
-                          aria-hidden="true"
-                          data-event-type={item.type}
-                          class:list={[
-                            'data-[event-type="PushEvent"]:bg-teal-500',
-                            'data-[event-type="CreateEvent"]:bg-lime-500',
-                            'data-[event-type="ForkEvent"]:bg-teal-500',
-                            'data-[event-type="WatchEvent"]:bg-teal-500',
-                            'data-[event-type="DeleteEvent"]:bg-red-600',
-                            'data-[event-type="IssueCommentEvent"]:bg-yellow-500',
-                            'data-[event-type="PullRequestReviewCommentEvent"]:bg-yellow-500',
-                            'data-[event-type="PullRequestEvent"]:bg-teal-500',
-                            'data-[event-type="PullRequestReviewEvent"]:bg-teal-500',
-                            "size-3 rounded-pill",
-                          ]}
-                        />
-                        <span class="text-sm font-semibold">Event:</span>
-                      </dt>
+                />
+                <span class="text-sm font-semibold">Event:</span>
+              </dt>
 
-                      <dd class="text-sm font-light">{item.type}</dd>
-                    </dl>
-                    <Time
-                      datetime={item.created_at}
-                      class="text-sm font-medium"
-                    >
-                      {formatDate(item.created_at, true)}
-                    </Time>
-                  </header>
+              <dd class="text-sm font-light">{item.type}</dd>
+            </dl>
+            <Time datetime={item.created_at} class="text-sm font-medium">
+              {formatDate(item.created_at, true)}
+            </Time>
+          </header>
 
-                  <address class="not-italic">
-                    <p class="flex items-center gap-2">
-                      <span class="text-sm font-semibold">User:</span>
-                      <Link
-                        href={`https://github.com/${item.actor.login}`}
-                        class="text-sm font-light"
-                      >
-                        {item.actor.login}
-                      </Link>
-                    </p>
+          <address class="not-italic">
+            <p class="flex items-center gap-2">
+              <span class="text-sm font-semibold">User:</span>
+              <Link
+                href={`https://github.com/${item.actor.login}`}
+                class="text-sm font-light"
+              >
+                {item.actor.login}
+              </Link>
+            </p>
 
-                    <p class="flex items-center gap-2 text-lg">
-                      <span class="text-sm font-semibold">Repo:</span>
-                      <Link
-                        class="text-sm font-light underline"
-                        href={githubUrl(item.repo.url)}
-                      >
-                        {item.repo.name}
-                      </Link>
-                    </p>
-                  </address>
+            <p class="flex items-center gap-2 text-lg">
+              <span class="text-sm font-semibold">Repo:</span>
+              <Link
+                class="text-sm font-light underline"
+                href={githubUrl(item.repo.url)}
+              >
+                {item.repo.name}
+              </Link>
+            </p>
+          </address>
 
-                  {hasValues(commits) ? (
-                    <div class="flex flex-col gap-1">
-                      <div class="flex items-center gap-2">
-                        <Icon name="message" class={"text-xl text-pink-700"} />
-                        <output class="text-sm font-medium">
-                          {pluralize(commits.length, "Message")}
-                        </output>
-                      </div>
-                      <ul
-                        role="list"
-                        class="flex list-disc flex-col gap-1 pl-4 marker:text-pink-500"
-                      >
-                        {commits.map((commit) => (
-                          <li role="listitem" class="text-sm ">
-                            {commit.message}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ) : null}
-                </article>
-              </Fragment>
-            );
-          })
-        }
-      </div>
-    </div>
-  </div>
-</div>
+          {hasValues(commits) ? (
+            <div class="flex flex-col gap-1">
+              <div class="flex items-center gap-2">
+                <Icon name="message" class={"text-xl text-pink-700"} />
+                <output class="text-sm font-medium">
+                  {pluralize(commits.length, "Message")}
+                </output>
+              </div>
+              <ul
+                role="list"
+                class="flex list-disc flex-col gap-1 pl-4 marker:text-pink-500"
+              >
+                {commits.map((commit) => (
+                  <li role="listitem" class="text-sm ">
+                    {commit.message}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+        </article>
+      </Fragment>
+    );
+  })
+}

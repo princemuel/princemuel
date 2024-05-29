@@ -2,14 +2,15 @@
 import { tw } from "@/helpers";
 import { ONE_DAY_IN_MS } from "@/lib/config";
 import type { HTMLAttributes } from "astro/types";
-import { Image } from "astro:assets";
+import { Picture } from "astro:assets";
 import Link from "./link.astro";
 import TechIcon from "./tech-stack-icon.astro";
 import Time from "./time.astro";
 
 type Props = Prettify<HTMLAttributes<"article"> & InternalProps>;
 
-type InternalProps = Omit<Meta, ""> & {
+type InternalProps = Omit<Meta, "keywords"> & {
+  tags?: string[];
   platform?: {
     name: string;
     image?: string;
@@ -64,7 +65,7 @@ const latest = (value?: typeof publishedAt) => {
       </em>
       {
         image && (
-          <Image
+          <Picture
             src={image.src}
             width={576}
             height={324}
@@ -80,7 +81,7 @@ const latest = (value?: typeof publishedAt) => {
               <>
                 {platform.image && (
                   <div class="flex items-center gap-2">
-                    <Image
+                    <Picture
                       src={platform.image}
                       width="24"
                       height="24"
@@ -101,15 +102,14 @@ const latest = (value?: typeof publishedAt) => {
         <p class="text-sm font-light">
           {description}
         </p>
+
         <ul class={"flex flex-wrap gap-2"}>
           {
-            (tags || ["AlpineJS", "Node.JS", "Docker", "Next.js"]).map(
-              (item) => (
-                <TechIcon id={item} class="bg-blue-700 text-xs  text-red-600">
-                  {item}
-                </TechIcon>
-              ),
-            )
+            (tags || []).map((item) => (
+              <TechIcon id={item} class="bg-blue-700 text-xs  text-red-600">
+                {item}
+              </TechIcon>
+            ))
           }
         </ul>
       </div>
