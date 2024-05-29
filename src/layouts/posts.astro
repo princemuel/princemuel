@@ -1,0 +1,11 @@
+---
+import type { ComponentProps } from "astro/types";
+import RootLayout from "./root.astro";
+
+type Props = ComponentProps<typeof RootLayout>;
+---
+
+<RootLayout {...Astro.props}>
+  <slot name="structured-data" slot="structured-data" />
+  <slot />
+</RootLayout>

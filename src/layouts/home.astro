@@ -1,9 +1,14 @@
 ---
+import Main from "@/components/astro/main.astro";
+import type { ComponentProps } from "astro/types";
 import BaseLayout from "./root.astro";
+
+type Props = ComponentProps<typeof BaseLayout>;
 ---
 
-{/* @ts-expect-error */}
-<BaseLayout>
+<BaseLayout {...Astro.props}>
   <slot name="head" slot="head" />
-  <slot />
+  <Main class="">
+    <slot />
+  </Main>
 </BaseLayout>
