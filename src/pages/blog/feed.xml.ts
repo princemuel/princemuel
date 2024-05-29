@@ -20,7 +20,7 @@ export const GET: APIRoute = async (ctx) => {
     return {
       title: item.data.title,
       description: item.data.description,
-      categories: keywords.map((item) => item.data.name),
+      categories: keywords.map((item) => item.data.title),
       pubDate: item.data.publishedAt,
       author: `${author.data.links.email} (${author.data.name})`,
       link: new URL(`/blog/${item.slug}`, baseUrl).toString(),
