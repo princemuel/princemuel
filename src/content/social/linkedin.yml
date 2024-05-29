@@ -1,4 +1,4 @@
-platform: linkedin
+order: 3
 href: https://www.linkedin.com/in/princemuel
 text: Connect with me on LinkedIn
-icon: /linkedin.svg
+icon: mdi:linkedin

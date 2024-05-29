@@ -75,7 +75,7 @@ const changelogCollection = defineCollection({
 const socialCollection = defineCollection({
   type: "data",
   schema: z.object({
-    platform: z.string().min(1),
+    order: z.number().default(0),
     href: z.string().min(1),
     text: z.string().min(1),
     icon: z.string().min(1),
