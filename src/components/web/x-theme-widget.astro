@@ -1,8 +1,8 @@
-<x-theme-widget>
+<x-theme-widget class="flex items-center justify-center">
   <button
     type="button"
     title="Toggle Theme"
-    class="relative text-xl text-blue-500 transition-transform delay-200 duration-200 ease-in"
+    class="relative text-2xl text-sky-600 transition-transform delay-200 duration-200 ease-in dark:text-sky-500"
   >
     <span class="sr-only">Toggle theme</span>
   </button>
@@ -63,7 +63,19 @@
     document.documentElement.dataset.theme =
       theme === "auto" ? getPreferredColorScheme() : theme;
     document.documentElement.dataset.readerTheme =
-      theme === "auto" ? `min-${getPreferredColorScheme()}` : `min-${theme}`;
+      theme === "auto"
+        ? `material-theme-${getPreferredColorScheme()}er`
+        : `material-theme-${theme}er`;
+
+    document.documentElement.dataset.readerTheme =
+      theme === "auto"
+        ? getPreferredColorScheme() === "light"
+          ? "material-theme-lighter"
+          : "material-theme-ocean"
+        : theme === "light"
+          ? "material-theme-lighter"
+          : "material-theme-ocean";
+
     storeTheme(theme);
   }
 
