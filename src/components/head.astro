@@ -3,11 +3,11 @@ import { formatCanonicalURL } from "@/helpers/seo";
 import { defaultKeywords, delimiter } from "@/lib/config";
 import { fontAccent, fontMono, fontSans } from "@/lib/fonts";
 import { getOgImageUrl } from "@/lib/og-image";
+import "@/styles/global.css";
 import { AstroFont as Fonts } from "astro-font";
 import { ViewTransitions } from "astro:transitions";
 import { pwaAssetsHead } from "virtual:pwa-assets/head";
 import { pwaInfo } from "virtual:pwa-info";
-import "@/styles/global.css";
 
 type Props = Meta & { og?: OpenGraph; twitter?: Twitter };
 
@@ -190,4 +190,3 @@ const application_name = `${name}'s Personal Website`;
 {/* <meta name="me" content="my-link" />  */}
 
 <ViewTransitions />
-<script src="/src/scripts/pwa.ts"></script>
