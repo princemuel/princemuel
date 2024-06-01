@@ -5,6 +5,7 @@ import {
   ThemeProvider,
   Footer,
 } from "@/components/astro";
+import PwaToast from "@/components/astro/pwa-toast.astro";
 import SkipLink from "@/components/astro/skip-link.astro";
 import RouterHead from "@/components/head.astro";
 import { Analytics } from "@/components/web";
@@ -71,6 +72,7 @@ const {
       // "bg-white/90 dark:bg-[hsl(227.1_46.7%_5.9%)]",
     ]}
   >
+    <PwaToast />
     <SkipLink />
     <div class="grid min-h-screen grid-rows-[auto_1fr_auto]">
       <Header />

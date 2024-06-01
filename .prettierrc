@@ -25,10 +25,10 @@
 
   "astroAllowShorthand": false,
   "plugins": [
-    "prettier-plugin-organize-imports",
+    "prettier-plugin-prisma",
     "prettier-plugin-astro",
-    "prettier-plugin-tailwindcss",
-    "prettier-plugin-prisma"
+    "prettier-plugin-organize-imports",
+    "prettier-plugin-tailwindcss"
   ],
   "overrides": [
     {
