@@ -3,9 +3,6 @@
   "trailingSlash": true,
   "cleanUrls": true,
   "outputDirectory": null,
-  "functions": {
-    "api/main.rs": { "runtime": "vercel-rust@4.0.7" }
-  },
   "headers": [
     {
       "source": "/(.*).html",
