@@ -1,8 +1,11 @@
 /// <reference types="astro/client" />
 /// <reference path="../.astro/types.d.ts" />
+//// <reference path="../.astro/icon.d.ts" />
 /// <reference types="vite-plugin-pwa/vanillajs" />
 /// <reference types="vite-plugin-pwa/info" />
 /// <reference types="vite-plugin-pwa/pwa-assets" />
+
+type EdgeLocals = import("@astrojs/vercel").EdgeLocals;
 
 interface ImportMetaEnv {}
 
@@ -11,7 +14,6 @@ interface ImportMeta {
 }
 
 declare namespace App {
-  type EdgeLocals = import("@astrojs/vercel").EdgeLocals;
   interface Locals extends EdgeLocals {}
 }
 

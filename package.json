@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "astro dev --host",
     "dev:open": "astro dev --open --host",
-    "dev:functions": "vercel dev",
+    "dev:functions": "concurrently -k -p \"[{name}]\" -n \"Astro.js,Vercel CLI\" -c \"white.bold,cyan.bold\" \"astro dev\" \"vercel dev\"",
     "start": "astro dev",
     "build": "astro check && astro build",
     "build:dev": "astro check && astro build -- --force",
@@ -64,7 +64,7 @@
     "htmx.org": "^1.9.12",
     "isbot": "^5.1.8",
     "octokit": "^4.0.2",
-    "openai": "^4.47.2",
+    "openai": "^4.47.3",
     "outvariant": "^1.4.2",
     "resend": "^3.2.0",
     "sanitize-html": "^2.13.0",
@@ -89,6 +89,7 @@
     "@vite-pwa/assets-generator": "^0.2.4",
     "@vite-pwa/astro": "^0.4.0",
     "astro-eslint-parser": "^1.0.2",
+    "concurrently": "^8.2.2",
     "css-has-pseudo": "^6.0.5",
     "eslint": "^8.57.0",
     "eslint-plugin-astro": "^1.2.0",
@@ -104,7 +105,7 @@
     "prettier-plugin-astro": "^0.14.0",
     "prettier-plugin-organize-imports": "^3.2.4",
     "prettier-plugin-prisma": "^5.0.0",
-    "prettier-plugin-tailwindcss": "^0.5.14",
+    "prettier-plugin-tailwindcss": "^0.6.1",
     "prisma": "^5.14.0",
     "reading-time": "^1.5.0",
     "rehype-autolink-headings": "^7.1.0",
@@ -116,7 +117,7 @@
     "tailwindcss": "^3.4.3",
     "tailwindcss-animate": "^1.0.7",
     "unist-util-visit": "^5.0.0",
-    "vercel": "^34.2.3"
+    "vercel": "^34.2.4"
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx,astro}": "oxlint",
