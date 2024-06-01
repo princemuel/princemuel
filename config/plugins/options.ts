@@ -48,21 +48,17 @@ const manifest = (async function () {
 })();
 
 export const PWAOptions: PwaOptions = {
-  registerType: "autoUpdate",
-  experimental: { directoryAndTrailingSlashHandler: true },
-  // selfDestroying: true,
-  devOptions: { enabled: false, suppressWarnings: true },
-  useCredentials: true,
+  registerType: "prompt",
+  injectRegister: false,
+  pwaAssets: { disabled: false, config: true },
   manifest: await manifest,
-  pwaAssets: { config: true },
   workbox: {
     cleanupOutdatedCaches: true,
+    clientsClaim: true,
     offlineGoogleAnalytics: true,
-    navigationPreload: true,
+    // navigationPreload: true,
     navigateFallback: "/offline",
-    globPatterns: [
-      "**/*.{html,js,css,png,jpg,jpeg,svg,ico,woff,woff2,ttf,eot}",
-    ],
+    globPatterns: ["**/*.{html,js,css,png,jpg,jpeg,svg,ico}"],
     navigateFallbackAllowlist: [/^\/api\/v\d+\/.*$/iu],
     navigateFallbackDenylist: [
       /\.(?:png|gif|jpg|jpeg|webp|avif|svg|ico)$/iu,
@@ -73,4 +69,6 @@ export const PWAOptions: PwaOptions = {
     ],
     runtimeCaching: cachePreset,
   },
+  experimental: { directoryAndTrailingSlashHandler: true },
+  devOptions: { enabled: true, suppressWarnings: true, type: "module" },
 };

@@ -7,7 +7,7 @@ import { integrations, rehypePlugins, remarkPlugins } from "./config/plugins";
 export default defineConfig({
   site: envVars.PUBLIC_SITE_URL,
   output: "hybrid",
-  server: { port: Number(envVars.PORT || 3000) },
+  server: { port: Number(envVars.PORT || 4321) },
   markdown: { syntaxHighlight: false, remarkPlugins, rehypePlugins },
   integrations: integrations,
   adapter: vercel({
@@ -15,7 +15,7 @@ export default defineConfig({
     functionPerRoute: false,
     imageService: true,
     webAnalytics: { enabled: envVars.NODE_ENV === "production" },
-    isr: { expiration: 2 * 24 * 60 * 60 },
+    isr: true,
   }),
   vite: { define: { __BUILD_DATE__: `'${new Date().toISOString()}'` } },
   security: { checkOrigin: true },

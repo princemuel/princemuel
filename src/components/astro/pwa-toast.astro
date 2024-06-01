@@ -1,0 +1,39 @@
+<aside
+  role="alert"
+  aria-labelledby="pwa-message"
+  data-id="pwa-toast"
+  data-state=""
+  class:list={[
+    "group fixed bottom-20 right-4 z-50 rounded",
+    "flex w-full max-w-80 flex-col items-start gap-2 px-4 py-2 text-xs md:py-4",
+    "border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-950",
+    "invisible data-[state*='open'_i]:visible",
+  ]}
+>
+  <p
+    id="pwa-message"
+    data-id="pwa-message"
+    class="text-sm font-medium text-slate-900 dark:text-slate-50"
+  >
+  </p>
+
+  <div class="flex w-full items-center justify-between">
+    <button
+      type="button"
+      data-id="pwa-refresh"
+      class:list={[
+        "rounded bg-slate-900 px-2 py-1 text-slate-50 dark:bg-blue-700",
+        "pointer-events-none opacity-10",
+        "group-data-[state*='refresh'_i]:pointer-events-auto group-data-[state*='refresh'_i]:opacity-100",
+      ]}>Reload</button
+    >
+    <button
+      type="button"
+      data-id="pwa-close"
+      class="rounded bg-slate-900 px-2 py-1 text-slate-50 dark:bg-blue-700"
+      >Close</button
+    >
+  </div>
+</aside>
+
+<script src="@/scripts/pwa.ts"></script>

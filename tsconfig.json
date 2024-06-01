@@ -6,7 +6,6 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "jsxImportSource": "@builder.io/qwik",
-
     "incremental": true,
     "noErrorTruncation": true,
     "exactOptionalPropertyTypes": false,
