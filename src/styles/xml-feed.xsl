@@ -41,7 +41,7 @@
             aria-labelledby="heading"
             class="mt-16 flex flex-col items-start gap-12"
             >
-            <h1 class="flex items-center gap-4 font-bold text-3xl md:text-4xl text-balance">
+            <p  class="flex items-center gap-4 font-bold text-3xl md:text-4xl text-balance">
               <!-- https://commons.wikimedia.org/wiki/File:Feed-icon.svg -->
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -104,10 +104,10 @@
                   />
               </svg>
               <span class="text-inherit">RSS Feed Preview</span>
-            </h1>
-            <h2 class="font-bold text-2xl md:text-3xl">
+            </p>
+            <h1 id='heading' class="font-bold text-2xl md:text-3xl">
               <xsl:value-of select="/rss/channel/title"/>
-            </h2>
+            </h1>
             <p><xsl:value-of select="/rss/channel/description"/></p>
             <a
               target="_blank"
@@ -118,14 +118,14 @@
               </xsl:attribute> Visit Website &#x2192;
             </a>
             
-            <section class="flex flex-col gap-12">
-              <h2 class="font-bold text-3xl">Recent Items</h2>
+            <section aria-labelledby="items" class="flex flex-col gap-12">
+              <h2 id='items' class="font-bold text-3xl">Recent Items</h2>
               
               <div class="flex flex-col items-start gap-7">
                 <xsl:for-each select="/rss/channel/item">
                   <article aria-setsize="-1">
                     <xsl:attribute name="aria-describedby">
-                      <xsl:value-of select="slug"/>
+                      <xsl:value-of select="lead"/>
                     </xsl:attribute>
                     <xsl:attribute name="aria-labelledby">
                       <xsl:value-of select="slug"/>
@@ -144,8 +144,6 @@
                         <xsl:value-of select="slug"/>
                       </xsl:attribute>
                       <a
-                        target="_blank"
-                        rel="noopener noreferrer"
                         aria-hidden=""
                         class="cursor-pointer text-blue-500 hocus:underline hocus:underline-offset-4 hocus:decoration-2 touch-manipulation">
                         <xsl:attribute name="href">
@@ -156,6 +154,9 @@
                     </h3>
                     
                     <p class="text-base">
+                      <xsl:attribute name="id">
+                        <xsl:value-of select="lead"/>
+                      </xsl:attribute>
                       <xsl:value-of select="description" />
                     </p>
                     

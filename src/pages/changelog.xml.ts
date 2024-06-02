@@ -1,4 +1,4 @@
-import { convertTime } from "@/helpers";
+import { asyncPool, convertTime, strip_special_chars } from "@/helpers";
 import { published_date } from "@/lib/config";
 import rss, { type RSSFeedItem } from "@astrojs/rss";
 import type { APIRoute } from "astro";
@@ -12,7 +12,7 @@ export const GET: APIRoute = async (ctx) => {
     getCollection("changelog"),
   ]);
 
-  const results = (collection ?? []).map(async (item) => {
+  const results = asyncPool(collection, 20, async (item) => {
     const author = await getEntry(item.data.author);
 
     return {
@@ -21,18 +21,24 @@ export const GET: APIRoute = async (ctx) => {
       content: await mkd(item.body, { gfm: true, breaks: true, async: true }),
       pubDate: item.data.publishedAt,
       author: `${author.data.links.email} (${author.data.name})`,
-      link: new URL(`/changelog.xml#v${item.data.version}`, baseUrl).toString(),
+      link: new URL(
+        `/changelog.xml#v${strip_special_chars(item.data.version)}`,
+        baseUrl,
+      ).toString(),
       commentsUrl: "https://github.com/princemuel/princemuel.com/discussions",
-      customData: `<slug>v${item.data.version}</slug>`,
+      customData: `
+        <slug>v${strip_special_chars(item.data.version)}</slug>
+        <lead>v${strip_special_chars(`${item.data.version}-lead`)}</lead>
+      `,
     } as RSSFeedItem;
   });
 
   return rss({
     xmlns: { atom: "http://www.w3.org/2005/Atom" },
     title: `${author.data.name}'s Site Changelog`,
-    description: `Changelog (Version History) for ${author.data.name}'s Website, containing all the recent changes.`,
+    description: `Version History for ${author.data.name}'s Website, containing all the recent changes.`,
     site: new URL("/", baseUrl),
-    items: await Promise.all(results),
+    items: await results,
     trailingSlash: true,
     customData: `
     <language>en-us</language>
