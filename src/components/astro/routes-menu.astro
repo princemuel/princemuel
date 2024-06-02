@@ -9,8 +9,8 @@ type Props = HTMLAttributes<"menu">;
 
 const response = await getCollection("routes");
 
-// const excludedRoutes = ["resources", "snippets"];
-const excludedRoutes = [""];
+const excludedRoutes = ["resources", "articles", "dashboard"];
+
 const routes =
   response
     .filter((route) => !excludedRoutes.includes(route.id))

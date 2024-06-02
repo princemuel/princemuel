@@ -251,7 +251,7 @@ export async function asyncPool<T, V>(
     if (limit <= array.length) {
       executing.add(promise);
       promise.then(() => executing.delete(promise));
-
+      // eslint-disable-next-line eslint(no-await-in-loop)
       if (executing.size >= limit) await Promise.race(executing);
     }
   }

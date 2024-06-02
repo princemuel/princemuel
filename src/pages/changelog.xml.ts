@@ -41,7 +41,7 @@ export const GET: APIRoute = async (ctx) => {
     items: await results,
     trailingSlash: true,
     customData: `
-    <language>en-us</language>
+    <language>en-US</language>
     <pubDate>${published_date.toUTCString()}</pubDate>
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
     <docs>${new URL("rss-specification", "https://www.rssboard.org/")}</docs>

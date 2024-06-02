@@ -110,8 +110,6 @@
             </h1>
             <p><xsl:value-of select="/rss/channel/description"/></p>
             <a
-              target="_blank"
-              rel="noopener noreferrer"
               class="cursor-pointer text-blue-500 hocus:underline hocus:underline-offset-4 hocus:decoration-2 touch-manipulation">
               <xsl:attribute name="href">
                 <xsl:value-of select="/rss/channel/link"/>
