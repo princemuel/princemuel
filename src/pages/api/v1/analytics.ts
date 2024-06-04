@@ -20,21 +20,21 @@ const schema = z.object({
 export const POST: APIRoute = async ({ request }) => {
   try {
     if (isbot(request.headers.get("User-Agent")))
-      raise("Invalid submission detected.");
+      raise("Invalid request detected.");
 
-    const body: any = await request.json();
+    const body = (await request.json()) as any;
     const geo = geolocation(request);
 
     const result = schema.parse({ ...body, ...geo });
 
     await db.analytics.create({ data: result });
 
-    return Response.json({ status: "success", message: "" });
-  } catch (error) {
-    return Response.json({
-      status: "error",
-      message: parseError(error),
-    });
+    return Response.json({ status: "success", message: "Request Success" });
+  } catch (e) {
+    return Response.json(
+      { status: "error", message: parseError(e) },
+      { status: 400 },
+    );
   }
 };
 
