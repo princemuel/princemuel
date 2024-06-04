@@ -7,6 +7,10 @@
   "repository": "git@github.com:princemuel/princemuel.com.git",
   "author": "princemuel <vansomecsam@gmail.com>",
   "license": "MIT",
+  "packageManager": "npm@10.8.1+sha512.0e9d42e92bd2318408ed81eaff2da5f78baf23ee7d12a6eed44a6e2901d0f29d7ab715d1b918ade601f72e769a824d9a5c322383f22bbbda5dd396e79de2a077",
+  "engines": {
+    "node": "20.x"
+  },
   "scripts": {
     "dev": "astro dev --host",
     "dev:open": "astro dev --open --host",
@@ -16,7 +20,7 @@
     "build:dev": "astro check && astro build -- --force",
     "preview": "astro preview",
     "astro": "astro",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc --incremental --noEmit",
     "fmt": "prettier --write .",
     "fmt:check": "prettier --check .",
     "fmt:lint": "oxlint -D correctness -D perf -A debugger -A eqeqeq --jsx-a11y-plugin --fix -c ./.eslintrc.json",
@@ -25,13 +29,7 @@
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
     "db:migrate:prod": "prisma migrate deploy",
-    "db:studio": "prisma studio",
-    "prepare": "node .husky/install.mjs",
-    "lint-staged": "lint-staged",
-    "postinstall": "prisma generate"
-  },
-  "engines": {
-    "node": "20.x"
+    "db:studio": "prisma studio"
   },
   "prisma": {
     "seed": "node ./prisma/seed.mjs"
@@ -78,14 +76,14 @@
     "@commitlint/cli": "^19.3.0",
     "@commitlint/config-conventional": "^19.2.2",
     "@iconify-json/logos": "^1.1.42",
-    "@iconify-json/lucide": "^1.1.188",
+    "@iconify-json/lucide": "^1.1.189",
     "@iconify-json/mdi": "^1.1.66",
     "@kindspells/astro-shield": "^1.3.6",
     "@tailwindcss/typography": "^0.5.13",
     "@total-typescript/ts-reset": "^0.5.1",
     "@types/sanitize-html": "^2.11.0",
-    "@typescript-eslint/eslint-plugin": "^7.11.0",
-    "@typescript-eslint/parser": "^7.11.0",
+    "@typescript-eslint/eslint-plugin": "^7.12.0",
+    "@typescript-eslint/parser": "^7.12.0",
     "@vite-pwa/assets-generator": "^0.2.4",
     "@vite-pwa/astro": "^0.4.0",
     "astro-eslint-parser": "^1.0.2",
@@ -101,7 +99,7 @@
     "marked": "^12.0.2",
     "mdast-util-to-string": "^4.0.0",
     "oxlint": "^0.4.2",
-    "prettier": "^3.2.5",
+    "prettier": "^3.3.0",
     "prettier-plugin-astro": "^0.14.0",
     "prettier-plugin-organize-imports": "^3.2.4",
     "prettier-plugin-prisma": "^5.0.0",
