@@ -5,9 +5,6 @@ async fn main() -> Result<(), Error> {
     run(handler).await
 }
 
-// The proc macro `bundled_api` injects a router for all `api/**/*.rs` handler files .
-// If you are usingmessagespaces (like `examples/route-merge` in this repository),
-// then an additional `path` argument must be passed to the macro. E.g.
-// #[bundled_api( path = "examples/route-merge" )]
+// The proc macro `bundled_api` injects a router for all `api/**/*.rs` handler files.
 #[bundled_api]
 pub async fn handler(req: Request) -> Result<Response<Body>, Error> {}
