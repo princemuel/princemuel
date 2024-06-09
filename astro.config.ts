@@ -1,7 +1,9 @@
 import vercel from "@astrojs/vercel/serverless";
 import { defineConfig } from "astro/config";
-import { envVars } from "./config/env/env.config";
-import { integrations, rehypePlugins, remarkPlugins } from "./config/plugins";
+import { envVars } from "./config/env";
+import { integrations } from "./config/integrations";
+import { rehypePlugins } from "./config/rehype";
+import { remarkPlugins } from "./config/remark";
 
 // https://astro.build/config
 export default defineConfig({
@@ -19,5 +21,9 @@ export default defineConfig({
   }),
   vite: { define: { __BUILD_DATE__: `'${new Date().toISOString()}'` } },
   security: { checkOrigin: true },
-  experimental: { globalRoutePriority: true, contentCollectionCache: true },
+  experimental: {
+    actions: true,
+    globalRoutePriority: true,
+    contentCollectionCache: true,
+  },
 });
