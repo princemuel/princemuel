@@ -3,7 +3,7 @@ import twScrollbar from "tailwind-scrollbar";
 import twAnimate from "tailwindcss-animate";
 import twDefaultTheme from "tailwindcss/defaultTheme";
 import twPlugin from "tailwindcss/plugin";
-import config from "./config/data/tailwind.json";
+import config from "./config/tailwind.json";
 
 /** @type {import('tailwindcss').Config} */
 export default {

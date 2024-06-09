@@ -72,6 +72,6 @@ copied_file_count=$(($(count_files "$target_directory") - initial_file_count))
 final_file_count=$(count_files "$target_directory")
 
 # Output the number of files copied and the number of files now in the target directory
-echo "Initial number of files: $copied_file_count"
+echo "Initial number of files: $initial_file_count"
 echo "Number of files copied: $copied_file_count"
 echo "Number of files now in the target directory: $final_file_count"

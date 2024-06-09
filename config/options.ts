@@ -39,7 +39,7 @@ export const sitemapOptions: SitemapOptions = {
 
 const manifest = (async function () {
   try {
-    return import("../data/manifest.json").then(
+    return import("./manifest.json").then(
       (r) => r.default,
     ) as PwaOptions["manifest"];
   } catch (error) {
@@ -48,7 +48,7 @@ const manifest = (async function () {
 })();
 
 export const PWAOptions: PwaOptions = {
-  registerType: "prompt",
+  registerType: "autoUpdate",
   injectRegister: false,
   pwaAssets: { disabled: false, config: true },
   manifest: await manifest,
@@ -56,9 +56,10 @@ export const PWAOptions: PwaOptions = {
     cleanupOutdatedCaches: true,
     clientsClaim: true,
     offlineGoogleAnalytics: true,
-    // navigationPreload: true,
     navigateFallback: "/offline",
-    globPatterns: ["**/*.{html,js,css,png,jpg,jpeg,svg,ico}"],
+    globPatterns: [
+      "**/*.{css,js,jpg,jpeg,png,gif,webp,svg,ico,woff,woff2,ttf,eot}",
+    ],
     navigateFallbackAllowlist: [/^\/api\/v\d+\/.*$/iu],
     navigateFallbackDenylist: [
       /\.(?:png|gif|jpg|jpeg|webp|avif|svg|ico)$/iu,
