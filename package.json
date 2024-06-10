@@ -29,7 +29,10 @@
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
     "db:migrate:prod": "prisma migrate deploy",
-    "db:studio": "prisma studio"
+    "db:studio": "prisma studio",
+    "prepare": "node .husky/install.mjs",
+    "lint-staged": "lint-staged",
+    "postinstall": "prisma generate"
   },
   "prisma": {
     "seed": "node ./prisma/seed.mjs"
