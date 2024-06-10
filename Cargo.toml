@@ -21,7 +21,7 @@
 
 # You can specify a library for shared logic here (optional)
 [lib]
-  path = "src-rs/lib.rs"
+  path = "rust/lib.rs"
 
 # Each handler has to be specified as [[bin]]
 [[bin]]

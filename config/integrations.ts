@@ -19,7 +19,7 @@ export type TIconOptions = NonNullable<Parameters<typeof icon>[0]>;
 export const integrations: AstroIntegration[] = [
   tailwind({ applyBaseStyles: false }),
   icon(IconOptions),
-  qwik({ include: "**/qwik/*" }),
+  qwik(),
   ec(CodeOptions),
   mdx({ extendMarkdownConfig: true }),
   sitemap(sitemapOptions),

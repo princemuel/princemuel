@@ -19,12 +19,7 @@ export const CodeOptions: AstroExpressiveCodeOptions = {
     codeFontFamily: "__FontMono",
     uiFontFamily: "__FontSans",
   },
-  plugins: [
-    pluginCollapsibleSections(),
-    pluginLineNumbers(),
-    // pluginFirstWordRed(),
-    // pluginErrorPreview(),
-  ],
+  plugins: [pluginCollapsibleSections(), pluginLineNumbers()],
   useThemedSelectionColors: false,
   themeCssSelector: (theme) => `[data-reader-theme='${theme.name}']`,
   defaultProps: { showLineNumbers: false },

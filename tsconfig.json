@@ -1,13 +1,8 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "astro/tsconfigs/strictest",
-  "include": [
-    "./src"
-  ],
-  "exclude": [
-    "node_modules",
-    ".vercel"
-  ],
+  "include": ["./src"],
+  "exclude": ["node_modules", ".vercel"],
   "compilerOptions": {
     "jsx": "react-jsx",
     "jsxImportSource": "@builder.io/qwik",
@@ -17,9 +12,7 @@
     "experimentalDecorators": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./src/*"
-      ]
+      "@/*": ["./src/*"]
     }
   }
 }

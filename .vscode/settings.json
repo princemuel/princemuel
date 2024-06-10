@@ -14,13 +14,11 @@
   "material-icon-theme.folders.theme": "specific",
   "material-icon-theme.folders.customClones": [
     {
-      "name": "src-rs",
+      "name": "rust",
       "base": "src",
       "color": "green-500",
-      "folderNames": [
-        "src-rs"
-      ]
-    },
+      "folderNames": ["rust"]
+    }
   ],
   "emmet.includeLanguages": {
     "typescriptreact": "html"
@@ -42,10 +40,7 @@
   // "eslint.codeActionsOnSave.mode": "problems",
   "tailwindCSS.rootFontSize": 16,
   "tailwindCSS.experimental.classRegex": [
-    [
-      "tv\\((([^()]*|\\([^()]*\\))*)\\)",
-      "[\"'`]([^\"'`]*).*?[\"'`]"
-    ]
+    ["tv\\((([^()]*|\\([^()]*\\))*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]
   ],
   "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
@@ -71,9 +66,7 @@
     "typescript",
     "typescriptreact"
   ],
-  "prettier.documentSelectors": [
-    "**/*.astro"
-  ],
+  "prettier.documentSelectors": ["**/*.astro"],
   "[astro]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -95,7 +88,5 @@
   "rust-analyzer.semanticHighlighting.punctuation.separate.macro.bang": true,
   "rust-analyzer.semanticHighlighting.punctuation.specialization.enable": true,
   "rust-analyzer.typing.autoClosingAngleBrackets.enable": true,
-  "rust-analyzer.linkedProjects": [
-    "./Cargo.toml"
-  ]
+  "rust-analyzer.linkedProjects": ["./Cargo.toml"]
 }
