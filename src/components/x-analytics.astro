@@ -1,0 +1,27 @@
+---
+
+---
+
+<x-analytics
+  data-sdkn="x-analytics"
+  data-sdkv="'0.1"
+  data-sdkp={Astro.url.pathname}></x-analytics>
+
+<script>
+  customElements.define(
+    "x-analytics",
+    class XAnalytics extends HTMLElement {
+      constructor() {
+        super();
+        (() => {
+          const payload = JSON.stringify({
+            pathname: this.dataset.sdkp,
+            referrer: document.referrer,
+          });
+          const blob = new Blob([payload], { type: "application/json" });
+          navigator.sendBeacon("/api/v1/analytics", blob);
+        })();
+      }
+    },
+  );
+</script>

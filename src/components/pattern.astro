@@ -11,7 +11,7 @@ const { class: className, ...rest } = Astro.props;
   {...rest}
   class:list={tw([
     "absolute top-0",
-    "bg-[url(/static/assets/pattern.png)] bg-[length:1.5rem] bg-repeat",
+    "bg-[url('/static/assets/pattern.png')] bg-[length:1.5rem] bg-repeat",
     className,
   ])}
 >
