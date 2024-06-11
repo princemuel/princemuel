@@ -19,12 +19,15 @@ export function capitalize(str: string) {
   return str.charAt(0).toLocaleUpperCase() + str.slice(1).toLocaleUpperCase();
 }
 
+export const strip_special_chars = (str: string) => str.replace(/[^\w]/g, "-");
+
 export const truncate = (str: string, length: number) => {
   if (!str || typeof str !== "string" || str.length <= length) return str;
   return `${str.slice(0, length)}...`;
 };
 
-export const str_to_bool = (value = "false") => JSON.parse(value) as boolean;
+export const str_to_bool = (value?: string | null) =>
+  JSON.parse(value || "false") as boolean;
 
 export function pluralize<
   C extends number,
@@ -225,4 +228,34 @@ export function convertTime(
     hours: totalHrs,
     days: totalDays,
   };
+}
+
+/*---------------------------------*
+            FUNCTION UTILS         *
+  ---------------------------------*
+ */
+
+export const run = <T>(fn: () => T): T => fn();
+
+export async function asyncPool<T, V>(
+  array: T[],
+  limit: number,
+  fn: (item: T) => Promise<V>,
+): Promise<V[]> {
+  const results: Promise<V>[] = [];
+  const executing = new Set<Promise<V>>();
+
+  for (const item of array) {
+    const promise = Promise.resolve().then(() => fn(item));
+    results.push(promise);
+
+    if (limit <= array.length) {
+      executing.add(promise);
+      promise.then(() => executing.delete(promise));
+      // eslint-disable-next-line eslint(no-await-in-loop)
+      if (executing.size >= limit) await Promise.race(executing);
+    }
+  }
+
+  return Promise.all(results);
 }

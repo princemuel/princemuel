@@ -42,9 +42,7 @@ export const POST: APIRoute = async ({ request }) => {
   }
 };
 
-export const ALL: APIRoute = ({ request }) => {
-  return Response.json(
-    { status: "error", message: `${request.method} not allowed` },
-    { status: 405 },
-  );
-};
+export const ALL: APIRoute = ({ request }) =>
+  new Response(` Request method ${request.method} not allowed`, {
+    status: 405,
+  });

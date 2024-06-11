@@ -22,7 +22,7 @@ const duration = envVars.UPSTASH_LIMIT_WINDOW as Parameters<
   typeof Ratelimit.slidingWindow
 >[1];
 
-export const rl = new Ratelimit({
+export const limitter = new Ratelimit({
   redis: redis,
   analytics: true,
   limiter: Ratelimit.slidingWindow(tokens, duration),

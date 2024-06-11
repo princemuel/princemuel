@@ -1,16 +1,7 @@
 ---
-import {
-  BreakPointIndicator,
-  Header,
-  ThemeProvider,
-  Footer,
-} from "@/components/astro";
-import PwaToast from "@/components/astro/pwa-toast.astro";
-import SkipLink from "@/components/astro/skip-link.astro";
-import RouterHead from "@/components/head.astro";
-import { Analytics } from "@/components/web";
+import { BreakPointIndicator, Header, Footer, SkipLink } from "@/components";
+import { Meta } from "@/components";
 import { tw } from "@/helpers";
-import SpeedInsights from "@vercel/speed-insights/astro";
 
 type Props = Meta & {
   type?: OpenGraph["type"];
@@ -26,6 +17,8 @@ const {
   description,
   publishedAt,
   updatedAt,
+  noindex = false,
+  nofollow = false,
 } = Astro.props;
 ---
 
@@ -37,30 +30,26 @@ const {
     "__sans__ __accent__ __mono__",
     "scrollbar scrollbar-w-1 scrollbar-h-6",
     "scrollbar-track-rounded-full scrollbar-thumb-rounded-full scrollbar-corner-rounded-full",
-    "scrollbar-track-teal-300 scrollbar-thumb-teal-700 scrollbar-corner-teal-500",
-    "selection:bg-teal-300 selection:text-teal-900",
+    "scrollbar-track-blue-300 scrollbar-thumb-blue-700 scrollbar-corner-blue-500",
+    "selection:bg-blue-300 selection:text-blue-900",
     "scroll-smooth",
   ])}
   data-theme="dark"
   data-reader-theme="material-theme-ocean"
 >
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="color-scheme" content="dark light" />
-    <RouterHead
+    <Meta
       title={title}
       description={description}
       image={image}
       og={{ type }}
       keywords={keywords}
+      nofollow={nofollow}
+      noindex={noindex}
       publishedAt={publishedAt}
       updatedAt={updatedAt}
       canonical={canonical}
     />
-    <ThemeProvider />
-    {import.meta.env.PROD && <SpeedInsights />}
-    {import.meta.env.PROD && <Analytics />}
     <slot name="head" />
     <slot name="structured-data" />
   </head>
@@ -72,7 +61,6 @@ const {
       // "bg-white/90 dark:bg-[hsl(227.1_46.7%_5.9%)]",
     ]}
   >
-    <PwaToast />
     <SkipLink />
     <div class="grid min-h-screen grid-rows-[auto_1fr_auto]">
       <Header />

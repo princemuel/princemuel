@@ -11,6 +11,15 @@
   "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
   "dotenv.enableAutocloaking": false,
   "material-icon-theme.activeIconPack": "react_redux",
+  "material-icon-theme.folders.theme": "specific",
+  "material-icon-theme.folders.customClones": [
+    {
+      "name": "rust",
+      "base": "src",
+      "color": "green-500",
+      "folderNames": ["rust"]
+    }
+  ],
   "emmet.includeLanguages": {
     "typescriptreact": "html"
   },

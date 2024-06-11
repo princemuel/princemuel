@@ -1,4 +1,4 @@
-import { convertTime } from "@/helpers";
+import { convertTime, strip_special_chars } from "@/helpers";
 import { published_date } from "@/lib/config";
 import { fetchResource } from "@/lib/utils";
 import rss, { type RSSFeedItem } from "@astrojs/rss";
@@ -25,7 +25,10 @@ export const GET: APIRoute = async (ctx) => {
       author: `${author.data.links.email} (${author.data.name})`,
       link: new URL(`/blog/${item.slug}`, baseUrl).toString(),
       commentsUrl: "https://github.com/princemuel/princemuel.com/discussions",
-      customData: `<slug>${item.slug}</slug>`,
+      customData: `
+        <slug>${strip_special_chars(item.slug)}</slug>
+        <lead>${strip_special_chars(`${item.slug}-lead`)}</lead>
+      `,
     } as RSSFeedItem;
   });
 
@@ -38,7 +41,7 @@ export const GET: APIRoute = async (ctx) => {
     items: await Promise.all(results),
     trailingSlash: true,
     customData: `
-    <language>en-us</language>
+    <language>en-US</language>
     <pubDate>${published_date.toUTCString()}</pubDate>
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
     <docs>${new URL("rss-specification", "https://www.rssboard.org/")}</docs>

@@ -9,6 +9,7 @@
     "incremental": true,
     "noErrorTruncation": true,
     "exactOptionalPropertyTypes": false,
+    "experimentalDecorators": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]

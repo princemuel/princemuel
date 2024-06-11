@@ -15,6 +15,8 @@ type Meta = {
   type?: "website" | "article";
   publishedAt?: ConstructorParameters<typeof Date>[0] | null;
   updatedAt?: ConstructorParameters<typeof Date>[0] | null;
+  noindex?: boolean;
+  nofollow?: boolean;
 };
 type OpenGraph = {
   type?: "website" | "article" | "book" | "profile";
