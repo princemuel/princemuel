@@ -1,8 +1,8 @@
 ---
 title: Configuring the AstroPaper theme
-featured: true
 summary: How to configure AstroPaper theme
 description: How you can make AstroPaper theme absolutely yours.
+featured: true
 tags:
   - configuration
   - docs
