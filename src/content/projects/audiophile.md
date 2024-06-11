@@ -3,8 +3,7 @@ title: Audiophile - yhnrnr fnfhfjnh
 description: How you can make AstroPaper theme absolutely yours.
 summary: An e-commerce app for audio devices
 featured: false
-author:
-  - princemuel
+author: princemuel
 tags:
   - nextjs
   - react
