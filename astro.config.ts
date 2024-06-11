@@ -19,11 +19,6 @@ export default defineConfig({
     webAnalytics: { enabled: envVars.NODE_ENV === "production" },
     isr: true,
   }),
-  vite: { define: { __BUILD_DATE__: `'${new Date().toISOString()}'` } },
   security: { checkOrigin: true },
-  experimental: {
-    actions: true,
-    globalRoutePriority: true,
-    contentCollectionCache: true,
-  },
+  experimental: { globalRoutePriority: true, contentCollectionCache: true },
 });

@@ -1,6 +1,5 @@
 /// <reference types="astro/client" />
 /// <reference path="../.astro/types.d.ts" />
-/// <reference path="../.astro/actions.d.ts" />
 //// <reference path="../.astro/icon.d.ts" />
 /// <reference types="vite-plugin-pwa/vanillajs" />
 /// <reference types="vite-plugin-pwa/info" />

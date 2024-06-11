@@ -1,4 +1,5 @@
 ---
+import { en_datetime } from "@/helpers/datetime";
 import { published_date } from "@/lib/config";
 import { Icon } from "astro-icon/components";
 import type { HTMLAttributes } from "astro/types";
@@ -8,16 +9,8 @@ import Link from "./link.astro";
 import NewsletterForm from "./newsletter-form.astro";
 import Time from "./time.astro";
 
-const formatter = new Intl.DateTimeFormat("en-US", {
-  year: "numeric",
-  month: "long",
-  day: "numeric",
-  hour: "numeric",
-  minute: "numeric",
-});
-
 const datetime = published_date;
-const buildDate = new Date(__BUILD_DATE__);
+const buildDate = new Date(Date.now());
 
 type Props = HTMLAttributes<"footer">;
 
@@ -161,7 +154,8 @@ const routes = {
         <Icon name="logos:astro-icon" />
         <Link href="https://docs.astro.build/en/concepts/why-astro/"
           >{Astro.generator}</Link
-        > on <Time datetime={__BUILD_DATE__}>{formatter.format(buildDate)}</Time
+        > on <Time datetime={buildDate.toISOString()}
+          >{en_datetime.format(buildDate)}</Time
         >
       </p>
     </Container>
