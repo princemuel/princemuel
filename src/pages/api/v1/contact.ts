@@ -1,5 +1,5 @@
 import { parseError } from "@/helpers/errors";
-import { checkIsRateLimited } from "@/lib/actions";
+import { rate_limit } from "@/lib/actions";
 import { resend } from "@/lib/clients";
 import { envVars } from "@/lib/env.server";
 import { contactSchema } from "@/schema";
@@ -7,10 +7,9 @@ import type { APIRoute } from "astro";
 
 export const POST: APIRoute = async (ctx) => {
   try {
+    const { isRateLimited } = await rate_limit(ctx);
 
-    const isRateLimited = await checkIsRateLimited(ctx)
-
-    if (isRateLimited )
+    if (isRateLimited)
       return new Response("You have reached your request limit for the day.", {
         // headers: {
         //   "X-RateLimit-Limit": limit.toString(),

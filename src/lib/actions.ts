@@ -5,24 +5,23 @@ import { ActionError } from "astro:actions";
 import { limitter } from "./clients";
 import { createHash } from "./utils";
 
-export const checkIsRateLimited = async (
-  ctx: Pick<APIContext, "request" | "locals">,
-) => {
+export async function rate_limit(ctx: Pick<APIContext, "request" | "locals">) {
   const ip = import.meta.env.DEV
     ? "anonymous"
     : ipAddress(ctx.request) || ctx.request.headers.get("x-forwarded-for");
 
-  if (!ip) {
+  if (!ip)
     throw new ActionError({
       code: "FORBIDDEN",
-      message: "No header found for rate limiting",
+      message: "No rate limiting header found or this address!",
     });
-  }
   const id = await createHash(ip);
-  const response = await limitter.limit(id);
-  waitUntil(response.pending);
-  return !response.success;
-};
+
+  const { pending, ...rest } = await limitter.limit(id, { rate: 3 });
+  waitUntil(pending);
+
+  return { ...rest, isRateLimited: !rest.success };
+}
 
 export const updateLikes = async (_: Record<string, any>) => {
   return { likes: 10 };
