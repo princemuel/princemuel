@@ -3,7 +3,6 @@ import { pluginCollapsibleSections } from "@expressive-code/plugin-collapsible-s
 import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
 import type { PwaOptions } from "@vite-pwa/astro";
 import type { AstroExpressiveCodeOptions } from "astro-expressive-code";
-import { cachePreset } from "./cache";
 import type { TIconOptions } from "./integrations";
 
 export const IconOptions: TIconOptions = {
@@ -43,6 +42,7 @@ const manifest = (async function () {
 })();
 
 export const PWAOptions: PwaOptions = {
+  strategies: "generateSW",
   registerType: "autoUpdate",
   injectRegister: false,
   pwaAssets: { disabled: false, config: true },
@@ -51,19 +51,19 @@ export const PWAOptions: PwaOptions = {
     cleanupOutdatedCaches: true,
     clientsClaim: true,
     offlineGoogleAnalytics: true,
-    navigateFallback: "/offline",
-    globPatterns: [
-      "**/*.{css,js,jpg,jpeg,png,gif,webp,svg,ico,woff,woff2,ttf,eot}",
-    ],
-    navigateFallbackAllowlist: [/^\/api\/v\d+\/.*$/iu],
-    navigateFallbackDenylist: [
-      /\.(?:png|gif|jpg|jpeg|webp|avif|svg|ico)$/iu,
-      /\.(?:ttf|otf|woff|woff2)$/iu,
-      /\.(?:css|js)$/iu,
-      /\/sw\.js$/iu,
-      /\.(?:pdf|mp4|webm|ogg|mp3|wav)$/iu,
-    ],
-    runtimeCaching: cachePreset,
+    // navigateFallback: "/offline",
+    // globPatterns: [
+    //   "**/*.{css,js,jpg,jpeg,png,gif,webp,svg,ico,woff,woff2,ttf,eot}",
+    // ],
+    // navigateFallbackAllowlist: [/^\/api\/v\d+\/.*$/iu],
+    // navigateFallbackDenylist: [
+    //   /\.(?:png|gif|jpg|jpeg|webp|avif|svg|ico)$/iu,
+    //   /\.(?:ttf|otf|woff|woff2)$/iu,
+    //   /\.(?:css|js)$/iu,
+    //   /\/sw\.js$/iu,
+    //   /\.(?:pdf|mp4|webm|ogg|mp3|wav)$/iu,
+    // ],
+    // runtimeCaching: cachePreset,
   },
   experimental: { directoryAndTrailingSlashHandler: true },
   devOptions: { enabled: true, suppressWarnings: true, type: "module" },
