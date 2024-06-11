@@ -20,7 +20,7 @@
     "build:dev": "astro check && astro build -- --force",
     "preview": "astro preview",
     "astro": "astro",
-    "typecheck": "tsc --incremental --noEmit",
+    "typecheck": "tsc --noEmit",
     "fmt": "prettier --write .",
     "fmt:check": "prettier --check .",
     "fmt:lint": "oxlint -D correctness -D perf -A debugger -A eqeqeq --jsx-a11y-plugin --fix -c ./.eslintrc.json",
