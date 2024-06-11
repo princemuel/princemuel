@@ -16,7 +16,7 @@ tools:
   - typescript
   - zustand
 categories:
-  - e-commerce
-  - web-app
+  - ecommerce
+  - webapp
 publishedAt: 2023-09-28T04:30:14.388Z
 ---
