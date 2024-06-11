@@ -3,6 +3,11 @@
   "trailingSlash": true,
   "cleanUrls": true,
   "outputDirectory": null,
+  "functions": {
+    "api/**/*.rs": {
+      "runtime": "vercel-rust@4.0.7"
+    }
+  },
   "headers": [
     {
       "source": "/sw.js",
