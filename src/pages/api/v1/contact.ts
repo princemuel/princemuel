@@ -1,29 +1,27 @@
 import { parseError } from "@/helpers/errors";
+import { checkIsRateLimited } from "@/lib/actions";
 import { resend } from "@/lib/clients";
 import { envVars } from "@/lib/env.server";
-import { rate_limit } from "@/lib/rate-limit";
 import { contactSchema } from "@/schema";
 import type { APIRoute } from "astro";
 
-export const POST: APIRoute = async ({ request, locals }) => {
+export const POST: APIRoute = async (ctx) => {
   try {
-    const { success, limit, reset, remaining } = await rate_limit(
-      request,
-      locals,
-    );
 
-    if (!success)
+    const isRateLimited = await checkIsRateLimited(ctx)
+
+    if (isRateLimited )
       return new Response("You have reached your request limit for the day.", {
-        headers: {
-          "X-RateLimit-Limit": limit.toString(),
-          "X-RateLimit-Remaining": remaining.toString(),
-          "X-RateLimit-Reset": reset.toString(),
-        },
+        // headers: {
+        //   "X-RateLimit-Limit": limit.toString(),
+        //   "X-RateLimit-Remaining": remaining.toString(),
+        //   "X-RateLimit-Reset": reset.toString(),
+        // },
         status: 429,
         statusText: "Rate limit exceeded",
       });
 
-    const formData = contactSchema.parse(await request.json());
+    const formData = contactSchema.parse(await ctx.request.json());
     // console.log("📧 Contact form submission", formData);
 
     // const data = await resend.emails.send({

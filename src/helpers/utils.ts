@@ -26,7 +26,8 @@ export const truncate = (str: string, length: number) => {
   return `${str.slice(0, length)}...`;
 };
 
-export const str_to_bool = (value = "false") => JSON.parse(value) as boolean;
+export const str_to_bool = (value?: string | null) =>
+  JSON.parse(value || "false") as boolean;
 
 export function pluralize<
   C extends number,
@@ -125,24 +126,6 @@ export const date_formatter = (
     ...options,
   });
 };
-
-export const intl_date_format = (
-  locales?: Intl.LocalesArgument,
-  options?: Intl.DateTimeFormatOptions,
-) => {
-  const language: Intl.LocalesArgument =
-    locales || (isServer ? ["en", "en-US"] : navigator.language);
-  return new Intl.DateTimeFormat(language, {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-    hour: "numeric",
-    minute: "numeric",
-    ...options,
-  });
-};
-
-export const en_datetime = intl_date_format("en-US");
 
 /*---------------------------------*
             ARRAY UTILS            *
