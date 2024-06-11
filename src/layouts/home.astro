@@ -1,14 +1,20 @@
 ---
-import Main from "@/components/astro/main.astro";
+import { Container, Main, Profile } from "@/components";
 import type { ComponentProps } from "astro/types";
-import BaseLayout from "./root.astro";
+import RootLayout from "./root.astro";
 
-type Props = ComponentProps<typeof BaseLayout>;
+type Props = ComponentProps<typeof RootLayout>;
 ---
 
-<BaseLayout {...Astro.props}>
-  <slot name="head" slot="head" />
+<RootLayout {...Astro.props}>
+  <slot name="structured-data" slot="structured-data" />
+
   <Main class="">
-    <slot />
+    <Container class="">
+      <div class="grid grid-cols-[1fr,28ch] gap-8">
+        <slot />
+        <Profile />
+      </div>
+    </Container>
   </Main>
-</BaseLayout>
+</RootLayout>
