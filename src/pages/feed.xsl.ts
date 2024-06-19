@@ -1,8 +1,8 @@
 import type { APIRoute } from "astro";
 
-import feedFonts from "@/styles/fonts.css?raw";
-import feedStyles from "@/styles/xml-feed.css?raw";
-import feedTemplate from "@/styles/xml-feed.xsl?raw";
+import feedFonts from "@/assets/styles/fonts.css?raw";
+import feedStyles from "@/assets/styles/xml-feed.css?raw";
+import feedTemplate from "@/assets/styles/xml-feed.xsl?raw";
 
 export const GET: APIRoute = () => {
   const styles = feedTemplate

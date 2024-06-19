@@ -1,5 +1,5 @@
-import AvatarImage from "@/assets/images/forrest-gump-quote.webp";
-import { envVars } from "@/lib/env.server";
+import PlaceholderImage from "@/assets/images/forrest-gump-quote.webp";
+import { envVars } from "@/lib/config/environment";
 import { ImageResponse } from "@vercel/og";
 import type {
   APIContext,
@@ -37,7 +37,7 @@ export async function GET({ props }: APIContext<Props>) {
 
   const image_src = entry.data.media?.cover
     ? entry.data.media.cover.src
-    : AvatarImage.src;
+    : PlaceholderImage.src;
 
   const image_path = import.meta.env.DEV
     ? resolve(image_src.replace(/\?.*/, "").replace("/@fs", ""))

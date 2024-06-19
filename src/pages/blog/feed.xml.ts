@@ -1,15 +1,14 @@
-import { convertTime, strip_special_chars } from "@/helpers";
-import { published_date } from "@/lib/config";
-import { fetchResource } from "@/lib/utils";
+import { published_date } from "@/lib/config/site";
+import { convertTime, normalize } from "@/shared/utils";
 import rss, { type RSSFeedItem } from "@astrojs/rss";
 import type { APIRoute } from "astro";
-import { getEntries, getEntry } from "astro:content";
+import { getCollection, getEntries, getEntry } from "astro:content";
 
 export const GET: APIRoute = async (ctx) => {
   const baseUrl = new URL("/", ctx.site).toString();
   const [author, collection] = await Promise.all([
     getEntry("authors", "princemuel"),
-    fetchResource("posts"),
+    getCollection("posts"),
   ]);
 
   const results = (collection ?? []).map(async (item) => {
@@ -26,8 +25,8 @@ export const GET: APIRoute = async (ctx) => {
       link: new URL(`/blog/${item.slug}`, baseUrl).toString(),
       commentsUrl: "https://github.com/princemuel/princemuel.com/discussions",
       customData: `
-        <slug>${strip_special_chars(item.slug)}</slug>
-        <lead>${strip_special_chars(`${item.slug}-lead`)}</lead>
+        <slug>${normalize(item.slug)}</slug>
+        <lead>${normalize(`${item.slug}-lead`)}</lead>
       `,
     } as RSSFeedItem;
   });

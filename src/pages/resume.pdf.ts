@@ -1,5 +1,5 @@
-import { NetworkError } from "@/helpers";
-import { envVars } from "@/lib/env.server";
+import { envVars } from "@/lib/config/environment";
+import { NetworkError } from "@/shared/helpers/errors";
 import { invariant } from "outvariant";
 
 export async function GET() {

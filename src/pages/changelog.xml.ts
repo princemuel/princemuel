@@ -1,5 +1,5 @@
-import { asyncPool, convertTime, strip_special_chars } from "@/helpers";
-import { published_date } from "@/lib/config";
+import { published_date } from "@/lib/config/site";
+import { asyncPool, convertTime, normalize } from "@/shared/utils";
 import rss, { type RSSFeedItem } from "@astrojs/rss";
 import type { APIRoute } from "astro";
 import { getCollection, getEntry } from "astro:content";
@@ -22,13 +22,13 @@ export const GET: APIRoute = async (ctx) => {
       pubDate: item.data.publishedAt,
       author: `${author.data.links.email} (${author.data.name})`,
       link: new URL(
-        `/changelog.xml#v${strip_special_chars(item.data.version)}`,
+        `/changelog.xml#v${normalize(item.data.version)}`,
         baseUrl,
       ).toString(),
       commentsUrl: "https://github.com/princemuel/princemuel.com/discussions",
       customData: `
-        <slug>v${strip_special_chars(item.data.version)}</slug>
-        <lead>v${strip_special_chars(`${item.data.version}-lead`)}</lead>
+        <slug>v${normalize(item.data.version)}</slug>
+        <lead>v${normalize(`${item.data.version}-lead`)}</lead>
       `,
     } as RSSFeedItem;
   });
