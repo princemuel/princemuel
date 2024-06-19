@@ -1,10 +1,10 @@
-import { singleton } from "@/helpers/utils";
+import { singleton } from "@/shared/utils";
 import { PrismaClient } from "@prisma/client";
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
 import { Octokit } from "octokit";
 import { Resend } from "resend";
-import { envVars } from "./env.server";
+import { envVars } from "./environment";
 
 // https://github.com/octokit/octokit.js/#readme
 export const octokit = new Octokit({ auth: envVars.OCTOKIT_TOKEN });

@@ -19,7 +19,7 @@ export function capitalize(str: string) {
   return str.charAt(0).toLocaleUpperCase() + str.slice(1).toLocaleUpperCase();
 }
 
-export const strip_special_chars = (str: string) => str.replace(/[^\w]/g, "-");
+export const normalize = (str: string) => str.replace(/[^\w]/g, "-");
 
 export const truncate = (str: string, length: number) => {
   if (!str || typeof str !== "string" || str.length <= length) return str;
@@ -94,39 +94,6 @@ export function format_num(num: number, digits?: number | undefined) {
   );
 }
 
-export const formatDate = (
-  dateString: ConstructorParameters<typeof Date>[0] | null | undefined,
-  showTime = false,
-) => {
-  const date = dateString ? new Date(dateString) : new Date();
-
-  const dateStamp = date.toLocaleString("en-US", {
-    timeZone: "UTC",
-    day: "numeric",
-    month: "long",
-    weekday: "long",
-    year: "numeric",
-  });
-  const timeStamp = date.toLocaleTimeString();
-
-  return `${dateStamp} ${showTime ? `@${timeStamp}` : ""}`;
-};
-
-export const date_formatter = (
-  locales?: Intl.LocalesArgument,
-  options?: Intl.DateTimeFormatOptions,
-) => {
-  const language = locales || (isServer ? "en-US" : navigator.language);
-  return new Intl.DateTimeFormat(language, {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-    hour: "numeric",
-    minute: "numeric",
-    ...options,
-  });
-};
-
 /*---------------------------------*
             ARRAY UTILS            *
   ---------------------------------*
@@ -168,6 +135,18 @@ export function singleton<T>(name: string, callback: () => T) {
 
   if (!g.__singletons.has(name)) g.__singletons.set(name, callback());
   return g.__singletons.get(name) as NonNullable<T>;
+}
+
+export function remove_key<T>(data: T, k: string): T {
+  if (Array.isArray(data)) {
+    return data.map((item) => remove_key(item, k)) as unknown as T;
+  } else if (isObject(data)) {
+    const entries = Object.entries(data)
+      .filter(([key]) => key !== k)
+      .map(([key, value]) => [key, remove_key(value, k)]);
+    return Object.fromEntries(entries) as T;
+  }
+  return data;
 }
 
 export function omitFields<T extends Record<string, any>, K extends keyof T>(
@@ -259,3 +238,14 @@ export async function asyncPool<T, V>(
 
   return Promise.all(results);
 }
+
+/** Helper for throwing errors in expression positions */
+export function raise(error: unknown): never {
+  throw typeof error === "string" ? new Error(error) : error;
+}
+
+export const parseError = (error: unknown): string => {
+  if (error instanceof Error) return error.message;
+  if (typeof error === "string") return error;
+  return "An unknown error occurred";
+};

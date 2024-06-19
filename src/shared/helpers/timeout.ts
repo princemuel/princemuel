@@ -1,4 +1,4 @@
-import { TimeoutError } from "./error-classes";
+import { TimeoutError } from "./errors";
 
 /**
  * Used to uniquely identify a timeout

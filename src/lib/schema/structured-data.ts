@@ -1,26 +1,39 @@
 import AvatarImage from "@/assets/images/placeholder.avif";
-import { published_date, urlize } from "@/lib/config";
+import { withBaseUrl } from "@/shared/helpers/with-base-url";
+import { raise } from "@/shared/utils";
 import { execSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import type { Person, WebPage, WebSite, WithContext } from "schema-dts";
+import { published_date } from "../config/site";
 
-const __filename = fileURLToPath(import.meta.url);
-const output = execSync(`git log -1 --pretty="format:%cI" "${__filename}"`);
-const updatedAt = new Date(output.toString().trim() || Date.now());
+const output = (() => {
+  try {
+    const __filename = fileURLToPath(import.meta.url);
+    const timeBuffer = execSync(
+      `git log -1 --pretty="format:%cI" "${__filename}"`,
+    );
+    if (!timeBuffer.toString().trim()) raise("Invalid DateTimeFormat");
+    return timeBuffer.toString().trim();
+  } catch (error) {
+    return Date.now();
+  }
+})();
+
+const updatedAt = new Date(output);
 
 export const profile_ld = {
   "@context": "https://schema.org",
   "@type": "Person",
-  "@id": urlize("/about-me").toString(),
-  url: urlize("/about-me").toString(),
+  "@id": withBaseUrl("/about-me").toString(),
+  url: withBaseUrl("/about-me").toString(),
   name: "Prince Muel",
   alternateName: "Samuel Chukwuzube",
   image: {
     "@type": "ImageObject",
     inLanguage: "en-US",
-    "@id": urlize(AvatarImage.src).toString(),
-    url: urlize(AvatarImage.src).toString(),
-    contentUrl: urlize(AvatarImage.src).toString(),
+    "@id": withBaseUrl(AvatarImage.src).toString(),
+    url: withBaseUrl(AvatarImage.src).toString(),
+    contentUrl: withBaseUrl(AvatarImage.src).toString(),
     caption: "Prince Muel",
   },
   description: "Muel is a frontend engineer. ",
@@ -53,11 +66,11 @@ export const profile_ld = {
 export const home_ld = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  "@id": urlize("/").toString(),
-  url: urlize("/").toString(),
+  "@id": withBaseUrl("/").toString(),
+  url: withBaseUrl("/").toString(),
   name: "Prince Muel",
   description: "",
-  publisher: { "@id": urlize("/").toString() },
+  publisher: { "@id": withBaseUrl("/").toString() },
   datePublished: published_date.toISOString(),
   dateModified: updatedAt.toISOString(),
   inLanguage: "en-US",
@@ -66,29 +79,29 @@ export const home_ld = {
       "@type": "SearchAction",
       target: {
         "@type": "EntryPoint",
-        urlTemplate: urlize("?s={search_term}").toString(),
+        urlTemplate: withBaseUrl("?s={search_term}").toString(),
       },
       query: "required name=search_term",
     },
   ],
-  copyrightHolder: { "@id": urlize("/about-me").toString() },
+  copyrightHolder: { "@id": withBaseUrl("/about-me").toString() },
 } satisfies WithContext<WebSite>;
 
 export const blog_ld = {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  "@id": urlize("/blog").toString(),
-  url: urlize("/blog").toString(),
+  "@id": withBaseUrl("/blog").toString(),
+  url: withBaseUrl("/blog").toString(),
   name: "Blog - Prince Muel",
   description:
     "Sometimes my general thoughts and rambles but more often these posts follow my experimentation, learning, and front-end development discoveries that are worth a share with the world. All feedback is always welcome.",
-  isPartOf: { "@id": urlize("/blog").toString() },
-  primaryImageOfPage: { "@id": urlize(AvatarImage.src).toString() },
-  image: { "@id": urlize(AvatarImage.src).toString() },
+  isPartOf: { "@id": withBaseUrl("/blog").toString() },
+  primaryImageOfPage: { "@id": withBaseUrl(AvatarImage.src).toString() },
+  image: { "@id": withBaseUrl(AvatarImage.src).toString() },
   datePublished: published_date.toISOString(),
   dateModified: updatedAt.toISOString(),
   inLanguage: "en-US",
   potentialAction: [
-    { "@type": "DiscoverAction", target: urlize("/blog").toString() },
+    { "@type": "DiscoverAction", target: withBaseUrl("/blog").toString() },
   ],
 } satisfies WithContext<WebPage>;

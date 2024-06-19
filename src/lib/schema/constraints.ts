@@ -1,5 +1,5 @@
 import type { SchemaContext } from "astro:content";
-import { z } from "zod";
+import { z } from "astro:content";
 
 export const ResourceLink = z.object({
   href: z.string(),
