@@ -23,11 +23,15 @@ export default {
       ...twDefaultTheme.screens,
     },
     extend: {
+      colors: config.theme.colors,
       borderRadius: { pill: "100vmax" },
       fontFamily: {
-        sans: ["__FontSans", ...twDefaultTheme.fontFamily.sans],
-        mono: ["__FontMono", ...twDefaultTheme.fontFamily.mono],
-        accent: ["__FontAccent", ...twDefaultTheme.fontFamily.mono],
+        sans: [config.theme.fontFamily.sans, ...twDefaultTheme.fontFamily.sans],
+        mono: [config.theme.fontFamily.mono, ...twDefaultTheme.fontFamily.mono],
+        accent: [
+          config.theme.fontFamily.accent,
+          ...twDefaultTheme.fontFamily.mono,
+        ],
       },
       screens: {
         xs: "36em", // @media (min-width: 576px) { ... },

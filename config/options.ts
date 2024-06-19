@@ -4,10 +4,36 @@ import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
 import type { PwaOptions } from "@vite-pwa/astro";
 import type { AstroExpressiveCodeOptions } from "astro-expressive-code";
 import type { TIconOptions } from "./integrations";
+import twConfig from "./tailwind.json";
 
 export const IconOptions: TIconOptions = {
   iconDir: "src/assets/icons",
-  include: { lucide: ["*"], logos: ["*"], mdi: ["*"] },
+  include: {
+    lucide: [
+      "mail-plus",
+      "move-right",
+      "sun",
+      "moon-star",
+      "square-user",
+      "notebook-pen",
+      "briefcase-business",
+      "pen-line",
+      "bar-chart",
+      "home",
+      "library",
+      "rss",
+    ],
+    logos: ["astro-icon"],
+    mdi: [
+      "discord",
+      "email-outline",
+      "github",
+      "instagram",
+      "linkedin",
+      "youtube",
+    ],
+    fa: ["paint-brush"],
+  },
 };
 
 export const CodeOptions: AstroExpressiveCodeOptions = {
@@ -15,8 +41,8 @@ export const CodeOptions: AstroExpressiveCodeOptions = {
   styleOverrides: {
     borderRadius: "0.3rem",
     frames: { editorActiveTabIndicatorHeight: "2px" },
-    codeFontFamily: "__FontMono",
-    uiFontFamily: "__FontSans",
+    codeFontFamily: twConfig.theme.fontFamily.mono,
+    uiFontFamily: twConfig.theme.fontFamily.sans,
   },
   plugins: [pluginCollapsibleSections(), pluginLineNumbers()],
   useThemedSelectionColors: false,
@@ -66,5 +92,5 @@ export const PWAOptions: PwaOptions = {
     // runtimeCaching: cachePreset,
   },
   experimental: { directoryAndTrailingSlashHandler: true },
-  devOptions: { enabled: true, suppressWarnings: true, type: "module" },
+  devOptions: { enabled: false, suppressWarnings: true, type: "module" },
 };
