@@ -16,7 +16,7 @@
     {
       "name": "rust",
       "base": "src",
-      "color": "green-500",
+      "color": "orange-700",
       "folderNames": ["rust"]
     }
   ],
@@ -29,13 +29,6 @@
     "output.selfClosingStyle": "xhtml"
   },
   "window.autoDetectColorScheme": true,
-  "workbench.productIconTheme": "Default",
-  "workbench.iconTheme": "material-icon-theme",
-  "workbench.colorTheme": "GitHub Dark Default",
-  "workbench.preferredLightColorTheme": "GitHub Dark Default",
-  "workbench.preferredDarkColorTheme": "GitHub Dark Default",
-  "workbench.preferredHighContrastColorTheme": "GitHub Light High Contrast",
-  "workbench.preferredHighContrastLightColorTheme": "GitHub Dark High Contrast",
   "workbench.tree.indent": 8,
   // "eslint.codeActionsOnSave.mode": "problems",
   "tailwindCSS.rootFontSize": 16,
@@ -87,6 +80,5 @@
   "rust-analyzer.semanticHighlighting.punctuation.enable": true,
   "rust-analyzer.semanticHighlighting.punctuation.separate.macro.bang": true,
   "rust-analyzer.semanticHighlighting.punctuation.specialization.enable": true,
-  "rust-analyzer.typing.autoClosingAngleBrackets.enable": true,
-  "rust-analyzer.linkedProjects": ["./Cargo.toml"]
+  "rust-analyzer.typing.autoClosingAngleBrackets.enable": true
 }

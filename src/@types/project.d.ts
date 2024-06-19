@@ -8,7 +8,7 @@ type Meta = {
   description: string;
   keywords?: string[];
   image?: {
-    src: string;
+    src: string | URL;
     alt: string;
   };
   canonical?: string | URL | null;
