@@ -17,8 +17,10 @@ export default defineConfig({
     functionPerRoute: false,
     imageService: true,
     webAnalytics: { enabled: envVars.NODE_ENV === "production" },
-    isr: true,
   }),
   security: { checkOrigin: true },
-  experimental: { globalRoutePriority: true, contentCollectionCache: true },
+  experimental: {
+    globalRoutePriority: true,
+    contentCollectionCache: true,
+  },
 });
