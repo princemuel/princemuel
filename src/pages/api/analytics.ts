@@ -1,5 +1,5 @@
-import { parseError, raise } from "@/helpers";
-import { db } from "@/lib/clients";
+import { db } from "@/lib/config/clients";
+import { parseError, raise } from "@/shared/utils";
 import { geolocation } from "@vercel/edge";
 import type { APIRoute } from "astro";
 import { isbot } from "isbot";
@@ -29,10 +29,10 @@ export const POST: APIRoute = async ({ request }) => {
 
     await db.analytics.create({ data: result });
 
-    return Response.json({ status: "success", message: "Request Success" });
+    return Response.json({ success: true, message: "Request Success" });
   } catch (e) {
     return Response.json(
-      { status: "error", message: parseError(e) },
+      { success: false, message: parseError(e) },
       { status: 400 },
     );
   }

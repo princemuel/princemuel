@@ -1,6 +1,6 @@
-import { parseError, raise } from "@/helpers";
-import { resend } from "@/lib/clients";
-import { envVars } from "@/lib/env.server";
+import { resend } from "@/lib/config/clients";
+import { envVars } from "@/lib/config/environment";
+import { parseError, raise } from "@/shared/utils";
 import type { APIRoute } from "astro";
 import { isbot } from "isbot";
 import { ZodError, z } from "zod";
@@ -29,16 +29,13 @@ export const POST: APIRoute = async ({ request }) => {
     if (response.error) raise(response.error.message);
 
     return Response.json({
-      status: "success",
+      success: true,
       message: "Subscribed!",
     });
   } catch (e) {
     const message =
       e instanceof ZodError ? "Invalid Submission" : parseError(e);
-    return Response.json(
-      { status: "error", message: message },
-      { status: 400 },
-    );
+    return Response.json({ success: false, message: message }, { status: 400 });
   }
 };
 

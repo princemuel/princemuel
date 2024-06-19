@@ -1,9 +1,10 @@
-import { parseError } from "@/helpers/errors";
-import { rate_limit } from "@/lib/actions";
-import { resend } from "@/lib/clients";
-import { envVars } from "@/lib/env.server";
-import { contactSchema } from "@/schema";
+import { resend } from "@/lib/config/clients";
+import { envVars } from "@/lib/config/environment";
+import { rate_limit } from "@/lib/helpers/actions";
+import { contactSchema } from "@/lib/schema/forms";
+import { parseError } from "@/shared/utils";
 import type { APIRoute } from "astro";
+import { ZodError } from "zod";
 
 export const POST: APIRoute = async (ctx) => {
   try {
@@ -43,7 +44,7 @@ export const POST: APIRoute = async (ctx) => {
     if (response.error)
       return Response.json(
         {
-          status: "error",
+          success: false,
           message: response.error.message,
         },
         { statusText: response.error.name },
@@ -52,13 +53,14 @@ export const POST: APIRoute = async (ctx) => {
     // console.log("📧 Contact form submission successful");
 
     return Response.json({
-      status: "success",
+      success: true,
       message: "Thanks! Your message has been sent.",
     });
-  } catch (error) {
-    const message = parseError(error);
-    console.error("📧 Contact form submission failed", { error: message });
-    return Response.json({ status: "error", message }, { status: 400 });
+  } catch (e) {
+    const message =
+      e instanceof ZodError ? "Invalid Submission" : parseError(e);
+    console.log("📧 Contact form submission failed", { error: message });
+    return Response.json({ success: false, message: message }, { status: 400 });
   }
 };
 
