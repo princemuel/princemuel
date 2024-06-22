@@ -9,10 +9,10 @@ import config from "./config/tailwind.json";
 export default {
   darkMode: ["selector", '[data-theme="dark"]'],
   content: [
-    "./src/pages/**/*.{astro,js,jsx,ts,tsx,md,mdx}",
-    "./src/layouts/**/*.{astro,js,jsx,ts,tsx,md,mdx}",
-    "./src/components/**/*.{astro,js,jsx,ts,tsx,md,mdx}",
-    "./src/content/**/*.{md,mdx}",
+    "./app/pages/**/*.{astro,js,jsx,ts,tsx,md,mdx}",
+    "./app/layouts/**/*.{astro,js,jsx,ts,tsx,md,mdx}",
+    "./app/components/**/*.{astro,js,jsx,ts,tsx,md,mdx}",
+    "./app/content/**/*.{md,mdx}",
   ],
   corePlugins: { float: false, container: false },
   future: "all",

@@ -1,0 +1,12 @@
+---
+import { tw } from "@/shared/utils";
+import type { HTMLAttributes } from "astro/types";
+
+type Props = HTMLAttributes<"div">;
+
+const { class: className } = Astro.props;
+---
+
+<div class={tw("mx-auto w-full max-w-7xl px-4 sm:px-6 md:px-8", className)}>
+  <slot />
+</div>

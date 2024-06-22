@@ -1,0 +1,19 @@
+---
+import Article from "@/components/article.astro";
+import HomeLayout from "@/layouts/home.astro";
+
+const jsonld = "";
+---
+
+<HomeLayout title="Newsletter" description="Newsletter">
+  <script
+    is:inline
+    type="application/ld+json"
+    slot="head"
+    set:html={JSON.stringify(jsonld)}
+  />
+
+  <Article class="">
+    <h1>{data.greeting}</h1>
+  </Article>
+</HomeLayout>

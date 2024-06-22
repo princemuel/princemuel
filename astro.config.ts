@@ -7,9 +7,10 @@ import { remarkPlugins } from "./config/remark";
 
 // https://astro.build/config
 export default defineConfig({
-  site: envVars.PUBLIC_SITE_URL,
   output: "hybrid",
-  server: { port: Number(envVars.PORT || 4321) },
+  site: envVars.PUBLIC_SITE_URL,
+  srcDir: "./app",
+  server: { port: Number(envVars.PORT || 3000) },
   markdown: { syntaxHighlight: false, remarkPlugins, rehypePlugins },
   integrations: integrations,
   adapter: vercel({

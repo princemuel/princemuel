@@ -6,33 +6,15 @@
 
 [dependencies]
   tokio = { version = "1", features = ["macros"] }
-  tracing = { version = "0.1", features = ["log"] }
-  tracing-subscriber = { version = "0.3", default-features = false, features = [
-    "fmt",
-  ] }
-  actix-web = "4"
-  rand = "0.8.5"
-  oorandom = "11.1.3"
   serde = { version = "1", features = ["derive"] }
   serde_json = { version = "1", features = ["raw_value"] }
   serde_derive = "1"
-  # Documentation: https://docs.rs/vercel_runtime/latest/vercel_runtime
   vercel_runtime = { version = "1" }
+  dotenv = "0.15.0"
 
-# You can specify a library for shared logic here (optional)
 [lib]
-  path = "rust/lib.rs"
+  path = "lib/lib.rs"
 
-# Each handler has to be specified as [[bin]]
 [[bin]]
-  name = "handler"
-  path = "api/handler.rs"
-
-  # Note that you need to provide unique names for each binary:
-  # [[bin]]
-  # name = "user-id"
-  # path = "api/user/[id].rs"
-  #
-  # [[bin]]
-  # name = "group-id"
-  # path = "api/group/[id].rs"
+  name = "hello"
+  path = "api/hello.rs"

@@ -1,0 +1,26 @@
+---
+import { tw } from "@/shared/utils";
+import type { HTMLTag, Polymorphic } from "astro/types";
+
+type Props<E extends HTMLTag> = Polymorphic<{ as: E }>;
+
+const { as: Tag, class: className, ...rest } = Astro.props;
+---
+
+<Tag
+  {...rest}
+  class:list={tw([
+    "prose max-w-full dark:prose-invert",
+    "prose-inline-code:border prose-inline-code:border-gray-900/20",
+    "prose-inline-code:px-1 dark:prose-inline-code:border-gray-100/10",
+    "prose-inline-code:rounded-lg prose-inline-code:font-normal",
+    "prose-h2:text-blue-600",
+    "prose-h2:text-3xl prose-h2:font-semibold prose-h2:tracking-tight",
+    // "",
+    // "",
+
+    className,
+  ])}
+>
+  <slot />
+</Tag>

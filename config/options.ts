@@ -7,7 +7,7 @@ import type { TIconOptions } from "./integrations";
 import twConfig from "./tailwind.json";
 
 export const IconOptions: TIconOptions = {
-  iconDir: "src/assets/icons",
+  iconDir: "app/assets/icons",
   include: {
     lucide: [
       "mail-plus",

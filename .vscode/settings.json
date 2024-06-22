@@ -17,7 +17,9 @@
       "name": "rust",
       "base": "src",
       "color": "orange-700",
-      "folderNames": ["rust"]
+      "folderNames": [
+        "rust"
+      ]
     }
   ],
   "emmet.includeLanguages": {
@@ -33,11 +35,14 @@
   // "eslint.codeActionsOnSave.mode": "problems",
   "tailwindCSS.rootFontSize": 16,
   "tailwindCSS.experimental.classRegex": [
-    ["tv\\((([^()]*|\\([^()]*\\))*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]
+    [
+      "tv\\((([^()]*|\\([^()]*\\))*)\\)",
+      "[\"'`]([^\"'`]*).*?[\"'`]"
+    ]
   ],
   "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
-  "eslint.experimental.useFlatConfig": true,
+  "eslint.useFlatConfig": false,
   "eslint.format.enable": true,
   "eslint.lintTask.enable": true,
   "eslint.codeAction.showDocumentation": {
@@ -59,7 +64,9 @@
     "typescript",
     "typescriptreact"
   ],
-  "prettier.documentSelectors": ["**/*.astro"],
+  "prettier.documentSelectors": [
+    "**/*.astro"
+  ],
   "[astro]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -80,5 +87,5 @@
   "rust-analyzer.semanticHighlighting.punctuation.enable": true,
   "rust-analyzer.semanticHighlighting.punctuation.separate.macro.bang": true,
   "rust-analyzer.semanticHighlighting.punctuation.specialization.enable": true,
-  "rust-analyzer.typing.autoClosingAngleBrackets.enable": true
+  "rust-analyzer.typing.autoClosingAngleBrackets.enable": true,
 }
