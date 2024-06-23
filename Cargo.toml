@@ -11,10 +11,12 @@
   serde_derive = "1"
   vercel_runtime = { version = "1" }
   dotenv = "0.15.0"
+  octocrab = "0.38.0"
+  uuid = { version = "1", features = ["v4", "fast-rng", "macro-diagnostics"] }
 
 [lib]
-  path = "lib/lib.rs"
+  path = "src/lib.rs"
 
 [[bin]]
   name = "hello"
-  path = "api/hello.rs"
+  path = "api/hello.json.rs"

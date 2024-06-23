@@ -6,17 +6,15 @@ async fn main() -> Result<(), Error> {
     run(handler).await
 }
 
-pub async fn handler(request: Request) -> Result<Response<Body>, Error> {
-    println!("{:?}", request.headers());
+pub async fn handler(_: Request) -> Result<Response<Body>, Error> {
     Ok(Response::builder()
         .status(StatusCode::OK)
         .header("Content-Type", "application/json")
         .body(
             json!({
-              "message": "Hello there!"
+              "message": "hello there!"
             })
             .to_string()
             .into(),
         )?)
 }
-

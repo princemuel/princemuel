@@ -6,7 +6,7 @@
     "esbenp.prettier-vscode",
     "unifiedjs.vscode-mdx",
     "rust-lang.rust-analyzer",
-    "tamasfe.even-better-toml",
+    "tamasfe.even-better-toml"
   ],
   "unwantedRecommendations": []
 }

@@ -2,7 +2,10 @@
   "editor.tabSize": 2,
   "editor.inlineSuggest.enabled": true,
   "editor.wordWrap": "bounded",
-  "editor.wordWrapColumn": 80,
+  "editor.wordWrapColumn": 96,
+  "json.validate.enable": true,
+  "editor.formatOnSave": true,
+  "editor.formatOnType": true,
   "editor.codeActionsOnSave": {
     "source.addMissingImports": "explicit",
     "source.organizeImports": "explicit",
@@ -12,16 +15,6 @@
   "dotenv.enableAutocloaking": false,
   "material-icon-theme.activeIconPack": "react_redux",
   "material-icon-theme.folders.theme": "specific",
-  "material-icon-theme.folders.customClones": [
-    {
-      "name": "rust",
-      "base": "src",
-      "color": "orange-700",
-      "folderNames": [
-        "rust"
-      ]
-    }
-  ],
   "emmet.includeLanguages": {
     "typescriptreact": "html"
   },
@@ -75,17 +68,43 @@
   "tailwindCSS.includeLanguages": {
     "xslt": "html"
   },
-  "rust-analyzer.diagnostics.useRustcErrorCode": true,
+  "rust-analyzer.cargo.features": "all",
+  "rust-analyzer.checkOnSave": true,
+  "rust-analyzer.check.command": "clippy",
+  "rust-analyzer.check.features": "all",
+  "rust-analyzer.completion.autoimport.enable": true,
+  "rust-analyzer.completion.callable.snippets": "add_parentheses", //
   "rust-analyzer.completion.fullFunctionSignatures.enable": true,
-  "rust-analyzer.completion.privateEditable.enable": true,
-  "rust-analyzer.inlayHints.bindingModeHints.enable": false,
+  "rust-analyzer.completion.termSearch.enable": true,
+  "rust-analyzer.diagnostics.useRustcErrorCode": true,
+  "rust-analyzer.hover.actions.enable": true,
+  "rust-analyzer.hover.actions.references.enable": false, //
+  "rust-analyzer.imports.granularity.group": "module", //
+  "rust-analyzer.imports.prefix": "self", //
+  "rust-analyzer.inlayHints.bindingModeHints.enable": true,
+  "rust-analyzer.inlayHints.closingBraceHints.minLines": 25,
+  "rust-analyzer.inlayHints.closureCaptureHints.enable": true, //
+  "rust-analyzer.inlayHints.closureReturnTypeHints.enable": "with_block", //
+  "rust-analyzer.inlayHints.closureStyle": "impl_fn", //
+  "rust-analyzer.inlayHints.discriminantHints.enable": "fieldless", //
+  "rust-analyzer.inlayHints.implicitDrops.enable": false,
+  "rust-analyzer.inlayHints.lifetimeElisionHints.enable": "skip_trivial",
   "rust-analyzer.inlayHints.typeHints.enable": false,
   "rust-analyzer.inlayHints.parameterHints.enable": false,
   "rust-analyzer.inlayHints.rangeExclusiveHints.enable": true,
+  "rust-analyzer.interpret.tests": false, //
+  "rust-analyzer.linkedProjects": [],
   "rust-analyzer.restartServerOnConfigChange": true,
-  "rust-analyzer.semanticHighlighting.operator.specialization.enable": true,
-  "rust-analyzer.semanticHighlighting.punctuation.enable": true,
-  "rust-analyzer.semanticHighlighting.punctuation.separate.macro.bang": true,
-  "rust-analyzer.semanticHighlighting.punctuation.specialization.enable": true,
+  "rust-analyzer.semanticHighlighting.punctuation.enable": false,
   "rust-analyzer.typing.autoClosingAngleBrackets.enable": true,
+  "evenBetterToml.formatter.alignComments": true,
+  "evenBetterToml.formatter.alignEntries": true,
+  "evenBetterToml.formatter.arrayAutoCollapse": true,
+  "evenBetterToml.formatter.arrayAutoExpand": true,
+  "evenBetterToml.formatter.arrayTrailingComma": true,
+  "evenBetterToml.formatter.columnWidth": 48,
+  "evenBetterToml.formatter.reorderArrays": true,
+  "evenBetterToml.formatter.reorderKeys": true,
+  "evenBetterToml.formatter.trailingNewline": true,
+  "evenBetterToml.semanticTokens": true
 }
