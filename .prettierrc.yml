@@ -18,7 +18,7 @@ singleAttributePerLine: false
 
 experimentalTernaries: false
 
-tailwindConfig: "./tailwind.config.mjs"
+tailwindConfig: "./tailwind.config.js"
 tailwindFunctions:
   - tw
   - cn
