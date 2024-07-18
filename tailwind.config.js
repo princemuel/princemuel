@@ -1,3 +1,4 @@
+import twForms from "@tailwindcss/forms";
 import twTypography from "@tailwindcss/typography";
 import twScrollbar from "tailwind-scrollbar";
 import twAnimate from "tailwindcss-animate";
@@ -9,19 +10,20 @@ import config from "./config/tailwind.json";
 export default {
   darkMode: ["selector", '[data-theme="dark"]'],
   content: [
-    "./app/pages/**/*.{astro,js,jsx,ts,tsx,md,mdx}",
-    "./app/layouts/**/*.{astro,js,jsx,ts,tsx,md,mdx}",
-    "./app/components/**/*.{astro,js,jsx,ts,tsx,md,mdx}",
+    "./app/pages/**/*.{astro,md,mdx}",
+    "./app/layouts/**/*.astro",
+    "./app/components/**/*.{astro,tsx}",
     "./app/content/**/*.{md,mdx}",
   ],
   corePlugins: { float: false, container: false },
-  future: "all",
+  future: { hoverOnlyWhenSupported: true },
   theme: {
     screens: {
       "3xs": "24em", // @media (min-width: 384px) { ... }
       "2xs": "30em", // @media (min-width: 480px) { ... }
       ...twDefaultTheme.screens,
     },
+    fluidCols: { fit: "fit", fill: "fill" },
     extend: {
       colors: config.theme.colors,
       borderRadius: { pill: "100vmax" },
@@ -33,6 +35,7 @@ export default {
           ...twDefaultTheme.fontFamily.mono,
         ],
       },
+      cursor: config.theme.cursor,
       screens: {
         xs: "36em", // @media (min-width: 576px) { ... },
         sm: "40em", // @media (min-width: 640px) { ... }
@@ -42,7 +45,6 @@ export default {
         "2xl": "96em", // @media (min-width: 1536px) { ... }
         "3xl": "112.5em", // @media (min-width: 1800px) { ... }
       },
-
       animation: {
         float: "float 6s ease-in-out infinite",
         rotate: "rotate 1s ease-out",
@@ -57,28 +59,21 @@ export default {
           "100%": { transform: "rotate(0deg)" },
         },
       },
-      cursor: { pointer: config.theme.cursor },
     },
   },
   plugins: [
     twAnimate,
     twTypography({ target: "modern" }),
     twScrollbar({ nocompatible: true, preferredStrategy: "pseudoelements" }),
+    twForms({ strategy: "base" }),
     twPlugin(function ({ theme, addUtilities, addVariant, matchUtilities }) {
       addVariant("optional", "&:optional");
       addVariant("hocus", ["&:hover", "&:focus"]);
       addVariant("inverted-colors", "@media (inverted-colors: inverted)");
 
-      matchUtilities({
-        "fluid-cols": (value) => ({
-          "--tw-fluid-value": "var(--tw-fluid-cols-repeat, auto-fit)",
-          gridTemplateColumns: `repeat(var(--tw-fluid-value), minmax(min(100%, ${value}), 1fr))`,
-        }),
-      });
-
       addUtilities({
-        ".fluid-cols-fit": { "--tw-fluid-cols-repeat": "auto-fit" },
-        ".fluid-cols-fill": { "--tw-fluid-cols-repeat": "auto-fill" },
+        ".grid-repeat-autofit": { "--tw-grid-repeat": "auto-fit" },
+        ".grid-repeat-autofill": { "--tw-grid-repeat": "auto-fill" },
       });
       addUtilities({
         ".mask-radial-gradient": {
@@ -96,6 +91,15 @@ export default {
           clipPath: "inset(0 -100vmax)",
         },
       });
+
+      matchUtilities(
+        {
+          "grid-cols-fluid": (value) => ({
+            gridTemplateColumns: `repeat(var(--tw-grid-repeat), minmax(min(100%, ${value}), 1fr))`,
+          }),
+        },
+        { values: theme("width") },
+      );
     }),
   ],
 };

@@ -10,18 +10,15 @@ export default defineConfig({
   output: "hybrid",
   site: envVars.PUBLIC_SITE_URL,
   srcDir: "./app",
-  server: { port: Number(envVars.PORT || 3000) },
+  experimental: { globalRoutePriority: true, contentCollectionCache: true },
+  security: { checkOrigin: true },
   markdown: { syntaxHighlight: false, remarkPlugins, rehypePlugins },
   integrations: integrations,
   adapter: vercel({
+    isr: true,
     edgeMiddleware: true,
     functionPerRoute: false,
     imageService: true,
     webAnalytics: { enabled: envVars.NODE_ENV === "production" },
   }),
-  security: { checkOrigin: true },
-  experimental: {
-    globalRoutePriority: true,
-    contentCollectionCache: true,
-  },
 });
