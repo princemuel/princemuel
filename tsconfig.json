@@ -9,7 +9,7 @@
     "incremental": true,
     "noErrorTruncation": true,
     "exactOptionalPropertyTypes": false,
-    "experimentalDecorators": true,
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
     "baseUrl": ".",
     "paths": {
       "@/*": ["./app/*"]

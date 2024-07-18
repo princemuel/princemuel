@@ -28,27 +28,10 @@
   // "eslint.codeActionsOnSave.mode": "problems",
   "tailwindCSS.rootFontSize": 16,
   "tailwindCSS.experimental.classRegex": [
-    [
-      "tv\\((([^()]*|\\([^()]*\\))*)\\)",
-      "[\"'`]([^\"'`]*).*?[\"'`]"
-    ]
+    ["tv\\((([^()]*|\\([^()]*\\))*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]
   ],
   "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
-  "eslint.useFlatConfig": false,
-  "eslint.format.enable": true,
-  "eslint.lintTask.enable": true,
-  "eslint.codeAction.showDocumentation": {
-    "enable": true
-  },
-  "eslint.probe": [
-    "astro",
-    "markdown",
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact"
-  ],
   "eslint.validate": [
     "astro",
     "markdown",
@@ -57,9 +40,7 @@
     "typescript",
     "typescriptreact"
   ],
-  "prettier.documentSelectors": [
-    "**/*.astro"
-  ],
+  "prettier.documentSelectors": ["**/*.astro"],
   "[astro]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -68,43 +49,21 @@
   "tailwindCSS.includeLanguages": {
     "xslt": "html"
   },
-  "rust-analyzer.cargo.features": "all",
-  "rust-analyzer.checkOnSave": true,
-  "rust-analyzer.check.command": "clippy",
-  "rust-analyzer.check.features": "all",
-  "rust-analyzer.completion.autoimport.enable": true,
-  "rust-analyzer.completion.callable.snippets": "add_parentheses", //
-  "rust-analyzer.completion.fullFunctionSignatures.enable": true,
-  "rust-analyzer.completion.termSearch.enable": true,
-  "rust-analyzer.diagnostics.useRustcErrorCode": true,
-  "rust-analyzer.hover.actions.enable": true,
-  "rust-analyzer.hover.actions.references.enable": false, //
-  "rust-analyzer.imports.granularity.group": "module", //
-  "rust-analyzer.imports.prefix": "self", //
-  "rust-analyzer.inlayHints.bindingModeHints.enable": true,
-  "rust-analyzer.inlayHints.closingBraceHints.minLines": 25,
-  "rust-analyzer.inlayHints.closureCaptureHints.enable": true, //
-  "rust-analyzer.inlayHints.closureReturnTypeHints.enable": "with_block", //
-  "rust-analyzer.inlayHints.closureStyle": "impl_fn", //
-  "rust-analyzer.inlayHints.discriminantHints.enable": "fieldless", //
-  "rust-analyzer.inlayHints.implicitDrops.enable": false,
-  "rust-analyzer.inlayHints.lifetimeElisionHints.enable": "skip_trivial",
-  "rust-analyzer.inlayHints.typeHints.enable": false,
-  "rust-analyzer.inlayHints.parameterHints.enable": false,
-  "rust-analyzer.inlayHints.rangeExclusiveHints.enable": true,
-  "rust-analyzer.interpret.tests": false, //
-  "rust-analyzer.linkedProjects": [],
-  "rust-analyzer.restartServerOnConfigChange": true,
-  "rust-analyzer.semanticHighlighting.punctuation.enable": false,
-  "rust-analyzer.typing.autoClosingAngleBrackets.enable": true,
-  "evenBetterToml.formatter.alignComments": true,
-  "evenBetterToml.formatter.alignEntries": true,
-  "evenBetterToml.formatter.arrayAutoCollapse": true,
-  "evenBetterToml.formatter.arrayAutoExpand": true,
-  "evenBetterToml.formatter.arrayTrailingComma": true,
-  "evenBetterToml.formatter.columnWidth": 48,
-  "evenBetterToml.formatter.reorderArrays": true,
-  "evenBetterToml.formatter.reorderKeys": true,
-  "evenBetterToml.formatter.trailingNewline": true,
-  "evenBetterToml.semanticTokens": true
+  "eslint.format.enable": true,
+  "eslint.useFlatConfig": true,
+  "workbench.colorCustomizations": {
+    "[Houston]": {
+      "statusBar.background": "#181818",
+      "statusBar.border": "#2b2b2b",
+      "statusBar.debuggingBackground": "#0078d4",
+      "statusBar.debuggingForeground": "#ffffff",
+      "statusBar.focusBorder": "#0078d4",
+      "statusBar.foreground": "#cccccc",
+      "statusBar.noFolderBackground": "#1f1f1f",
+      "statusBarItem.focusBorder": "#0078d4",
+      "statusBarItem.prominentBackground": "#6e768166",
+      "statusBarItem.remoteBackground": "#0078d4",
+      "statusBarItem.remoteForeground": "#ffffff"
+    }
+  }
 }
