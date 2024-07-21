@@ -7,9 +7,6 @@
   "repository": "git@github.com:princemuel/princemuel.com.git",
   "author": "princemuel <vansomecsam@gmail.com>",
   "license": "MIT",
-  "engines": {
-    "node": "^18.18.0 || >=20.0.0"
-  },
   "scripts": {
     "dev": "astro dev --host",
     "open": "astro dev --host --open",
@@ -49,14 +46,9 @@
     "@builder.io/qwik": "^1.7.1",
     "@expressive-code/plugin-collapsible-sections": "^0.35.3",
     "@expressive-code/plugin-line-numbers": "^0.35.3",
-    "@fontsource-variable/figtree": "^5.0.21",
     "@fontsource-variable/inconsolata": "^5.0.18",
     "@fontsource-variable/jetbrains-mono": "^5.0.21",
     "@fontsource-variable/karla": "^5.0.21",
-    "@fontsource-variable/montserrat": "^5.0.19",
-    "@fontsource-variable/rubik": "^5.0.22",
-    "@fontsource-variable/source-code-pro": "^5.0.19",
-    "@fontsource/montserrat-alternates": "^5.0.13",
     "@prisma/client": "5.17.0",
     "@qwikdev/astro": "^0.6.1",
     "@t3-oss/env-core": "^0.10.1",
@@ -81,8 +73,8 @@
     "outvariant": "^1.4.3",
     "resend": "^3.4.0",
     "sanitize-html": "^2.13.0",
-    "sharp": "^0.33.4",
     "tailwind-variants": "^0.2.1",
+    "vite": "^5.3.4",
     "zod": "^3.23.8"
   },
   "devDependencies": {
@@ -150,5 +142,5 @@
       "astro check"
     ]
   },
-  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+  "packageManager": "pnpm@9.5.0+sha512.140036830124618d624a2187b50d04289d5a087f326c9edfc0ccd733d76c4f52c3a313d4fc148794a2a9d81553016004e6742e8cf850670268a7387fc220c903"
 }
