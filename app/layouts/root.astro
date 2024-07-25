@@ -5,9 +5,11 @@ import Indicator from "@/components/indicator.astro";
 import Meta from "@/components/meta.astro";
 import SkipLink from "@/components/skip-link.astro";
 import EdgeAnalytics from "@/components/x-analytics.astro";
-import { envVars } from "@/lib/config/environment";
+import Construction from "@/components/construction.astro";
+import Maintenance from "@/components/maintenance.astro";
 import { tw } from "@/shared/utils";
 import SpeedInsights from "@vercel/speed-insights/astro";
+import ContentSlot from "./content-slot.astro";
 
 type Props = Meta & {
   type?: OpenGraph["type"];
@@ -61,27 +63,25 @@ const {
       updatedAt={updatedAt}
       canonical={canonical}
     />
-
-    <slot name="head" />
-    <slot name="structured-data" />
   </head>
+
+  <slot name="head" />
+  <slot name="structured-data" />
 
   <body
     class="relative bg-neutral-50 font-sans font-normal antialiased dark:bg-[#0E1116]"
   >
     <SkipLink />
     <Indicator />
-    <div class="grid min-h-screen grid-rows-[auto_1fr_auto]">
-      <Header />
-      {
-        envVars.SITE_STATUS === "live" ? (
-          <slot name="live" />
-        ) : (
-          <slot name="maintenance" />
-        )
-      }
-      <Footer />
-    </div>
+    <ContentSlot>
+      <Construction slot="construction" />
+      <div slot="live" class="grid min-h-screen grid-rows-[auto_1fr_auto]">
+        <Header />
+        <slot />
+        <Footer />
+      </div>
+      <Maintenance slot="maintenance" />
+    </ContentSlot>
     <SpeedInsights />
     <EdgeAnalytics />
   </body>
