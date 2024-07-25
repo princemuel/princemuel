@@ -10,9 +10,8 @@ const { class: className, ...rest } = Astro.props;
   id="article"
   aria-labelledby="heading"
   class:list={[
-    "prose prose-slate max-w-none dark:prose-invert",
+    "prose prose-neutral max-w-none dark:prose-invert",
     "prose-headings:font-accent prose-headings:font-bold",
-    "prose-h1:text-slate-900 dark:prose-h1:text-slate-200",
     "[&_.linked]:font-black [&_.linked]:text-inherit [&_.linked]:no-underline",
     className,
   ]}

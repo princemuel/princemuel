@@ -20,7 +20,7 @@ const excluded = ["discord", "youtube"];
 
 const social = await getCollection(
   "social",
-  (link) => !excluded.includes(link.id),
+  ({ id }) => !excluded.includes(id),
 );
 
 const routes = {
@@ -56,13 +56,10 @@ const routes = {
     >
       <section class="col-span-1">
         <h4 class="uppercase text-slate-900 dark:text-slate-200">General</h4>
-        <ul
-          role="list"
-          class="mt-4 space-y-3 text-sm text-slate-600 dark:text-slate-400"
-        >
+        <ul class="mt-4 space-y-3 text-sm text-slate-600 dark:text-slate-400">
           {
             routes.general.map((route) => (
-              <li role="listitem">
+              <li>
                 <Link href={route.href} class="text-inherit">
                   {route.text}
                 </Link>
@@ -74,13 +71,10 @@ const routes = {
 
       <section class="col-span-1">
         <h4 class="uppercase text-slate-900 dark:text-slate-200">Specifics</h4>
-        <ul
-          role="list"
-          class="mt-4 space-y-3 text-sm text-slate-600 dark:text-slate-400"
-        >
+        <ul class="mt-4 space-y-3 text-sm text-slate-600 dark:text-slate-400">
           {
             routes.specifics.map((route) => (
-              <li role="listitem">
+              <li>
                 <Link href={route.href} class="text-inherit">
                   {route.text}
                 </Link>
@@ -92,13 +86,10 @@ const routes = {
 
       <section class="col-span-1">
         <h4 class="uppercase text-slate-900 dark:text-slate-200">Extra</h4>
-        <ul
-          role="list"
-          class="mt-4 space-y-3 text-sm text-slate-600 dark:text-slate-400"
-        >
+        <ul class="mt-4 space-y-3 text-sm text-slate-600 dark:text-slate-400">
           {
             routes.extras.map((route) => (
-              <li role="listitem">
+              <li>
                 <Link href={route.href} class="text-inherit">
                   {route.text}
                 </Link>
@@ -154,7 +145,8 @@ const routes = {
         <Icon name="logos:astro-icon" />
         <Link href="https://docs.astro.build/en/concepts/why-astro/"
           >{Astro.generator}</Link
-        > on <Time datetime={buildDate.toISOString()}
+        > on
+        <Time datetime={buildDate.toISOString()}
           >{en_datetime_default.format(buildDate)}</Time
         >
       </p>

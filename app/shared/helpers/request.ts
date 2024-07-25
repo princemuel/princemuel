@@ -1,8 +1,4 @@
-import {
-  NetworkError,
-  TimeoutError,
-  UnsupportedContentTypeError,
-} from "./errors";
+import { ProjectError } from "./errors";
 
 const handleJson = (response: Response) => response.json();
 const handleText = (response: Response) => response.text();
@@ -31,21 +27,21 @@ export async function request<T>(
 
     if (!response.ok) {
       const body = await response.text();
-      throw new NetworkError(
+      throw ProjectError.unavailable(
         `Request failed due to network issues: ${body}`,
-        response.status,
       );
     }
-    const contentType = response.headers.get("content-type") ?? "";
-    const handler = handlers.get(contentType);
 
+    const handler = handlers.get(response.headers.get("content-type") ?? "");
     if (!handler)
-      return Promise.reject(new UnsupportedContentTypeError(contentType));
+      return Promise.reject(
+        ProjectError.unimplemented("Unsupported content type"),
+      );
 
     return handler(response) as T;
   } catch (error) {
     if (error instanceof DOMException && error.name === "AbortError") {
-      return Promise.reject(new TimeoutError("Request Aborted"));
+      return Promise.reject(ProjectError.canceled("Request aborted"));
     }
     return Promise.reject(error);
   }

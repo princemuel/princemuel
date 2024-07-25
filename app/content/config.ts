@@ -1,6 +1,7 @@
 import { baseSchema } from "@/lib/schema/base";
 import { MediaObject } from "@/lib/schema/constraints";
 import { defineCollection, reference } from "astro:content";
+import type { Icon } from "virtual:astro-icon";
 import { z } from "zod";
 
 const projectCollection = defineCollection({
@@ -41,8 +42,8 @@ const routeCollection = defineCollection({
   schema: z.object({
     text: z.string().min(1),
     href: z.string().min(1),
-    icon: z.string().min(1),
-    order: z.number().int().nonnegative().safe().finite().default(0),
+    icon: z.custom<Icon>((value) => typeof value === "string"),
+    order: z.number().finite().int().nonnegative().safe().lte(255).default(0),
   }),
 });
 
@@ -59,7 +60,7 @@ const toolCollection = defineCollection({
   schema: z.object({
     name: z.string().min(1),
     url: z.string().url(),
-    icon: z.string().optional(),
+    icon: z.custom<Icon>((value) => typeof value === "string").optional(),
     className: z.string().default(""),
   }),
 });
@@ -79,10 +80,10 @@ const changelogCollection = defineCollection({
 const socialCollection = defineCollection({
   type: "data",
   schema: z.object({
-    order: z.number().default(0),
+    order: z.number().finite().int().nonnegative().safe().default(0),
     href: z.string().min(1),
     text: z.string().min(1),
-    icon: z.string().min(1),
+    icon: z.custom<Icon>((value) => typeof value === "string"),
   }),
 });
 

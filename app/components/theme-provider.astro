@@ -1,5 +1,9 @@
 ---
 import { Icon } from "astro-icon/components";
+
+const identity = (x: any) => x;
+
+identity(1);
 ---
 
 <template data-id="x-theme-icons">
@@ -33,7 +37,7 @@ import { Icon } from "astro-icon/components";
       const theme = storedTheme || (mql.matches ? "light" : "dark");
       document.documentElement.dataset.theme = theme;
       document.documentElement.dataset.readerTheme =
-        theme === "light" ? "material-theme-lighter" : "material-theme-ocean";
+        theme === "light" ? "material-theme-lighter" : "material-theme-darker";
 
       return {
         updateWidget(theme = storedTheme || "auto") {

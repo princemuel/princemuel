@@ -1,6 +1,6 @@
 ---
 import { octokit } from "@/lib/config/clients";
-import { format_date_with_time } from "@/shared/helpers/datetime";
+import { en_time } from "@/shared/helpers/datetime";
 import { hasValues, pluralize } from "@/shared/utils";
 import { Icon } from "astro-icon/components";
 import { z } from "zod";
@@ -68,8 +68,11 @@ const commitSchema = z
 
               <dd class="text-sm font-light">{item.type}</dd>
             </dl>
-            <Time datetime={item.created_at} class="text-sm font-medium">
-              {format_date_with_time(item.created_at, true)}
+            <Time
+              datetime={new Date(item.created_at || "")}
+              class="text-sm font-medium"
+            >
+              {en_time.format(new Date(item.created_at || ""))}
             </Time>
           </header>
 

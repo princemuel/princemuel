@@ -8,7 +8,7 @@ import { limitter } from "../config/clients";
 export async function rate_limit(ctx: Pick<APIContext, "request" | "locals">) {
   const ip = import.meta.env.DEV
     ? "anonymous"
-    : ipAddress(ctx.request) || ctx.request.headers.get("x-forwarded-for");
+    : (ipAddress(ctx.request) ?? ctx.request.headers.get("x-forwarded-for"));
 
   if (!ip) raise("No rate limiting header found or this address!");
   const id = await createHash(ip);

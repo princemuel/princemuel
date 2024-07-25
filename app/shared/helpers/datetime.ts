@@ -17,7 +17,7 @@ const intl_date_format = (
 };
 
 export const en_datetime_default = intl_date_format("en-US");
-export const en_datetime_with_time = intl_date_format("en-US", {
+export const en_time = intl_date_format("en-US", {
   timeZone: "UTC",
   weekday: "long",
 });

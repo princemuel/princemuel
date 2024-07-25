@@ -3,7 +3,7 @@ import { cn, type CnOptions } from "tailwind-variants";
 export const isBrowser = (() =>
   typeof window !== "undefined" &&
   typeof HTMLElement !== "undefined" &&
-  !!window.document &&
+  Boolean(window.document) &&
   String(HTMLElement).includes("[native code]"))();
 export const isServer = !isBrowser;
 
@@ -27,14 +27,14 @@ export const truncate = (str: string, length: number) => {
 };
 
 export const str_to_bool = (value?: string | null) =>
-  JSON.parse(value || "false") as boolean;
+  JSON.parse(value ?? "false") as boolean;
 
 export function pluralize<
   C extends number,
   N extends string,
   P extends string = `${N}s`,
 >(count: C, noun: N, plural?: P) {
-  return (count === 1 ? noun : plural ?? `${noun}s`) as C extends 1 ? N : P;
+  return (count === 1 ? noun : (plural ?? `${noun}s`)) as C extends 1 ? N : P;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -56,13 +56,8 @@ export function approximate(num = 0, fractionDigits = 2) {
   return Number.parseFloat(num.toFixed(fractionDigits));
 }
 
-/**
- * Safely parses a value to a number and guards against NaN and negative zero.
- * @param {any} value - The value to be parsed.
- * @param {number} [defaultValue=0] - The default value to be returned if parsing fails.
- * @returns {number} The parsed number or the default value.
- */
-export const number_guard = (value: any, defaultValue: number = 0): number => {
+/** Safely parses a value to a number and guards against NaN and negative zero. */
+export const number_guard = (value: unknown, defaultValue = 0) => {
   const parsed = Number(value);
   return Number.isNaN(parsed) || Object.is(parsed, -0) ? defaultValue : parsed;
 };
@@ -84,7 +79,7 @@ export function format_num(num: number, digits?: number | undefined) {
 
   const { value, symbol } = LOOKUP.slice()
     .reverse()
-    .find((item) => num >= item.value) || { value: 1, symbol: "" };
+    .find((item) => num >= item.value) ?? { value: 1, symbol: "" };
 
   const validDigits = digits ? Math.abs(digits) : 1;
 
@@ -131,8 +126,8 @@ export function serialize<T>(data: T) {
 
 export function singleton<T>(name: string, callback: () => T) {
   const g = globalThis as unknown as globalThis;
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   g.__singletons ??= new Map<string, T>();
-
   if (!g.__singletons.has(name)) g.__singletons.set(name, callback());
   return g.__singletons.get(name) as NonNullable<T>;
 }
@@ -149,10 +144,10 @@ export function remove_key<T>(data: T, k: string): T {
   return data;
 }
 
-export function omitFields<T extends Record<string, any>, K extends keyof T>(
-  source: T,
-  fieldsToOmit: K[],
-): Omit<T, K> {
+export function omitFields<
+  T extends Record<string, unknown>,
+  K extends keyof T,
+>(source: T, fieldsToOmit: K[]): Omit<T, K> {
   if (!isObject(source)) throw new Error("Source must be an object.");
 
   return Object.fromEntries(
@@ -230,8 +225,7 @@ export async function asyncPool<T, V>(
 
     if (limit <= array.length) {
       executing.add(promise);
-      promise.then(() => executing.delete(promise));
-      // eslint-disable-next-line eslint(no-await-in-loop)
+      void promise.then(() => executing.delete(promise));
       if (executing.size >= limit) await Promise.race(executing);
     }
   }

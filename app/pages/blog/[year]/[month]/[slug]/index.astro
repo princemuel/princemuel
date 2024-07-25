@@ -3,7 +3,7 @@ import Article from "@/components/article.astro";
 import BlogPostLayout from "@/layouts/post.astro";
 import { envVars } from "@/lib/config/environment";
 import { blog_ld, profile_ld } from "@/lib/schema/structured-data";
-import { format_date_with_time } from "@/shared/helpers/datetime";
+import { en_time } from "@/shared/helpers/datetime";
 import { withBaseUrl } from "@/shared/helpers/with-base-url";
 import { hasValues, remove_key } from "@/shared/utils";
 
@@ -155,7 +155,7 @@ const jsonld = {
   ),
 } satisfies Graph;
 
-console.log(entry.data);
+console.log("AFTER_UPDATE", entry.data);
 
 const { title, description, tags, permalink, publishedAt, updatedAt } =
   entry.data;
@@ -177,7 +177,7 @@ const { title, description, tags, permalink, publishedAt, updatedAt } =
       class="flex items-center justify-between gap-2 font-accent font-semibold text-teal-600 dark:text-teal-500"
     >
       <p class="text-sm text-inherit">
-        {format_date_with_time(publishedAt)}
+        {en_time.format(publishedAt)}
       </p>
       <p class="text-xs text-inherit">
         By {author.data.name}
@@ -186,14 +186,11 @@ const { title, description, tags, permalink, publishedAt, updatedAt } =
 
     <h1 id="heading" class="mt-6">{title}</h1>
 
-    <p>{format_date_with_time(updatedAt)}</p>
+    <p>{en_time.format(updatedAt)}</p>
 
     {
       hasValues(tags) && (
-        <ul
-          role="list"
-          class="not-prose flex items-center gap-3 text-xs text-rose-500/90"
-        >
+        <ul class="not-prose flex items-center gap-3 text-xs text-rose-500/90">
           {tags.map((tag) => (
             <li class="rounded border px-2 py-1 capitalize dark:border-slate-900">
               {tag}

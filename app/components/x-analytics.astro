@@ -17,25 +17,29 @@ const {
 <x-analytics
   data-sdkn={name + (framework ? `/${framework}` : "")}
   data-sdkv={version}
-  data-pathname={pathname}></x-analytics>
+  data-pathname={pathname}
+  data-prod={`${import.meta.env.PROD}`}></x-analytics>
 
 <script>
-  customElements.define(
-    "x-analytics",
-    class XAnalytics extends HTMLElement {
-      constructor() {
-        super();
-        (() => {
-          const payload = JSON.stringify({
-            name: this.dataset.skdn,
-            version: this.dataset.sdkv,
-            pathname: this.dataset.pathname,
-            referrer: document.referrer,
-          });
-          const blob = new Blob([payload], { type: "application/json" });
-          navigator.sendBeacon("/api/analytics", blob);
-        })();
-      }
-    },
-  );
+  if (!customElements.get("x-analytics")) {
+    customElements.define(
+      "x-analytics",
+      class XAnalytics extends HTMLElement {
+        constructor() {
+          super();
+          (() => {
+            if (this.dataset.prod == "false") return;
+            const payload = JSON.stringify({
+              name: this.dataset.skdn,
+              version: this.dataset.sdkv,
+              pathname: this.dataset.pathname,
+              referrer: document.referrer,
+            });
+            const blob = new Blob([payload], { type: "application/json" });
+            navigator.sendBeacon("/api/analytics", blob);
+          })();
+        }
+      },
+    );
+  }
 </script>

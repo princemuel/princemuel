@@ -64,17 +64,12 @@
       theme === "auto" ? getPreferredColorScheme() : theme;
     document.documentElement.dataset.readerTheme =
       theme === "auto"
-        ? `material-theme-${getPreferredColorScheme()}er`
-        : `material-theme-${theme}er`;
-
-    document.documentElement.dataset.readerTheme =
-      theme === "auto"
         ? getPreferredColorScheme() === "light"
-          ? "material-theme-lighter"
-          : "material-theme-ocean"
+          ? "github-light"
+          : "dracula"
         : theme === "light"
-          ? "material-theme-lighter"
-          : "material-theme-ocean";
+          ? "github-light"
+          : "dracula";
 
     storeTheme(theme);
   }

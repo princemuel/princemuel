@@ -9,14 +9,15 @@ type Props = ComponentProps<typeof RootLayout>;
 ---
 
 <RootLayout {...Astro.props}>
-  <slot name="structured-data" slot="structured-data" />
-
-  <Main class="">
-    <Container class="">
-      <div class="grid grid-cols-[1fr,28ch] gap-8">
-        <slot />
-        <Profile />
-      </div>
-    </Container>
-  </Main>
+  <Fragment slot="live">
+    <slot name="structured-data" slot="structured-data" />
+    <Main class="">
+      <Container class="">
+        <div class="grid grid-cols-[1fr,28ch] gap-8">
+          <slot />
+          <Profile />
+        </div>
+      </Container>
+    </Main>
+  </Fragment>
 </RootLayout>

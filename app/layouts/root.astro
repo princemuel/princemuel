@@ -4,7 +4,10 @@ import Header from "@/components/header.astro";
 import Indicator from "@/components/indicator.astro";
 import Meta from "@/components/meta.astro";
 import SkipLink from "@/components/skip-link.astro";
+import EdgeAnalytics from "@/components/x-analytics.astro";
+import { envVars } from "@/lib/config/environment";
 import { tw } from "@/shared/utils";
+import SpeedInsights from "@vercel/speed-insights/astro";
 
 type Props = Meta & {
   type?: OpenGraph["type"];
@@ -38,9 +41,14 @@ const {
     "scroll-smooth",
   ])}
   data-theme="dark"
-  data-reader-theme="material-theme-ocean"
+  data-reader-theme="dracula"
 >
   <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="referrer" content="origin-when-cross-origin" />
+    <meta name="color-scheme" content="dark light" />
+
     <Meta
       title={title}
       description={description}
@@ -53,28 +61,28 @@ const {
       updatedAt={updatedAt}
       canonical={canonical}
     />
+
     <slot name="head" />
     <slot name="structured-data" />
   </head>
 
   <body
-    class:list={[
-      "relative font-sans font-normal antialiased",
-      // "bg-slate-50 dark:bg-[#080b16]",
-      // "bg-slate-50 dark:bg-slate-950",
-      "bg-[#e1e1db] dark:bg-[#161923]",
-      // "bg-cream-50 dark:bg-[#161923]",
-      // "bg-white/90 dark:bg-[hsl(227.1_46.7%_5.9%)]",
-    ]}
+    class="relative bg-neutral-50 font-sans font-normal antialiased dark:bg-[#0E1116]"
   >
     <SkipLink />
     <Indicator />
     <div class="grid min-h-screen grid-rows-[auto_1fr_auto]">
       <Header />
-      <slot />
+      {
+        envVars.SITE_STATUS === "live" ? (
+          <slot name="live" />
+        ) : (
+          <slot name="maintenance" />
+        )
+      }
       <Footer />
     </div>
-
-
+    <SpeedInsights />
+    <EdgeAnalytics />
   </body>
 </html>

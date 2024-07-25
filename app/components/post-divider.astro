@@ -1,0 +1,21 @@
+---
+import type { ComponentProps } from "astro/types";
+import Time from "./time.astro";
+
+type Props = ComponentProps<typeof Time>;
+
+const publish_date = new Date(Astro.props.datetime || Date.now());
+---
+
+<p class="flex items-center gap-2">
+  <time datetime={publish_date.toISOString()}>
+    {
+      publish_date.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        timeZone: "UTC",
+      })
+    }</time
+  >
+  <span class="h-0.5 flex-1 bg-teal-500"></span>
+</p>

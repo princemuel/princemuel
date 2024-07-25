@@ -3,6 +3,7 @@ import { Icon } from "astro-icon/components";
 import { AstroError } from "astro/errors";
 import type { HTMLAttributes } from "astro/types";
 import { tv, type VariantProps } from "tailwind-variants";
+import type { Icon as IconType } from "virtual:astro-icon";
 
 const alertBox = tv({
   slots: {
@@ -42,15 +43,15 @@ const alertBox = tv({
   },
 });
 
-const icons = new Map([
+const icons = new Map<Variants["variant"], IconType>([
   ["info", "information"],
   ["tip", "rocket"],
   ["caution", "warning"],
   ["danger", "error"],
-] as const);
+]);
 
-type AlertBoxVariants = VariantProps<typeof alertBox>;
-type Props = Prettify<HTMLAttributes<"aside"> & AlertBoxVariants>;
+type Variants = VariantProps<typeof alertBox>;
+type Props = Prettify<HTMLAttributes<"aside"> & Variants>;
 
 const { base, label, icon, content } = alertBox();
 const { title, variant = "info", ...rest } = Astro.props;
@@ -65,7 +66,10 @@ if (!variant)
 
 <aside aria-label={title} {...rest} class={base({ variant })}>
   <p class={label({ variant })} aria-hidden={true}>
-    <Icon name={icons.get(variant)} class={icon({ variant })} />
+    <Icon
+      name={icons.get(variant) || "information"}
+      class={icon({ variant })}
+    />
     <span class="text-base capitalize text-inherit">{title}</span>
   </p>
   <section class={content({ variant })}>

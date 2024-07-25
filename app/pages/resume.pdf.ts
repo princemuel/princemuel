@@ -1,5 +1,5 @@
 import { envVars } from "@/lib/config/environment";
-import { NetworkError } from "@/shared/helpers/errors";
+import { ProjectError } from "@/shared/helpers/errors";
 import { invariant } from "outvariant";
 
 export async function GET() {
@@ -17,7 +17,11 @@ export async function GET() {
       ),
     );
 
-    invariant.as(NetworkError, response.ok, "Failed to fetch resource");
+    invariant.as(
+      (message) => ProjectError.unavailable(message),
+      response.ok,
+      "Failed to fetch resource",
+    );
 
     const buffer = Buffer.from(await response.arrayBuffer());
 

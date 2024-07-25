@@ -1,12 +1,12 @@
 ---
 import Article from "@/components/article.astro";
 import Link from "@/components/link.astro";
+import PostDivider from "@/components/post-divider.astro";
 import Time from "@/components/time.astro";
 import BlogLayout from "@/layouts/posts.astro";
 import { envVars } from "@/lib/config/environment";
 import { createExcerpt } from "@/shared/helpers/create-excerpt";
 import { normalize } from "@/shared/utils";
-import { Picture } from "astro:assets";
 import { getCollection } from "astro:content";
 
 const status = ["draft", "preview", "published"] as const;
@@ -20,10 +20,7 @@ const entries = await getCollection("posts", ({ data }) => {
 });
 
 const allEntries = entries.sort((a, b) => {
-  return (
-    Number(b.data.updatedAt ?? b.data.publishedAt) -
-    Number(a.data.updatedAt ?? a.data.publishedAt)
-  );
+  return Number(b.data.publishedAt) - Number(a.data.publishedAt);
 });
 
 export const latest = (value?: Meta["publishedAt"]) => {
@@ -58,68 +55,56 @@ export const latest = (value?: Meta["publishedAt"]) => {
     <Fragment>
       <div class="not-prose flex flex-col gap-6">
         {
-          allEntries.map((entry, i) => (
-            <article
-              aria-describedby={`${normalize(entry.slug)}-description`}
-              aria-labelledby={`${normalize(entry.slug)}`}
-              aria-setsize="-1"
-              aria-posinset={i + 1}
-              data-latest={`${latest(entry.data.publishedAt)}`}
-              class="grid grid-cols-1 gap-3 rounded border border-slate-200 bg-white p-4 md:grid-cols-3 md:gap-6 dark:border-slate-800 dark:bg-slate-900/40"
-            >
-              {entry.data.media?.cover && (
-                <div class="col-span-1 grid items-center">
-                  <Picture
-                    alt="Prince Muel"
-                    src={entry.data.media.cover}
-                    formats={["avif", "webp"]}
-                    class="aspect-video"
-                    pictureAttributes={{ class: "overflow-hidden rounded-sm" }}
-                  />
-                </div>
-              )}
+          allEntries.map((entry, idx, array) => {
+            const previous = array.at(idx - 1)?.data.publishedAt || new Date();
+            const divide =
+              idx === 0 ||
+              new Date(entry.data.publishedAt).getMonth() !==
+                new Date(previous).getMonth();
 
-              <div class="col-span-1 flex flex-col justify-center gap-2 md:col-span-2">
-                <div class="flex items-center gap-4">
-                  <Time
-                    datetime={entry.data.publishedAt}
-                    class="font-accent text-xs font-bold text-fuchsia-500"
-                  />
-                </div>
+            return (
+              <Fragment>
+                {divide && <PostDivider datetime={entry.data.publishedAt} />}
 
-                <h3
-                  aria-labelledby={normalize(entry.slug)}
-                  class="font-accent text-xl font-semibold text-slate-950 dark:text-white"
+                <article
+                  aria-describedby={`${normalize(entry.slug)}-description`}
+                  aria-labelledby={`${normalize(entry.slug)}`}
+                  aria-setsize="-1"
+                  aria-posinset={idx + 1}
+                  data-latest={`${latest(entry.data.publishedAt)}`}
+                  class="grid grid-cols-1 gap-3 rounded border border-slate-200 bg-white p-4 md:grid-cols-3 md:gap-6 dark:border-slate-800 dark:bg-slate-900/40"
                 >
-                  <Link
-                    id={normalize(entry.slug)}
-                    href={`/blog/${entry.slug}`}
-                    aria-hidden="true"
-                  >
-                    {entry.data.title}
-                  </Link>
-                </h3>
-                <p
-                  id={`${normalize(entry.slug)}-description`}
-                  class="text-sm font-light"
-                >
-                  {createExcerpt(entry.body, 100)}
-                </p>
+                  <div class="col-span-1 flex flex-col justify-center gap-2 md:col-span-2">
+                    <div class="flex items-center gap-4">
+                      <Time datetime={entry.data.publishedAt} class="" />
+                    </div>
 
-                {entry.data.tags && (
-                  <ul class="flex gap-2 capitalize">
-                    {entry.data.tags.map((tag) => (
-                      <li class="flex rounded border border-slate-300 bg-white font-accent text-xs font-normal text-rose-500 dark:border-slate-900 dark:bg-slate-950">
-                        <Link href={`/tags/${tag}`} class="px-2 py-0.5">
-                          {tag}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-            </article>
-          ))
+                    <Link href={`/blog/${entry.slug}`}>
+                      <h3 class="">{entry.data.title}</h3>
+                    </Link>
+                    <p
+                      id={`${normalize(entry.slug)}-description`}
+                      class="text-sm font-light"
+                    >
+                      {createExcerpt(entry.body, 80)}
+                    </p>
+
+                    {entry.data.tags && (
+                      <ul class="flex items-center gap-2">
+                        {entry.data.tags.map((tag) => (
+                          <li class="">
+                            <Link href={`/tags/${tag}`} class="">
+                              {tag}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                </article>
+              </Fragment>
+            );
+          })
         }
       </div>
     </Fragment>

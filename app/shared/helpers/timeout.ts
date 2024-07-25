@@ -1,10 +1,12 @@
-import { TimeoutError } from "./errors";
+import { ProjectError } from "./errors";
 
 /**
  * Used to uniquely identify a timeout
  * @private
  */
 const TIMEOUT = Symbol("TIMEOUT");
+
+type TimeoutOptions = { controller?: AbortController; ms: number };
 
 /**
  * Attach a timeout to any promise, if the timeout resolves first ignore the
@@ -41,13 +43,13 @@ const TIMEOUT = Symbol("TIMEOUT");
  */
 export function timeout<T>(
   promise: Promise<T>,
-  options: { controller?: AbortController; ms: number },
+  { controller, ms }: TimeoutOptions,
 ): Promise<T> {
   return new Promise(function (resolve, reject) {
     let timer: NodeJS.Timeout | null = null;
 
-    const timeoutPromise = new Promise((innerResolve) => {
-      timer = setTimeout(() => innerResolve(TIMEOUT), options.ms);
+    const timeoutPromise = new Promise((r) => {
+      timer = setTimeout(() => r(TIMEOUT), ms);
     });
 
     Promise.race([promise, timeoutPromise])
@@ -55,9 +57,13 @@ export function timeout<T>(
         if (timer) clearTimeout(timer);
 
         if (result === TIMEOUT) {
-          if (options.controller) options.controller.abort();
-          reject(new TimeoutError(`Timed out after ${options.ms}ms`));
+          if (controller) controller.abort();
+
+          reject(
+            ProjectError.deadlineExceeded(`Request timeout after ${ms}ms`),
+          );
         }
+
         resolve(result as Awaited<T>);
       })
       .catch((error) => {
