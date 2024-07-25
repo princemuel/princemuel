@@ -10,7 +10,11 @@ export default defineConfig({
   output: "hybrid",
   site: envVars.PUBLIC_SITE_URL,
   srcDir: "./app",
-  experimental: { globalRoutePriority: true, contentCollectionCache: true },
+  experimental: {
+    globalRoutePriority: true,
+    contentCollectionCache: true,
+    serverIslands: true,
+  },
   security: { checkOrigin: true },
   markdown: { syntaxHighlight: false, remarkPlugins, rehypePlugins },
   integrations: integrations,
@@ -19,6 +23,6 @@ export default defineConfig({
     edgeMiddleware: true,
     functionPerRoute: false,
     imageService: true,
-    webAnalytics: { enabled: envVars.NODE_ENV === "production" },
+    webAnalytics: { enabled: true },
   }),
 });

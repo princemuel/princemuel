@@ -1,27 +1,24 @@
 import type { SitemapOptions } from "@astrojs/sitemap";
-import { pluginCollapsibleSections } from "@expressive-code/plugin-collapsible-sections";
-import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
 import type { PwaOptions } from "@vite-pwa/astro";
-import type { AstroExpressiveCodeOptions } from "astro-expressive-code";
-import type { TIconOptions } from "./integrations";
-import twConfig from "./tailwind.json";
+import type { TIconOptions } from "./integrations.js";
 
 export const IconOptions: TIconOptions = {
   iconDir: "app/assets/icons",
   include: {
     lucide: [
-      "mail-plus",
-      "move-right",
-      "sun",
-      "moon-star",
-      "square-user",
-      "notebook-pen",
-      "briefcase-business",
-      "pen-line",
+      "badge-check",
       "bar-chart",
+      "briefcase-business",
       "home",
       "library",
+      "pen-line",
+      "mail-plus",
+      "moon-star",
+      "move-right",
+      "notebook-pen",
       "rss",
+      "square-user",
+      "sun",
     ],
     logos: ["astro-icon"],
     mdi: [
@@ -33,21 +30,8 @@ export const IconOptions: TIconOptions = {
       "youtube",
     ],
     fa: ["paint-brush"],
+    ri: ["calendar-fill", "price-tag-3-fill", "quill-pen-fill"],
   },
-};
-
-export const CodeOptions: AstroExpressiveCodeOptions = {
-  themes: ["material-theme-ocean", "material-theme-lighter"],
-  styleOverrides: {
-    borderRadius: "0.3rem",
-    frames: { editorActiveTabIndicatorHeight: "2px" },
-    codeFontFamily: twConfig.theme.fontFamily.mono,
-    uiFontFamily: twConfig.theme.fontFamily.sans,
-  },
-  plugins: [pluginCollapsibleSections(), pluginLineNumbers()],
-  useThemedSelectionColors: false,
-  themeCssSelector: (theme) => `[data-reader-theme='${theme.name}']`,
-  defaultProps: { showLineNumbers: false },
 };
 
 export const sitemapOptions: SitemapOptions = {
@@ -57,13 +41,12 @@ export const sitemapOptions: SitemapOptions = {
   filter: (page) => !(page.includes("/api/") || page.includes(".xml")),
 };
 
-const manifest = (async function () {
+const manifest = (function () {
+  type ManifestPromise = Promise<PwaOptions["manifest"]>;
   try {
-    return import("./manifest.json").then(
-      (r) => r.default,
-    ) as PwaOptions["manifest"];
+    return import("./manifest.json").then((r) => r.default) as ManifestPromise;
   } catch (error) {
-    return {} as PwaOptions["manifest"];
+    return {} as ManifestPromise;
   }
 })();
 

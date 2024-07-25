@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 import type { RemarkPlugins } from "astro";
 import { toString } from "mdast-util-to-string";
@@ -14,7 +16,9 @@ const remarkReadingTime: RemarkPlugin = () => {
   return function (tree, file) {
     const textOnPage = toString(tree);
     const readingTime = getReadingTime(textOnPage);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     file.data.astro.frontmatter.words = readingTime.words;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     file.data.astro.frontmatter.duration = readingTime.text;
   };
 };
@@ -33,6 +37,7 @@ const remarkDeruntify: RemarkPlugin = () =>
 const remarkModifiedTime: RemarkPlugin = () =>
   function (_, file) {
     const filepath = file.history[0];
+    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     const output = execSync(`git log -1 --pretty="format:%cI" "${filepath}"`);
     file.data.astro.frontmatter.updatedAt = new Date(
       output.toString().trim() || Date.now(),

@@ -28,8 +28,14 @@ export default {
       colors: twConfig.theme.colors,
       borderRadius: { pill: "100vmax" },
       fontFamily: {
-        sans: [twConfig.theme.fontFamily.sans, ...twDefaultTheme.fontFamily.sans],
-        mono: [twConfig.theme.fontFamily.mono, ...twDefaultTheme.fontFamily.mono],
+        sans: [
+          twConfig.theme.fontFamily.sans,
+          ...twDefaultTheme.fontFamily.sans,
+        ],
+        mono: [
+          twConfig.theme.fontFamily.mono,
+          ...twDefaultTheme.fontFamily.mono,
+        ],
         accent: [
           twConfig.theme.fontFamily.accent,
           ...twDefaultTheme.fontFamily.mono,

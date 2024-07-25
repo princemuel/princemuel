@@ -1,7 +1,7 @@
 import { pluginCollapsibleSections } from "@expressive-code/plugin-collapsible-sections";
 import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
 import { defineEcConfig } from "astro-expressive-code";
-import twConfig from "./config/tailwind.json" assert { type: "json" };
+import twConfig from "./config/tailwind.json";
 
 export default defineEcConfig({
   themes: ["dracula", "github-light"],
@@ -15,7 +15,7 @@ export default defineEcConfig({
       // editorActiveTabIndicatorBottomColor: "#A682FF",
       // editorActiveTabIndicatorBottomColor: '#aaaaaa00',
       // editorTabBarBorderColor: "#333333"
-      // editorTabBarBorderColor: "#A682FF",
+      editorTabBarBorderColor: "#A682FF",
     },
     codeFontFamily: twConfig.theme.fontFamily.mono,
     uiFontFamily: twConfig.theme.fontFamily.sans,

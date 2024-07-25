@@ -1,3 +1,4 @@
 import { loadEnv } from "vite";
 
-export const envVars = loadEnv(process.env.NODE_ENV!, process.cwd(), "");
+const mode = process.env.NODE_ENV ?? "production";
+export const envVars = loadEnv(mode, process.cwd(), "");
