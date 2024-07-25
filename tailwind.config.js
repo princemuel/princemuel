@@ -4,7 +4,7 @@ import twScrollbar from "tailwind-scrollbar";
 import twAnimate from "tailwindcss-animate";
 import twDefaultTheme from "tailwindcss/defaultTheme";
 import twPlugin from "tailwindcss/plugin";
-import config from "./config/tailwind.json";
+import twConfig from "./config/tailwind.json";
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -25,17 +25,17 @@ export default {
     },
     fluidCols: { fit: "fit", fill: "fill" },
     extend: {
-      colors: config.theme.colors,
+      colors: twConfig.theme.colors,
       borderRadius: { pill: "100vmax" },
       fontFamily: {
-        sans: [config.theme.fontFamily.sans, ...twDefaultTheme.fontFamily.sans],
-        mono: [config.theme.fontFamily.mono, ...twDefaultTheme.fontFamily.mono],
+        sans: [twConfig.theme.fontFamily.sans, ...twDefaultTheme.fontFamily.sans],
+        mono: [twConfig.theme.fontFamily.mono, ...twDefaultTheme.fontFamily.mono],
         accent: [
-          config.theme.fontFamily.accent,
+          twConfig.theme.fontFamily.accent,
           ...twDefaultTheme.fontFamily.mono,
         ],
       },
-      cursor: config.theme.cursor,
+      cursor: twConfig.theme.cursor,
       screens: {
         xs: "36em", // @media (min-width: 576px) { ... },
         sm: "40em", // @media (min-width: 640px) { ... }

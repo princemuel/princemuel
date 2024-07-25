@@ -1,15 +1,13 @@
 ---
-import "@fontsource-variable/source-code-pro";
+import "@fontsource-variable/jetbrains-mono";
 import "@fontsource-variable/inconsolata";
-import "@fontsource-variable/montserrat";
-import "@/assets/styles/global.css";
+import "@fontsource-variable/karla";
+import "../assets/styles/global.css";
 import { AstroFont as Fonts } from "astro-font";
 import { ViewTransitions } from "astro:transitions";
 import { pwaAssetsHead } from "virtual:pwa-assets/head";
 import { pwaInfo } from "virtual:pwa-info";
 import ThemeProvider from "./theme-provider.astro";
-import EdgeAnalytics from "./x-analytics.astro";
-import SpeedInsights from "@vercel/speed-insights/astro";
 import { formatCanonicalURL } from "@/shared/helpers/format-canonical";
 import { defaultKeywords, delimiter } from "@/lib/config/site";
 import { fontSans } from "@/lib/config/fonts";
@@ -67,12 +65,8 @@ const directive = [
 ---
 
 {/* Global Metadata */}
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="referrer" content="origin-when-cross-origin" />
 <meta name="application-name" content={application_name} />
 <meta name="generator" content={Astro.generator} />
-<meta name="color-scheme" content="dark light" />
 <meta name="theme-color" content={pwaAssetsHead.themeColor?.content} />
 <meta name="robots" content={directive} />
 <meta
@@ -204,5 +198,3 @@ const directive = [
 <ViewTransitions />
 <script src="/app/assets/scripts/register-pwa"></script>
 <ThemeProvider />
-{import.meta.env.PROD && <SpeedInsights />}
-{import.meta.env.PROD && <EdgeAnalytics />}

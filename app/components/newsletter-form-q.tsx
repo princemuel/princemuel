@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 import { parseError, raise } from "@/shared/utils";
 import {
   $,
@@ -5,24 +6,22 @@ import {
   useStore,
   type QRLEventHandlerMulti,
 } from "@builder.io/qwik";
+import * as zod from "zod";
 import { ZodError, z } from "zod";
 
-const formSchema = z.object({
+const formSchema = zod.object({
   honeypot: z.string().max(0, "Invalid submission detected."),
   email: z.string().email(),
 });
 
-const resultSchema = z.discriminatedUnion("status", [
-  z.object({ status: z.literal("success"), message: z.string() }),
-  z.object({ status: z.literal("error"), message: z.string() }),
-]);
+const resultSchema = z.object({ success: z.boolean(), message: z.string() });
 
 // peer w-full rounded border border-brand-100 bg-transparent px-4 py-3"text-400 font-bold leading-200 -tracking-200 text-brand-900 caret-brand-500 outline-none transition-colors autofill:bg-white aria-[invalid="true"]:!border-accent-200 aria-[invalid="true"]:!text-accent-200 focus:aria-[invalid="true"]:!border-accent-200 focus:aria-[invalid="true"]:!ring-accent-200 hocus:border-brand-500 dark:border-brand-600 dark:bg-brand-700 dark:text-white dark:autofill:bg-brand-700 dark:hocus:border-brand-500
 
-type Store = {
+interface Store {
   data: string | null;
   errors: Record<string, string> | null;
-};
+}
 
 export const NewsletterForm = component$(() => {
   const store = useStore<Store>({ data: null, errors: null });
@@ -30,28 +29,29 @@ export const NewsletterForm = component$(() => {
   const handleSubmit: QRLEventHandlerMulti<SubmitEvent, HTMLFormElement> = $(
     async (_, form) => {
       try {
-        const formData = formSchema.parse(
+        const { email } = formSchema.parse(
           Object.fromEntries(new FormData(form).entries()),
         );
 
         const response = await fetch("/api/subscribe", {
           method: "POST",
-          body: JSON.stringify({ email: formData.email }),
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email }),
         });
 
         const result = resultSchema.parse(await response.json());
-        if (result.status === "error") raise(result.message);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+        if (!result.success) raise(result.message);
 
         store.errors = null;
         store.data = result.message;
       } catch (e) {
-        let errors: Record<string, string> = {};
+        const errors: Record<string, string> = {};
         if (e instanceof ZodError) {
-          for (let key of Object.keys(e.formErrors?.fieldErrors)) {
-            errors[key] = e.formErrors?.fieldErrors?.[key]?.[0] ?? "";
+          for (const [key, value] of Object.entries(e.formErrors.fieldErrors)) {
+            errors[key] = value?.[0] ?? "";
           }
         } else errors.unknown = parseError(e);
-
         store.data = null;
         store.errors = errors;
       }
