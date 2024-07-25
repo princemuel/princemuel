@@ -1,0 +1,21 @@
+---
+import Container from "@/components/container.astro";
+import Main from "@/components/main.astro";
+import Profile from "@/components/profile.astro";
+import type { ComponentProps } from "astro/types";
+import RootLayout from "./root.astro";
+
+type Props = ComponentProps<typeof RootLayout>;
+---
+
+<RootLayout {...Astro.props}>
+  <slot name="structured-data" slot="structured-data" />
+  <Main class="">
+    <Container class="">
+      <div class="grid grid-cols-[1fr,28ch] gap-8">
+        <slot />
+        <Profile />
+      </div>
+    </Container>
+  </Main>
+</RootLayout>

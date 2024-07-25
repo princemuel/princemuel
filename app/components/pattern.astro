@@ -1,0 +1,19 @@
+---
+import PatternPNG from "@/assets/images/pattern.png";
+import { tw } from "@/shared/utils";
+import type { HTMLAttributes } from "astro/types";
+import { getImage } from "astro:assets";
+
+type Props = Omit<HTMLAttributes<"div">, "class:list">;
+
+const { class: className, ...rest } = Astro.props;
+
+const pattern = await getImage({ src: PatternPNG, width: 32, format: "webp" });
+---
+
+<div
+  {...rest}
+  style={`background-image: url(${pattern.src});`}
+  class:list={tw(["absolute top-0 bg-[length:1.5rem] bg-repeat", className])}
+>
+</div>

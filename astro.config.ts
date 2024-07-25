@@ -7,18 +7,22 @@ import { remarkPlugins } from "./config/remark";
 
 // https://astro.build/config
 export default defineConfig({
-  site: envVars.PUBLIC_SITE_URL,
   output: "hybrid",
-  server: { port: Number(envVars.PORT || 4321) },
+  site: envVars.PUBLIC_SITE_URL,
+  srcDir: "./app",
+  experimental: {
+    globalRoutePriority: true,
+    contentCollectionCache: true,
+    serverIslands: true,
+  },
+  security: { checkOrigin: true },
   markdown: { syntaxHighlight: false, remarkPlugins, rehypePlugins },
   integrations: integrations,
   adapter: vercel({
+    isr: true,
     edgeMiddleware: true,
     functionPerRoute: false,
     imageService: true,
-    webAnalytics: { enabled: envVars.NODE_ENV === "production" },
-    isr: true,
+    webAnalytics: { enabled: true },
   }),
-  security: { checkOrigin: true },
-  experimental: { globalRoutePriority: true, contentCollectionCache: true },
 });

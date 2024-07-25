@@ -1,38 +1,34 @@
 [package]
-  name = "princemuel-vercel-api"
-  version = "0.1.0"
   edition = "2021"
+  name = "princemuel"
   publish = false
+  version = "0.1.0"
 
 [dependencies]
-  tokio = { version = "1", features = ["macros"] }
-  tracing = { version = "0.1", features = ["log"] }
-  tracing-subscriber = { version = "0.3", default-features = false, features = [
-    "fmt",
-  ] }
-  actix-web = "4"
-  rand = "0.8.5"
-  oorandom = "11.1.3"
+  dotenv = "0.15.0"
+  isbot = "0.1.3"
+  octocrab = "0.38.0"
+  resend-rs = "0.6.0"
   serde = { version = "1", features = ["derive"] }
-  serde_json = { version = "1", features = ["raw_value"] }
   serde_derive = "1"
-  # Documentation: https://docs.rs/vercel_runtime/latest/vercel_runtime
+  serde_json = { version = "1", features = ["raw_value"] }
+  tokio = { version = "1", features = ["full"] }
+  uuid = { version = "1", features = ["fast-rng", "macro-diagnostics", "v4"] }
   vercel_runtime = { version = "1" }
+  wasm-bindgen = "0.2.92"
 
-# You can specify a library for shared logic here (optional)
 [lib]
-  path = "rust/lib.rs"
+  name = "package"
+  path = "src/lib.rs"
 
-# Each handler has to be specified as [[bin]]
 [[bin]]
-  name = "handler"
-  path = "api/handler.rs"
+  name = "hello"
+  path = "api/hello.json.rs"
 
-  # Note that you need to provide unique names for each binary:
-  # [[bin]]
-  # name = "user-id"
-  # path = "api/user/[id].rs"
-  #
-  # [[bin]]
-  # name = "group-id"
-  # path = "api/group/[id].rs"
+[[bin]]
+  name = "github"
+  path = "api/github.json.rs"
+
+[[bin]]
+  name = "subscribe"
+  path = "api/subscribe.rs"

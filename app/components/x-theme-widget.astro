@@ -1,0 +1,99 @@
+<x-theme-widget class="flex items-center justify-center">
+  <button
+    type="button"
+    title="Toggle Theme"
+    class="relative text-2xl text-sky-600 transition-transform delay-200 duration-200 ease-in dark:text-sky-500"
+  >
+    <span class="sr-only">Toggle theme</span>
+  </button>
+</x-theme-widget>
+
+{/* Inlined to avoid FOUC. Uses global scope from `theme-provider.astro` */}
+<script is:inline>
+  window.ThemeProvider.updateWidget();
+</script>
+
+<script>
+  import { getElement } from "@/shared/helpers/dom";
+
+  const themes = ["auto", "dark", "light"] as const;
+
+  type Theme = (typeof themes)[number];
+
+  /** Key in `localStorage` to store color theme preference at. */
+  const storageKey = "x-theme";
+
+  /** Get a typesafe theme string from any JS value (unknown values are coerced to `'auto'`). */
+  const parseTheme = (theme: unknown): Theme =>
+    theme === "auto" || theme === "dark" || theme === "light" ? theme : "auto";
+
+  /** Load the user’s preference from `localStorage`. */
+  const loadTheme = (): Theme =>
+    parseTheme(
+      typeof localStorage !== "undefined" && localStorage.getItem(storageKey),
+    );
+
+  /** Store the user’s preference in `localStorage`. */
+  function storeTheme(theme: Theme): void {
+    if (typeof localStorage !== "undefined") {
+      localStorage.setItem(
+        storageKey,
+        theme === "light" || theme === "dark" ? theme : "",
+      );
+    }
+  }
+
+  /** Yield the next theme, looping back to the first after reaching the end. */
+  const themeGenerator = (function* () {
+    let index = 1;
+    while (true) {
+      yield themes[index];
+      index = (index + 1) % themes.length;
+    }
+  })();
+
+  const mql = matchMedia("(prefers-color-scheme: light)");
+
+  /** Get the preferred system color scheme. */
+  const getPreferredColorScheme = (): Theme => (mql.matches ? "light" : "dark");
+
+  /** Update theme widget, document theme, and local storage state. */
+  function onThemeChange(theme: Theme): void {
+    window.ThemeProvider.updateWidget(theme);
+    document.documentElement.dataset.theme =
+      theme === "auto" ? getPreferredColorScheme() : theme;
+    document.documentElement.dataset.readerTheme =
+      theme === "auto"
+        ? getPreferredColorScheme() === "light"
+          ? "github-light"
+          : "dracula"
+        : theme === "light"
+          ? "github-light"
+          : "dracula";
+
+    storeTheme(theme);
+  }
+
+  // React to changes in system color scheme.
+  mql.addEventListener("change", () => {
+    if (loadTheme() === "auto") onThemeChange("auto");
+  });
+
+  class XThemeWidget extends HTMLElement {
+    constructor() {
+      super();
+      onThemeChange(loadTheme());
+      const btn = getElement("button", HTMLButtonElement, this);
+
+      btn.addEventListener("click", (e) => {
+        if (e.currentTarget instanceof HTMLButtonElement) {
+          onThemeChange(parseTheme(themeGenerator.next().value));
+        }
+      });
+    }
+  }
+
+  if (!customElements.get("x-theme-widget")) {
+    customElements.define("x-theme-widget", XThemeWidget);
+  }
+</script>

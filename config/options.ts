@@ -1,27 +1,37 @@
 import type { SitemapOptions } from "@astrojs/sitemap";
-import { pluginCollapsibleSections } from "@expressive-code/plugin-collapsible-sections";
-import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
 import type { PwaOptions } from "@vite-pwa/astro";
-import type { AstroExpressiveCodeOptions } from "astro-expressive-code";
-import type { TIconOptions } from "./integrations";
+import type { TIconOptions } from "./integrations.js";
 
 export const IconOptions: TIconOptions = {
-  iconDir: "src/assets/icons",
-  include: { lucide: ["*"], logos: ["*"], mdi: ["*"] },
-};
-
-export const CodeOptions: AstroExpressiveCodeOptions = {
-  themes: ["material-theme-ocean", "material-theme-lighter"],
-  styleOverrides: {
-    borderRadius: "0.3rem",
-    frames: { editorActiveTabIndicatorHeight: "2px" },
-    codeFontFamily: "__FontMono",
-    uiFontFamily: "__FontSans",
+  iconDir: "app/assets/icons",
+  include: {
+    lucide: [
+      "badge-check",
+      "bar-chart",
+      "briefcase-business",
+      "home",
+      "library",
+      "pen-line",
+      "mail-plus",
+      "moon-star",
+      "move-right",
+      "notebook-pen",
+      "rss",
+      "square-user",
+      "sun",
+    ],
+    logos: ["astro-icon"],
+    mdi: [
+      "discord",
+      "email-outline",
+      "github",
+      "instagram",
+      "linkedin",
+      "youtube",
+    ],
+    fa: ["paint-brush"],
+    ri: ["calendar-fill", "price-tag-3-fill", "quill-pen-fill"],
   },
-  plugins: [pluginCollapsibleSections(), pluginLineNumbers()],
-  useThemedSelectionColors: false,
-  themeCssSelector: (theme) => `[data-reader-theme='${theme.name}']`,
-  defaultProps: { showLineNumbers: false },
 };
 
 export const sitemapOptions: SitemapOptions = {
@@ -31,13 +41,12 @@ export const sitemapOptions: SitemapOptions = {
   filter: (page) => !(page.includes("/api/") || page.includes(".xml")),
 };
 
-const manifest = (async function () {
+const manifest = (function () {
+  type ManifestPromise = Promise<PwaOptions["manifest"]>;
   try {
-    return import("./manifest.json").then(
-      (r) => r.default,
-    ) as PwaOptions["manifest"];
+    return import("./manifest.json").then((r) => r.default) as ManifestPromise;
   } catch (error) {
-    return {} as PwaOptions["manifest"];
+    return {} as ManifestPromise;
   }
 })();
 
@@ -66,5 +75,5 @@ export const PWAOptions: PwaOptions = {
     // runtimeCaching: cachePreset,
   },
   experimental: { directoryAndTrailingSlashHandler: true },
-  devOptions: { enabled: true, suppressWarnings: true, type: "module" },
+  devOptions: { enabled: false, suppressWarnings: true, type: "module" },
 };

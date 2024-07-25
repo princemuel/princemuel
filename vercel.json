@@ -1,8 +1,8 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "trailingSlash": true,
-  "cleanUrls": true,
+  "framework": "astro",
   "outputDirectory": null,
+  "cleanUrls": true,
   "functions": {
     "api/**/*.rs": {
       "runtime": "vercel-rust@4.0.7"
@@ -33,10 +33,7 @@
       ]
     }
   ],
-  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }],
   "redirects": [
-    { "source": "/404", "destination": "/404.html", "statusCode": 404 },
-    { "source": "/offline", "destination": "/offline.html", "statusCode": 200 },
     { "source": "/twitter/", "destination": "https://x.com/iamprincemuel" },
     { "source": "/youtube/", "destination": "https://youtube.com/@princemuel" },
     { "source": "/github/", "destination": "https://github.com/princemuel" },

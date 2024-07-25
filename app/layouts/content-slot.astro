@@ -1,0 +1,15 @@
+---
+import { envVars } from "@/lib/config/environment";
+---
+
+<Fragment>
+  {
+    envVars.SITE_STATUS === "live" ? (
+      <slot name="live" />
+    ) : envVars.SITE_STATUS === "construction" ? (
+      <slot name="construction" />
+    ) : envVars.SITE_STATUS === "maintenance" ? (
+      <slot name="maintenance" />
+    ) : null
+  }
+</Fragment>

@@ -1,0 +1,277 @@
+---
+import Container from "@/components/container.astro";
+import RootLayout from "@/layouts/root.astro";
+import { Icon } from "astro-icon/components";
+
+export const prerender = false;
+---
+
+<RootLayout title="Contact Me" description="Boo" className="">
+  <main id="#main-content">
+    <Container>
+      <section class="mx-auto flex w-full max-w-2xl flex-col">
+        <div
+          role="alert"
+          aria-live="polite"
+          aria-atomic="true"
+          class="flex flex-col gap-2 self-center rounded-xl bg-teal-950 p-6"
+        >
+          <p class="flex items-center gap-2 text-base font-bold text-gray-200">
+            <Icon name="lucide:badge-check" class="text-inherit" />
+            <span>Message Sent!</span>
+          </p>
+          <p class="text-sm text-gray-200">
+            Thanks for completing the form. We'll be in touch soon!
+          </p>
+        </div>
+
+        <form
+          method="POST"
+          data-id="contact-form"
+          class="space-y-10 rounded-2xl bg-white p-8"
+        >
+          <header class="flex flex-col gap-3">
+            <h1 class="text-3xl font-bold text-teal-700">Contact Us</h1>
+
+            <p class="">
+              Let me know what's on your mind and I'll get back to you as soon
+              as possible.
+            </p>
+          </header>
+
+          <section class="grid grid-cols-6 gap-5">
+            <div class="group col-span-6 flex flex-col gap-3 sm:col-span-3">
+              <label
+                class="cursor-pointer space-x-1 text-sm font-medium text-teal-900"
+                for="fields.firstName.input"
+              >
+                <span>First Name</span><span class="text-teal-700">*</span>
+              </label>
+
+              <input
+                type="text"
+                id="fields.firstName.input"
+                name="firstName"
+                aria-autocomplete="both"
+                class="rounded px-4 py-3"
+                autocomplete="given-name"
+                aria-errormessage="fields.firstName.error"
+              />
+              <span
+                role="alert"
+                aria-live="polite"
+                aria-atomic="true"
+                class="text-sm font-light text-red-600"
+                id="fields.firstName.error"
+                data-form-error="firstName"
+              >
+                This field is required
+              </span>
+            </div>
+
+            <div class="group col-span-6 flex flex-col gap-3 sm:col-span-3">
+              <label
+                class="cursor-pointer space-x-1 text-sm font-medium text-teal-900"
+                for="fields.lastName.input"
+              >
+                <span>Last Name</span><span class="text-teal-700">*</span>
+              </label>
+              <input
+                type="text"
+                id="fields.lastName.input"
+                name="lastName"
+                aria-autocomplete="both"
+                class="rounded px-4 py-3"
+                autocomplete="family-name"
+                aria-invalid="false"
+                aria-errormessage="fields.lastName.error"
+              />
+              <span
+                role="alert"
+                aria-live="polite"
+                aria-atomic="true"
+                class="text-sm font-light text-red-600"
+                id="fields.lastName.error"
+                data-form-error="lastName"
+              >
+                This field is required
+              </span>
+            </div>
+
+            <div class="group col-span-6 flex flex-col gap-3">
+              <label
+                class="cursor-pointer space-x-1 text-sm font-medium text-teal-900"
+                for="fields.email.input"
+              >
+                <span>Email Address</span><span class="text-teal-700">*</span>
+              </label>
+              <input
+                type="email"
+                id="fields.email.input"
+                name="email"
+                aria-autocomplete="both"
+                class="rounded px-4 py-3"
+                autocomplete="email"
+                aria-invalid="false"
+                aria-errormessage="fields.email.error"
+              />
+              <span
+                role="alert"
+                aria-live="polite"
+                aria-atomic="true"
+                class="text-sm font-light text-red-600"
+                id="fields.email.error"
+                data-form-error="email">Please enter a valid email address</span
+              >
+            </div>
+
+            <fieldset class="group col-span-6 space-y-3">
+              <legend class="space-x-1 text-sm font-medium text-teal-900"
+                >Query Type <span class="text-teal-700">*</span></legend
+              >
+
+              <section class="grid grid-cols-6 gap-5">
+                <label
+                  class="col-span-6 flex cursor-pointer items-center gap-3 rounded border border-zinc-400 px-4 py-3 sm:col-span-3"
+                >
+                  <input
+                    type="radio"
+                    id="fields.general.input"
+                    name="query"
+                    value="general"
+                    class="rounded-full"
+                    aria-invalid="false"
+                    aria-errormessage="fields.query.error"
+                  />
+                  <span>General Enquiry</span>
+                </label>
+
+                <label
+                  class="col-span-6 flex cursor-pointer items-center gap-3 rounded border border-zinc-400 px-4 py-3 sm:col-span-3"
+                >
+                  <input
+                    type="radio"
+                    id="fields.contract.input"
+                    name="query"
+                    value="contract"
+                    class="rounded-full"
+                    aria-invalid="false"
+                    aria-errormessage="fields.query.error"
+                  />
+                  <span> Contract Work </span>
+                </label>
+
+                <label
+                  class="col-span-6 flex cursor-pointer items-center gap-3 rounded border border-zinc-400 px-4 py-3 sm:col-span-3"
+                >
+                  <input
+                    type="radio"
+                    id="fields.support.input"
+                    name="query"
+                    value="support"
+                    class="rounded-full"
+                    aria-invalid="false"
+                    aria-errormessage="fields.query.error"
+                  />
+                  <span>Technical Support</span>
+                </label>
+
+                <label
+                  class="col-span-6 flex cursor-pointer items-center gap-3 rounded border border-zinc-400 px-4 py-3 sm:col-span-3"
+                >
+                  <input
+                    type="radio"
+                    id="fields.issues.input"
+                    name="query"
+                    value="issues"
+                    class="rounded-full"
+                    aria-invalid="false"
+                    aria-errormessage="fields.query.error"
+                  />
+                  <span>Bug Report</span>
+                </label>
+              </section>
+
+              <span
+                role="alert"
+                aria-live="polite"
+                aria-atomic="true"
+                class="inline-block text-sm font-light text-red-600"
+                id="fields.query.error"
+                data-form-error="query">Please select a query type</span
+              >
+            </fieldset>
+
+            <div class="group col-span-6 flex flex-col gap-3">
+              <label
+                class="cursor-pointer space-x-1 text-sm font-medium text-teal-900"
+                for="fields.message.textarea"
+              >
+                <span>Message</span>
+                <span class="text-teal-700">*</span>
+              </label>
+              <textarea
+                name="message"
+                id="fields.message.textarea"
+                autocapitalize="on"
+                class="rounded px-4 py-3"
+                autocomplete="on"
+                aria-invalid="false"
+                aria-errormessage="fields.message.error"
+              >
+              </textarea>
+              <span
+                role="alert"
+                aria-live="polite"
+                aria-atomic="true"
+                class="text-sm font-light text-red-600"
+                id="fields.message.error"
+                data-form-error="message"
+              >
+                This field is required
+              </span>
+            </div>
+
+            <div class="group col-span-6 flex flex-col gap-3">
+              <div class="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  id="fields.consent.input"
+                  name="email"
+                  aria-autocomplete="both"
+                  class=""
+                  aria-invalid="false"
+                  aria-errormessage="fields.email.error.0"
+                />
+                <label
+                  class="cursor-pointer space-x-1 text-sm font-medium text-teal-900"
+                  for="fields.consent.input"
+                >
+                  <span>I consent to being contacted by Prince Muel</span>
+                  <span class="text-teal-700">*</span>
+                </label>
+              </div>
+              <span
+                role="alert"
+                aria-live="polite"
+                aria-atomic="true"
+                class="text-sm font-light text-red-600"
+                id="fields.consent.error"
+                data-form-error="consent"
+              >
+                To submit this form, please consent to being contacted
+              </span>
+            </div>
+
+            <button
+              type="submit"
+              class="col-span-6 rounded bg-teal-800 px-4 py-3 text-white"
+            >
+              Submit
+            </button>
+          </section>
+        </form>
+      </section>
+    </Container>
+  </main>
+</RootLayout>

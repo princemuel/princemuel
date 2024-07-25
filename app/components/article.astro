@@ -1,0 +1,21 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+type Props = HTMLAttributes<"article">;
+
+const { class: className, ...rest } = Astro.props;
+---
+
+<article
+  id="article"
+  aria-labelledby="heading"
+  class:list={[
+    "prose prose-neutral max-w-none dark:prose-invert",
+    "prose-headings:font-accent prose-headings:font-bold",
+    "[&_.linked]:font-black [&_.linked]:text-inherit [&_.linked]:no-underline",
+    className,
+  ]}
+  {...rest}
+>
+  <slot />
+</article>
