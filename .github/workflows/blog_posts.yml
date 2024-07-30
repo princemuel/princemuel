@@ -1,7 +1,7 @@
 name: Latest Blog Post Workflow
 on:
-  # schedule:
-  #   # - cron: "30 0 * * *"
+  schedule:
+    - cron: "30 0 * * *"
   workflow_dispatch:
 permissions:
   contents: write
@@ -17,9 +17,9 @@ jobs:
         uses: gautamkrishnar/blog-post-workflow@v1
         with:
           feed_names: Blog
-          feed_list: https://princemuel.vercel.app/rss.xml
-          max_post_count: 20
+          feed_list: https://princemuel.vercel.app/blog/feed.xml
+          max_post_count: 7
           template: "$newline - $emojiKey(🔥,🚀,👨‍💻,👀,✍🏽,🥳,💯,💫,🌮,⚡️) <a href='$url?&ref=github-profile-readme'>$title</a>"
           committer_username: princemuel
           committer_email: vansomecsam@gmail.com
-          commit_message: "docs: updated blog posts"
+          commit_message: "docs: retrieve latest posts from blog"
