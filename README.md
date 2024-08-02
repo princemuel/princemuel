@@ -65,4 +65,7 @@ PLpgSQL                  1 repo              ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜�
 ## Blog Posts
 
 <!-- BLOG-POST-LIST:START -->
-<!-- BLOG-POST-LIST:END -->
+ - 🔥 <a href='https://$public_vercel_url/blog/2024/04/tailwind-typography?&ref=github-profile-readme'>The Tailwind Typography Plugin</a>
+ - 🚀 <a href='https://$public_vercel_url/blog/2023/07/how-to-add-an-estimated-reading-time?&ref=github-profile-readme'>Adding Estimated Reading Time In AstroPaper</a>
+ - 👨‍💻 <a href='https://$public_vercel_url/blog/2023/07/how-to-update-dependencies?&ref=github-profile-readme'>Updating AstroPaper&#39;s dependencies</a>
+ - 👀 <a href='https://$public_vercel_url/blog/2022/09/how-to-configure-astropaper-theme?&ref=github-profile-readme'>Configuring the AstroPaper theme</a><!-- BLOG-POST-LIST:END -->
