@@ -1,8 +1,6 @@
 ---
-import { fontSans } from "@/lib/config/fonts";
 import { defaultKeywords, delimiter } from "@/lib/config/site";
 import { formatCanonicalURL } from "@/shared/helpers/format-canonical";
-import { AstroFont as Fonts } from "astro-font";
 import { ViewTransitions } from "astro:transitions";
 import { pwaAssetsHead } from "virtual:pwa-assets/head";
 import { pwaInfo } from "virtual:pwa-info";
@@ -80,8 +78,7 @@ const directive = [
   name="googlebot"
   content={`${directive}, max-snippet:160, max-image-preview:large, max-video-preview:-1`}
 />
-{/* Font Assets */}
-<Fonts config={[fontSans]} />
+
 {/* Canonical URL */}
 <link rel="canonical" href={linkCanonical} />
 
