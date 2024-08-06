@@ -33,7 +33,7 @@ import { Icon } from "astro-icon/components";
       const theme = storedTheme || (mql.matches ? "light" : "dark");
       document.documentElement.dataset.theme = theme;
       document.documentElement.dataset.readerTheme =
-        theme === "light" ? "material-theme-lighter" : "material-theme-darker";
+        theme === "light" ? "github-light-default" : "github-dark-default";
 
       return {
         updateWidget(theme = storedTheme || "auto") {
