@@ -1,4 +1,28 @@
-<Fragment>
-  <h1>Site Under Maintenance</h1>
-  <p>This site is currently undergoing maintenance. Please check back soon.</p>
-</Fragment>
+---
+import MaintenanceJPG from "@/assets/images/maintenance.jpg";
+import { getImage } from "astro:assets";
+
+const image = await getImage({
+  src: MaintenanceJPG,
+  width: 1560,
+  height: 1280,
+  format: "webp",
+});
+---
+
+<main
+  id="main-content"
+  class="grid h-screen place-content-center supports-[height:100svh]:h-svh"
+>
+  <div
+    style={`background-image: url(${image.src});`}
+    class="relative isolate mx-auto grid place-content-center gap-8 rounded bg-cover bg-no-repeat p-28 text-center"
+  >
+    <h1 class="text-3xl font-bold">🚧 Site Under Maintenance</h1>
+    <p
+      class="z-10 mx-auto max-w-prose bg-black/50 px-12 py-4 text-white bg-blend-darken"
+    >
+      This site is currently undergoing maintenance. Please check back soon.😽
+    </p>
+  </div>
+</main>
