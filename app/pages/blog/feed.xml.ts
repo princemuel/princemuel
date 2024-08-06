@@ -1,14 +1,23 @@
+import { envVars } from "@/lib/config/environment";
 import { published_date } from "@/lib/config/site";
 import { convertTime, normalize } from "@/shared/utils";
 import rss, { type RSSFeedItem } from "@astrojs/rss";
 import type { APIRoute } from "astro";
 import { getCollection, getEntries, getEntry } from "astro:content";
 
+const status = ["draft", "preview", "published"] as const;
+
 export const GET: APIRoute = async (ctx) => {
   const baseUrl = new URL("/", ctx.site).toString();
   const [author, collection] = await Promise.all([
     getEntry("authors", "princemuel"),
-    getCollection("posts"),
+    getCollection("posts", ({ data }) => {
+      return import.meta.env.MODE === "production"
+        ? envVars.ENABLE_PREVIEW && data.status !== "draft"
+          ? status.includes(data.status)
+          : data.status === "published"
+        : true;
+    }),
   ]);
 
   const results = (collection ?? []).map(async (item) => {
@@ -40,18 +49,18 @@ export const GET: APIRoute = async (ctx) => {
     items: await Promise.all(results),
     trailingSlash: true,
     customData: `
-    <language>en-US</language>
-    <pubDate>${published_date.toUTCString()}</pubDate>
-    <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
-    <docs>${new URL("rss-specification", "https://www.rssboard.org/")}</docs>
-    <generator>${ctx.generator}</generator>
-    <managingEditor>
-      ${author.data.links.email} (${author.data.name})
-    </managingEditor>
-    <webMaster>${author.data.links.email} (${author.data.name})</webMaster>
-    <copyright>Copyright 2024 ${author.data.name}</copyright>
-    <ttl>${convertTime(7).mins}</ttl>
-    <atom:link href="${new URL("/blog/feed.xml", baseUrl)}" rel="self" type="application/rss+xml"/>
+      <language>en-US</language>
+      <pubDate>${published_date.toUTCString()}</pubDate>
+      <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
+      <docs>${new URL("rss-specification", "https://www.rssboard.org/")}</docs>
+      <generator>${ctx.generator}</generator>
+      <managingEditor>
+        ${author.data.links.email} (${author.data.name})
+      </managingEditor>
+      <webMaster>${author.data.links.email} (${author.data.name})</webMaster>
+      <copyright>Copyright 2024 ${author.data.name}</copyright>
+      <ttl>${convertTime(7).mins}</ttl>
+      <atom:link href="${new URL("/blog/feed.xml", baseUrl)}" rel="self" type="application/rss+xml"/>
     `,
     stylesheet: "/feed.xsl",
   });
