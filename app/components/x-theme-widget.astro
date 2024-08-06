@@ -65,11 +65,11 @@
     document.documentElement.dataset.readerTheme =
       theme === "auto"
         ? getPreferredColorScheme() === "light"
-          ? "github-light"
-          : "dracula"
+          ? "github-light-default"
+          : "github-dark-default"
         : theme === "light"
-          ? "github-light"
-          : "dracula";
+          ? "github-light-default"
+          : "github-dark-default";
 
     storeTheme(theme);
   }
