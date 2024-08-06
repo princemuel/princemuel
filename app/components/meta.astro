@@ -1,16 +1,13 @@
 ---
-import "@fontsource-variable/jetbrains-mono";
-import "@fontsource-variable/inconsolata";
-import "@fontsource-variable/karla";
-import "../assets/styles/global.css";
+import { fontSans } from "@/lib/config/fonts";
+import { defaultKeywords, delimiter } from "@/lib/config/site";
+import { formatCanonicalURL } from "@/shared/helpers/format-canonical";
 import { AstroFont as Fonts } from "astro-font";
 import { ViewTransitions } from "astro:transitions";
 import { pwaAssetsHead } from "virtual:pwa-assets/head";
 import { pwaInfo } from "virtual:pwa-info";
+import "../assets/styles/global.css";
 import ThemeProvider from "./theme-provider.astro";
-import { formatCanonicalURL } from "@/shared/helpers/format-canonical";
-import { defaultKeywords, delimiter } from "@/lib/config/site";
-import { fontSans } from "@/lib/config/fonts";
 
 type Props = Meta & { og?: OpenGraph; twitter?: Twitter };
 
@@ -178,12 +175,27 @@ const directive = [
 <link rel="webmention" href="https://webmention.io/princemuel.com/webmention" />
 <link rel="pingback" href="https://webmention.io/princemuel.com/xmlrpc" />
 
-{/* Print Stylesheet */}
-{
-  /*
-<link rel="stylesheet" type="text/css" href={print} media="print" />
-*/
-}
+{/* Preload Typekit CSS */}
+<link
+  rel="preload"
+  href="https://use.typekit.net/pjh1zlv.css"
+  as="style"
+  crossorigin="anonymous"
+/>
+<link
+  rel="stylesheet"
+  href="https://use.typekit.net/pjh1zlv.css"
+  media="print"
+  onload="this.media='all'"
+  crossorigin="anonymous"
+/>
+<noscript>
+  <link
+    rel="stylesheet"
+    href="https://use.typekit.net/pjh1zlv.css"
+    crossorigin="anonymous"
+  />
+</noscript>
 
 {
   /* <meta name="format-detection" content="telephone=no, address=no, email=no" /> */
@@ -196,5 +208,5 @@ const directive = [
 {/* <meta name="me" content="my-link" />  */}
 
 <ViewTransitions />
-<script src="/app/assets/scripts/register-pwa"></script>
+<script src="/app/assets/scripts/pwa"></script>
 <ThemeProvider />

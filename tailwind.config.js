@@ -15,8 +15,12 @@ export default {
     "./app/components/**/*.{astro,tsx}",
     "./app/content/**/*.{md,mdx}",
   ],
-  corePlugins: { float: false, container: false },
-  future: { hoverOnlyWhenSupported: true },
+  future: {
+    hoverOnlyWhenSupported: true,
+    respectDefaultRingColorOpacity: true,
+    disableColorOpacityUtilitiesByDefault: true,
+  },
+  experimental: { optimizeUniversalDefaults: true },
   theme: {
     screens: {
       "3xs": "24em", // @media (min-width: 384px) { ... }
@@ -76,6 +80,7 @@ export default {
       addVariant("optional", "&:optional");
       addVariant("hocus", ["&:hover", "&:focus"]);
       addVariant("inverted-colors", "@media (inverted-colors: inverted)");
+      addVariant("neon", '&:where([data-theme="neon"], [data-theme="neon"] *)');
 
       addUtilities({
         ".grid-repeat-autofit": { "--tw-grid-repeat": "auto-fit" },
