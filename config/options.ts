@@ -51,15 +51,14 @@ const manifest = (function () {
 })();
 
 export const PWAOptions: PwaOptions = {
-  strategies: "generateSW",
   registerType: "autoUpdate",
-  injectRegister: false,
-  pwaAssets: { disabled: false, config: true },
+  pwaAssets: { disabled: false, config: true, overrideManifestIcons: true },
+  experimental: { directoryAndTrailingSlashHandler: true },
   manifest: await manifest,
+  devOptions: { enabled: false, suppressWarnings: true, type: "module" },
   workbox: {
     cleanupOutdatedCaches: true,
     clientsClaim: true,
-    offlineGoogleAnalytics: true,
     // navigateFallback: "/offline",
     // globPatterns: [
     //   "**/*.{css,js,jpg,jpeg,png,gif,webp,svg,ico,woff,woff2,ttf,eot}",
@@ -74,6 +73,4 @@ export const PWAOptions: PwaOptions = {
     // ],
     // runtimeCaching: cachePreset,
   },
-  experimental: { directoryAndTrailingSlashHandler: true },
-  devOptions: { enabled: false, suppressWarnings: true, type: "module" },
 };
