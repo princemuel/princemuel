@@ -1,6 +1,13 @@
 ---
 import ConstructionJPG from "@/assets/images/construction.jpg";
+import { en_datetime_default } from "@/shared/helpers/datetime";
+import { Icon } from "astro-icon/components";
 import { getImage } from "astro:assets";
+import Container from "./container.astro";
+import Link from "./link.astro";
+import Time from "./time.astro";
+
+const buildDate = new Date(Date.now());
 
 const image = await getImage({
   src: ConstructionJPG,
@@ -25,5 +32,22 @@ const image = await getImage({
       I am currently at work on this website. It'll be awesome...I promise🤞🏼
       Please feel free to check back later 😽
     </p>
+  </div>
+
+  <div class="absolute bottom-0 left-0 right-0 bg-slate-200 dark:bg-slate-900">
+    <Container class="flex items-center justify-center py-1">
+      <p
+        class="flex flex-wrap content-center items-center gap-1 text-xs text-gray-800 dark:text-white"
+      >
+        <span>Built with </span>
+        <Icon name="logos:astro-icon" />
+        <Link href="https://docs.astro.build/en/concepts/why-astro/"
+          >{Astro.generator}</Link
+        > on
+        <Time datetime={buildDate.toISOString()}
+          >{en_datetime_default.format(buildDate)}</Time
+        >
+      </p>
+    </Container>
   </div>
 </main>
