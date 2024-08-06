@@ -5,13 +5,12 @@ import rss, { type RSSFeedItem } from "@astrojs/rss";
 import type { APIRoute } from "astro";
 import { getCollection, getEntries, getEntry } from "astro:content";
 
-const status = ["draft", "preview", "published"] as const;
-
 export const GET: APIRoute = async (ctx) => {
   const baseUrl = new URL("/", ctx.site).toString();
   const [author, collection] = await Promise.all([
     getEntry("authors", "princemuel"),
     getCollection("posts", ({ data }) => {
+      const status = ["draft", "preview", "published"] as const;
       return import.meta.env.MODE === "production"
         ? envVars.ENABLE_PREVIEW && data.status !== "draft"
           ? status.includes(data.status)
