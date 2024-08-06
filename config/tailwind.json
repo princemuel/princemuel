@@ -16,8 +16,8 @@
       }
     },
     "fontFamily": {
-      "sans": "Karla Variable",
-      "mono": "\"JetBrains Mono Variable\"",
+      "sans": "zeitung",
+      "mono": "\"zeitung-mono\"",
       "accent": "\"Inconsolata Variable\""
     },
     "cursor": {

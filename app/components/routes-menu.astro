@@ -9,7 +9,8 @@ type Props = HTMLAttributes<"menu">;
 
 const response = await getCollection("routes");
 
-const excludedRoutes = ["resources", "articles", "dashboard"];
+let excludedRoutes = ["resources", "articles", "dashboard"];
+excludedRoutes = [];
 
 const routes =
   response

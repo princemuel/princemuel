@@ -1,0 +1,29 @@
+{
+  "Immediately Invoked Generator Expression": {
+    "body": [
+      "(function* () {\n",
+      "for(const ${0:item} of ${0:item}s) {\n${1}\n}\n",
+      "})()\n",
+    ],
+    "prefix": "iige",
+    "description": "This is an generator expression",
+  },
+  "Map Expression ": {
+    "prefix": "imap",
+    "description": "This is a simple map expression for Astro",
+    "isFileTemplate": false,
+    "body": ["{ ${1:item}s.map((${1:item}) => (${2:item})) }"],
+  },
+  "Map Expression Using a Block": {
+    "prefix": "imapfn",
+    "description": "This is a map expression for Astro using a anonymous function",
+    "isFileTemplate": false,
+    "body": ["{\n${1:item}s.map((${1:item}) =>{\nreturn ${2:item}\n})\n}"],
+  },
+  "Ternary Expression": {
+    "prefix": "itern",
+    "description": "A ternary expression scaffold",
+    "isFileTemplate": false,
+    "body": ["${1:expression} ? ${2} : ${3:null}"],
+  },
+}

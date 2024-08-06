@@ -1,12 +1,12 @@
 ---
+import Construction from "@/components/construction.astro";
 import Footer from "@/components/footer.astro";
 import Header from "@/components/header.astro";
 import Indicator from "@/components/indicator.astro";
+import Maintenance from "@/components/maintenance.astro";
 import Meta from "@/components/meta.astro";
 import SkipLink from "@/components/skip-link.astro";
 import EdgeAnalytics from "@/components/x-analytics.astro";
-import Construction from "@/components/construction.astro";
-import Maintenance from "@/components/maintenance.astro";
 import { tw } from "@/shared/utils";
 import SpeedInsights from "@vercel/speed-insights/astro";
 import ContentSlot from "./content-slot.astro";
@@ -43,7 +43,7 @@ const {
     "scroll-smooth",
   ])}
   data-theme="dark"
-  data-reader-theme="dracula"
+  data-reader-theme="github-dark-default"
 >
   <head>
     <meta charset="utf-8" />
@@ -63,13 +63,11 @@ const {
       updatedAt={updatedAt}
       canonical={canonical}
     />
+    <slot name="head" />
+    <slot name="structured-data" />
   </head>
-
-  <slot name="head" />
-  <slot name="structured-data" />
-
   <body
-    class="relative bg-neutral-50 font-sans font-normal antialiased dark:bg-[#0E1116]"
+    class="relative bg-neutral-50 font-sans font-normal antialiased dark:bg-[#04060b]"
   >
     <SkipLink />
     <Indicator />
