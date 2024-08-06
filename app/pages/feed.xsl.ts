@@ -1,15 +1,11 @@
 import type { APIRoute } from "astro";
 
-import feedFonts from "@/assets/styles/fonts.css?raw";
 import feedStyles from "@/assets/styles/xml-feed.css?raw";
 import feedTemplate from "@/assets/styles/xml-feed.xsl?raw";
 
 export const GET: APIRoute = () => {
   const styles = feedTemplate
-    .replace(
-      "<!-- {{ styles }} -->",
-      `<style>\n${feedFonts}\n${feedStyles}\n</style>`,
-    )
+    .replace("<!-- {{ styles }} -->", `<style>\n${feedStyles}\n</style>`)
     .replaceAll(/\t|\n/giu, "")
     .replaceAll(/\s+/giu, " ");
 

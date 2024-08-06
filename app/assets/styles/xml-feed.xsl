@@ -8,11 +8,31 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
         <title><xsl:value-of select="/rss/channel/title" /></title>
+        <link rel="dns-prefetch" href="//use.typekit.net" />
+        <link rel="preconnect" href="https://use.typekit.net" crossorigin="anonymous" />
+        <link
+          rel="preload"
+          href="https://use.typekit.net/pjh1zlv.css"
+          as="style"
+          crossorigin="anonymous"
+          />
+        <link
+          rel="stylesheet"
+          href="https://use.typekit.net/pjh1zlv.css"
+          media="print"
+          onload="this.media='all'"
+          crossorigin="anonymous"
+          />
+        <noscript>
+          <link
+            rel="stylesheet"
+            href="https://use.typekit.net/pjh1zlv.css"
+            crossorigin="anonymous"
+            />
+        </noscript>
         <!-- {{ styles }} -->
-        
         <script type="module">
           const formatter = new Intl.DateTimeFormat(navigator.language, { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' });
-          
           document.querySelectorAll('time')?.forEach((time) => {
           const date = new Date(time.textContent);
           time.textContent = formatter.format(date);
@@ -23,7 +43,7 @@
       <body
         class="min-h-full text-lg text-[color:#1f303e] bg-white font-sans antialiased relative"
         >
-        
+
         <div class="w-full max-w-3xl px-4 md:px-8 mx-auto">
           <aside
             class="mt-16 px-4 py-6 border border-l-[5px] rounded border-blue-500/80 bg-sky-50">
@@ -36,7 +56,7 @@
               >About Feeds</a>
             to learn more and get started. It&apos;s free.
           </aside>
-          
+
           <main
             aria-labelledby="heading"
             class="mt-16 flex flex-col items-start gap-12"
@@ -115,10 +135,10 @@
                 <xsl:value-of select="/rss/channel/link"/>
               </xsl:attribute> Visit Website &#x2192;
             </a>
-            
+
             <section aria-labelledby="items" class="flex flex-col gap-12">
               <h2 id='items' class="font-bold text-3xl">Recent Items</h2>
-              
+
               <div class="flex flex-col items-start gap-7">
                 <xsl:for-each select="/rss/channel/item">
                   <article aria-setsize="-1">
@@ -131,12 +151,12 @@
                     <xsl:attribute name="aria-posinset">
                       <xsl:value-of select="position()"/>
                     </xsl:attribute>
-                    
+
                     <p class="text-sm text-gray-600">
                       Published on
                       <time><xsl:value-of select="pubDate" /></time>
                     </p>
-                    
+
                     <h3 class="font-bold text-lg">
                       <xsl:attribute name="id">
                         <xsl:value-of select="slug"/>
@@ -150,14 +170,14 @@
                         <xsl:value-of select="title"/>
                       </a>
                     </h3>
-                    
+
                     <p class="text-base">
                       <xsl:attribute name="id">
                         <xsl:value-of select="lead"/>
                       </xsl:attribute>
                       <xsl:value-of select="description" />
                     </p>
-                    
+
                     <footer>
                       <xsl:if test="category">
                         <details>

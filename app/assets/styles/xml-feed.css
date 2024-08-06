@@ -18,7 +18,7 @@ html,
   -o-tab-size: 4;
   tab-size: 4;
   font-family:
-    __FontSans,
+    zeitung,
     ui-sans-serif,
     system-ui,
     sans-serif,
@@ -64,15 +64,8 @@ code,
 kbd,
 samp,
 pre {
-  font-family:
-    ui-monospace,
-    SFMono-Regular,
-    Menlo,
-    Monaco,
-    Consolas,
-    Liberation Mono,
-    Courier New,
-    monospace;
+  font-family: "zeitung-mono", ui-monospace, SFMono-Regular, Menlo, Monaco,
+    Consolas, "Liberation Mono", "Courier New", monospace;
   font-feature-settings: normal;
   font-variation-settings: normal;
   font-size: 1em;
@@ -430,7 +423,7 @@ video {
 }
 .font-sans {
   font-family:
-    __FontSans,
+    zeitung,
     ui-sans-serif,
     system-ui,
     sans-serif,
@@ -438,6 +431,10 @@ video {
     "Segoe UI Emoji",
     Segoe UI Symbol,
     "Noto Color Emoji";
+}
+.font-mono {
+  font-family: "zeitung-mono", ui-monospace, SFMono-Regular, Menlo, Monaco,
+    Consolas, "Liberation Mono", "Courier New", monospace;
 }
 .text-3xl {
   font-size: 1.875rem;
