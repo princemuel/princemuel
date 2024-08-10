@@ -5,7 +5,6 @@
   "editor.wordWrapColumn": 96,
   "json.validate.enable": true,
   "editor.formatOnSave": true,
-  "editor.formatOnType": true,
   "editor.codeActionsOnSave": {
     "source.addMissingImports": "explicit",
     "source.organizeImports": "explicit",
@@ -25,32 +24,22 @@
   },
   "window.autoDetectColorScheme": true,
   "workbench.tree.indent": 8,
-  "eslint.codeActionsOnSave.mode": "problems",
   "tailwindCSS.rootFontSize": 16,
   "tailwindCSS.experimental.classRegex": [
     ["tv\\((([^()]*|\\([^()]*\\))*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]
   ],
   "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
-  "eslint.validate": [
-    "astro",
-    "markdown",
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact"
-  ],
   "prettier.documentSelectors": ["**/*.astro"],
   "[astro]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "oxc_language_server.configPath": ".eslintrc.json",
+  "eslint.enable": false,
+  "oxc_language_server.configPath": ".oxlintrc.json",
   "oxc_language_server.enable": true,
   "tailwindCSS.includeLanguages": {
     "xslt": "html"
   },
-  "eslint.format.enable": true,
-  "eslint.useFlatConfig": true,
   "workbench.colorCustomizations": {
     "[Houston]": {
       "statusBar.background": "#181818",
