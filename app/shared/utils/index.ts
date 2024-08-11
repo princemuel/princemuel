@@ -132,13 +132,13 @@ export function singleton<T>(name: string, callback: () => T) {
   return g.__singletons.get(name) as NonNullable<T>;
 }
 
-export function remove_key<T>(data: T, k: string): T {
+export function remove_key<T>(k: string, data: T): T {
   if (Array.isArray(data)) {
-    return data.map((item) => remove_key(item, k)) as unknown as T;
+    return data.map((item) => remove_key(k, item)) as unknown as T;
   } else if (isObject(data)) {
     const entries = Object.entries(data)
       .filter(([key]) => key !== k)
-      .map(([key, value]) => [key, remove_key(value, k)]);
+      .map(([key, value]) => [key, remove_key(k, value)]);
     return Object.fromEntries(entries) as T;
   }
   return data;
