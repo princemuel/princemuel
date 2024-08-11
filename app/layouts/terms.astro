@@ -1,31 +1,25 @@
 ---
-import Container from "@/components/container.astro";
-import Main from "@/components/main.astro";
-import Profile from "@/components/profile.astro";
-import type { ComponentProps } from "astro/types";
+import type { MarkdownLayoutProps } from "astro";
 import RootLayout from "./root.astro";
+import Prose from "@/components/prose.astro";
+import Main from "@/components/main.astro";
+import Container from "@/components/container.astro";
+import Profile from "@/components/profile.astro";
 
-type Props = Prettify<
-  ComponentProps<typeof RootLayout> & {
-    jsonld: any;
-  }
->;
+type Props = MarkdownLayoutProps<{ title: string; description: string }>;
 
-const { jsonld, ...rest } = Astro.props;
+const { frontmatter } = Astro.props;
+
+const { title, description } = frontmatter;
 ---
 
-<RootLayout {...rest}>
-  <script
-    is:inline
-    type="application/ld+json"
-    slot="structured-data"
-    set:html={JSON.stringify(jsonld)}
-  />
-
+<RootLayout title={title} description={description}>
   <Container class="my-10">
     <Main class="relative grid grid-cols-1 gap-4 lg:grid-cols-7 xl:gap-8">
       <div class="col-span-5 max-lg:col-span-1">
-        <slot />
+        <Prose>
+          <slot />
+        </Prose>
       </div>
 
       <aside

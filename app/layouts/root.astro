@@ -70,7 +70,7 @@ const {
     class="relative bg-neutral-50 font-sans font-normal antialiased dark:bg-[#04060b]"
   >
     <SkipLink />
-    <Indicator />
+    {import.meta.env.DEV ? <Indicator /> : null}
     <ContentSlot>
       <Construction slot="construction" />
       <div slot="live" class="grid min-h-screen grid-rows-[auto_1fr_auto]">
@@ -80,7 +80,7 @@ const {
       </div>
       <Maintenance slot="maintenance" />
     </ContentSlot>
-    <SpeedInsights />
-    <EdgeAnalytics />
+    {import.meta.env.PROD ? <SpeedInsights /> : null}
+    {import.meta.env.PROD ? <EdgeAnalytics /> : null}
   </body>
 </html>

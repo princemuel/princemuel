@@ -1,6 +1,7 @@
 ---
 import Container from "@/components/container.astro";
 import Main from "@/components/main.astro";
+import Profile from "@/components/profile.astro";
 import type { ComponentProps } from "astro/types";
 import RootLayout from "./root.astro";
 
@@ -22,18 +23,16 @@ const { jsonld, ...rest } = Astro.props;
   />
 
   <Container class="my-10">
-    <Main class="relative grid grid-cols-1 gap-4 lg:grid-cols-4 xl:gap-8">
-      <div class="col-span-3 max-lg:col-span-1">
+    <Main class="relative grid grid-cols-1 gap-4 lg:grid-cols-7 xl:gap-8">
+      <div class="col-span-5 max-lg:col-span-1">
         <slot />
       </div>
 
-      <div class="contents">
-        <aside
-          class="sticky top-28 col-span-1 flex h-fit flex-col gap-6 max-lg:hidden"
-        >
-          <div></div>
-        </aside>
-      </div>
+      <aside
+        class="sticky top-28 col-span-2 flex h-fit w-full flex-col gap-6 max-lg:hidden"
+      >
+        <Profile />
+      </aside>
     </Main>
   </Container>
 </RootLayout>
