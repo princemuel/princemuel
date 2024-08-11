@@ -1,11 +1,11 @@
 ---
-import Article from "@/components/article.astro";
+import Prose from "@/components/prose.astro";
 import HomeLayout from "@/layouts/home.astro";
 
 const jsonld = "";
 ---
 
-<HomeLayout title="Newsletter" description="Newsletter">
+<HomeLayout title="Newsletter" description="Newsletter" jsonld={jsonld}>
   <script
     is:inline
     type="application/ld+json"
@@ -13,7 +13,7 @@ const jsonld = "";
     set:html={JSON.stringify(jsonld)}
   />
 
-  <Article class="">
+  <Prose class="">
     <h1>Newsletter Page</h1>
-  </Article>
+  </Prose>
 </HomeLayout>

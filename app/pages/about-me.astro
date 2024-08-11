@@ -1,6 +1,6 @@
 ---
 import AvatarImage from "@/assets/images/placeholder.avif";
-import Article from "@/components/article.astro";
+import Prose from "@/components/prose.astro";
 import ProfileLayout from "@/layouts/about-me.astro";
 import { published_date } from "@/lib/config/site";
 import { profile_ld } from "@/lib/schema/structured-data";
@@ -70,23 +70,19 @@ const breadcrumb_ld = {
 
 const jsonld = {
   "@context": "https://schema.org",
-  "@graph": remove_key(
-    [page_ld, image_ld, breadcrumb_ld, profile_ld],
-    "@context",
-  ),
+  "@graph": remove_key("@context", [
+    page_ld,
+    image_ld,
+    breadcrumb_ld,
+    profile_ld,
+  ]),
 } satisfies Graph;
 ---
 
 <ProfileLayout
-  title="Prince Muel - Frontend Engineer, Educator, Musician"
+  title="Prince Muel - Frontend Engineer, Coding Instructor, Musician"
   description=""
+  jsonld={jsonld}
 >
-  <script
-    is:inline
-    type="application/ld+json"
-    slot="structured-data"
-    set:html={JSON.stringify(jsonld)}
-  />
-
-  <Article>HI</Article>
+  <Prose>HI</Prose>
 </ProfileLayout>

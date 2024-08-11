@@ -1,20 +1,16 @@
 ---
-import Article from "@/components/article.astro";
+import Prose from "@/components/prose.astro";
 // import BlogCard from "@/components/blog-card.astro";
 import HomeLayout from "@/layouts/home.astro";
 
 const jsonld = "";
 ---
 
-<HomeLayout title="Home" description="Home">
-  <script
-    is:inline
-    type="application/ld+json"
-    slot="head"
-    set:html={JSON.stringify(jsonld)}
-  />
+<HomeLayout title="Home" description="Home" jsonld={jsonld}>
+  <Prose class="">
+    <h1 id="heading" class="mt-6">Prince Muel</h1>
 
-  <Article class="" />
-
-  <!--   <BlogCard /> -->
+    <h2 id="projects">Projects</h2>
+    <h2 id="posts">Posts</h2>
+  </Prose>
 </HomeLayout>

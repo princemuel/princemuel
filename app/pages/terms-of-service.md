@@ -1,8 +1,9 @@
 ---
+layout: "../layouts/terms.astro"
 title: "Terms of Service"
-description: "The terms and services"
-author: "Cody S."
-publishedAt: "2024-4-23"
+description: "The terms and services of this website"
+author: "Prince Muel"
+publishedAt: 2024-4-23
 ---
 
 # Terms of Service
@@ -167,5 +168,3 @@ informed about any modifications.
 to ensure that you are aware of any changes that may affect your use of the application.
 Your continued use of the service after updates indicates your agreement to be bound
 by the modified terms.
-
-Last Modified: 4/23/2024

@@ -1,8 +1,9 @@
 ---
+layout: "../layouts/privacy.astro"
 title: "Privacy Policy"
-description: "The privacy policy."
-author: "Cody S."
-publishedAt: "2024-4-23"
+description: "The privacy policy of this website"
+author: "Prince Muel"
+publishedAt: 2024-4-23
 ---
 
 # Privacy Policy
@@ -128,5 +129,3 @@ reflected by a &apos;Last modified&apos; date below. Thus, we advise you
 to review this page periodically for any changes. We will notify you of
 any changes by posting the new Privacy Policy on this page. These
 changes are effective immediately, after they are posted on this page.
-
-Last Modified: 4/23/2024

@@ -4,18 +4,18 @@ import RootLayout from "../layouts/root.astro";
 ---
 
 <RootLayout title="Dashboard" description="">
-  <main class="min-h- mx-auto w-full max-w-4xl">
-    <div class="rounded border border-stone-100/10">
-      <div class="p-4">
+  <main class="min-h- prose-purple mx-auto w-full max-w-4xl">
+    <div class="rounded">
+      <div class="p-4 dark:bg-slate-900">
         <div
-          class="h-96 overflow-y-hidden rounded border border-stone-100/10 p-4"
+          class="h-96 overflow-y-hidden rounded bg-gray-50 p-4 dark:bg-gray-800"
         >
           <div
             class:list={[
-              "flex h-full flex-col gap-4 overflow-y-auto scrollbar",
+              "flex h-full flex-col gap-4 overflow-y-auto bg-gray-50 scrollbar dark:bg-gray-800",
             ]}
           >
-            <GithubActivity />
+            <GithubActivity server:defer />
           </div>
         </div>
       </div>
