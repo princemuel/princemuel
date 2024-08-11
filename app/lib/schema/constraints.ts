@@ -20,7 +20,7 @@ export const MediaObject = (image: SchemaContext["image"]) =>
         message: "Cover picture must be at least 1080 pixels wide!",
       })
       .optional(),
-    alt: z.string().optional(),
+    alt: z.string(),
     image: z.string().optional(),
     thumbnail: z.string().optional(),
     audio: z.string().optional(),
