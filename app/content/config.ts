@@ -12,7 +12,12 @@ const projectCollection = defineCollection({
       tools: z.array(z.string()).default([]),
       media: MediaObject(image).optional(),
       language: z.enum(["en", "es", "fr"]).default("en"),
-      links: z.array(z.string().url()).default([]),
+      link: z
+        .object({
+          site: z.string().url().optional(),
+          repo: z.string().url().optional(),
+        })
+        .default({}),
     }),
 });
 
