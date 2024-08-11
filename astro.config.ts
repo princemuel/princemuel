@@ -23,6 +23,6 @@ export default defineConfig({
     edgeMiddleware: true,
     functionPerRoute: false,
     imageService: true,
-    webAnalytics: { enabled: true },
+    webAnalytics: { enabled: envVars.NODE_ENV === "production" },
   }),
 });

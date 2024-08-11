@@ -9,6 +9,7 @@ export const IconOptions: TIconOptions = {
       "badge-check",
       "bar-chart",
       "briefcase-business",
+      "clock-4",
       "home",
       "library",
       "pen-line",
@@ -29,8 +30,7 @@ export const IconOptions: TIconOptions = {
       "linkedin",
       "youtube",
     ],
-    fa: ["paint-brush"],
-    ri: ["calendar-fill", "price-tag-3-fill", "quill-pen-fill"],
+    ri: ["price-tag-3-fill", "quill-pen-fill"],
   },
 };
 
