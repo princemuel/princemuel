@@ -1,5 +1,5 @@
 ---
-title: Audiophile - yhnrnr fnfhfjnh
+title: Audiophile
 description: How you can make AstroPaper theme absolutely yours.
 summary: An e-commerce app for audio devices
 featured: false
