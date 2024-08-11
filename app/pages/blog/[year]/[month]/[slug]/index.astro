@@ -1,16 +1,15 @@
 ---
-import Article from "@/components/article.astro";
+import Prose from "@/components/prose.astro";
 import BlogPostLayout from "@/layouts/post.astro";
 import { envVars } from "@/lib/config/environment";
 import { blog_ld, profile_ld } from "@/lib/schema/structured-data";
-import { en_time } from "@/shared/helpers/datetime";
+import { moment } from "@/shared/helpers/datetime";
 import { withBaseUrl } from "@/shared/helpers/with-base-url";
 import { hasValues, remove_key } from "@/shared/utils";
-
-import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
+import type { GetStaticPaths } from "astro";
 import { getCollection, getEntries, getEntry } from "astro:content";
 import type {
-  Article as BlogArticle,
+  Article,
   BreadcrumbList,
   Graph,
   ImageObject,
@@ -34,9 +33,6 @@ export const getStaticPaths = (async () => {
   });
 }) satisfies GetStaticPaths;
 
-// @ts-expect-error
-type Props = InferGetStaticPropsType<typeof getStaticPaths>;
-
 const { entry } = Astro.props;
 
 const [markdown, author, categories] = await Promise.all([
@@ -45,7 +41,7 @@ const [markdown, author, categories] = await Promise.all([
   getEntries(entry.data.categories),
 ]);
 
-const { Content, headings, remarkPluginFrontmatter } = markdown;
+const { Content, remarkPluginFrontmatter } = markdown;
 
 // update the collection schema with plugin data
 entry.data.updatedAt ||= new Date(remarkPluginFrontmatter.updatedAt);
@@ -83,7 +79,7 @@ const article_ld = {
   copyrightYear: entry.data.publishedAt.getFullYear(),
   copyrightHolder: { "@id": withBaseUrl("/about-me").toString() },
   accessibilityFeature: ["tableOfContents"],
-} satisfies WithContext<BlogArticle>;
+} satisfies WithContext<Article>;
 
 const page_ld = {
   "@context": "https://schema.org",
@@ -149,10 +145,14 @@ const breadcrumb_ld = {
 
 const jsonld = {
   "@context": "https://schema.org",
-  "@graph": remove_key(
-    [article_ld, page_ld, image_ld, breadcrumb_ld, blog_ld, profile_ld],
-    "@context",
-  ),
+  "@graph": remove_key("@context", [
+    article_ld,
+    page_ld,
+    image_ld,
+    breadcrumb_ld,
+    blog_ld,
+    profile_ld,
+  ]),
 } satisfies Graph;
 
 console.log("AFTER_UPDATE", entry.data);
@@ -166,31 +166,30 @@ const { title, description, tags, permalink, publishedAt, updatedAt } =
   title={title}
   description={description}
   jsonld={jsonld}
-  headings={headings}
   publishedAt={publishedAt}
   updatedAt={updatedAt}
   canonical={permalink}
   keywords={[...tags, ...categories.map((c) => c.data.name)]}
 >
-  <Article class="">
-    <div
+  <Prose class="">
+    <!-- <div
       class="flex items-center justify-between gap-2 font-accent font-semibold text-teal-600 dark:text-teal-500"
     >
       <p class="text-sm text-inherit">
-        {en_time.format(publishedAt)}
+        {moment.format(publishedAt)}
       </p>
       <p class="text-xs text-inherit">
         By {author.data.name}
       </p>
-    </div>
+    </div> -->
 
     <h1 id="heading" class="mt-6">{title}</h1>
 
-    <p>{en_time.format(updatedAt)}</p>
+    <p class="">{moment.format(updatedAt)}</p>
 
     {
       hasValues(tags) && (
-        <ul class="not-prose flex items-center gap-3 text-xs text-rose-500/90">
+        <ul class="not-prose mx-auto flex items-center gap-3 text-xs text-rose-500/90">
           {tags.map((tag) => (
             <li class="rounded border px-2 py-1 capitalize dark:border-slate-900">
               {tag}
@@ -203,5 +202,5 @@ const { title, description, tags, permalink, publishedAt, updatedAt } =
     <p class="">{description}</p>
 
     <Content />
-  </Article>
+  </Prose>
 </BlogPostLayout>

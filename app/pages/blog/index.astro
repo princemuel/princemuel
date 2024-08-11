@@ -1,12 +1,12 @@
 ---
-import Article from "@/components/article.astro";
 import Link from "@/components/link.astro";
 import PostDivider from "@/components/post-divider.astro";
+import Prose from "@/components/prose.astro";
 import Time from "@/components/time.astro";
 import BlogLayout from "@/layouts/posts.astro";
 import { envVars } from "@/lib/config/environment";
-import { createExcerpt } from "@/shared/helpers/create-excerpt";
-import { normalize } from "@/shared/utils";
+import { hasValues, normalize } from "@/shared/utils";
+import { Icon } from "astro-icon/components";
 import { getCollection } from "astro:content";
 
 const status = ["draft", "preview", "published"] as const;
@@ -35,17 +35,19 @@ export const latest = (value?: Meta["publishedAt"]) => {
 ---
 
 <BlogLayout title="Blog" description="" jsonld={{}}>
-  <Article id="article">
+  <Prose id="article">
     <dl
-      class="not-prose flex items-center justify-between gap-2 font-accent font-semibold text-teal-600 dark:text-teal-500"
+      class="not-prose flex items-center justify-between gap-2 font-mono text-[.625rem] font-bold tracking-tighter text-pink-600 dark:text-pink-500"
     >
-      <dd class="text-sm text-inherit">Posts</dd>
-      <dt class="text-xs text-inherit">
-        x{allEntries.length}
-      </dt>
+      <dt>Posts</dt>
+      <dd>x{allEntries.length}</dd>
     </dl>
 
-    <h1 id="heading" class="mt-6">Blog Posts</h1>
+    <h1 id="heading" class="mt-6">
+      <Link class="linked" aria-hidden tabindex="-1" href="/posts">
+        Blog Posts
+      </Link>
+    </h1>
 
     <p>
       You'll find a mixed bag of content here. I'm mainly focussed on "How to"
@@ -53,7 +55,7 @@ export const latest = (value?: Meta["publishedAt"]) => {
     </p>
 
     <Fragment>
-      <div class="not-prose flex flex-col gap-6">
+      <div class="not-prose flex flex-col gap-5">
         {
           allEntries.map((entry, idx, array) => {
             const previous = array.at(idx - 1)?.data.publishedAt || new Date();
@@ -62,44 +64,60 @@ export const latest = (value?: Meta["publishedAt"]) => {
               new Date(entry.data.publishedAt).getMonth() !==
                 new Date(previous).getMonth();
 
+            const { title, summary, publishedAt, tags } = entry.data;
+            // const _cover = media?.cover;
+
             return (
               <Fragment>
-                {divide && <PostDivider datetime={entry.data.publishedAt} />}
+                {divide && <PostDivider datetime={publishedAt} />}
 
                 <article
-                  aria-describedby={`${normalize(entry.slug)}-description`}
-                  aria-labelledby={`${normalize(entry.slug)}`}
+                  aria-describedby={`${normalize(entry.slug)}-desc`}
+                  aria-labelledby={normalize(entry.slug)}
                   aria-setsize="-1"
                   aria-posinset={idx + 1}
-                  data-latest={`${latest(entry.data.publishedAt)}`}
-                  class="grid grid-cols-1 gap-3 rounded border border-slate-200 bg-white p-4 md:grid-cols-3 md:gap-6 dark:border-slate-800 dark:bg-slate-900/40"
+                  data-latest={`${latest(publishedAt)}`}
+                  class="group"
                 >
-                  <div class="col-span-1 flex flex-col justify-center gap-2 md:col-span-2">
-                    <div class="flex items-center gap-4">
-                      <Time datetime={entry.data.publishedAt} class="" />
-                    </div>
+                  <div class="flex flex-col items-start gap-3">
+                    <h2 class="font-mono text-lg tracking-tighter text-rose-600 group-hover:underline dark:text-rose-500">
+                      <Link href={`/blog/${entry.slug}`}>{title}</Link>
+                    </h2>
 
-                    <Link href={`/blog/${entry.slug}`}>
-                      <h3 class="">{entry.data.title}</h3>
-                    </Link>
-                    <p
-                      id={`${normalize(entry.slug)}-description`}
-                      class="text-sm font-light"
-                    >
-                      {createExcerpt(entry.body, 80)}
+                    <p class="flex items-center gap-2 text-sm text-slate-600 md:text-base dark:text-slate-400">
+                      <Icon
+                        name="ri:quill-pen-fill"
+                        class="text-slate-900 dark:text-white"
+                      />
+                      <span>{summary}</span>
                     </p>
 
-                    {entry.data.tags && (
-                      <ul class="flex items-center gap-2">
-                        {entry.data.tags.map((tag) => (
-                          <li class="">
-                            <Link href={`/tags/${tag}`} class="">
-                              {tag}
+                    <div class="flex flex-wrap items-center gap-4">
+                      <p class="flex items-center gap-2 text-xs md:text-sm">
+                        <Icon
+                          name="lucide:clock-4"
+                          class="text-slate-900 dark:text-white"
+                        />
+                        <Time datetime={publishedAt} />
+                      </p>
+
+                      {hasValues(tags) && (
+                        <div class="flex flex-wrap items-center gap-2 text-xs md:text-sm">
+                          <Icon
+                            name="ri:price-tag-3-fill"
+                            class="text-slate-950 dark:text-white"
+                          />
+                          {tags.map((tag) => (
+                            <Link
+                              href={`/tags/${tag}`}
+                              class="lowercase underline"
+                            >
+                              #{tag}
                             </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
+                          ))}
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </article>
               </Fragment>
@@ -108,5 +126,5 @@ export const latest = (value?: Meta["publishedAt"]) => {
         }
       </div>
     </Fragment>
-  </Article>
+  </Prose>
 </BlogLayout>

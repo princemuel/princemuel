@@ -1,5 +1,112 @@
 ---
-import RootLayout from "@/layouts/root.astro";
+import Link from "@/components/link.astro";
+import PostDivider from "@/components/post-divider.astro";
+import Prose from "@/components/prose.astro";
+import Time from "@/components/time.astro";
+import ProjectsLayout from "@/layouts/projects.astro";
+import { envVars } from "@/lib/config/environment";
+import { hasValues, normalize } from "@/shared/utils";
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+
+const status = ["draft", "preview", "published"] as const;
+
+const allEntries = await getCollection("projects", ({ data }) => {
+  return import.meta.env.MODE === "production"
+    ? envVars.ENABLE_PREVIEW && data.status !== "draft"
+      ? status.includes(data.status)
+      : data.status === "published"
+    : true;
+});
 ---
 
-<RootLayout title="Projects" description="" />
+<ProjectsLayout title="Projects" description="" jsonld={{}}>
+  <Prose id="article">
+    <dl
+      class="not-prose flex items-center justify-between gap-2 font-mono text-[.625rem] font-bold tracking-tighter text-pink-600 dark:text-pink-500"
+    >
+      <dt>Projects</dt>
+      <dd>x{allEntries.length}</dd>
+    </dl>
+
+    <h1 id="heading" class="mt-6">
+      <Link class="linked" aria-hidden tabindex="-1" href="/projects">
+        Experiments
+      </Link>
+    </h1>
+    <p>This is where I tinker</p>
+
+    <Fragment>
+      <div class="not-prose flex flex-col gap-6">
+        {
+          allEntries.map((entry, idx, array) => {
+            const previous = array.at(idx - 1)?.data.publishedAt || new Date();
+            const divide =
+              idx === 0 ||
+              new Date(entry.data.publishedAt).getMonth() !==
+                new Date(previous).getMonth();
+
+            const { title, summary, publishedAt, tools, media } = entry.data;
+            const cover = media?.cover;
+
+            return (
+              <Fragment>
+                {divide && <PostDivider datetime={publishedAt} />}
+
+                <article
+                  aria-describedby={`${normalize(entry.slug)}-desc`}
+                  aria-labelledby={`${normalize(entry.slug)}`}
+                  aria-setsize="-1"
+                  aria-posinset={idx + 1}
+                  class="group flex items-center gap-6 rounded-md border border-slate-300 p-4 dark:border-slate-900"
+                >
+                  {cover && (
+                    <figure class="basis-2/5">
+                      <Image
+                        src={cover.src}
+                        width={cover.width}
+                        height={cover.height}
+                        alt={media.alt}
+                        class="w-full rounded"
+                      />
+                      <figcaption class="sr-only">{media.alt}</figcaption>
+                    </figure>
+                  )}
+
+                  <div class="flex basis-4/5 flex-col items-start gap-4">
+                    <div class="flex items-center">
+                      <Time
+                        datetime={publishedAt}
+                        class="font-mono text-[.625rem] tracking-tighter text-pink-600 dark:text-pink-500"
+                      />
+                    </div>
+
+                    <h2 class="font-mono text-lg tracking-tighter text-slate-900 group-hover:underline dark:text-slate-200">
+                      <Link href={`/projects/${idx + 1}`}>{title}</Link>
+                    </h2>
+
+                    <p class="text-sm text-slate-600 dark:text-slate-400">
+                      {summary}
+                    </p>
+
+                    {hasValues(tools) && (
+                      <ul class="flex items-center gap-4 font-mono text-[.625rem] tracking-tighter text-rose-600 dark:text-rose-500">
+                        {tools.map((tool) => (
+                          <li class="rounded border border-slate-200 px-2 py-1 capitalize dark:border-slate-900/50">
+                            <Link href={`/tags/${tool}`} class="">
+                              {tool}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                </article>
+              </Fragment>
+            );
+          })
+        }
+      </div>
+    </Fragment>
+  </Prose>
+</ProjectsLayout>
