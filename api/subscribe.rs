@@ -27,7 +27,7 @@ pub async fn handler(request: Request) -> Result<Response<Body>, Error> {
         if bots.is_bot(user_agent) {
             return http::bad_request(json!({
                 "success": false,
-                "message": format!("Invalid submission detected."),
+                "payload": format!("Invalid submission detected."),
             }));
         };
 
@@ -53,12 +53,12 @@ pub async fn handler(request: Request) -> Result<Response<Body>, Error> {
 
         return http::ok(json!({
             "success": true,
-            "message": format!("Subscribed!"),
+            "payload": format!("Subscribed!"),
         }));
     }
 
     package::method_not_allowed(json!({
         "success": false,
-        "message": format!("HTTP Method Not Allowed!"),
+        "payload": format!("HTTP Method Not Allowed!"),
     }))
 }
