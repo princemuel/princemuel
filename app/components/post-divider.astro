@@ -4,6 +4,8 @@ import Time from "./time.astro";
 
 type Props = ComponentProps<typeof Time>;
 
+const { class: className } = Astro.props;
+
 const publish_date = new Date(Astro.props.datetime || Date.now());
 ---
 
@@ -17,5 +19,6 @@ const publish_date = new Date(Astro.props.datetime || Date.now());
       })
     }</time
   >
-  <span class="h-0.5 flex-1 bg-teal-500"></span>
+  <span class:list={["h-px flex-1 bg-purple-600 dark:bg-purple-500", className]}
+  ></span>
 </p>

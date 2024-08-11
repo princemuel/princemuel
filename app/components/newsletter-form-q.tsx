@@ -83,7 +83,7 @@ export const NewsletterForm = component$(() => {
         onSubmit$={handleSubmit}
         class={[
           "flex w-full flex-col items-center gap-4 md:flex-row md:p-1",
-          "md:rounded md:border md:border-slate-300 md:dark:border-slate-800",
+          "md:rounded md:border md:border-slate-300 md:dark:border-slate-900",
         ]}
       >
         <input
@@ -100,7 +100,7 @@ export const NewsletterForm = component$(() => {
           class={[
             "w-full bg-transparent p-3",
             "text-sm text-slate-900 caret-current dark:text-slate-200",
-            "rounded border border-slate-300 outline-none dark:border-slate-800",
+            "rounded border border-slate-300 outline-none dark:border-slate-900",
             "md:px-3 md:py-2",
             "md:flex-grow md:rounded-none md:border-none md:py-0",
           ]}
@@ -111,8 +111,8 @@ export const NewsletterForm = component$(() => {
           class={[
             "w-full px-4 py-3 md:px-3 md:py-2",
             "text-sm font-medium text-slate-900 dark:text-slate-200",
-            "rounded border border-slate-300 dark:border-slate-800",
-            "transition-colors hocus:text-sky-500 md:w-auto",
+            "rounded bg-slate-200 dark:bg-slate-900",
+            "transition-colors hocus:text-purple-500 md:w-auto",
           ]}
         >
           Subscribe

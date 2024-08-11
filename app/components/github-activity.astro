@@ -1,6 +1,6 @@
 ---
 import { octokit } from "@/lib/config/clients";
-import { en_time } from "@/shared/helpers/datetime";
+import { moment } from "@/shared/helpers/datetime";
 import { hasValues, pluralize } from "@/shared/utils";
 import { Icon } from "astro-icon/components";
 import { z } from "zod";
@@ -16,15 +16,7 @@ const githubUrl = (url: string | URL) =>
   url.toString().replace("api.", "").replace("/repos", "");
 
 const commitSchema = z
-  .array(
-    z.object({
-      sha: z.string(),
-      author: z.object({ email: z.string(), name: z.string() }),
-      message: z.string().default(""),
-      distinct: z.boolean().default(false),
-      url: z.string().url(),
-    }),
-  )
+  .array(z.object({ message: z.string().default("") }))
   .default([]);
 ---
 
@@ -39,58 +31,53 @@ const commitSchema = z
           aria-posinset={i + 1}
           aria-setsize="-1"
           aria-describedby=""
-          class:list={[
-            "rounded border border-stone-100/10",
-            "flex flex-col gap-4 p-4 font-accent",
-          ]}
+          class:list={["rounded dark:bg-slate-900", "flex flex-col gap-4 p-4"]}
         >
           <header>
             <dl class="flex items-center gap-2 text-lg">
               <dt class="flex items-center gap-2">
                 <span
                   aria-hidden="true"
-                  data-event-type={item.type}
+                  data-event={item.type}
                   class:list={[
-                    'data-[event-type="PushEvent"]:bg-teal-500',
-                    'data-[event-type="CreateEvent"]:bg-lime-500',
-                    'data-[event-type="ForkEvent"]:bg-teal-500',
-                    'data-[event-type="WatchEvent"]:bg-teal-500',
-                    'data-[event-type="DeleteEvent"]:bg-red-600',
-                    'data-[event-type="IssueCommentEvent"]:bg-yellow-500',
-                    'data-[event-type="PullRequestReviewCommentEvent"]:bg-yellow-500',
-                    'data-[event-type="PullRequestEvent"]:bg-teal-500',
-                    'data-[event-type="PullRequestReviewEvent"]:bg-teal-500',
+                    'data-[event="CreateEvent"]:bg-lime-500',
+                    'data-[event="DeleteEvent"]:bg-red-600',
+                    'data-[event="ForkEvent"]:bg-teal-500',
+                    'data-[event="IssueCommentEvent"]:bg-yellow-500',
+                    'data-[event="PullRequestEvent"]:bg-teal-500',
+                    'data-[event="PushEvent"]:bg-teal-500',
+                    'data-[event="WatchEvent"]:bg-teal-500',
                     "size-3 rounded-pill",
                   ]}
                 />
-                <span class="text-sm font-semibold">Event:</span>
+                <span class="text-xs font-semibold">Event:</span>
               </dt>
 
-              <dd class="text-sm font-light">{item.type}</dd>
+              <dd class="text-xs font-light">{item.type}</dd>
             </dl>
             <Time
               datetime={new Date(item.created_at || "")}
-              class="text-sm font-medium"
+              class="text-xs font-medium"
             >
-              {en_time.format(new Date(item.created_at || ""))}
+              {moment.format(new Date(item.created_at || ""))}
             </Time>
           </header>
 
           <address class="not-italic">
             <p class="flex items-center gap-2">
-              <span class="text-sm font-semibold">User:</span>
+              <span class="text-xs font-semibold">User:</span>
               <Link
                 href={`https://github.com/${item.actor.login}`}
-                class="text-sm font-light"
+                class="text-xs font-light"
               >
                 {item.actor.login}
               </Link>
             </p>
 
             <p class="flex items-center gap-2 text-lg">
-              <span class="text-sm font-semibold">Repo:</span>
+              <span class="text-xs font-semibold">Repo:</span>
               <Link
-                class="text-sm font-light underline"
+                class="text-xs font-light underline"
                 href={githubUrl(item.repo.url)}
               >
                 {item.repo.name}
@@ -102,13 +89,13 @@ const commitSchema = z
             <div class="flex flex-col gap-1">
               <div class="flex items-center gap-2">
                 <Icon name="message" class={"text-xl text-pink-700"} />
-                <output class="text-sm font-medium">
+                <output class="text-xs font-medium">
                   {pluralize(commits.length, "Message")}
                 </output>
               </div>
               <ul class="flex list-disc flex-col gap-1 pl-4 marker:text-pink-500">
                 {commits.map((commit) => (
-                  <li class="text-sm">{commit.message}</li>
+                  <li class="text-xs">{commit.message}</li>
                 ))}
               </ul>
             </div>

@@ -1,6 +1,6 @@
 ---
 import { published_date } from "@/lib/config/site";
-import { en_datetime_default } from "@/shared/helpers/datetime";
+import { date_nf } from "@/shared/helpers/datetime";
 import { Icon } from "astro-icon/components";
 import type { HTMLAttributes } from "astro/types";
 import { getCollection } from "astro:content";
@@ -32,27 +32,34 @@ const routes = {
     { href: "/dashboard", text: "Dashboard" },
   ],
   specifics: [
+    { href: "/tags", text: "Tags" },
     { href: "/sponsor-me", text: "Sponsor Me" },
     { href: "/hire-me", text: "Hire Me" },
-    { href: "/resume", text: "Resume" },
+    { href: "/resume.pdf", text: "Resume" },
     { href: "/newsletter", text: "Newsletter" },
-    { href: "/sponsor-me", text: "Sponsor Me" },
   ],
   extras: [
     { href: "/resources", text: "Setup" },
     { href: "/tweets", text: "Tweets" },
     { href: "/contact-me", text: "Contact Me" },
-    { href: "/tags", text: "Tags" },
     { href: "/privacy-policy", text: "Privacy Policy" },
+    { href: "/terms-of-service", text: "Terms of Service" },
   ],
 };
+
+const footer_date = date_nf("en-US", {
+  month: "long",
+  day: "numeric",
+  hour: "numeric",
+  minute: "numeric",
+});
 ---
 
 <footer {...rest} class:list={["pt-16", className]}>
   <Container>
     <nav
       aria-label="Footer"
-      class="grid grid-cols-3 gap-x-4 gap-y-12 border-t border-slate-300 py-10 md:grid-cols-6 dark:border-slate-800"
+      class="grid grid-cols-3 gap-x-4 gap-y-12 border-t border-slate-300 py-10 md:grid-cols-6 dark:border-slate-900"
     >
       <section class="col-span-1">
         <h4 class="uppercase text-slate-900 dark:text-slate-200">General</h4>
@@ -116,8 +123,8 @@ const routes = {
                 href={link.data.href}
                 class:list={[
                   "group flex items-center transition",
-                  "text-slate-800 hocus:text-sky-500",
-                  "dark:text-slate-400 dark:hocus:text-sky-500",
+                  "text-slate-800 hocus:text-purple-500",
+                  "dark:text-slate-400 dark:hocus:text-purple-500",
                 ]}
               >
                 <Icon name={link.data.icon} class="" />
@@ -147,7 +154,7 @@ const routes = {
           >{Astro.generator}</Link
         > on
         <Time datetime={buildDate.toISOString()}
-          >{en_datetime_default.format(buildDate)}</Time
+          >{footer_date.format(buildDate)}</Time
         >
       </p>
     </Container>

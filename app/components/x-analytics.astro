@@ -21,6 +21,8 @@ const {
   data-prod={`${import.meta.env.PROD}`}></x-analytics>
 
 <script>
+  import { withBaseUrl } from "@/shared/helpers/with-base-url";
+
   if (!customElements.get("x-analytics")) {
     customElements.define(
       "x-analytics",
@@ -36,7 +38,8 @@ const {
               referrer: document.referrer,
             });
             const blob = new Blob([payload], { type: "application/json" });
-            navigator.sendBeacon("/api/analytics", blob);
+            const url = withBaseUrl("/api/analytics");
+            navigator.sendBeacon(url, blob);
           })();
         }
       },

@@ -28,7 +28,7 @@ const subs = audiences.data?.data ?? [];
   {...rest}
   class:list={[
     "flex flex-col gap-6 p-6",
-    "rounded-2xl border border-slate-300 dark:border-slate-800",
+    "rounded-2xl border border-slate-300 dark:border-slate-900",
     className,
   ]}
 >
@@ -51,7 +51,10 @@ const subs = audiences.data?.data ?? [];
     class="flex items-center justify-between text-sm text-slate-600 dark:text-slate-400"
   >
     <p>Join {subs.length} other {pluralize(subs.length, "subscriber")}.</p>
-    <Link href="/newsletter" class="flex items-center gap-2 hocus:text-sky-500">
+    <Link
+      href="/newsletter"
+      class="flex items-center gap-2 hocus:text-purple-500"
+    >
       Read past issues <Icon name="lucide:move-right" />
     </Link>
   </div>

@@ -9,8 +9,8 @@ type Props = HTMLAttributes<"menu">;
 
 const response = await getCollection("routes");
 
-let excludedRoutes = ["resources", "articles", "dashboard"];
-excludedRoutes = [];
+// "about" | "articles" | "blog" | "dashboard" | "home" | "projects" | "resources"
+const excludedRoutes = ["resources", "articles"];
 
 const routes =
   response
@@ -34,7 +34,7 @@ const routes =
       <li role="presentation" class="capitalize">
         <Navlink
           role="menuitem"
-          class="group relative flex px-3 py-2 transition aria-[current=page]:text-sky-500 hocus:text-sky-500 dark:aria-[current=page]:text-sky-400 dark:hocus:text-sky-400"
+          class="group relative flex px-3 py-2 transition aria-[current=page]:text-purple-600 hocus:text-purple-600 dark:aria-[current=page]:text-purple-500 dark:hocus:text-purple-500"
           href={route.data.href}
         >
           <Icon
@@ -44,7 +44,7 @@ const routes =
           <span class="sr-only text-inherit md:not-sr-only">
             {route.data.text}
           </span>
-          <span class="absolute inset-x-1 -bottom-px hidden h-px bg-gradient-to-r from-sky-500/0 via-sky-500/40 to-sky-500/0 group-aria-[current=page]:inline dark:from-sky-400/0 dark:via-sky-400/40 dark:to-sky-400/0" />
+          <span class="absolute inset-x-1 -bottom-px hidden h-px bg-gradient-to-r from-purple-600/0 via-purple-600/40 to-purple-600/0 group-aria-[current=page]:inline dark:from-purple-500/0 dark:via-purple-500/40 dark:to-purple-500/0" />
         </Navlink>
       </li>
     ))

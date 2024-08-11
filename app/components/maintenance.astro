@@ -1,6 +1,6 @@
 ---
 import MaintenanceJPG from "@/assets/images/maintenance.jpg";
-import { en_datetime_default } from "@/shared/helpers/datetime";
+import { moment } from "@/shared/helpers/datetime";
 import { Icon } from "astro-icon/components";
 import { getImage } from "astro:assets";
 import Container from "./container.astro";
@@ -44,7 +44,7 @@ const image = await getImage({
           >{Astro.generator}</Link
         > on
         <Time datetime={buildDate.toISOString()}
-          >{en_datetime_default.format(buildDate)}</Time
+          >{moment.format(buildDate)}</Time
         >
       </p>
     </Container>
