@@ -1,0 +1,39 @@
+printWidth: 80
+tabWidth: 2
+useTabs: false
+semi: true
+singleQuote: false
+quoteProps: 'as-needed'
+jsxSingleQuote: false
+trailingComma: 'all'
+bracketSpacing: true
+bracketSameLine: false
+arrowParens: 'always'
+
+requirePragma: false
+endOfLine: 'lf'
+htmlWhitespaceSensitivity: 'css'
+embeddedLanguageFormatting: 'auto'
+singleAttributePerLine: false
+
+experimentalTernaries: false
+
+tailwindConfig: './wwebsite/tailwind.config.cjs'
+tailwindFunctions:
+  - tw
+  - cn
+  - tv
+tailwindAttributes:
+  - tw
+
+astroAllowShorthand: false
+plugins:
+  - prettier-plugin-prisma
+  - prettier-plugin-astro
+  - prettier-plugin-organize-imports
+  - prettier-plugin-tailwindcss
+
+overrides:
+  - files: '*.astro'
+    options:
+      parser: 'astro'
