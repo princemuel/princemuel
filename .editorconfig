@@ -1,25 +1,13 @@
-# EditorConfig is awesome: https://EditorConfig.org
-
-# Top-most EditorConfig file
+# Editor configuration, see http://editorconfig.org
 root = true
 
-# Default settings for all files
 [*]
+charset = utf-8
 indent_style = space
 indent_size = 2
-charset = utf-8
-trim_trailing_whitespace = true
 insert_final_newline = true
-end_of_line = lf
+trim_trailing_whitespace = true
 
-# Specific settings for Rust/Python files
-[*.rs]
-indent_size = 4
-
-# Specific settings for Rust/Python files
-[*.slint]
-indent_size = 4
-
-# Specific settings for Markdown files
 [*.md]
+max_line_length = off
 trim_trailing_whitespace = false

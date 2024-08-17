@@ -1,0 +1,25 @@
+{
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "namedInputs": {
+    "default": ["{projectRoot}/**/*", "sharedGlobals"],
+    "production": ["default"],
+    "sharedGlobals": ["{workspaceRoot}/.github/workflows/ci.yml"]
+  },
+  "nxCloudAccessToken": "YThmOWI2YmUtN2YwZC00Y2Q3LTk1NzAtNzFjZmZjZmM2MTdkfHJlYWQtd3JpdGU=",
+  "plugins": ["@monodon/rust", "@nxtensions/astro"],
+  "targetDefaults": {
+    "@nxtensions/astro:build": {
+      "inputs": ["production", "^production"],
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "cache": true
+    },
+    "@nxtensions/astro:check": {
+      "inputs": ["production", "^production"],
+      "cache": true
+    },
+    "@nxtensions/astro:preview": {
+      "dependsOn": ["build"]
+    }
+  },
+  "defaultProject": "website"
+}

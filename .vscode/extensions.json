@@ -1,12 +1,7 @@
 {
   "recommendations": [
-    "astro-build.astro-vscode",
-    "oxc.oxc-vscode",
-    "bradlc.vscode-tailwindcss",
+    "nrwl.angular-console",
     "esbenp.prettier-vscode",
-    "unifiedjs.vscode-mdx",
-    "rust-lang.rust-analyzer",
-    "tamasfe.even-better-toml"
-  ],
-  "unwantedRecommendations": []
+    "astro-build.astro-vscode"
+  ]
 }
