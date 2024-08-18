@@ -1,0 +1,19 @@
+---
+import Prose from "@/components/prose.astro";
+import HomeLayout from "@/layouts/home.astro";
+
+const jsonld = "";
+---
+
+<HomeLayout title="Newsletter" description="Newsletter" jsonld={jsonld}>
+  <script
+    is:inline
+    type="application/ld+json"
+    slot="head"
+    set:html={JSON.stringify(jsonld)}
+  />
+
+  <Prose class="">
+    <h1>Newsletter Page</h1>
+  </Prose>
+</HomeLayout>

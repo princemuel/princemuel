@@ -1,0 +1,88 @@
+---
+import AvatarImage from "@/assets/images/placeholder.avif";
+import Prose from "@/components/prose.astro";
+import ProfileLayout from "@/layouts/about.astro";
+import { published_date } from "@/lib/config/site";
+import { profile_ld } from "@/lib/schema/structured-data";
+import { withBaseUrl } from "@/shared/helpers/with-base-url";
+import { remove_key } from "@/shared/utils";
+import type {
+  BreadcrumbList,
+  Graph,
+  ImageObject,
+  ProfilePage,
+  WithContext,
+} from "schema-dts";
+
+const page_ld = {
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "@id": withBaseUrl("/about-me").toString(),
+  url: withBaseUrl("/about-me").toString(),
+  name: "Prince Muel - Frontend Engineer, Educator, Musician",
+  description: "",
+  isPartOf: { "@id": withBaseUrl("/about-me").toString() },
+  primaryImageOfPage: {
+    "@id": withBaseUrl(AvatarImage.src).toString(),
+  },
+  image: { "@id": withBaseUrl(AvatarImage.src).toString() },
+  thumbnailUrl: withBaseUrl(AvatarImage.src).toString(),
+  datePublished: published_date.toISOString(),
+  dateModified: new Date().toISOString(),
+  breadcrumb: { "@id": withBaseUrl("/about-me#breadcrumb").toString() },
+  inLanguage: "en-US",
+  potentialAction: [
+    {
+      "@type": "ReadAction",
+      target: [withBaseUrl("/about-me").toString()],
+    },
+  ],
+} satisfies WithContext<ProfilePage>;
+
+const image_ld = {
+  "@context": "https://schema.org",
+  "@type": "ImageObject",
+  "@id": withBaseUrl(AvatarImage.src).toString(),
+  url: withBaseUrl(AvatarImage.src).toString(),
+  width: "1200",
+  height: "630",
+} satisfies WithContext<ImageObject>;
+
+const breadcrumb_ld = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "@id": withBaseUrl(`/about-me/#breadcrumb`).toString(),
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home - Prince Muel",
+      item: withBaseUrl("/").toString(),
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Prince Muel - Frontend Engineer, Educator, Musician",
+      item: withBaseUrl("/about-me").toString(),
+    },
+  ],
+} as WithContext<BreadcrumbList>;
+
+const jsonld = {
+  "@context": "https://schema.org",
+  "@graph": remove_key("@context", [
+    page_ld,
+    image_ld,
+    breadcrumb_ld,
+    profile_ld,
+  ]),
+} satisfies Graph;
+---
+
+<ProfileLayout
+  title="Prince Muel - Frontend Engineer, Coding Instructor, Musician"
+  description=""
+  jsonld={jsonld}
+>
+  <Prose>HI</Prose>
+</ProfileLayout>
