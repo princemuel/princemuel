@@ -1,2 +1,4 @@
 [build]
-  target-dir = 'dist/target'
+  target-dir = "target"
+[alias]
+  prisma = "run --package princemuel --bin prisma_cli --"
