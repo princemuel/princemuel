@@ -28,7 +28,7 @@
     "db:studio": "cargo prisma studio",
     "prepare": "node .husky/install.mjs",
     "lint-staged": "lint-staged",
-    "postinstall": "cargo prisma generate"
+    "postinstall": "./install-rust.sh && cargo prisma generate"
   },
   "dependencies": {
     "@astrojs/mdx": "^3.1.3",
