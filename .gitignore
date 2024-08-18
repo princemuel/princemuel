@@ -196,4 +196,4 @@ tmp-*
 *.ignored.*
 
 styled-system
-prisma.rs
+# prisma.rs

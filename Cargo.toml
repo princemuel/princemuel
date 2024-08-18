@@ -25,6 +25,9 @@
   uuid = { version = "1", features = ["fast-rng", "macro-diagnostics", "v4"] }
   vercel_runtime = { version = "1" }
 
+[features]
+  prisma_generated = [] # Define the feature flag.
+
 [lib]
   name = "package"
   path = "lib/lib.rs"
