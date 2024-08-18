@@ -30,8 +30,8 @@
   path = "lib/lib.rs"
 
 [[bin]]
-  name = "hello"
-  path = "api/hello.json.rs"
+  name = "health"
+  path = "api/health.json.rs"
 
 [[bin]]
   name = "analytics"
