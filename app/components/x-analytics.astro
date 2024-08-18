@@ -1,0 +1,59 @@
+---
+type Props = {
+  framework?: string;
+  name?: string;
+  version?: string;
+  pathname?: string | URL;
+};
+
+const {
+  name = "x-analytics",
+  version = "0.1.0",
+  framework = "astro",
+  pathname = Astro.url.pathname,
+} = Astro.props;
+---
+
+<x-analytics
+  data-sdkn={name + `/${framework}`}
+  data-sdkv={version}
+  data-pathname={pathname}
+  data-prod={`${import.meta.env.PROD}`}></x-analytics>
+
+<script>
+  if (!customElements.get("x-analytics"))
+    customElements.define(
+      "x-analytics",
+      class XAnalytics extends HTMLElement {
+        constructor() {
+          super();
+          (() => {
+            const name = this.dataset.sdkn;
+            const version = this.dataset.sdkv;
+
+            document.addEventListener("visibilitychange", () => {
+              console.log("I;m hrer");
+              const data = new Blob(
+                [
+                  JSON.stringify({
+                    name,
+                    version,
+                    pathname: window.location.pathname,
+                    referrer: document.referrer,
+                  }),
+                ],
+                {
+                  type: "application/json",
+                },
+              );
+
+              if (document.visibilityState === "hidden") {
+                console.log("Sending analytics data");
+                navigator.sendBeacon("/api/analytics", data);
+              }
+            });
+          })();
+        }
+      },
+    );
+</script>

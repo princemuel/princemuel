@@ -1,0 +1,61 @@
+---
+import { resend } from "@/lib/config/clients";
+import { pluralize } from "@/shared/utils";
+import { Icon } from "astro-icon/components";
+import type { HTMLAttributes } from "astro/types";
+import Link from "./link.astro";
+import Form from "./newsletter-form-comp.astro";
+
+type Props = HTMLAttributes<"div">;
+
+const { class: className, ...rest } = Astro.props;
+
+type ListAudiencesResponse = Awaited<ReturnType<typeof resend.audiences.list>>;
+
+const audiences = await (async function () {
+  try {
+    const response = await resend.audiences.list();
+    return response;
+  } catch (error) {
+    return [] as unknown as ListAudiencesResponse;
+  }
+})();
+
+const subs = audiences.data?.data ?? [];
+---
+
+<div
+  {...rest}
+  class:list={[
+    "flex flex-col gap-4 p-6 sm:gap-6",
+    "rounded-2xl border border-slate-300 dark:border-slate-900",
+    className,
+  ]}
+>
+  <header class="flex flex-col gap-2">
+    <h4
+      class="flex items-center gap-2 text-lg font-medium text-slate-900 dark:text-slate-200"
+    >
+      <Icon name="lucide:mail-plus" class="" />
+      <span class="text-inherit">Stay up to date</span>
+    </h4>
+
+    <p class="text-sm text-slate-600 dark:text-slate-400">
+      Get notified when I publish something new.
+    </p>
+  </header>
+
+  <Form />
+
+  <div
+    class="flex flex-col flex-wrap items-center justify-between gap-2 text-sm text-slate-600 3xs:flex-row dark:text-slate-400"
+  >
+    <p>Join {subs.length} other {pluralize(subs.length, "subscriber")}.</p>
+    <Link
+      href="/newsletter"
+      class="flex items-center gap-2 hocus:text-purple-500"
+    >
+      Read past issues <Icon name="lucide:move-right" />
+    </Link>
+  </div>
+</div>
