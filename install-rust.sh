@@ -1,5 +1,7 @@
 #!/bin/bash
 
+touch lib/prisma.rs
+
 # Install Rust using rustup (non-interactive, auto-confirm)
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
