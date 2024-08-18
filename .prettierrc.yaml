@@ -3,22 +3,22 @@ tabWidth: 2
 useTabs: false
 semi: true
 singleQuote: false
-quoteProps: 'as-needed'
+quoteProps: "as-needed"
 jsxSingleQuote: false
-trailingComma: 'all'
+trailingComma: "all"
 bracketSpacing: true
 bracketSameLine: false
-arrowParens: 'always'
+arrowParens: "always"
 
 requirePragma: false
-endOfLine: 'lf'
-htmlWhitespaceSensitivity: 'css'
-embeddedLanguageFormatting: 'auto'
+endOfLine: "lf"
+htmlWhitespaceSensitivity: "css"
+embeddedLanguageFormatting: "auto"
 singleAttributePerLine: false
 
 experimentalTernaries: false
 
-tailwindConfig: './wwebsite/tailwind.config.cjs'
+tailwindConfig: "tailwind.config.js"
 tailwindFunctions:
   - tw
   - cn
@@ -34,6 +34,6 @@ plugins:
   - prettier-plugin-tailwindcss
 
 overrides:
-  - files: '*.astro'
+  - files: "*.astro"
     options:
-      parser: 'astro'
+      parser: "astro"
