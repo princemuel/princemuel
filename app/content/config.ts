@@ -50,25 +50,6 @@ const routeCollection = defineCollection({
   }),
 });
 
-const stackCollection = defineCollection({
-  type: "content",
-  schema: z.object({
-    name: z.string().min(1),
-    href: z.string().url(),
-  }),
-});
-
-const toolCollection = defineCollection({
-  type: "data",
-  schema: z.object({
-    name: z.string().min(1),
-    url: z.string().url(),
-    icon: z
-      .custom<Icon>((value) => value && typeof value === "string")
-      .optional(),
-    className: z.string().default(""),
-  }),
-});
 
 const changelogCollection = defineCollection({
   type: "content",
@@ -125,6 +106,5 @@ export const collections = {
   publications: publicationCollection,
   routes: routeCollection,
   social: socialCollection,
-  stacks: stackCollection,
-  tools: toolCollection,
+
 };
