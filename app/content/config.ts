@@ -50,7 +50,6 @@ const routeCollection = defineCollection({
   }),
 });
 
-
 const changelogCollection = defineCollection({
   type: "content",
   schema: z.object({
@@ -106,5 +105,4 @@ export const collections = {
   publications: publicationCollection,
   routes: routeCollection,
   social: socialCollection,
-
 };
