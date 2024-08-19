@@ -10,3 +10,8 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
 # Confirm that Cargo is installed
 cargo --version
+
+# Run Prisma generate
+cargo prisma generate
+
+cargo build --package princemuel --all-features
