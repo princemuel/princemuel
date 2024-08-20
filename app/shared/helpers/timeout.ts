@@ -42,33 +42,33 @@ type TimeoutOptions = { controller?: AbortController; ms: number };
  * }
  */
 export function timeout<T>(
-  promise: Promise<T>,
-  { controller, ms }: TimeoutOptions,
+	promise: Promise<T>,
+	{ controller, ms }: TimeoutOptions,
 ): Promise<T> {
-  return new Promise(function (resolve, reject) {
-    let timer: NodeJS.Timeout | null = null;
+	return new Promise((resolve, reject) => {
+		let timer: NodeJS.Timeout | null = null;
 
-    const timeoutPromise = new Promise((r) => {
-      timer = setTimeout(() => r(TIMEOUT), ms);
-    });
+		const timeoutPromise = new Promise((r) => {
+			timer = setTimeout(() => r(TIMEOUT), ms);
+		});
 
-    Promise.race([promise, timeoutPromise])
-      .then((result) => {
-        if (timer) clearTimeout(timer);
+		Promise.race([promise, timeoutPromise])
+			.then((result) => {
+				if (timer) clearTimeout(timer);
 
-        if (result === TIMEOUT) {
-          if (controller) controller.abort();
+				if (result === TIMEOUT) {
+					if (controller) controller.abort();
 
-          reject(
-            ProjectError.deadlineExceeded(`Request timeout after ${ms}ms`),
-          );
-        }
+					reject(
+						ProjectError.deadlineExceeded(`Request timeout after ${ms}ms`),
+					);
+				}
 
-        resolve(result as Awaited<T>);
-      })
-      .catch((error) => {
-        if (timer) clearTimeout(timer);
-        reject(error);
-      });
-  });
+				resolve(result as Awaited<T>);
+			})
+			.catch((error) => {
+				if (timer) clearTimeout(timer);
+				reject(error);
+			});
+	});
 }

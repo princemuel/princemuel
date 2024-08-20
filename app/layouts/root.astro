@@ -12,21 +12,21 @@ import SpeedInsights from "@vercel/speed-insights/astro";
 import ContentSlot from "./content-slot.astro";
 
 type Props = Meta & {
-  type?: OpenGraph["type"];
-  className?: string;
+	type?: OpenGraph["type"];
+	className?: string;
 };
 
 const {
-  title,
-  image,
-  keywords,
-  type,
-  canonical,
-  description,
-  publishedAt,
-  updatedAt,
-  noindex = false,
-  nofollow = false,
+	title,
+	image,
+	keywords,
+	type,
+	canonical,
+	description,
+	publishedAt,
+	updatedAt,
+	noindex = false,
+	nofollow = false,
 } = Astro.props;
 ---
 

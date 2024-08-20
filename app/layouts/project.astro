@@ -2,13 +2,13 @@
 import Container from "@/components/container.astro";
 import Main from "@/components/main.astro";
 import Profile from "@/components/profile.astro";
-import type { ComponentProps } from "astro/types";
 import RootLayout from "./root.astro";
 
+import type { ComponentProps } from "astro/types";
 type Props = Prettify<
-  ComponentProps<typeof RootLayout> & {
-    jsonld: any;
-  }
+	ComponentProps<typeof RootLayout> & {
+		jsonld: unknown;
+	}
 >;
 
 const { jsonld, ...rest } = Astro.props;

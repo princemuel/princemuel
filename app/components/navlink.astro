@@ -7,12 +7,12 @@ const toPathname = Astro.props.href?.toString() ?? "";
 const locationPathname = Astro.url.pathname;
 
 const href =
-  toPathname !== "/" && toPathname.endsWith("/")
-    ? toPathname.slice(0, -1)
-    : toPathname;
+	toPathname !== "/" && toPathname.endsWith("/")
+		? toPathname.slice(0, -1)
+		: toPathname;
 
 const isActive =
-  href === locationPathname || locationPathname.startsWith(`${href}/`);
+	href === locationPathname || locationPathname.startsWith(`${href}/`);
 ---
 
 <a {...Astro.props} aria-current={isActive ? "page" : "false"}>

@@ -1,15 +1,15 @@
 {
-  "$schema": "https://json.schemastore.org/tsconfig",
-  "extends": "astro/tsconfigs/strictest",
-  "include": ["./app"],
-  "compilerOptions": {
-    "incremental": true,
-    "noErrorTruncation": true,
-    "exactOptionalPropertyTypes": false,
-    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./app/*"]
-    }
-  }
+	"$schema": "https://json.schemastore.org/tsconfig",
+	"extends": "astro/tsconfigs/strictest",
+	"include": ["./app"],
+	"compilerOptions": {
+		"incremental": true,
+		"noErrorTruncation": true,
+		"exactOptionalPropertyTypes": false,
+		"tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+		"baseUrl": ".",
+		"paths": {
+			"@/*": ["./app/*"]
+		}
+	}
 }

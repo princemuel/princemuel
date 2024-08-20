@@ -1,9 +1,9 @@
 ---
+import { getCollection } from "astro:content";
 import { published_date } from "@/lib/config/site";
 import { date_nf } from "@/shared/helpers/datetime";
 import { Icon } from "astro-icon/components";
 import type { HTMLAttributes } from "astro/types";
-import { getCollection } from "astro:content";
 import Container from "./container.astro";
 import Link from "./link.astro";
 import NewsletterForm from "./newsletter-form.astro";
@@ -19,39 +19,39 @@ const { class: className, ...rest } = Astro.props;
 const excluded = ["discord", "youtube"];
 
 const social = await getCollection(
-  "social",
-  ({ id }) => !excluded.includes(id),
+	"social",
+	({ id }) => !excluded.includes(id),
 );
 
 const routes = {
-  general: [
-    { href: "/", text: "Home" },
-    { href: "/about-me", text: "About Me" },
-    { href: "/blog", text: "Blog" },
-    { href: "/projects", text: "Projects" },
-    { href: "/dashboard", text: "Dashboard" },
-  ],
-  specifics: [
-    { href: "/tags", text: "Tags" },
-    { href: "/resume.pdf", text: "Resume" },
-    { href: "/newsletter", text: "Newsletter" },
-    { href: "/privacy-policy", text: "Privacy Policy" },
-    { href: "/terms-of-service", text: "Terms of Service" },
-  ],
-  extras: [
-    { href: "/resources", text: "Setup" },
-    { href: "/tweets", text: "Tweets" },
-    { href: "/sponsor-me", text: "Sponsor Me" },
-    { href: "/hire-me", text: "Hire Me" },
-    { href: "/contact-me", text: "Contact Me" },
-  ],
+	general: [
+		{ href: "/", text: "Home" },
+		{ href: "/about-me", text: "About Me" },
+		{ href: "/blog", text: "Blog" },
+		{ href: "/projects", text: "Projects" },
+		{ href: "/dashboard", text: "Dashboard" },
+	],
+	specifics: [
+		{ href: "/tags", text: "Tags" },
+		{ href: "/resume.pdf", text: "Resume" },
+		{ href: "/newsletter", text: "Newsletter" },
+		{ href: "/privacy-policy", text: "Privacy Policy" },
+		{ href: "/terms-of-service", text: "Terms of Service" },
+	],
+	extras: [
+		{ href: "/resources", text: "Setup" },
+		{ href: "/tweets", text: "Tweets" },
+		{ href: "/sponsor-me", text: "Sponsor Me" },
+		{ href: "/hire-me", text: "Hire Me" },
+		{ href: "/contact-me", text: "Contact Me" },
+	],
 };
 
 const footer_date = date_nf("en-US", {
-  month: "long",
-  day: "numeric",
-  hour: "numeric",
-  minute: "numeric",
+	month: "long",
+	day: "numeric",
+	hour: "numeric",
+	minute: "numeric",
 });
 ---
 

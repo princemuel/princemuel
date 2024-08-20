@@ -1,16 +1,16 @@
 ---
 type Props = {
-  framework?: string;
-  name?: string;
-  version?: string;
-  pathname?: string | URL;
+	framework?: string;
+	name?: string;
+	version?: string;
+	pathname?: string | URL;
 };
 
 const {
-  name = "x-analytics",
-  version = "0.1.0",
-  framework = "astro",
-  pathname = Astro.url.pathname,
+	name = "x-analytics",
+	version = "0.1.0",
+	framework = "astro",
+	pathname = Astro.url.pathname,
 } = Astro.props;
 ---
 

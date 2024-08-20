@@ -2,6 +2,7 @@
 import Link from "@/components/link.astro";
 import ContactLayout from "@/layouts/contact.astro";
 import { Icon } from "astro-icon/components";
+
 import { actions, isInputError } from "astro:actions";
 
 export const prerender = false;
@@ -15,7 +16,7 @@ const formErrors = isInputError(result?.error) ? result.error.fields : {};
     {
       result?.data?.success && (
         <div
-          transition:persist
+          transition:name="firstName"
           role="alert"
           aria-live="polite"
           aria-atomic="true"
@@ -66,7 +67,7 @@ const formErrors = isInputError(result?.error) ? result.error.fields : {};
           <input
             type="text"
             id="fields.firstName.input"
-            transition:persist
+            transition:name="firstName"
             name="firstName"
             aria-autocomplete="both"
             class="rounded bg-transparent px-4 py-3 text-slate-900 dark:text-slate-300"
@@ -96,7 +97,7 @@ const formErrors = isInputError(result?.error) ? result.error.fields : {};
           <input
             type="text"
             id="fields.lastName.input"
-            transition:persist
+            transition:name="lastName"
             name="lastName"
             aria-autocomplete="both"
             class="rounded bg-transparent px-4 py-3 text-slate-900 dark:text-slate-300"
@@ -125,7 +126,7 @@ const formErrors = isInputError(result?.error) ? result.error.fields : {};
           <input
             type="email"
             id="fields.email.input"
-            transition:persist
+            transition:name="email"
             name="email"
             aria-autocomplete="both"
             class="rounded bg-transparent px-4 py-3 text-slate-900 dark:text-slate-300"
@@ -158,7 +159,7 @@ const formErrors = isInputError(result?.error) ? result.error.fields : {};
               <input
                 type="radio"
                 id="fields.general.input"
-                transition:persist
+                transition:name="general"
                 name="queryType"
                 value="general"
                 class="rounded-full"
@@ -174,7 +175,7 @@ const formErrors = isInputError(result?.error) ? result.error.fields : {};
               <input
                 type="radio"
                 id="fields.contract.input"
-                transition:persist
+                transition:name="contract"
                 name="queryType"
                 value="contract"
                 class="rounded-full"
@@ -190,7 +191,7 @@ const formErrors = isInputError(result?.error) ? result.error.fields : {};
               <input
                 type="radio"
                 id="fields.support.input"
-                transition:persist
+                transition:name="support"
                 name="queryType"
                 value="support"
                 class="rounded-full"
@@ -206,7 +207,7 @@ const formErrors = isInputError(result?.error) ? result.error.fields : {};
               <input
                 type="radio"
                 id="fields.issues.input"
-                transition:persist
+                transition:name="issues"
                 name="queryType"
                 value="issues"
                 class="rounded-full"
@@ -237,7 +238,7 @@ const formErrors = isInputError(result?.error) ? result.error.fields : {};
             <span class="text-red-500">*</span>
           </label>
           <textarea
-            transition:persist
+            transition:name="message"
             name="message"
             id="fields.message.input"
             autocapitalize="on"
@@ -263,7 +264,7 @@ const formErrors = isInputError(result?.error) ? result.error.fields : {};
             <input
               type="checkbox"
               id="fields.consent.input"
-              transition:persist
+              transition:name="consent"
               name="consent"
               class=""
               aria-invalid={formErrors?.consent ? "true" : "false"}
@@ -290,6 +291,7 @@ const formErrors = isInputError(result?.error) ? result.error.fields : {};
 
         <button
           type="submit"
+          transition:name="submit-btn"
           class="col-span-6 rounded bg-purple-700 px-4 py-3 text-white dark:bg-slate-900"
         >
           Submit

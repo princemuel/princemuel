@@ -9,25 +9,25 @@
  */
 
 export function formatCanonicalURL(
-  url: string | URL,
-  trailingSlash: boolean = false,
-  base: URL | string | undefined = import.meta.env.SITE,
+	url: string | URL,
+	trailingSlash = false,
+	base: URL | string | undefined = import.meta.env.SITE,
 ): URL {
-  const link = url.toString();
+	const link = url.toString();
 
-  let pathname = link.replace(/\/index.html$/, "");
-  if (trailingSlash === false) {
-    pathname = pathname.replace(/(\/+)?$/, "");
-  } else if (!getUrlExtension(link)) {
-    pathname = pathname.replace(/(\/+)?$/, "/");
-  }
-  pathname = pathname.replace(/\/+/g, "/");
+	let pathname = link.replace(/\/index.html$/, "");
+	if (trailingSlash === false) {
+		pathname = pathname.replace(/(\/+)?$/, "");
+	} else if (!getUrlExtension(link)) {
+		pathname = pathname.replace(/(\/+)?$/, "/");
+	}
+	pathname = pathname.replace(/\/+/g, "/");
 
-  return new URL(pathname, base);
+	return new URL(pathname, base);
 }
 
 function getUrlExtension(url: string) {
-  const lastDot = url.lastIndexOf(".");
-  const lastSlash = url.lastIndexOf("/");
-  return lastDot > lastSlash ? url.slice(lastDot + 1) : "";
+	const lastDot = url.lastIndexOf(".");
+	const lastSlash = url.lastIndexOf("/");
+	return lastDot > lastSlash ? url.slice(lastDot + 1) : "";
 }

@@ -6,26 +6,28 @@
 
 type EdgeLocals = import("@astrojs/vercel").EdgeLocals;
 
+// biome-ignore lint/suspicious/noEmptyInterface: <explanation>
 interface ImportMetaEnv {}
 
 interface ImportMeta {
-  readonly env: ImportMetaEnv;
+	readonly env: ImportMetaEnv;
 }
 
 declare namespace App {
-  interface Locals extends EdgeLocals {}
+	interface Locals extends EdgeLocals {}
 }
 
 interface Window {
-  ThemeProvider: { updateWidget(theme?: string): void };
-  AnalyticsService: { dispatch(): void };
+	ThemeProvider: { updateWidget(theme?: string): void };
+	AnalyticsService: { dispatch(): void };
 }
+
 interface globalThis {
-  __singletons: Map<string, unknown>;
+	__singletons: Map<string, unknown>;
 }
 
 declare module "*.astro" {
-  type Props = import("astro").AstroGlobal["props"];
-  const component: (_props: Props) => unknown;
-  export default component;
+	type Props = import("astro").AstroGlobal["props"];
+	const component: (_props: Props) => unknown;
+	export default component;
 }

@@ -1,4 +1,5 @@
 ---
+import { getCollection } from "astro:content";
 import Link from "@/components/link.astro";
 import PostDivider from "@/components/post-divider.astro";
 import Prose from "@/components/prose.astro";
@@ -7,20 +8,19 @@ import BlogLayout from "@/layouts/posts.astro";
 import { envVars } from "@/lib/config/environment";
 import { hasValues, normalize } from "@/shared/utils";
 import { Icon } from "astro-icon/components";
-import { getCollection } from "astro:content";
 
 const status = ["draft", "preview", "published"] as const;
 
 const entries = await getCollection("posts", ({ data }) => {
-  return import.meta.env.MODE === "production"
-    ? envVars.ENABLE_PREVIEW && data.status !== "draft"
-      ? status.includes(data.status)
-      : data.status === "published"
-    : true;
+	return import.meta.env.MODE === "production"
+		? envVars.ENABLE_PREVIEW && data.status !== "draft"
+			? status.includes(data.status)
+			: data.status === "published"
+		: true;
 });
 
 const allEntries = entries.sort((a, b) => {
-  return Number(b.data.publishedAt) - Number(a.data.publishedAt);
+	return Number(b.data.publishedAt) - Number(a.data.publishedAt);
 });
 ---
 

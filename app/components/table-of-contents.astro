@@ -8,24 +8,24 @@ type Props = { headings?: MarkdownHeading[] };
 const { headings: Headings } = Astro.props;
 
 interface Heading extends MarkdownHeading {
-  subheadings: Heading[];
+	subheadings: Heading[];
 }
 
 function buildToc(headings?: MarkdownHeading[]): Heading[] {
-  if (!hasValues(headings)) return [];
+	if (!hasValues(headings)) return [];
 
-  const toc: Heading[] = [];
-  const parent = new Map<number, Heading>();
+	const toc: Heading[] = [];
+	const parent = new Map<number, Heading>();
 
-  headings.forEach((h) => {
-    const heading: Heading = { ...h, subheadings: [] };
-    parent.set(heading.depth, heading);
-    // Change 2 to 1 if your markdown includes your <h1>
-    if (heading.depth === 2) toc.push(heading);
-    else parent.get(heading.depth - 1)?.subheadings.push(heading);
-  });
+	for (let h of headings) {
+		const heading: Heading = { ...h, subheadings: [] };
+		parent.set(heading.depth, heading);
+		// Change 2 to 1 if your markdown includes your <h1>
+		if (heading.depth === 2) toc.push(heading);
+		else parent.get(heading.depth - 1)?.subheadings.push(heading);
+	}
 
-  return toc;
+	return toc;
 }
 
 const headings = buildToc(Headings);

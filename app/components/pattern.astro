@@ -1,8 +1,8 @@
 ---
+import { getImage } from "astro:assets";
 import PatternPNG from "@/assets/images/pattern.png";
 import { tw } from "@/shared/utils";
 import type { HTMLAttributes } from "astro/types";
-import { getImage } from "astro:assets";
 
 type Props = Omit<HTMLAttributes<"div">, "class:list">;
 
