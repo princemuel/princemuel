@@ -1,9 +1,0 @@
-{
-  "env": {
-    "node": true,
-    "es2024": true,
-    "browser": true,
-    "shared-node-browser": true
-  },
-  "settings": {}
-}
