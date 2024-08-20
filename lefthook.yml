@@ -1,0 +1,32 @@
+# EXAMPLE USAGE:
+#
+#   Refer for explanation to following link:
+#   https://github.com/evilmartians/lefthook/blob/master/docs/configuration.md
+
+
+pre-push:
+  commands:
+    format:
+      glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
+      run: npx @biomejs/biome check --no-errors-on-unmatched --files-ignore-unknown=true --colors=off {push_files}
+
+commit-msg:
+  commands:
+    sign-off:
+      run: 'test $(grep -c "^Signed-off-by: " {1}) -lt 2'
+  scripts:
+    "commitlint.sh":
+      runner: bash
+
+pre-commit:
+  parallel: true
+  commands:
+    format:
+      glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
+      run: npx @biomejs/biome check --write --no-errors-on-unmatched --files-ignore-unknown=true --colors=off {staged_files}
+      stage_fixed: true
+
+post-merge:
+  commands:
+   install-packages:
+     run: corepack use pnpm
