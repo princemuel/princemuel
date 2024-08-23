@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "astro dev --remote --host",
     "start": "astro dev --remote",
-    "build": "astro check && astro build --remote",
+    "build": "astro build --remote",
     "vercel:dev": "vercel dev",
     "vercel:env": "npm run vercel link && npm run vercel env pull",
     "build:prod": "astro check && astro build --remote",
