@@ -1,8 +1,8 @@
 ---
-import { getCollection } from "astro:content";
 import { tw } from "@/shared/utils";
 import { Icon } from "astro-icon/components";
 import type { HTMLAttributes } from "astro/types";
+import { getCollection } from "astro:content";
 import Navlink from "./navlink.astro";
 
 type Props = HTMLAttributes<"menu">;
@@ -10,12 +10,12 @@ type Props = HTMLAttributes<"menu">;
 const response = await getCollection("routes");
 
 // "about" | "articles" | "blog" | "dashboard" | "home" | "projects" | "resources"
-const excludedRoutes = ["resources", "articles"];
+const excludedRoutes = ["resources", "articles", "blog"];
 
 const routes =
-	response
-		.filter((route) => !excludedRoutes.includes(route.id))
-		.sort((a, b) => a.data.order - b.data.order) ?? [];
+  response
+    .filter((route) => !excludedRoutes.includes(route.id))
+    .sort((a, b) => a.data.order - b.data.order) ?? [];
 ---
 
 <menu

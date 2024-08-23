@@ -37,7 +37,7 @@ import { Icon } from "astro-icon/components";
 
       return {
         updateWidget(theme = storedTheme || "auto") {
-          const widget = document.querySelector("x-theme-widget");
+          const widget = document.querySelector("astro-theme");
           /** @type {HTMLTemplateElement | null} */
           const tmpl = document.querySelector(`[data-id="x-theme-icons"]`);
           const themeIcon =
