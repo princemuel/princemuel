@@ -1,13 +1,14 @@
 ---
-import { Image } from "astro:assets";
-import { getCollection } from "astro:content";
 import Link from "@/components/link.astro";
 import PostDivider from "@/components/post-divider.astro";
 import Prose from "@/components/prose.astro";
 import Time from "@/components/time.astro";
 import ProjectsLayout from "@/layouts/projects.astro";
 import { envVars } from "@/lib/config/environment";
-import { hasValues, normalize } from "@/shared/utils";
+import { hasValues } from "@/shared/utils";
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+
 const status = ["draft", "preview", "published"] as const;
 
 const allEntries = await getCollection("projects", ({ data }) => {
@@ -51,10 +52,9 @@ const allEntries = await getCollection("projects", ({ data }) => {
             return (
               <Fragment>
                 {divide && <PostDivider datetime={publishedAt} />}
-
                 <article
-                  aria-describedby={`${normalize(entry.slug)}-desc`}
-                  aria-labelledby={`${normalize(entry.slug)}`}
+                  aria-describedby={`${entry.id}-desc`}
+                  aria-labelledby={`${entry.id}`}
                   aria-setsize="-1"
                   aria-posinset={idx + 1}
                   class="group flex items-center gap-6 rounded-md border border-slate-300 p-4 dark:border-slate-900"

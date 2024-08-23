@@ -21,8 +21,8 @@ export const getStaticPaths = (async ({ paginate }) => {
 
 const { page } = Astro.props;
 
-// biome-ignore lint/style/noNonNullAssertion: <explanation>
-const entry = page.data.at(0)!;
+const entry = page.data.at(0);
+if (!entry) return Astro.rewrite("/404");
 
 const [markdown, _author] = await Promise.all([
   render(entry),
