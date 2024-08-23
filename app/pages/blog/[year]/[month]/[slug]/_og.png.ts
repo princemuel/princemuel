@@ -9,7 +9,6 @@ import type {
 import { getCollection } from "astro:content";
 import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
-forrest - gump - quote.webp;
 
 export const getStaticPaths = (async () => {
   const status = ["draft", "preview", "published"] as const;
@@ -42,7 +41,7 @@ export async function GET({ props }: APIContext<Props>) {
 
   console.log(image_path);
 
-  const [fontFile, _] = await Promise.all([
+  const [_fontFile, _] = await Promise.all([
     import("@/assets/fonts/spartan.ttf").then((response) => response.default),
     readFile(image_path),
   ]);
