@@ -2,9 +2,13 @@ import { defineCollection, reference, z } from "astro:content";
 import type { Icon } from "virtual:astro-icon";
 import { baseSchema } from "@/lib/schema/base";
 import { MediaObject } from "@/lib/schema/constraints";
+import { glob } from "astro/loaders";
 
 const projectCollection = defineCollection({
-  type: "content",
+  loader: glob({
+    pattern: "**/[^_]*.{md,mdx}",
+    base: "./app/database/projects",
+  }),
   schema: ({ image }) =>
     baseSchema.extend({
       tools: z.array(z.string()).default([]),
