@@ -13,6 +13,7 @@ link:
 media:
   cover: ./unocalc_cover.jpg
   alt: Uno Calc Screenshot
+status: preview
 ---
 
 > This article is from [TailwindLabs](https://tailwindcss-typography.vercel.app/). I put this article to demonstrate how you can write blog posts/proses using AstroPaper theme.
