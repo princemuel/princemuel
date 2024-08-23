@@ -8,15 +8,15 @@ import Time from "@/components/time.astro";
 import ProjectsLayout from "@/layouts/projects.astro";
 import { envVars } from "@/lib/config/environment";
 import { hasValues, normalize } from "@/shared/utils";
-
+import { Image } from "astro:assets";
 const status = ["draft", "preview", "published"] as const;
 
 const allEntries = await getCollection("projects", ({ data }) => {
-	return import.meta.env.MODE === "production"
-		? envVars.ENABLE_PREVIEW && data.status !== "draft"
-			? status.includes(data.status)
-			: data.status === "published"
-		: true;
+  return import.meta.env.MODE === "production"
+    ? envVars.ENABLE_PREVIEW && data.status !== "draft"
+      ? status.includes(data.status)
+      : data.status === "published"
+    : true;
 });
 ---
 

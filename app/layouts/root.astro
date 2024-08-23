@@ -6,27 +6,26 @@ import Indicator from "@/components/indicator.astro";
 import Maintenance from "@/components/maintenance.astro";
 import Meta from "@/components/meta.astro";
 import SkipLink from "@/components/skip-link.astro";
-import EdgeAnalytics from "@/components/x-analytics.astro";
 import { tw } from "@/shared/utils";
 import SpeedInsights from "@vercel/speed-insights/astro";
 import ContentSlot from "./content-slot.astro";
 
 type Props = Meta & {
-	type?: OpenGraph["type"];
-	className?: string;
+  type?: OpenGraph["type"];
+  className?: string;
 };
 
 const {
-	title,
-	image,
-	keywords,
-	type,
-	canonical,
-	description,
-	publishedAt,
-	updatedAt,
-	noindex = false,
-	nofollow = false,
+  title,
+  image,
+  keywords,
+  type,
+  canonical,
+  description,
+  publishedAt,
+  updatedAt,
+  noindex = false,
+  nofollow = false,
 } = Astro.props;
 ---
 
@@ -81,6 +80,6 @@ const {
       <Maintenance slot="maintenance" />
     </ContentSlot>
     {import.meta.env.PROD ? <SpeedInsights /> : null}
-    <EdgeAnalytics />
+    <slot name="analytics" />
   </body>
 </html>
