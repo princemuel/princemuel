@@ -10,7 +10,7 @@
 
 export function formatCanonicalURL(
   url: string | URL,
-  trailingSlash = false,
+  trailingSlash: boolean | undefined = false,
   base: URL | string | undefined = import.meta.env.SITE,
 ): URL {
   const link = url.toString();
