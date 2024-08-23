@@ -1,4 +1,4 @@
-import type { ZodErrorMap } from "astro:content";
+import type { ZodErrorMap } from "zod";
 
 export class ProjectError extends Error {
 	/** * The error code. */

@@ -1,7 +1,6 @@
 import { z } from "astro:content";
-import { checkIfRateLimited } from "@/lib/helpers/rate-limit";
 import { parseError } from "@/shared/utils";
-import { geolocation } from "@vercel/edge";
+import { geolocation } from "@vercel/functions";
 import type { APIContext, APIRoute } from "astro";
 import { isbot } from "isbot";
 import { invariant } from "outvariant";
@@ -25,25 +24,11 @@ export const POST: APIRoute = async ({ request }) => {
 	try {
 		invariant(!isbot(request.headers.get("User-Agent")), "Invalid Request.");
 
-		const { isRateLimited, remaining, reset, limit } =
-			await checkIfRateLimited(request);
-
-		if (isRateLimited)
-			return new Response("You have reached your request limit for the day.", {
-				headers: {
-					"X-RateLimit-Limit": limit.toString(),
-					"X-RateLimit-Remaining": remaining.toString(),
-					"X-RateLimit-Reset": reset.toString(),
-				},
-				status: 429,
-				statusText: "Rate limit exceeded",
-			});
-
 		const result = await Promise.all([request.json(), geolocation(request)]);
 
-		console.log(...result);
+		console.log(schema.parse(Object.assign({}, ...result)));
 
-		// await db.analytics.create({ data:  });
+		// await db.analytics.create({ data: schema.parse(Object.assign({}, ...result)) });
 
 		return Response.json({ success: true, payload: "Request sent" });
 	} catch (e) {

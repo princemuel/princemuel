@@ -1,4 +1,8 @@
-import { defineAction, z } from "astro:actions";
+import { ActionError, defineAction, z } from "astro:actions";
+import { resend } from "@/lib/config/clients";
+import { envVars } from "@/lib/config/environment";
+import { checkIfRateLimited } from "@/lib/helpers/rate-limit";
+import { capitalize } from "@/shared/utils";
 
 const contactAction = defineAction({
 	accept: "form",
@@ -31,10 +35,31 @@ const contactAction = defineAction({
 				message: "To submit this form, please consent to being contacted",
 			}),
 	}),
-	handler(input, _) {
-		console.log(input);
+	handler: async (body, { request }) => {
+		const { isRateLimited } = await checkIfRateLimited(request);
 
-		return { success: true };
+		if (isRateLimited)
+			throw new ActionError({
+				code: "TOO_MANY_REQUESTS",
+				message: "You have reached your request limit",
+			});
+
+		const response = await resend.emails.send({
+			from: `${body.firstName} <${body.email}>`,
+			to: envVars.RESEND_ADDRESS,
+			subject: `${capitalize(body.queryType)} email from ${body.firstName} ${body.lastName}`,
+			replyTo: envVars.RESEND_ADDRESS,
+			text: body.message,
+		});
+
+		return response.data
+			? {
+					success: true,
+					payload: `Email #${response.data.id.slice(0, 5)} sent`,
+				}
+			: response.error
+				? { success: false, payload: response.error.message }
+				: { success: false, payload: "Request failed" };
 	},
 });
 
@@ -47,8 +72,29 @@ const subscribeAction = defineAction({
 			.min(1, { message: "This field is required" })
 			.email({ message: "Please enter a valid email address" }),
 	}),
-	handler(_foo, _) {
-		return { success: true, message: "Subscribed!" };
+	handler: async (body, { request }) => {
+		const { isRateLimited } = await checkIfRateLimited(request);
+
+		if (isRateLimited)
+			throw new ActionError({
+				code: "TOO_MANY_REQUESTS",
+				message: "You have reached your request limit",
+			});
+
+		const response = await resend.contacts.create({
+			email: body.email,
+			unsubscribed: false,
+			audienceId: envVars.RESEND_AUDIENCE,
+		});
+
+		return response.data
+			? {
+					success: true,
+					payload: `Contact #${response.data.id.slice(0, 5)} created`,
+				}
+			: response.error
+				? { success: false, payload: response.error.message }
+				: { success: false, payload: "Request failed" };
 	},
 });
 

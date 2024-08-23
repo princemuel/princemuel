@@ -1,9 +1,10 @@
-import { ZodError } from "astro:content";
 import { resend } from "@/lib/config/clients";
 import { envVars } from "@/lib/config/environment";
 import { checkIfRateLimited } from "@/lib/helpers/rate-limit";
 import { contactSchema } from "@/lib/schema/forms";
 import { parseError } from "@/shared/utils";
+import { ZodError } from "zod";
+
 import type { APIRoute } from "astro";
 
 export const POST: APIRoute = async ({ request }) => {
