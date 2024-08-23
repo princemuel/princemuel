@@ -1,6 +1,3 @@
-import { readFile } from "node:fs/promises";
-import { resolve } from "node:path";
-import { getCollection } from "astro:content";
 import PlaceholderImage from "@/assets/images/forrest-gump-quote.webp";
 import { envVars } from "@/lib/config/environment";
 import { ImageResponse } from "@vercel/og";
@@ -9,6 +6,10 @@ import type {
   GetStaticPaths,
   InferGetStaticPropsType,
 } from "astro";
+import { getCollection } from "astro:content";
+import { readFile } from "node:fs/promises";
+import { resolve } from "node:path";
+forrest - gump - quote.webp;
 
 export const getStaticPaths = (async () => {
   const status = ["draft", "preview", "published"] as const;
