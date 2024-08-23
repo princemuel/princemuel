@@ -6,16 +6,16 @@ import { raise } from "../utils";
  * const button = getElement("button", HTMLButtonElement)
  */
 export function getElement<E extends Element>(
-	selector: string,
-	Constructor: new (...args: unknown[]) => E,
-	parent: ParentNode = document,
+  selector: string,
+  Constructor: new (...args: unknown[]) => E,
+  parent: ParentNode = document,
 ): E {
-	const element =
-		parent.querySelector(selector) ?? raise(`Element not found: ${selector}`);
-	if (!(element instanceof Constructor)) {
-		raise(`Element is not of type ${Constructor.name}: ${selector}`);
-	}
-	return element;
+  const element =
+    parent.querySelector(selector) ?? raise(`Element not found: ${selector}`);
+  if (!(element instanceof Constructor)) {
+    raise(`Element is not of type ${Constructor.name}: ${selector}`);
+  }
+  return element;
 }
 
 /**
@@ -24,15 +24,15 @@ export function getElement<E extends Element>(
  * const button = getElement("button", HTMLButtonElement)
  */
 export function getElements<E extends Element>(
-	selector: string,
-	Constructor: new (...args: unknown[]) => E,
-	parent: ParentNode = document,
+  selector: string,
+  Constructor: new (...args: unknown[]) => E,
+  parent: ParentNode = document,
 ): NodeListOf<E> {
-	const elements = parent.querySelectorAll(selector);
-	for (const element of elements) {
-		if (!(element instanceof Constructor)) {
-			raise(`Element is not of type ${Constructor.name}: ${selector}`);
-		}
-	}
-	return elements as NodeListOf<E>;
+  const elements = parent.querySelectorAll(selector);
+  for (const element of elements) {
+    if (!(element instanceof Constructor)) {
+      raise(`Element is not of type ${Constructor.name}: ${selector}`);
+    }
+  }
+  return elements as NodeListOf<E>;
 }

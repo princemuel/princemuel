@@ -12,15 +12,15 @@ import { Icon } from "astro-icon/components";
 const status = ["draft", "preview", "published"] as const;
 
 const entries = await getCollection("posts", ({ data }) => {
-	return import.meta.env.MODE === "production"
-		? envVars.ENABLE_PREVIEW && data.status !== "draft"
-			? status.includes(data.status)
-			: data.status === "published"
-		: true;
+  return import.meta.env.MODE === "production"
+    ? envVars.ENABLE_PREVIEW && data.status !== "draft"
+      ? status.includes(data.status)
+      : data.status === "published"
+    : true;
 });
 
 const allEntries = entries.sort((a, b) => {
-	return Number(b.data.publishedAt) - Number(a.data.publishedAt);
+  return Number(b.data.publishedAt) - Number(a.data.publishedAt);
 });
 ---
 

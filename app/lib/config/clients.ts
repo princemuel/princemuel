@@ -13,19 +13,19 @@ export const resend = new Resend(envVars.RESEND_TOKEN);
 export const db = singleton("__db__", () => new PrismaClient());
 
 export const redis = new Redis({
-	url: envVars.UPSTASH_REDIS_REST_URL,
-	token: envVars.UPSTASH_REDIS_REST_TOKEN,
+  url: envVars.UPSTASH_REDIS_REST_URL,
+  token: envVars.UPSTASH_REDIS_REST_TOKEN,
 });
 
 const tokens = envVars.UPSTASH_LIMIT_TOKEN;
 const duration = envVars.UPSTASH_LIMIT_WINDOW as Parameters<
-	typeof Ratelimit.slidingWindow
+  typeof Ratelimit.slidingWindow
 >[1];
 
 export const ratelimit = new Ratelimit({
-	redis: redis,
-	analytics: true,
-	limiter: Ratelimit.slidingWindow(tokens, duration),
-	prefix: "@upstash/ratelimit",
-	ephemeralCache: singleton("__rl_cache__", () => new Map<string, number>()),
+  redis: redis,
+  analytics: true,
+  limiter: Ratelimit.slidingWindow(tokens, duration),
+  prefix: "@upstash/ratelimit",
+  ephemeralCache: singleton("__rl_cache__", () => new Map<string, number>()),
 });

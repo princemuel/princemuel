@@ -11,26 +11,26 @@ import ThemeProvider from "./theme-provider.astro";
 type Props = Meta & { og?: OpenGraph; twitter?: Twitter };
 
 const {
-	title,
-	description,
-	// image = await getImage({ src: import("@/assets/images/developer.webp") }),
-	keywords = [],
-	canonical,
-	publishedAt,
-	updatedAt,
-	noindex,
-	nofollow,
+  title,
+  description,
+  // image = await getImage({ src: import("@/assets/images/developer.webp") }),
+  keywords = [],
+  canonical,
+  publishedAt,
+  updatedAt,
+  noindex,
+  nofollow,
 } = Astro.props;
 
 const og = {
-	type: "website",
-	...Astro.props.og,
+  type: "website",
+  ...Astro.props.og,
 } satisfies OpenGraph;
 
 const twitter = {
-	handle: "@iamprincemuel",
-	card: "summary_large_image",
-	...Astro.props.twitter,
+  handle: "@iamprincemuel",
+  card: "summary_large_image",
+  ...Astro.props.twitter,
 } satisfies Twitter;
 
 const name = "Prince Muel";
@@ -53,8 +53,8 @@ const published_at = new Date(publishedAt || Date.now());
 const updated_at = new Date(updatedAt || Date.now());
 
 const directive = [
-	noindex ? "noindex" : "index",
-	nofollow ? "nofollow" : "follow",
+  noindex ? "noindex" : "index",
+  nofollow ? "nofollow" : "follow",
 ].join(", ");
 ---
 

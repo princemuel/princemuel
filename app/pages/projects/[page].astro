@@ -1,10 +1,10 @@
 ---
+import { getCollection, getEntry } from "astro:content";
 import Link from "@/components/link.astro";
 import Prose from "@/components/prose.astro";
 import ProjectLayout from "@/layouts/project.astro";
 import { envVars } from "@/lib/config/environment";
 import type { GetStaticPaths } from "astro";
-import { getCollection, getEntry } from "astro:content";
 
 export const getStaticPaths = (async ({ paginate }) => {
   const status = ["draft", "preview", "published"] as const;

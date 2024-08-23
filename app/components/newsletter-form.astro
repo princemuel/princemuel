@@ -13,12 +13,12 @@ const { class: className, ...rest } = Astro.props;
 type ListAudiencesResponse = Awaited<ReturnType<typeof resend.audiences.list>>;
 
 const audiences = await (async () => {
-	try {
-		const response = await resend.audiences.list();
-		return response;
-	} catch (error) {
-		return [] as unknown as ListAudiencesResponse;
-	}
+  try {
+    const response = await resend.audiences.list();
+    return response;
+  } catch (error) {
+    return [] as unknown as ListAudiencesResponse;
+  }
 })();
 
 const subs = audiences.data?.data ?? [];

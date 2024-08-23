@@ -8,16 +8,16 @@ import Link from "./link.astro";
 import Time from "./time.astro";
 
 const response = await octokit.rest.activity.listEventsForAuthenticatedUser({
-	username: "princemuel",
-	per_page: 20,
+  username: "princemuel",
+  per_page: 20,
 });
 
 const githubUrl = (url: string | URL) =>
-	url.toString().replace("api.", "").replace("/repos", "");
+  url.toString().replace("api.", "").replace("/repos", "");
 
 const commitSchema = z
-	.array(z.object({ message: z.string().default("") }))
-	.default([]);
+  .array(z.object({ message: z.string().default("") }))
+  .default([]);
 ---
 
 {

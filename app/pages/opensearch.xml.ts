@@ -1,7 +1,7 @@
 import type { APIRoute } from "astro";
 
 export const GET: APIRoute = () => {
-	const response = `
+  const response = `
   <OpenSearchDescription
     xmlns="http://a9.com/-/spec/opensearch/1.1/"
     xmlns:moz="http://www.mozilla.org/2006/browser/search/"
@@ -16,11 +16,11 @@ export const GET: APIRoute = () => {
   </OpenSearchDescription>
 `;
 
-	return new Response(response, {
-		status: 200,
-		headers: {
-			"Content-Type": "application/xml; charset=UTF-8",
-			"X-Content-Type-Options": "nosniff",
-		},
-	});
+  return new Response(response, {
+    status: 200,
+    headers: {
+      "Content-Type": "application/xml; charset=UTF-8",
+      "X-Content-Type-Options": "nosniff",
+    },
+  });
 };

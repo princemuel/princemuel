@@ -1,4 +1,6 @@
 ---
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
 import Link from "@/components/link.astro";
 import PostDivider from "@/components/post-divider.astro";
 import Prose from "@/components/prose.astro";
@@ -6,8 +8,6 @@ import Time from "@/components/time.astro";
 import ProjectsLayout from "@/layouts/projects.astro";
 import { envVars } from "@/lib/config/environment";
 import { hasValues, normalize } from "@/shared/utils";
-import { Image } from "astro:assets";
-import { getCollection } from "astro:content";
 const status = ["draft", "preview", "published"] as const;
 
 const allEntries = await getCollection("projects", ({ data }) => {

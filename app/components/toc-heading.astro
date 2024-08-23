@@ -3,7 +3,7 @@ import { hasValues } from "@/shared/utils";
 import type { MarkdownHeading } from "astro";
 
 interface Heading extends MarkdownHeading {
-	subheadings: Heading[];
+  subheadings: Heading[];
 }
 
 type Props = { heading: Heading };
