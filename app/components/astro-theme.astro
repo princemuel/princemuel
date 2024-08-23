@@ -1,4 +1,4 @@
-<x-theme-widget class="flex items-center justify-center">
+<astro-theme class="flex items-center justify-center">
   <button
     type="button"
     title="Toggle Theme"
@@ -6,7 +6,7 @@
   >
     <span class="sr-only">Toggle theme</span>
   </button>
-</x-theme-widget>
+</astro-theme>
 
 {/* Inlined to avoid FOUC. Uses global scope from `theme-provider.astro` */}
 <script is:inline>
@@ -79,7 +79,7 @@
     if (loadTheme() === "auto") onThemeChange("auto");
   });
 
-  class XThemeWidget extends HTMLElement {
+  class ThemeWidget extends HTMLElement {
     constructor() {
       super();
       onThemeChange(loadTheme());
@@ -93,7 +93,7 @@
     }
   }
 
-  if (!customElements.get("x-theme-widget")) {
-    customElements.define("x-theme-widget", XThemeWidget);
+  if (!customElements.get("astro-theme")) {
+    customElements.define("astro-theme", ThemeWidget);
   }
 </script>

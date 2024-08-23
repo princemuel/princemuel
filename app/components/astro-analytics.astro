@@ -1,30 +1,32 @@
 ---
 type Props = {
-	framework?: string;
-	name?: string;
-	version?: string;
-	pathname?: string | URL;
+  framework?: string;
+  name?: string;
+  version?: string;
+  pathname?: string | URL;
 };
 
 const {
-	name = "x-analytics",
-	version = "0.1.0",
-	framework = "astro",
-	pathname = Astro.url.pathname,
+  name = "x-analytics",
+  version = "0.1.0",
+  framework = "astro",
+  pathname = "",
 } = Astro.props;
 ---
 
-<x-analytics
+<astro-analytics
   data-sdkn={name + `/${framework}`}
   data-sdkv={version}
   data-pathname={pathname}
-  data-prod={`${import.meta.env.PROD}`}></x-analytics>
+  data-prod={`${import.meta.env.PROD}`}
+>
+</astro-analytics>
 
 <script>
   if (!customElements.get("x-analytics"))
     customElements.define(
       "x-analytics",
-      class XAnalytics extends HTMLElement {
+      class AstroAnalytics extends HTMLElement {
         constructor() {
           super();
           (() => {
