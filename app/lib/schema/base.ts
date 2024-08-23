@@ -17,5 +17,6 @@ export const baseSchema = z.object({
   updatedAt: z.coerce.date().optional(),
   duration: z.string().default("1 min read"),
   words: z.number().finite().int().nonnegative().lte(65535).default(200),
+  language: z.enum(["en", "es", "fr"]).default("en"),
   permalink: z.string().url().optional(),
 });

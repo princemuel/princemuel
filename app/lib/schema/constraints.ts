@@ -15,11 +15,12 @@ export const ResourceStatus = z
 
 export const MediaObject = (image: SchemaContext["image"]) =>
   z.object({
-    cover: image()
-      .refine((value) => value.width >= 1080, {
-        message: "Cover picture must be at least 1080 pixels wide!",
-      })
-      .optional(),
+    // cover: image()
+    //   .refine((img) => img.width >= 768, {
+    //     message: "Cover image must be at least 768 pixels wide!",
+    //   })
+    //   .optional(),
+    cover: image().optional(),
     alt: z.string(),
     image: z.string().optional(),
     thumbnail: z.string().optional(),

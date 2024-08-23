@@ -13,7 +13,6 @@ const projectCollection = defineCollection({
     baseSchema.extend({
       tools: z.array(z.string()).default([]),
       media: MediaObject(image).optional(),
-      language: z.enum(["en", "es", "fr"]).default("en"),
       link: z
         .object({
           site: z.string().url().optional(),
@@ -28,7 +27,6 @@ const blogCollection = defineCollection({
   schema: ({ image }) =>
     baseSchema.extend({
       media: MediaObject(image).optional(),
-      language: z.enum(["en", "es", "fr"]).default("en"),
       others: z.array(reference("blog")).optional(),
     }),
 });
