@@ -12,7 +12,7 @@ type Meta = {
     alt: string;
   };
   canonical?: string | URL | null;
-  type?: "website" | "article";
+  type?: OpenGraph["type"];
   publishedAt?: ConstructorParameters<typeof Date>[0] | null;
   updatedAt?: ConstructorParameters<typeof Date>[0] | null;
   noindex?: boolean;

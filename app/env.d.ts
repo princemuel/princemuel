@@ -19,7 +19,7 @@ declare namespace App {
 
 interface Window {
   ThemeProvider: { updateWidget(theme?: string): void };
-  AnalyticsService: { dispatch(): void };
+  EdgeAnalytics: { dispatch(): void };
 }
 
 interface globalThis {
