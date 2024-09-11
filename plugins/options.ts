@@ -1,39 +1,13 @@
 import type { SitemapOptions } from "@astrojs/sitemap";
 import type { PwaOptions } from "@vite-pwa/astro";
 import type icon from "astro-icon";
+import icons from "../config/icons.json";
 
 type TIconOptions = NonNullable<Parameters<typeof icon>[0]>;
 
 export const IconOptions: TIconOptions = {
   iconDir: "app/assets/icons",
-  include: {
-    lucide: [
-      "badge-check",
-      "bar-chart",
-      "briefcase-business",
-      "clock-4",
-      "home",
-      "library",
-      "pen-line",
-      "mail-plus",
-      "moon-star",
-      "move-right",
-      "notebook-pen",
-      "rss",
-      "square-user",
-      "sun",
-    ],
-    logos: ["astro-icon"],
-    mdi: [
-      "discord",
-      "email-outline",
-      "github",
-      "instagram",
-      "linkedin",
-      "youtube",
-    ],
-    ri: ["price-tag-3-fill", "quill-pen-fill"],
-  },
+  include: icons,
 };
 
 export const sitemapOptions: SitemapOptions = {
