@@ -1,9 +1,9 @@
 ---
-import { getCollection } from "astro:content";
-import { published_date } from "@/lib/config/site";
+import { published_date } from "@/library/config/site";
 import { date_nf } from "@/shared/helpers/datetime";
 import { Icon } from "astro-icon/components";
 import type { HTMLAttributes } from "astro/types";
+import { getCollection } from "astro:content";
 import Container from "./container.astro";
 import Link from "./link.astro";
 import NewsletterForm from "./newsletter-form.astro";
@@ -59,17 +59,11 @@ const footer_date = date_nf("en-US", {
   <Container>
     <nav
       aria-label="Footer"
-      class="grid grid-cols-3 gap-x-4 gap-y-12 border-t border-slate-300 py-10 md:grid-cols-6 dark:border-slate-900"
+      class="grid grid-cols-3 gap-x-4 gap-y-12 border-t border-gray-300 py-10 md:grid-cols-6"
     >
       <section class="col-span-1">
-        <h4
-          class="text-sm uppercase text-slate-900 sm:text-base dark:text-slate-200"
-        >
-          General
-        </h4>
-        <ul
-          class="mt-4 space-y-3 text-xs text-slate-600 sm:text-sm dark:text-slate-400"
-        >
+        <h4 class="text-sm uppercase text-gray-900 sm:text-base">General</h4>
+        <ul class="mt-4 space-y-3 text-xs text-gray-600 sm:text-sm">
           {
             routes.general.map((route) => (
               <li>
@@ -83,14 +77,8 @@ const footer_date = date_nf("en-US", {
       </section>
 
       <section class="col-span-1">
-        <h4
-          class="text-sm uppercase text-slate-900 sm:text-base dark:text-slate-200"
-        >
-          Specifics
-        </h4>
-        <ul
-          class="mt-4 space-y-3 text-xs text-slate-600 sm:text-sm dark:text-slate-400"
-        >
+        <h4 class="text-sm uppercase text-gray-900 sm:text-base">Specifics</h4>
+        <ul class="mt-4 space-y-3 text-xs text-gray-600 sm:text-sm">
           {
             routes.specifics.map((route) => (
               <li>
@@ -104,14 +92,8 @@ const footer_date = date_nf("en-US", {
       </section>
 
       <section class="col-span-1">
-        <h4
-          class="text-sm uppercase text-slate-900 sm:text-base dark:text-slate-200"
-        >
-          Extra
-        </h4>
-        <ul
-          class="mt-4 space-y-3 text-xs text-slate-600 sm:text-sm dark:text-slate-400"
-        >
+        <h4 class="text-sm uppercase text-gray-900 sm:text-base">Extra</h4>
+        <ul class="mt-4 space-y-3 text-xs text-gray-600 sm:text-sm">
           {
             routes.extras.map((route) => (
               <li>
@@ -141,8 +123,7 @@ const footer_date = date_nf("en-US", {
                 href={link.data.href}
                 class:list={[
                   "group flex items-center transition",
-                  "text-slate-800 hocus:text-purple-500",
-                  "dark:text-slate-400 dark:hocus:text-purple-500",
+                  "text-gray-800 hocus:text-gray-500",
                 ]}
               >
                 <Icon name={link.data.icon} class="" />
@@ -152,19 +133,22 @@ const footer_date = date_nf("en-US", {
         }
       </div>
 
-      <p
-        class="order-2 text-base text-slate-800 md:order-1 dark:text-slate-400"
-      >
-        &copy;<Time datetime={datetime}>{datetime.getFullYear()}</Time>
+      <p class="order-2 text-xs text-gray-800 md:order-1">
+        &copy;
+        <Time datetime={new Date("2020-07-29T16:43:29.577Z")}>
+          {new Date("2020-07-29T16:43:29.577Z").getFullYear()}
+        </Time>
+        &minus;
+        <Time datetime={datetime}>{datetime.getFullYear()}</Time>
         <span>Prince Muel. All Rights Reserved</span>
       </p>
     </div>
   </Container>
 
-  <div class="bg-slate-200 dark:bg-slate-900">
+  <div class="bg-gray-200">
     <Container class="flex items-center justify-center py-1">
       <p
-        class="flex flex-wrap content-center items-center gap-1 text-xs text-gray-800 dark:text-white"
+        class="flex flex-wrap content-center items-center gap-1 text-xs text-gray-800"
       >
         <span>Built with </span>
         <Icon name="logos:astro-icon" />
