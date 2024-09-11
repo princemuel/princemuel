@@ -65,5 +65,8 @@
   "workbench.tree.indent": 8,
   "yaml.schemas": {
     "https://json.schemastore.org/github-issue-config.json": "file:///home/sahara/Workspace/Repos/princemuel.com/.github/ISSUE_TEMPLATE/config.yml"
+  },
+  "[sql]": {
+    "editor.defaultFormatter": "mtxr.sqltools"
   }
 }
