@@ -1,9 +1,8 @@
-import type { APIRoute } from "astro";
-
 import feedStyles from "@/assets/styles/xml-feed.css?raw";
 import feedTemplate from "@/assets/styles/xml-feed.xsl?raw";
+import { handler } from "@/shared/helpers/api-handler";
 
-export const GET: APIRoute = () => {
+export const GET = handler(() => {
   const styles = feedTemplate
     .replace("<!-- {{ styles }} -->", `<style>\n${feedStyles}\n</style>`)
     .replaceAll(/\t|\n/giu, "")
@@ -16,4 +15,4 @@ export const GET: APIRoute = () => {
       "X-Content-Type-Options": "nosniff",
     },
   });
-};
+});

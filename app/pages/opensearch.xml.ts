@@ -1,6 +1,6 @@
-import type { APIRoute } from "astro";
+import { handler } from "@/shared/helpers/api-handler";
 
-export const GET: APIRoute = () => {
+export const GET = handler(() => {
   const response = `
   <OpenSearchDescription
     xmlns="http://a9.com/-/spec/opensearch/1.1/"
@@ -23,4 +23,4 @@ export const GET: APIRoute = () => {
       "X-Content-Type-Options": "nosniff",
     },
   });
-};
+});

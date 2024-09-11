@@ -1,12 +1,12 @@
+import { handler } from "@/shared/helpers/api-handler";
 import { waitUntil } from "@vercel/functions";
-import type { APIRoute } from "astro";
 
 export const prerender = false;
 
 const CONFETTI_URL =
   "https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js";
 
-export const GET: APIRoute = async () => {
+export const GET = handler(async () => {
   const { readable, writable } = new TransformStream();
 
   waitUntil(streamData(writable));
@@ -14,7 +14,7 @@ export const GET: APIRoute = async () => {
   return new Response(readable, {
     headers: { "Content-Type": "text/html; charset=utf-8" },
   });
-};
+});
 
 async function streamData(writable: WritableStream, wait_time = 1500) {
   const writer = writable.getWriter();

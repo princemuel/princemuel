@@ -1,9 +1,9 @@
-import type { APIRoute } from "astro";
+import { handler } from "@/shared/helpers/api-handler";
 
 const defaultAgents = ["User-agent: ChatGPT-User", "User-agent: PerplexityBot"];
 const matcher = /^User-agent:.*/iu;
 
-export const GET: APIRoute = async (ctx) => {
+export const GET = handler(async (ctx) => {
   try {
     const text = await fetch(
       "https://darkvisitors.com/robots-txt-builder",
@@ -41,4 +41,4 @@ export const GET: APIRoute = async (ctx) => {
       headers: { "Content-Type": "text/plain; charset=UTF-8" },
     });
   }
-};
+});

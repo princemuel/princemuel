@@ -1,11 +1,13 @@
-import { getCollection, getEntry } from "astro:content";
-import { published_date } from "@/lib/config/site";
-import { asyncPool, convertTime, normalize } from "@/shared/utils";
+import { published_date } from "@/library/config/site";
+import { handler } from "@/shared/helpers/api-handler";
+import { asyncPool } from "@/shared/utils/misc";
+import { convertTime } from "@/shared/utils/time";
 import rss, { type RSSFeedItem } from "@astrojs/rss";
-import type { APIRoute } from "astro";
+import { getCollection, getEntry } from "astro:content";
 import { marked as mkd } from "marked";
+import { normalize } from "node:path";
 
-export const GET: APIRoute = async (ctx) => {
+export const GET = handler(async (ctx) => {
   const baseUrl = new URL("/", ctx.site).toString();
   const [author, collection] = await Promise.all([
     getEntry("authors", "princemuel"),
@@ -56,4 +58,4 @@ export const GET: APIRoute = async (ctx) => {
     `,
     stylesheet: "/feed.xsl",
   });
-};
+});

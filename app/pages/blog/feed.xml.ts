@@ -1,11 +1,11 @@
-import { getCollection, getEntry } from "astro:content";
-import { envVars } from "@/lib/config/environment";
-import { published_date } from "@/lib/config/site";
-import { convertTime, normalize } from "@/shared/utils";
+import { envVars } from "@/library/config/environment";
+import { published_date } from "@/library/config/site";
+import { handler } from "@/shared/helpers/api-handler";
+import { convertTime } from "@/shared/utils/time";
 import rss, { type RSSFeedItem } from "@astrojs/rss";
-import type { APIRoute } from "astro";
+import { getCollection, getEntry } from "astro:content";
 
-export const GET: APIRoute = async (ctx) => {
+export const GET = handler(async (ctx) => {
   const baseUrl = new URL("/", ctx.site).toString();
   const [author, collection] = await Promise.all([
     getEntry("authors", "princemuel"),
@@ -25,20 +25,14 @@ export const GET: APIRoute = async (ctx) => {
     return {
       title: item.data.title,
       description: item.data.description,
-      categories: [
-        ...new Set(
-          ...item.data.tags,
-          ...item.data.categories,
-          ...item.data.keywords,
-        ),
-      ],
+      categories: [...new Set(...item.data.tags, ...item.data.keywords)],
       pubDate: item.data.publishedAt,
       author: `${author.data.links.email} (${author.data.name})`,
-      link: new URL(`/blog/${item.slug}`, baseUrl).toString(),
+      link: new URL(`/blog/${item.id}`, baseUrl).toString(),
       commentsUrl: "https://github.com/princemuel/princemuel.com/discussions",
       customData: `
-        <slug>${normalize(item.slug)}</slug>
-        <lead>${normalize(`${item.slug}-lead`)}</lead>
+        <slug>${item.id}</slug>
+        <lead>${`${item.id}-lead`}</lead>
       `,
     } as RSSFeedItem;
   });
@@ -68,4 +62,4 @@ export const GET: APIRoute = async (ctx) => {
     `,
     stylesheet: "/feed.xsl",
   });
-};
+});
