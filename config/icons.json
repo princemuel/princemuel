@@ -1,0 +1,31 @@
+{
+  "lucide": [
+    "badge-check",
+    "bar-chart",
+    "briefcase-business",
+    "clock",
+    "clock-4",
+    "command",
+    "home",
+    "info",
+    "library",
+    "pen-line",
+    "mail-plus",
+    "moon-star",
+    "move-right",
+    "notebook-pen",
+    "rss",
+    "square-user",
+    "sun"
+  ],
+  "logos": ["astro-icon"],
+  "mdi": [
+    "discord",
+    "email-outline",
+    "github",
+    "instagram",
+    "linkedin",
+    "youtube"
+  ],
+  "ri": ["price-tag-3-fill", "quill-pen-fill"]
+}

@@ -8,18 +8,18 @@ import twConfig from "./config/tailwind.json";
 
 /** @type {import('tailwindcss').Config} */
 export default {
-  darkMode: ["selector", '[data-theme="dark"]'],
+  // darkMode: ["selector", '[data-theme="dark"]'],
   content: [
     "./app/pages/**/*.{astro,md,mdx}",
     "./app/layouts/**/*.astro",
     "./app/components/**/*.{astro,tsx}",
     "./app/content/**/*.{md,mdx}",
-    "./app/database/**/*.{md,mdx}",
+    "./app/archive/**/*.{md,mdx}",
   ],
   future: {
     hoverOnlyWhenSupported: true,
-    respectDefaultRingColorOpacity: true,
-    disableColorOpacityUtilitiesByDefault: true,
+    // respectDefaultRingColorOpacity: true,
+    // disableColorOpacityUtilitiesByDefault: true,
   },
   experimental: { optimizeUniversalDefaults: true },
   theme: {
@@ -59,6 +59,7 @@ export default {
       animation: {
         float: "float 6s ease-in-out infinite",
         rotate: "rotate 1s ease-out",
+        loading: "skeleton 1s linear infinite alternate",
       },
       keyframes: {
         float: {
@@ -68,6 +69,10 @@ export default {
         rotate: {
           "0%": { transform: "rotate(-45deg)" },
           "100%": { transform: "rotate(0deg)" },
+        },
+        skeleton: {
+          "0%": { "background-color": "hsl(200, 20%, 80%)" },
+          "100%": { "background-color": "hsl(200, 20%, 95%)" },
         },
       },
     },
