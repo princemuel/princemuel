@@ -1,6 +1,7 @@
-import { z } from "astro:content";
-import { isServer, str_to_bool } from "@/shared/utils";
+import { isServer } from "@/shared/utils/guards";
+import { str_to_bool } from "@/shared/utils/strings";
 import { createEnv } from "@t3-oss/env-core";
+import { z } from "astro:schema";
 
 export const envVars = createEnv({
   // Tell the library when we're in a server context.
@@ -10,6 +11,8 @@ export const envVars = createEnv({
     GOOGLE_DRIVE_FILE_ID: z.string().min(1),
     DATABASE_URL: z.string().min(1),
     SHADOW_DATABASE_URL: z.string().min(1),
+    ASTRO_STUDIO_APP_TOKEN: z.string().min(1),
+    WAKATIME_TOKEN: z.string().min(1),
     RESEND_ADDRESS: z.string().min(1).email(),
     RESEND_AUDIENCE: z.string().min(1),
     RESEND_TOKEN: z.string().min(1),

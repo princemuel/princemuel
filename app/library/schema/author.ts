@@ -1,4 +1,4 @@
-import { z } from "astro:content";
+import { z } from "astro:schema";
 
 export const AuthorSchema = z.object({
   name: z.string(),

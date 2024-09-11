@@ -1,5 +1,4 @@
-import { singleton } from "@/shared/utils";
-import { PrismaClient } from "@prisma/client";
+import { singleton } from "@/shared/utils/objects";
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
 import { Octokit } from "octokit";
@@ -9,8 +8,6 @@ import { envVars } from "./environment";
 // https://github.com/octokit/octokit.js/#readme
 export const octokit = new Octokit({ auth: envVars.OCTOKIT_TOKEN });
 export const resend = new Resend(envVars.RESEND_TOKEN);
-
-export const db = singleton("__db__", () => new PrismaClient());
 
 export const redis = new Redis({
   url: envVars.UPSTASH_REDIS_REST_URL,

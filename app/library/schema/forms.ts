@@ -1,4 +1,4 @@
-import { z } from "astro:content";
+import { z } from "astro:schema";
 
 export const contactSchema = z.object({
   firstName: z.string().min(1, { message: "First name required" }).max(255),

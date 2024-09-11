@@ -1,4 +1,4 @@
-import { ProjectError } from "./errors";
+import { RequestError } from "./errors";
 
 /**
  * Used to uniquely identify a timeout
@@ -60,7 +60,7 @@ export function timeout<T>(
           if (controller) controller.abort();
 
           reject(
-            ProjectError.deadlineExceeded(`Request timeout after ${ms}ms`),
+            RequestError.deadlineExceeded(`Request timeout after ${ms}ms`),
           );
         }
 

@@ -1,4 +1,4 @@
-import { raise } from "../utils";
+import { raise } from "../utils/error";
 
 /**
  * Find a DOM element and validate its type.

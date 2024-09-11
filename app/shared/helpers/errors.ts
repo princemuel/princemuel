@@ -1,90 +1,90 @@
 import type { ZodErrorMap } from "zod";
 
-export class ProjectError extends Error {
+export class RequestError extends Error {
   /** * The error code. */
   public readonly code: ErrorCode;
 
-  // Constructs a ProjectError with the Canceled error code.
+  // Constructs a RequestError with the Canceled error code.
   static canceled(message: string, cause?: Error) {
-    return new ProjectError(ErrorCode.Canceled, message, cause);
+    return new RequestError(ErrorCode.Canceled, message, cause);
   }
 
-  // Constructs a ProjectError with the Unknown error code.
+  // Constructs a RequestError with the Unknown error code.
   static unknown(message: string, cause?: Error) {
-    return new ProjectError(ErrorCode.Unknown, message, cause);
+    return new RequestError(ErrorCode.Unknown, message, cause);
   }
 
-  // Constructs a ProjectError with the InvalidArgument error code.
+  // Constructs a RequestError with the InvalidArgument error code.
   static invalidArgument(message: string, cause?: Error) {
-    return new ProjectError(ErrorCode.InvalidArgument, message, cause);
+    return new RequestError(ErrorCode.InvalidArgument, message, cause);
   }
 
-  // Constructs a ProjectError with the DeadlineExceeded error code.
+  // Constructs a RequestError with the DeadlineExceeded error code.
   static deadlineExceeded(message: string, cause?: Error) {
-    return new ProjectError(ErrorCode.DeadlineExceeded, message, cause);
+    return new RequestError(ErrorCode.DeadlineExceeded, message, cause);
   }
 
-  // Constructs a ProjectError with the NotFound error code.
+  // Constructs a RequestError with the NotFound error code.
   static notFound(message: string, cause?: Error) {
-    return new ProjectError(ErrorCode.NotFound, message, cause);
+    return new RequestError(ErrorCode.NotFound, message, cause);
   }
 
-  // Constructs a ProjectError with the AlreadyExists error code.
+  // Constructs a RequestError with the AlreadyExists error code.
   static alreadyExists(message: string, cause?: Error) {
-    return new ProjectError(ErrorCode.AlreadyExists, message, cause);
+    return new RequestError(ErrorCode.AlreadyExists, message, cause);
   }
 
-  // Constructs a ProjectError with the PermissionDenied error code.
+  // Constructs a RequestError with the PermissionDenied error code.
   static permissionDenied(message: string, cause?: Error) {
-    return new ProjectError(ErrorCode.PermissionDenied, message, cause);
+    return new RequestError(ErrorCode.PermissionDenied, message, cause);
   }
 
-  // Constructs a ProjectError with the ResourceExhausted error code.
+  // Constructs a RequestError with the ResourceExhausted error code.
   static resourceExhausted(message: string, cause?: Error) {
-    return new ProjectError(ErrorCode.ResourceExhausted, message, cause);
+    return new RequestError(ErrorCode.ResourceExhausted, message, cause);
   }
 
-  // Constructs a ProjectError with the FailedPrecondition error code.
+  // Constructs a RequestError with the FailedPrecondition error code.
   static failedPrecondition(message: string, cause?: Error) {
-    return new ProjectError(ErrorCode.FailedPrecondition, message, cause);
+    return new RequestError(ErrorCode.FailedPrecondition, message, cause);
   }
 
-  // Constructs a ProjectError with the Aborted error code.
+  // Constructs a RequestError with the Aborted error code.
   static aborted(message: string, cause?: Error) {
-    return new ProjectError(ErrorCode.Aborted, message, cause);
+    return new RequestError(ErrorCode.Aborted, message, cause);
   }
 
-  // Constructs a ProjectError with the OutOfRange error code.
+  // Constructs a RequestError with the OutOfRange error code.
   static outOfRange(message: string, cause?: Error) {
-    return new ProjectError(ErrorCode.OutOfRange, message, cause);
+    return new RequestError(ErrorCode.OutOfRange, message, cause);
   }
 
-  // Constructs a ProjectError with the Unimplemented error code.
+  // Constructs a RequestError with the Unimplemented error code.
   static unimplemented(message: string, cause?: Error) {
-    return new ProjectError(ErrorCode.Unimplemented, message, cause);
+    return new RequestError(ErrorCode.Unimplemented, message, cause);
   }
 
-  // Constructs a ProjectError with the Internal error code.
+  // Constructs a RequestError with the Internal error code.
   static internal(message: string, cause?: Error) {
-    return new ProjectError(ErrorCode.Internal, message, cause);
+    return new RequestError(ErrorCode.Internal, message, cause);
   }
 
-  // Constructs a ProjectError with the Unavailable error code.
+  // Constructs a RequestError with the Unavailable error code.
   static unavailable(message: string, cause?: Error) {
-    return new ProjectError(ErrorCode.Unavailable, message, cause);
+    return new RequestError(ErrorCode.Unavailable, message, cause);
   }
 
-  // Constructs a ProjectError with the DataLoss error code.
+  // Constructs a RequestError with the DataLoss error code.
   static dataLoss(message: string, cause?: Error) {
-    return new ProjectError(ErrorCode.DataLoss, message, cause);
+    return new RequestError(ErrorCode.DataLoss, message, cause);
   }
 
-  // Constructs a ProjectError with the Unauthenticated error code.
+  // Constructs a RequestError with the Unauthenticated error code.
   static unauthenticated(message: string, cause?: Error) {
-    return new ProjectError(ErrorCode.Unauthenticated, message, cause);
+    return new RequestError(ErrorCode.Unauthenticated, message, cause);
   }
 
-  // Constructs a ProjectError with the given error code, message, and (optionally) cause.
+  // Constructs a RequestError with the given error code, message, and (optionally) cause.
   constructor(code: ErrorCode, message: string, cause?: Error) {
     // extending errors causes issues after you construct them, unless you apply the following fixes
     super(message, { cause });
@@ -94,7 +94,7 @@ export class ProjectError extends Error {
     // and make it not enumerable to keep the native Error behavior
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/new.target#new.target_in_constructors
     Object.defineProperty(this, "name", {
-      value: "ProjectError",
+      value: "RequestError",
       enumerable: false,
       configurable: true,
     });
@@ -102,8 +102,8 @@ export class ProjectError extends Error {
     // fix the prototype chain
     if (Object.setPrototypeOf === undefined)
       //@ts-expect-error
-      this.__proto__ = ProjectError.prototype;
-    else Object.setPrototypeOf(this, ProjectError.prototype);
+      this.__proto__ = RequestError.prototype;
+    else Object.setPrototypeOf(this, RequestError.prototype);
 
     // Maintains proper stack trace (only available on V8)
     if (typeof Error.captureStackTrace === "function") {
@@ -307,6 +307,51 @@ enum ErrorCode {
   Unauthenticated = "unauthenticated",
 }
 
+export function get_status_from_code(code: ErrorCode) {
+  return ErrorCodeMap.get(code);
+}
+
+export function get_code_from_status(status: number) {
+  return HttpStatusMap.get(status)?.[0] || ErrorCode.Unimplemented;
+}
+
+const ErrorCodeMap = new Map([
+  [ErrorCode.OK, 200],
+  [ErrorCode.Canceled, 499],
+  [ErrorCode.Unknown, 500],
+  [ErrorCode.InvalidArgument, 400],
+  [ErrorCode.DeadlineExceeded, 504],
+  [ErrorCode.NotFound, 404],
+  [ErrorCode.AlreadyExists, 409],
+  [ErrorCode.PermissionDenied, 403],
+  [ErrorCode.ResourceExhausted, 429],
+  [ErrorCode.FailedPrecondition, 412],
+  [ErrorCode.Aborted, 409],
+  [ErrorCode.OutOfRange, 416],
+  [ErrorCode.Unimplemented, 501],
+  [ErrorCode.Internal, 500],
+  [ErrorCode.Unavailable, 503],
+  [ErrorCode.DataLoss, 500],
+  [ErrorCode.Unauthenticated, 401],
+]);
+
+export const HttpStatusMap = new Map<number, ErrorCode[]>([
+  [200, [ErrorCode.OK]],
+  [499, [ErrorCode.Canceled]],
+  [500, [ErrorCode.Unknown, ErrorCode.Internal, ErrorCode.DataLoss]],
+  [400, [ErrorCode.InvalidArgument]],
+  [504, [ErrorCode.DeadlineExceeded]],
+  [404, [ErrorCode.NotFound]],
+  [409, [ErrorCode.AlreadyExists, ErrorCode.Aborted]],
+  [403, [ErrorCode.PermissionDenied]],
+  [429, [ErrorCode.ResourceExhausted]],
+  [412, [ErrorCode.FailedPrecondition]],
+  [416, [ErrorCode.OutOfRange]],
+  [501, [ErrorCode.Unimplemented]],
+  [503, [ErrorCode.Unavailable]],
+  [401, [ErrorCode.Unauthenticated]],
+]);
+
 /**
  *
  * This is a modified version of Astro's error map.
@@ -328,8 +373,10 @@ export const errorMap: ZodErrorMap = (issue, ctx) => {
     // raise a single error when `key` does not match:
     // > Did not match union.
     // > key: Expected `'tutorial' | 'blog'`, received 'foo'
-    const typeOrLiteralErrByPath: Map<string, TypeOrLiteralErrByPathEntry> =
-      new Map();
+    const typeOrLiteralErrByPath = new Map<
+      string,
+      TypeOrLiteralErrByPathEntry
+    >();
     for (const unionError of issue.unionErrors.flatMap((e) => e.errors)) {
       if (
         unionError.code === "invalid_type" ||

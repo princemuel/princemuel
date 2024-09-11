@@ -1,4 +1,4 @@
-import { isServer } from "../utils";
+import { isServer } from "../utils/guards";
 
 export const date_nf = (
   ...args: ConstructorParameters<typeof Intl.DateTimeFormat>
