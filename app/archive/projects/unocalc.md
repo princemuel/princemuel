@@ -11,7 +11,7 @@ link:
   site: https://unocalc.vercel.app
   repo: https://github.com/princemuel/unocalc
 media:
-  cover: ./_assets/unocalc_cover.jpg
+  cover: ../assets/unocalc_cover.jpg
   alt: Uno Calc Screenshot
 status: preview
 ---

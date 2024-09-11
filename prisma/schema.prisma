@@ -3,73 +3,56 @@ generator client {
 }
 
 datasource db {
-  provider          = "postgresql"
-  url               = env("DATABASE_URL")
-  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model User {
-  id             String   @id @default(uuid())
-  email          String   @unique
-  name           String?
-  createdAt      DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
-  xata_id        String   @unique(map: "users__pgroll_new_xata_id_key") @default(dbgenerated("('rec_'::text || (xata_private.xid())::text)"))
-  xata_version   Int      @default(0)
-  xata_createdat DateTime @default(now()) @db.Timestamptz(6)
-  xata_updatedat DateTime @default(now()) @db.Timestamptz(6)
-  posts          Post[]
+  id         String   @id @default(uuid())
+  email      String   @unique
+  name       String?
+  created_at DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  posts      Post[]
 
   @@map("users")
 }
 
 model Post {
-  id             String   @id @default(uuid())
-  title          String
-  slug           String   @unique
-  content        String?
-  published      Boolean  @default(false)
-  views          Int      @default(0)
-  authorId       String?  @map("author_id")
-  createdAt      DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
-  xata_updatedat DateTime @default(now()) @db.Timestamptz(6)
-  xata_id        String   @unique(map: "posts__pgroll_new_xata_id_key") @default(dbgenerated("('rec_'::text || (xata_private.xid())::text)"))
-  xata_version   Int      @default(0)
-  xata_createdat DateTime @default(now()) @db.Timestamptz(6)
-  author         User?    @relation(fields: [authorId], references: [id])
+  id         String   @id @default(uuid())
+  title      String
+  slug       String   @unique
+  content    String?
+  published  Boolean  @default(false)
+  views      Int      @default(0)
+  authorId   String?  @map("author_id")
+  created_at DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  author     User?    @relation(fields: [authorId], references: [id])
 
   @@index([authorId])
   @@map("posts")
 }
 
 model Analytics {
-  id             String   @id @default(uuid())
-  createdAt      DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
-  pathname       String
-  referrer       String?
-  flag           String?
-  country        String?
-  city           String?
-  latitude       Float?
-  longitude      Float?
-  name           String
-  version        String?
-  xata_createdat DateTime @default(now()) @db.Timestamptz(6)
-  xata_updatedat DateTime @default(now()) @db.Timestamptz(6)
-  xata_id        String   @unique(map: "analytics__pgroll_new_xata_id_key") @default(dbgenerated("('rec_'::text || (xata_private.xid())::text)"))
-  xata_version   Int      @default(0)
+  id         String   @id @default(uuid())
+  created_at DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  pathname   String
+  referrer   String?
+  flag       String?
+  country    String?
+  city       String?
+  latitude   Float?
+  longitude  Float?
+  name       String
+  version    String?
 
   @@map("analytics")
 }
 
 model Reactions {
-  id             String   @id @default(uuid())
-  slug           String
-  reaction       String
-  createdAt      DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
-  xata_updatedat DateTime @default(now()) @db.Timestamptz(6)
-  xata_id        String   @unique(map: "reactions__pgroll_new_xata_id_key") @default(dbgenerated("('rec_'::text || (xata_private.xid())::text)"))
-  xata_version   Int      @default(0)
-  xata_createdat DateTime @default(now()) @db.Timestamptz(6)
+  id         String   @id @default(uuid())
+  slug       String
+  reaction   String
+  created_at DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
 
   @@map("reactions")
 }
