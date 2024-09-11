@@ -1,15 +1,15 @@
 {
   "$schema": "https://biomejs.dev/schemas/1.8.3/schema.json",
-  "organizeImports": { "enabled": true },
+  "organizeImports": { "enabled": false },
   "linter": {
     "enabled": true,
     "rules": { "recommended": true },
-    "ignore": ["dist", "coverage", ".vercel", ".vscode", ".astro"]
+    "ignore": ["node_modules", "dist", ".vercel", ".vscode", ".astro"]
   },
   "formatter": {
     "enabled": true,
     "indentStyle": "space",
-    "ignore": ["dist", "coverage", ".vercel", ".vscode", ".astro"]
+    "ignore": ["node_modules", "dist", ".vercel", ".vscode", ".astro"]
   },
   "overrides": [
     {

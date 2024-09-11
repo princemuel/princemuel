@@ -1,11 +1,11 @@
 {
-	"recommendations": [
-		"esbenp.prettier-vscode",
-		"astro-build.astro-vscode",
-		"oxc.oxc-vscode",
-		"bradlc.vscode-tailwindcss",
-		"unifiedjs.vscode-mdx",
-		"rust-lang.rust-analyzer",
-		"tamasfe.even-better-toml"
-	]
+  "recommendations": [
+    "esbenp.prettier-vscode",
+    "astro-build.astro-vscode",
+    "oxc.oxc-vscode",
+    "bradlc.vscode-tailwindcss",
+    "unifiedjs.vscode-mdx",
+    "rust-lang.rust-analyzer",
+    "tamasfe.even-better-toml"
+  ]
 }

@@ -6,8 +6,9 @@
 
 type EdgeLocals = import("@astrojs/vercel").EdgeLocals;
 
-// biome-ignore lint/suspicious/noEmptyInterface: <explanation>
-interface ImportMetaEnv {}
+interface ImportMetaEnv {
+  [key: string]: string;
+}
 
 interface ImportMeta {
   readonly env: ImportMetaEnv;

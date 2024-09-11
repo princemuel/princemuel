@@ -8,9 +8,9 @@ tailwindAttributes:
 
 astroAllowShorthand: false
 plugins:
-  - prettier-plugin-prisma
   - prettier-plugin-astro
   - prettier-plugin-organize-imports
+  - prettier-plugin-prisma
   - prettier-plugin-tailwindcss
 
 overrides:
