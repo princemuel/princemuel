@@ -31,7 +31,7 @@ const formErrors = isInputError(result?.error) ? result.error.fields : {};
           </p>
           <Link
             href="/"
-            class="flex items-center gap-2 text-sm text-black underline"
+            class="flex items-center gap-2 text-sm text-gray-900 underline"
           >
             <Icon name="fa:arrow-circle-left" /> <span>Go to homepage</span>
           </Link>
@@ -45,11 +45,9 @@ const formErrors = isInputError(result?.error) ? result.error.fields : {};
       class="flex flex-col gap-6 md:gap-8"
     >
       <header class="flex flex-col gap-5">
-        <h1 class="text-3xl font-medium text-slate-900 dark:text-white">
-          Contact Me
-        </h1>
+        <h1 class="text-3xl font-medium text-gray-900">Contact Me</h1>
 
-        <p class="text-slate-900 dark:text-slate-300">
+        <p class="text-gray-900">
           Let me know what's on your mind and I'll get back to you as soon as
           possible.
         </p>
@@ -58,7 +56,7 @@ const formErrors = isInputError(result?.error) ? result.error.fields : {};
       <section class="grid grid-cols-6 gap-5">
         <div class="group col-span-6 flex flex-col gap-2 sm:col-span-3">
           <label
-            class="cursor-pointer space-x-1 text-sm font-medium text-slate-600 dark:text-slate-400"
+            class="cursor-pointer space-x-1 text-sm font-medium text-gray-600"
             for="fields.firstName.input"
           >
             <span>First Name</span><span class="text-red-500">*</span>
@@ -70,7 +68,7 @@ const formErrors = isInputError(result?.error) ? result.error.fields : {};
             transition:persist="firstName"
             name="firstName"
             aria-autocomplete="both"
-            class="rounded bg-transparent px-4 py-3 text-slate-900 dark:text-slate-300"
+            class="rounded bg-transparent px-4 py-3 text-gray-900"
             autocomplete="given-name"
             aria-invalid={formErrors?.firstName ? "true" : "false"}
             aria-errormessage="fields.firstName.error"
@@ -90,7 +88,7 @@ const formErrors = isInputError(result?.error) ? result.error.fields : {};
         <div class="group col-span-6 flex flex-col gap-2 sm:col-span-3">
           <label
             for="fields.lastName.input"
-            class="cursor-pointer space-x-1 text-sm font-medium text-slate-600 dark:text-slate-400"
+            class="cursor-pointer space-x-1 text-sm font-medium text-gray-600"
           >
             <span>Last Name</span><span class="text-red-500">*</span>
           </label>
@@ -100,7 +98,7 @@ const formErrors = isInputError(result?.error) ? result.error.fields : {};
             transition:persist="lastName"
             name="lastName"
             aria-autocomplete="both"
-            class="rounded bg-transparent px-4 py-3 text-slate-900 dark:text-slate-300"
+            class="rounded bg-transparent px-4 py-3 text-gray-900"
             autocomplete="family-name"
             aria-invalid={formErrors?.lastName ? "true" : "false"}
             aria-errormessage="fields.lastName.error"
@@ -119,7 +117,7 @@ const formErrors = isInputError(result?.error) ? result.error.fields : {};
         <div class="group col-span-6 flex flex-col gap-2">
           <label
             for="fields.email.input"
-            class="cursor-pointer space-x-1 text-sm font-medium text-slate-600 dark:text-slate-400"
+            class="cursor-pointer space-x-1 text-sm font-medium text-gray-600"
           >
             <span>Email Address</span><span class="text-red-500">*</span>
           </label>
@@ -129,7 +127,7 @@ const formErrors = isInputError(result?.error) ? result.error.fields : {};
             transition:persist="email"
             name="email"
             aria-autocomplete="both"
-            class="rounded bg-transparent px-4 py-3 text-slate-900 dark:text-slate-300"
+            class="rounded bg-transparent px-4 py-3 text-gray-900"
             autocomplete="email"
             aria-invalid={formErrors?.email ? "true" : "false"}
             aria-errormessage="fields.email.error"
@@ -146,15 +144,13 @@ const formErrors = isInputError(result?.error) ? result.error.fields : {};
         </div>
 
         <fieldset class="group col-span-6 space-y-3">
-          <legend
-            class="space-x-1 text-sm font-medium text-slate-600 dark:text-slate-400"
-          >
+          <legend class="space-x-1 text-sm font-medium text-gray-600">
             Query Type <span class="text-red-500">*</span>
           </legend>
 
           <section class="grid grid-cols-6 gap-5">
             <label
-              class="col-span-6 flex cursor-pointer items-center gap-2 rounded border border-gray-500 px-4 py-3 text-slate-900 sm:col-span-3 dark:text-slate-300"
+              class="col-span-6 flex cursor-pointer items-center gap-2 rounded border border-gray-500 px-4 py-3 text-gray-900 sm:col-span-3"
             >
               <input
                 type="radio"
@@ -170,7 +166,7 @@ const formErrors = isInputError(result?.error) ? result.error.fields : {};
             </label>
 
             <label
-              class="col-span-6 flex cursor-pointer items-center gap-2 rounded border border-gray-500 px-4 py-3 text-slate-900 sm:col-span-3 dark:text-slate-300"
+              class="col-span-6 flex cursor-pointer items-center gap-2 rounded border border-gray-500 px-4 py-3 text-gray-900 sm:col-span-3"
             >
               <input
                 type="radio"
@@ -186,7 +182,7 @@ const formErrors = isInputError(result?.error) ? result.error.fields : {};
             </label>
 
             <label
-              class="col-span-6 flex cursor-pointer items-center gap-2 rounded border border-gray-500 px-4 py-3 text-slate-900 sm:col-span-3 dark:text-slate-300"
+              class="col-span-6 flex cursor-pointer items-center gap-2 rounded border border-gray-500 px-4 py-3 text-gray-900 sm:col-span-3"
             >
               <input
                 type="radio"
@@ -202,7 +198,7 @@ const formErrors = isInputError(result?.error) ? result.error.fields : {};
             </label>
 
             <label
-              class="col-span-6 flex cursor-pointer items-center gap-2 rounded border border-gray-500 px-4 py-3 text-slate-900 sm:col-span-3 dark:text-slate-300"
+              class="col-span-6 flex cursor-pointer items-center gap-2 rounded border border-gray-500 px-4 py-3 text-gray-900 sm:col-span-3"
             >
               <input
                 type="radio"
@@ -232,7 +228,7 @@ const formErrors = isInputError(result?.error) ? result.error.fields : {};
         <div class="group col-span-6 flex flex-col gap-2">
           <label
             for="fields.message.input"
-            class="cursor-pointer space-x-1 text-sm font-medium text-slate-600 dark:text-slate-400"
+            class="cursor-pointer space-x-1 text-sm font-medium text-gray-600"
           >
             <span>Message</span>
             <span class="text-red-500">*</span>
@@ -242,7 +238,7 @@ const formErrors = isInputError(result?.error) ? result.error.fields : {};
             name="message"
             id="fields.message.input"
             autocapitalize="on"
-            class="min-h-32 rounded bg-transparent px-4 py-3 text-slate-900 dark:text-slate-300"
+            class="min-h-32 rounded bg-transparent px-4 py-3 text-gray-900"
             autocomplete="on"
             aria-invalid={formErrors?.message ? "true" : "false"}
             aria-errormessage="fields.message.error"
@@ -271,7 +267,7 @@ const formErrors = isInputError(result?.error) ? result.error.fields : {};
               aria-errormessage="fields.email.error"
             />
             <label
-              class="cursor-pointer space-x-1 text-sm font-medium text-slate-600 dark:text-slate-400"
+              class="cursor-pointer space-x-1 text-sm font-medium text-gray-600"
               for="fields.consent.input"
             >
               <span>I consent to being contacted by Prince Muel</span>
@@ -292,7 +288,7 @@ const formErrors = isInputError(result?.error) ? result.error.fields : {};
         <button
           type="submit"
           transition:persist="submit-btn"
-          class="col-span-6 rounded bg-purple-700 px-4 py-3 text-white dark:bg-slate-900"
+          class="col-span-6 rounded bg-gray-700 px-4 py-3 text-white"
         >
           Submit
         </button>

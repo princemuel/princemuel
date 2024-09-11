@@ -24,14 +24,14 @@ const { jsonld, ...rest } = Astro.props;
 
   <Container class="my-10">
     <Main class="relative grid grid-cols-1 gap-4 lg:grid-cols-7 xl:gap-8">
+      <div class="col-span-5 max-lg:col-span-1">
+        <slot />
+      </div>
       <aside
         class="sticky top-28 col-span-2 flex h-fit w-full flex-col gap-6 max-lg:hidden"
       >
         <Profile />
       </aside>
-      <div class="col-span-5 max-lg:col-span-1">
-        <slot />
-      </div>
     </Main>
   </Container>
 </RootLayout>
