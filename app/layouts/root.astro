@@ -1,14 +1,14 @@
 ---
-import Construction from "@/components/construction.astro";
-import Footer from "@/components/footer.astro";
-import Header from "@/components/header.astro";
-import Indicator from "@/components/indicator.astro";
-import Maintenance from "@/components/maintenance.astro";
-import Meta from "@/components/meta.astro";
-import SkipLink from "@/components/skip-link.astro";
-import { tw } from "@/shared/utils";
+import AstroAnalytics from "@/components/atoms/astro-analytics.astro";
+import Indicator from "@/components/atoms/indicator.astro";
+import SkipLink from "@/components/atoms/skip-link.astro";
+import Footer from "@/components/organisms/footer.astro";
+import Header from "@/components/organisms/header.astro";
+import Construction from "@/components/templates/construction.astro";
+import ContentSlot from "@/components/templates/content-slot.astro";
+import Maintenance from "@/components/templates/maintenance.astro";
+import Meta from "@/components/templates/meta.astro";
 import SpeedInsights from "@vercel/speed-insights/astro";
-import ContentSlot from "./content-slot.astro";
 
 type Props = Meta & {
   type?: OpenGraph["type"];
@@ -33,23 +33,23 @@ const {
 <html
   lang="en"
   dir="auto"
-  class={tw([
-    "__sans__ __accent__ __mono__",
+  class:list={[
     "scrollbar scrollbar-w-1 scrollbar-h-6",
     "scrollbar-track-rounded-full scrollbar-thumb-rounded-full scrollbar-corner-rounded-full",
-    "scrollbar-track-blue-300 scrollbar-thumb-blue-700 scrollbar-corner-blue-500",
-    "selection:bg-blue-300 selection:text-blue-900",
+    "scrollbar-track-gray-300 scrollbar-thumb-gray-700 scrollbar-corner-gray-500",
+    "selection:bg-gray-300 selection:text-gray-900",
     "scroll-smooth",
-  ])}
-  data-theme="dark"
-  data-reader-theme="github-dark-default"
+  ]}
+  data-theme="light"
+  data-reader-theme="github-light-default"
 >
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="referrer" content="origin-when-cross-origin" />
-    <meta name="color-scheme" content="dark light" />
+    <meta name="color-scheme" content="light" />
 
+    {/* <meta name="color-scheme" content="dark light" /> */}
     <Meta
       title={title}
       description={description}
@@ -65,9 +65,7 @@ const {
     <slot name="head" />
     <slot name="structured-data" />
   </head>
-  <body
-    class="relative bg-neutral-50 font-sans font-normal antialiased dark:bg-[#04060b]"
-  >
+  <body class="relative bg-white font-sans text-base font-normal antialiased">
     <SkipLink />
     {import.meta.env.DEV ? <Indicator /> : null}
     <ContentSlot>
@@ -80,6 +78,6 @@ const {
       <Maintenance slot="maintenance" />
     </ContentSlot>
     {import.meta.env.PROD ? <SpeedInsights /> : null}
-    <slot name="analytics" />
+    <AstroAnalytics />
   </body>
 </html>

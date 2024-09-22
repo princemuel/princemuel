@@ -1,0 +1,14 @@
+---
+import type { ComponentProps } from "astro/types";
+import { Image } from "astro:assets";
+
+type Props = ComponentProps<typeof Image> & { caption: string };
+
+const { src, alt, width, height, caption, ...rest } = Astro.props;
+---
+
+<figure class:list={[""]}>
+  {/* @ts-expect-error */}
+  <Image src={src} alt={alt} width={width} height={height} {...rest} class="" />
+  {caption && <figcaption>{caption}</figcaption>}
+</figure>

@@ -1,0 +1,9 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+type Props = HTMLAttributes<"main">;
+---
+
+<main id="main-content" aria-labelledby="page" {...Astro.props}>
+  <slot />
+</main>

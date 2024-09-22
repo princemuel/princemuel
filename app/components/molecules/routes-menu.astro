@@ -1,0 +1,44 @@
+---
+import { Icon } from "astro-icon/components";
+import type { HTMLAttributes } from "astro/types";
+import { getCollection } from "astro:content";
+import Navlink from "../atoms/navlink.astro";
+
+type Props = HTMLAttributes<"menu">;
+
+const response = await getCollection("routes");
+
+// "about" | "articles" | "blog" | "dashboard" | "home" | "projects" | "resources"
+const excludedRoutes = ["resources", "articles", "dashboard"];
+
+const routes =
+  response
+    .filter((route) => !excludedRoutes.includes(route.id))
+    .sort((a, b) => a.data.order - b.data.order) ?? [];
+---
+
+<menu
+  {...Astro.props}
+  role="menu"
+  aria-orientation="horizontal"
+  class="flex px-3 text-sm text-gray-800"
+>
+  {
+    routes.map((route) => (
+      <li role="menuitem" class="capitalize">
+        <Navlink
+          class="group relative flex px-3 py-2 transition aria-[current=page]:font-medium aria-[current=page]:text-gray-900 hocus:text-gray-900"
+          href={route.data.href}
+        >
+          <Icon
+            name={route.data.icon}
+            class="text-lg text-inherit max-md:aria-[current=page]:text-gray-500 sm:text-xl md:hidden"
+          />
+          <span class="sr-only text-inherit md:not-sr-only">
+            {route.data.text}
+          </span>
+        </Navlink>
+      </li>
+    ))
+  }
+</menu>
