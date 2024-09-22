@@ -1,35 +1,37 @@
 ---
-import Link from "@/components/link.astro";
+import Link from "@/components/atoms/link.astro";
 import PostDivider from "@/components/post-divider.astro";
 import Prose from "@/components/prose.astro";
 import Time from "@/components/time.astro";
+import { envVars } from "@/config/environment";
 import ProjectsLayout from "@/layouts/projects.astro";
-import { envVars } from "@/lib/config/environment";
-import { hasValues } from "@/shared/utils";
+import { hasValues } from "@/utilities/arrays";
 import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 
-const status = ["draft", "preview", "published"] as const;
-
 const allEntries = await getCollection("projects", ({ data }) => {
-  return import.meta.env.MODE === "production"
-    ? envVars.ENABLE_PREVIEW && data.status !== "draft"
-      ? status.includes(data.status)
-      : data.status === "published"
-    : true;
+  const status = ["draft", "preview", "published"] as const;
+  return (
+    data.language === "en" &&
+    (import.meta.env.MODE === "production"
+      ? envVars.ENABLE_PREVIEW && data.status !== "draft"
+        ? status.includes(data.status)
+        : data.status === "published"
+      : true)
+  );
 });
 ---
 
 <ProjectsLayout title="Projects" description="" jsonld={{}}>
   <Prose id="article">
     <dl
-      class="not-prose flex items-center justify-between gap-2 font-mono text-[.625rem] font-bold tracking-tighter text-pink-600 dark:text-pink-500"
+      class="not-prose flex items-center justify-between gap-2 font-accent text-[.625rem] font-bold tracking-tighter text-gray-600"
     >
       <dt>Projects</dt>
       <dd>x{allEntries.length}</dd>
     </dl>
 
-    <h1 id="heading" class="mt-6">
+    <h1 id="headline" class="mt-6">
       <Link class="linked" aria-hidden tabindex="-1" href="/projects">
         Experiments
       </Link>
@@ -57,8 +59,9 @@ const allEntries = await getCollection("projects", ({ data }) => {
                   aria-labelledby={`${entry.id}`}
                   aria-setsize="-1"
                   aria-posinset={idx + 1}
-                  class="group flex items-center gap-6 rounded-md border border-slate-300 p-4 dark:border-slate-900"
+                  class="group relative flex items-center gap-6 rounded-md border border-gray-300 p-4"
                 >
+                  <div class="absolute inset-0 z-0 hidden rounded-md transition motion-reduce:transition-none lg:block lg:group-hover:bg-gray-800/50 lg:group-hover:shadow-[inset_0_1px_0_0_rgba(148,163,184,0.1)] lg:group-hover:drop-shadow-lg" />
                   {cover && (
                     <figure class="basis-2/5">
                       <Image
@@ -76,22 +79,20 @@ const allEntries = await getCollection("projects", ({ data }) => {
                     <div class="flex items-center">
                       <Time
                         datetime={publishedAt}
-                        class="font-mono text-[.625rem] tracking-tighter text-pink-600 dark:text-pink-500"
+                        class="font-accent text-[.625rem] tracking-tighter text-gray-600"
                       />
                     </div>
 
-                    <h2 class="font-mono text-lg tracking-tighter text-slate-900 group-hover:underline dark:text-slate-200">
+                    <h2 class="font-sans text-lg tracking-tighter text-gray-900 group-hover:underline">
                       <Link href={`/projects/${idx + 1}`}>{title}</Link>
                     </h2>
 
-                    <p class="text-sm text-slate-600 dark:text-slate-400">
-                      {summary}
-                    </p>
+                    <p class="text-sm text-gray-600">{summary}</p>
 
                     {hasValues(tools) && (
-                      <ul class="flex items-center gap-4 font-mono text-[.625rem] tracking-tighter text-rose-600 dark:text-rose-500">
+                      <ul class="flex items-center gap-4 font-sans text-[.625rem] tracking-tighter text-gray-600">
                         {tools.map((tool) => (
-                          <li class="rounded border border-slate-200 px-2 py-1 capitalize dark:border-slate-900/50">
+                          <li class="/50 rounded border border-gray-200 px-2 py-1 capitalize">
                             <Link href={`/tags/${tool}`} class="">
                               {tool}
                             </Link>

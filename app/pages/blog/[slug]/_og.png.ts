@@ -8,13 +8,16 @@ import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 
 export const getStaticPaths = (async () => {
-  const status = ["draft", "preview", "published"] as const;
   const entries = await getCollection("posts", ({ data }) => {
-    return import.meta.env.MODE === "production"
-      ? envVars.ENABLE_PREVIEW && data.status !== "draft"
-        ? status.includes(data.status)
-        : data.status === "published"
-      : true;
+    const status = ["draft", "preview", "published"] as const;
+    return (
+      data.language === "en" &&
+      (import.meta.env.MODE === "production"
+        ? envVars.ENABLE_PREVIEW && data.status !== "draft"
+          ? status.includes(data.status)
+          : data.status === "published"
+        : true)
+    );
   });
 
   return entries.map((entry) => ({

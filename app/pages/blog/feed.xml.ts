@@ -11,11 +11,14 @@ export const GET = handler(async (ctx) => {
     getEntry("authors", "princemuel"),
     getCollection("posts", ({ data }) => {
       const status = ["draft", "preview", "published"] as const;
-      return import.meta.env.MODE === "production"
-        ? envVars.ENABLE_PREVIEW && data.status !== "draft"
-          ? status.includes(data.status)
-          : data.status === "published"
-        : true;
+      return (
+        data.language === "en" &&
+        (import.meta.env.MODE === "production"
+          ? envVars.ENABLE_PREVIEW && data.status !== "draft"
+            ? status.includes(data.status)
+            : data.status === "published"
+          : true)
+      );
     }),
   ]);
 
