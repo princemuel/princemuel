@@ -2,6 +2,7 @@ import { rehypeHeadingIds } from "@astrojs/markdown-remark";
 import rehypeSectionHeadings from "@maxmmyron/rehype-section-headings";
 import type { RehypePlugins } from "astro";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import rehypeExternalLinks from "rehype-external-links";
 
 export const rehypePlugins: RehypePlugins = [
   rehypeHeadingIds,
@@ -13,5 +14,9 @@ export const rehypePlugins: RehypePlugins = [
     rehypeAutolinkHeadings,
     { behavior: "wrap", properties: { class: "linked" } },
     // properties: { class: "linked", ariaHidden: "", tabIndex: -1 },
+  ],
+  [
+    rehypeExternalLinks,
+    { rel: ["noopener", "noreferrer", "external"], target: "_blank" },
   ],
 ];

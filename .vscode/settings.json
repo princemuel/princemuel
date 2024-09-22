@@ -68,5 +68,15 @@
   },
   "[sql]": {
     "editor.defaultFormatter": "mtxr.sqltools"
+  },
+  "material-icon-theme.files.associations": {
+    "**.mdoc": "mdx"
+    // "**.mdoc": "markdown"
+  },
+  "[markdoc]": {
+    "editor.defaultFormatter": "stripe.markdoc-language-support"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   }
 }

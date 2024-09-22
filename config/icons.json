@@ -1,24 +1,7 @@
 {
-  "lucide": [
-    "badge-check",
-    "bar-chart",
-    "briefcase-business",
-    "clock",
-    "clock-4",
-    "command",
-    "home",
-    "info",
-    "library",
-    "pen-line",
-    "mail-plus",
-    "moon-star",
-    "move-right",
-    "notebook-pen",
-    "rss",
-    "square-user",
-    "sun"
-  ],
-  "logos": ["astro-icon"],
+  "fa": ["*"],
+  "logos": ["*"],
+  "lucide": ["*"],
   "mdi": [
     "discord",
     "email-outline",

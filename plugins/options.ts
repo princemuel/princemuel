@@ -1,6 +1,8 @@
 import type { SitemapOptions } from "@astrojs/sitemap";
 import type { PwaOptions } from "@vite-pwa/astro";
 import type icon from "astro-icon";
+import type { MarkdocIntegrationOptions } from "node_modules/@astrojs/markdoc/dist/options";
+
 import icons from "../config/icons.json";
 
 type TIconOptions = NonNullable<Parameters<typeof icon>[0]>;
@@ -27,6 +29,8 @@ const manifest = (() => {
     return {} as ManifestPromise;
   }
 })();
+
+export const markdownOptions: MarkdocIntegrationOptions = {};
 
 export const PWAOptions: PwaOptions = {
   registerType: "autoUpdate",

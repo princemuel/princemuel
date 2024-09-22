@@ -18,6 +18,7 @@ export default {
   ],
   future: {
     hoverOnlyWhenSupported: true,
+    relativeContentPathsByDefault: true,
     // respectDefaultRingColorOpacity: true,
     // disableColorOpacityUtilitiesByDefault: true,
   },
