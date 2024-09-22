@@ -28,12 +28,6 @@ export default defineConfig({
     rehypePlugins: rehypePlugins,
   },
   integrations: [...integrations],
-  i18n: {
-    defaultLocale: "en",
-    locales: ["en", "fr"],
-    routing: { prefixDefaultLocale: false, fallbackType: "rewrite" },
-    fallback: { fr: "en" },
-  },
   adapter: vercel({
     edgeMiddleware: true,
     functionPerRoute: false,
