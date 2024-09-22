@@ -1,6 +1,6 @@
 import AvatarImage from "@/assets/images/placeholder.avif";
-import { withBaseUrl } from "@/shared/helpers/with-base-url";
-import { raise } from "@/shared/utils/time";
+import { withBaseUrl } from "@/helpers/with-base-url";
+import { raise } from "@/utilities/time";
 import { execSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import type { Person, WebPage, WebSite, WithContext } from "schema-dts";

@@ -27,7 +27,7 @@ export function pluralize<
   N extends string,
   P extends string = `${N}s`,
 >(count: C, noun: N, plural?: P) {
-  return (count === 1 ? noun : plural ?? `${noun}s`) as C extends 1 ? N : P;
+  return (count === 1 ? noun : (plural ?? `${noun}s`)) as C extends 1 ? N : P;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
