@@ -12,9 +12,9 @@ publishedAt: 2023-07-21T10:11:06.130Z
 status: draft
 ---
 
-import Link from "@/components/link.astro";
+<!-- import Link from "@/components/link.astro";
 
-export const components = { a: Link };
+export const components = { a: Link }; -->
 
 As the [Astro docs](https://docs.astro.build/en/recipes/reading-time/ "Visit the Astro docs") say, we can use remark plugin to add a reading time property in our frontmatter. However, for some reason, we can't add this feature by following what stated in Astro docs. Therefore, to achieve this, we have to tweak a little bit. This post will demonstrate how we can do that.
 
@@ -28,7 +28,7 @@ Step (1) Install required dependencies.
 npm install reading-time mdast-util-to-string
 ```
 
-```js {1,3-4}
+```js
 console.log("line1"); // highlighted
 console.log("line2");
 console.log("line3"); // highlighted
@@ -37,7 +37,7 @@ console.log("line4"); // highlighted
 
 Step (2) Create `remark-reading-time.mjs` file under `utils` directory
 
-```js title="reading-time.js" showLineNumbers
+```js
 import getReadingTime from "reading-time";
 import { toString } from "mdast-util-to-string";
 
@@ -63,7 +63,7 @@ export const loader = async ({ request }) => {
 
 Step (3) Add the plugin to `astro.config.ts`
 
-```js {1,3-4}
+```js
 // src/routes/blog/[slug]/$asset[.jpg]
 import { remarkReadingTime } from "./src/utils/remark-reading-time.mjs"; // make sure your relative path is correct
 

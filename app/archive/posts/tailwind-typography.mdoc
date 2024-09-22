@@ -3,9 +3,7 @@ title: The Tailwind Typography Plugin
 featured: false
 summary: How to use the Tailwind Typography Plugin
 description: About the Tailwind Typography Plugin and how you can use it effectively.
-tags:
-  - TypeScript
-  - Astro
+tags: ["Typescript", "Astro"]
 author: princemuel
 publishedAt: "2024-04-18T04:30:14.388Z"
 status: preview
@@ -41,11 +39,12 @@ It adds a new `prose` class that you can slap on any block of vanilla HTML conte
     But a recent study shows that the celebrated appetizer may be linked to a
     series of rabies cases springing up around the country.
   </p>
-  <!-- ... -->
 </article>
 ```
 
-```js
+<br />
+
+```jsx showLineNumbers
 // src/routes/blog/[slug]/$asset[.jpg]
 export const loader = async ({ request }) => {
   const url = new URL(request.url);
