@@ -1,7 +1,7 @@
-import { published_date } from "@/library/config/site";
-import { handler } from "@/shared/helpers/api-handler";
-import { asyncPool } from "@/shared/utils/misc";
-import { convertTime } from "@/shared/utils/time";
+import { published_date } from "@/config/site";
+import { handler } from "@/helpers/api-handler";
+import { asyncPool } from "@/utilities/misc";
+import { convertTime } from "@/utilities/time";
 import rss, { type RSSFeedItem } from "@astrojs/rss";
 import { getCollection, getEntry } from "astro:content";
 import { marked as mkd } from "marked";
