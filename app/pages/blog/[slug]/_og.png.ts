@@ -1,11 +1,8 @@
 import PlaceholderImage from "@/assets/images/forrest-gump-quote.webp";
-import { envVars } from "@/lib/config/environment";
+import { envVars } from "@/config/environment";
+import { handler } from "@/helpers/api-handler";
 import { ImageResponse } from "@vercel/og";
-import type {
-  APIContext,
-  GetStaticPaths,
-  InferGetStaticPropsType,
-} from "astro";
+import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
 import { getCollection } from "astro:content";
 import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
@@ -20,15 +17,15 @@ export const getStaticPaths = (async () => {
       : true;
   });
 
-  return entries.map((entry) => {
-    const [year = "", month = "", slug = ""] = entry.slug.split("/");
-    return { params: { year, month, slug }, props: { entry } };
-  });
+  return entries.map((entry) => ({
+    props: { entry },
+    params: { slug: entry.id },
+  }));
 }) satisfies GetStaticPaths;
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
-export async function GET({ props }: APIContext<Props>) {
+export const GET = handler<Props>(async ({ props }) => {
   const entry = props.entry;
 
   const image_src = entry.data.media?.cover
@@ -151,4 +148,4 @@ export async function GET({ props }: APIContext<Props>) {
     //   },
     // ],
   });
-}
+});

@@ -1,6 +1,6 @@
-import { octokit } from "@/library/config/clients";
-import { handler } from "@/shared/helpers/api-handler";
-import { get_code_from_status, RequestError } from "@/shared/helpers/errors";
+import { octokit } from "@/config/clients";
+import { handler } from "@/helpers/api-handler";
+import { get_code_from_status, RequestError } from "@/helpers/errors";
 import { RequestError as GHRequestError } from "octokit";
 
 export const GET = handler(async () => {

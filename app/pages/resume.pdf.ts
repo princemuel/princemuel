@@ -1,6 +1,6 @@
-import { envVars } from "@/library/config/environment";
-import { handler } from "@/shared/helpers/api-handler";
-import { RequestError } from "@/shared/helpers/errors";
+import { envVars } from "@/config/environment";
+import { handler } from "@/helpers/api-handler";
+import { RequestError } from "@/helpers/errors";
 
 export const GET = handler(async () => {
   const fileId = envVars.GOOGLE_DRIVE_FILE_ID;
@@ -14,6 +14,7 @@ export const GET = handler(async () => {
       `export?${searchParams.toString()}`,
       `https://www.googleapis.com/drive/v3/files/${fileId}/`,
     ),
+    { signal: AbortSignal.timeout(5000) },
   );
 
   if (!response.ok) throw RequestError.unavailable("Failed to fetch resource");

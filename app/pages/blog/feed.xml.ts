@@ -1,7 +1,7 @@
-import { envVars } from "@/library/config/environment";
-import { published_date } from "@/library/config/site";
-import { handler } from "@/shared/helpers/api-handler";
-import { convertTime } from "@/shared/utils/time";
+import { envVars } from "@/config/environment";
+import { published_date } from "@/config/site";
+import { handler } from "@/helpers/api-handler";
+import { convertTime } from "@/utilities/time";
 import rss, { type RSSFeedItem } from "@astrojs/rss";
 import { getCollection, getEntry } from "astro:content";
 

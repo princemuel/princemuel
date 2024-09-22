@@ -1,6 +1,6 @@
-import { envVars } from "@/library/config/environment";
-import { handler } from "@/shared/helpers/api-handler";
-import { RequestError } from "@/shared/helpers/errors";
+import { envVars } from "@/config/environment";
+import { handler } from "@/helpers/api-handler";
+import { RequestError } from "@/helpers/errors";
 import { z } from "astro:schema";
 
 export const prerender = false;
