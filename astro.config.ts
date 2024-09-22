@@ -1,32 +1,12 @@
-import mdx from "@astrojs/mdx";
-import partytown from "@astrojs/partytown";
-import sitemap from "@astrojs/sitemap";
-import tailwind from "@astrojs/tailwind";
 import vercel from "@astrojs/vercel/serverless";
-import pwa from "@vite-pwa/astro";
-import type { AstroIntegration } from "astro";
-import expressiveCode from "astro-expressive-code";
-import icon from "astro-icon";
-import metaTags from "astro-meta-tags";
 import { defineConfig } from "astro/config";
 import { loadEnv } from "vite";
-import { IconOptions, PWAOptions, sitemapOptions } from "./plugins/options";
+import { integrations } from "./plugins/integrations";
 import { rehypePlugins } from "./plugins/rehype";
 import { remarkPlugins } from "./plugins/remark";
 
 const mode = process.env.NODE_ENV ?? "production";
-const envVars = loadEnv(mode, process.cwd(), "");
-
-const integrations: AstroIntegration[] = [
-  icon(IconOptions),
-  expressiveCode(),
-  mdx({ gfm: true, extendMarkdownConfig: true }),
-  sitemap(sitemapOptions),
-  pwa(PWAOptions),
-  tailwind({ applyBaseStyles: false }),
-  metaTags(),
-  partytown(),
-];
+export const envVars = loadEnv(mode, process.cwd(), "");
 
 // https://astro.build/config
 export default defineConfig({
@@ -43,11 +23,17 @@ export default defineConfig({
   },
   security: { checkOrigin: true },
   markdown: {
-    syntaxHighlight: false,
+    syntaxHighlight: "shiki",
     remarkPlugins: remarkPlugins,
     rehypePlugins: rehypePlugins,
   },
   integrations: [...integrations],
+  i18n: {
+    defaultLocale: "en",
+    locales: ["en", "fr"],
+    routing: { prefixDefaultLocale: false, fallbackType: "rewrite" },
+    fallback: { fr: "en" },
+  },
   adapter: vercel({
     edgeMiddleware: true,
     functionPerRoute: false,

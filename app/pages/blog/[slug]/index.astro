@@ -1,0 +1,328 @@
+---
+import AstroToc from "@/components/astro-toc.astro";
+import Container from "@/components/atoms/container.astro";
+import Link from "@/components/atoms/link.astro";
+import Main from "@/components/main.astro";
+import Pattern from "@/components/pattern.astro";
+import Prose from "@/components/prose.astro";
+import { envVars } from "@/config/environment";
+import { log_in_dev } from "@/helpers/log-in-dev";
+import { withBaseUrl } from "@/helpers/with-base-url";
+import RootLayout from "@/layouts/root.astro";
+import { blog_ld, profile_ld } from "@/schema/structured-data";
+import { remove_key } from "@/utilities/objects";
+import type { GetStaticPaths } from "astro";
+import { getCollection, getEntry, render } from "astro:content";
+import { execSync } from "node:child_process";
+import { join } from "node:path";
+import type {
+  Article,
+  BreadcrumbList,
+  Graph,
+  ImageObject,
+  WebPage,
+  WithContext,
+} from "schema-dts";
+
+import AvatarImage from "@/assets/images/placeholder.avif";
+import Time from "@/components/time.astro";
+import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
+
+export const getStaticPaths = (async () => {
+  const entries = await getCollection("posts", ({ data }) => {
+    const status = ["draft", "preview", "published"] as const;
+    return (
+      data.language === "en" &&
+      (import.meta.env.MODE === "production"
+        ? envVars.ENABLE_PREVIEW && data.status !== "draft"
+          ? status.includes(data.status)
+          : data.status === "published"
+        : true)
+    );
+  });
+
+  return entries.map((entry) => ({
+    props: { entry },
+    params: { slug: entry.id },
+  }));
+}) satisfies GetStaticPaths;
+
+const { entry } = Astro.props;
+
+const [markdown, author] = await Promise.all([
+  render(entry),
+  getEntry(entry.data.author),
+]);
+
+const { Content, remarkPluginFrontmatter } = markdown;
+
+// update the collection schema with plugin data
+entry.data.updatedAt = new Date(remarkPluginFrontmatter.updatedAt);
+entry.data.duration = remarkPluginFrontmatter.duration;
+entry.data.words = remarkPluginFrontmatter.words;
+
+const article_ld = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "@id": withBaseUrl(`/blog/${entry.id}#article`).toString(),
+  isPartOf: { "@id": withBaseUrl(`/blog/${entry.id}`).toString() },
+  author: {
+    name: author?.data?.name,
+    "@id": withBaseUrl("/about-me").toString(),
+  },
+  headline: entry.data.title,
+  description: entry.data.description,
+  datePublished: entry.data.publishedAt.toISOString(),
+  dateModified: entry.data.updatedAt.toISOString(),
+  mainEntityOfPage: { "@id": withBaseUrl(`/blog/${entry.id}`).toString() },
+  wordCount: remarkPluginFrontmatter.words,
+  commentCount: 0,
+  publisher: { "@id": withBaseUrl("/about-me").toString() },
+  image: { "@id": withBaseUrl(`/blog/${entry.id}/og.png`).toString() },
+  thumbnailUrl: withBaseUrl(`/blog/${entry.id}/og.png`).toString(),
+  keywords: entry.data.tags,
+  inLanguage: "en-US",
+  potentialAction: [
+    {
+      "@type": "CommentAction",
+      name: "Comment",
+      target: [withBaseUrl(`/blog/${entry.id}/#respond`).toString()],
+    },
+  ],
+  copyrightYear: entry.data.publishedAt.getFullYear(),
+  copyrightHolder: { "@id": withBaseUrl("/about-me").toString() },
+  accessibilityFeature: ["tableOfContents"],
+} satisfies WithContext<Article>;
+
+const page_ld = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": withBaseUrl(`/blog/${entry.id}`).toString(),
+  url: withBaseUrl(`/blog/${entry.id}`).toString(),
+  name: entry.data.title,
+  description: entry.data.description,
+  isPartOf: { "@id": withBaseUrl(`/blog/${entry.id}`).toString() },
+  primaryImageOfPage: {
+    "@id": withBaseUrl(`/blog/${entry.id}/og.png`).toString(),
+  },
+  image: { "@id": withBaseUrl(`/blog/${entry.id}/og.png`).toString() },
+  thumbnailUrl: withBaseUrl(`/blog/${entry.id}/og.png`).toString(),
+  datePublished: entry.data.publishedAt.toISOString(),
+  dateModified: entry.data.updatedAt.toISOString(),
+  breadcrumb: {
+    "@id": withBaseUrl(`/blog/${entry.id}#breadcrumb`).toString(),
+  },
+  inLanguage: "en-US",
+  potentialAction: [
+    {
+      "@type": "ReadAction",
+      target: [withBaseUrl(`/blog/${entry.id}`).toString()],
+    },
+  ],
+} satisfies WithContext<WebPage>;
+
+const image_ld = {
+  "@context": "https://schema.org",
+  "@type": "ImageObject",
+  "@id": withBaseUrl(`/blog/${entry.id}/og.png`).toString(),
+  url: withBaseUrl(`/blog/${entry.id}/og.png`).toString(),
+  width: "1200",
+  height: "630",
+} satisfies WithContext<ImageObject>;
+
+const breadcrumb_ld = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "@id": withBaseUrl(`/blog/${entry.id}#breadcrumb`).toString(),
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Prince Muel - Frontend Engineer, Educator, Musician",
+      item: withBaseUrl("/").toString(),
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Blog",
+      item: withBaseUrl("/blog").toString(),
+    },
+    {
+      "@type": "ListItem",
+      position: 3,
+      name: entry.data.title,
+      item: withBaseUrl(`/blog/${entry.id}`).toString(),
+    },
+  ],
+} as WithContext<BreadcrumbList>;
+
+const jsonld = {
+  "@context": "https://schema.org",
+  "@graph": remove_key("@context", [
+    article_ld,
+    page_ld,
+    image_ld,
+    breadcrumb_ld,
+    blog_ld,
+    profile_ld,
+  ]),
+} satisfies Graph;
+
+const {
+  title,
+  description,
+  tags,
+  keywords,
+  permalink,
+  publishedAt,
+  updatedAt,
+} = entry.data;
+
+const github_links = (() => {
+  try {
+    const [username = "", repo = "", branch = "", file_name = ""] = [
+      import.meta.env.OCTOKIT_USERNAME,
+      execSync("basename -s .git `git config --get remote.origin.url`"),
+      execSync("git rev-parse --abbrev-ref HEAD"),
+      (Content.moduleId ?? "").split("/app")[1] ?? "",
+    ].map((value) => value.toString().trim() as string);
+
+    const searchParams = new URLSearchParams({
+      labels: "Status: Needs Triage",
+      template: "suggestion.yml",
+      title: `${title}: <Short description of your suggestion>`,
+      "lesson-link": Astro.url.href,
+    });
+
+    const github_link = `https://github.com/${username}/${repo}`;
+    const github_path = join("app", file_name);
+
+    const github_edit_url = `${github_link}/edit/${branch}/${github_path}`;
+    const github_commits_url = `${github_link}/commits/${branch}/${github_path}`;
+
+    const issues_url = `${github_link}/issues/new`;
+    const github_report_url = new URL(issues_url);
+    github_report_url.search = searchParams.toString();
+
+    return [
+      { text: "Improve on github", url: github_edit_url },
+      { text: "Report an issue", url: github_report_url.toString() },
+      { text: "See post changelog", url: github_commits_url },
+    ];
+  } catch (error) {
+    log_in_dev(error);
+    return [];
+  }
+})();
+---
+
+<RootLayout
+  type="article"
+  title={title}
+  description={description}
+  publishedAt={publishedAt}
+  updatedAt={updatedAt}
+  canonical={permalink}
+  keywords={[...new Set(...tags, ...keywords)]}
+>
+  <script
+    is:inline
+    type="application/ld+json"
+    slot="structured-data"
+    set:html={JSON.stringify(jsonld)}
+  />
+  <div class="min-w-full">
+    <section class="bg-gradient-to-t from-white to-gray-100">
+      <Container class="mb-20 lg:pt-10">
+        <div class="relative mx-auto max-w-3xl">
+          <Pattern
+            class="-left-16 bottom-1/4 hidden w-72 -translate-x-full opacity-20 lg:block"
+          />
+          <Pattern
+            class="-right-16 bottom-1/4 hidden w-72 translate-x-full opacity-20 lg:block"
+          />
+
+          <!-- <div class="transform-none opacity-100 grayscale-0"> -->
+          <div class="">
+            <div class="mx-auto w-48 pb-5 drop-shadow-2xl lg:pb-10">
+              <!-- POST THUMBNAIL -->
+              <Icon name="placeholder" class="h-auto w-full" />
+            </div>
+          </div>
+
+          <header class="flex flex-col items-center gap-8 text-center text-xl">
+            <div
+              class="font-mono text-base font-medium uppercase text-gray-500"
+            >
+              <Link
+                href={"#"}
+                class="text-black hocus:text-gray-600 hocus:underline"
+                >Engineering
+              </Link>
+              <span class="mx-3 text-gray-300">—</span>
+              <Time datetime={publishedAt} />
+            </div>
+
+            <h1
+              id="headline"
+              class="text-balance text-4xl font-bold text-gray-800 lg:text-6xl"
+            >
+              {title}
+            </h1>
+
+            <div
+              class="mt-16 inline-grid grid-cols-[2fr_1fr_auto_1fr_2fr] items-center gap-5 text-2xl font-medium text-gray-500"
+            >
+              <hr class="border border-gray-200" />
+              <Link
+                href="https://x.com/iamprincemuel"
+                class="p-5 hover:text-black"
+              >
+                <Icon name="fa:twitter" role="img" />
+              </Link>
+
+              <Image
+                width={44}
+                height={44}
+                alt="Prince Muel"
+                src={AvatarImage}
+                class="size-12 rounded-full shadow-md"
+              />
+
+              <Link
+                href="https://x.com/iamprincemuel"
+                class="p-5 hover:text-black"
+              >
+                <Icon name="fa:github" role="img" />
+              </Link>
+              <hr class="border border-gray-200" />
+            </div>
+          </header>
+        </div>
+      </Container>
+    </section>
+
+    <Container class="">
+      <Main class="grid grid-cols-12 gap-6 xl:gap-8">
+        <div class="col-span-full xl:col-span-7 xl:col-start-2 xl:max-w-prose">
+          <div class="mx-auto max-w-prose pb-6 xl:mx-0">
+            <Prose class="">
+              <Content />
+            </Prose>
+            <section class="flex items-center justify-between">
+              {
+                github_links.map((link) => (
+                  <Link href={link.url}>{link.text} </Link>
+                ))
+              }
+            </section>
+          </div>
+        </div>
+        <aside class="col-span-3 col-start-10 hidden justify-self-end xl:block">
+          <AstroToc headings={markdown.headings} />
+        </aside>
+      </Main>
+    </Container>
+  </div>
+</RootLayout>
