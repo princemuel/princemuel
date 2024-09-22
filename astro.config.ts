@@ -1,9 +1,9 @@
 import vercel from "@astrojs/vercel/serverless";
 import { defineConfig } from "astro/config";
 import { loadEnv } from "vite";
-import { integrations } from "./plugins/integrations";
-import { rehypePlugins } from "./plugins/rehype";
-import { remarkPlugins } from "./plugins/remark";
+import { integrations } from "./config/integrations";
+import { rehypePlugins } from "./config/rehype";
+import { remarkPlugins } from "./config/remark";
 
 const mode = process.env.NODE_ENV ?? "production";
 export const envVars = loadEnv(mode, process.cwd(), "");

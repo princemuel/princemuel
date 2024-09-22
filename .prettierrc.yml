@@ -1,4 +1,4 @@
-tailwindConfig: "tailwind.config.js"
+tailwindConfig: "tailwind.config.mjs"
 tailwindFunctions:
   - tw
   - cn

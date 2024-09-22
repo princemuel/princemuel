@@ -13,6 +13,7 @@ import SpeedInsights from "@vercel/speed-insights/astro";
 type Props = Meta & {
   type?: OpenGraph["type"];
   className?: string;
+  language?: "en" | "fr" | "es";
 };
 
 const {
@@ -26,13 +27,16 @@ const {
   updatedAt,
   noindex = false,
   nofollow = false,
+  language = "en",
 } = Astro.props;
 ---
 
 <!doctype html>
 <html
-  lang="en"
+  lang={language}
   dir="auto"
+  data-mode="light"
+  data-theme="github-light"
   class:list={[
     "scrollbar scrollbar-w-1 scrollbar-h-6",
     "scrollbar-track-rounded-full scrollbar-thumb-rounded-full scrollbar-corner-rounded-full",
@@ -40,15 +44,12 @@ const {
     "selection:bg-gray-300 selection:text-gray-900",
     "scroll-smooth",
   ]}
-  data-theme="light"
-  data-reader-theme="github-light-default"
 >
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="referrer" content="origin-when-cross-origin" />
     <meta name="color-scheme" content="light" />
-
     {/* <meta name="color-scheme" content="dark light" /> */}
     <Meta
       title={title}

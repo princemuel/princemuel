@@ -4,11 +4,11 @@ import twScrollbar from "tailwind-scrollbar";
 import twAnimate from "tailwindcss-animate";
 import twDefaultTheme from "tailwindcss/defaultTheme";
 import twPlugin from "tailwindcss/plugin";
-import twConfig from "./config/tailwind.json";
+import twConfig from "./data/tailwind.json";
 
 /** @type {import('tailwindcss').Config} */
 export default {
-  // darkMode: ["selector", '[data-theme="dark"]'],
+  // darkMode: ["selector", '[data-mode="dark"]'],
   content: [
     "./app/pages/**/*.{astro,md,mdx}",
     "./app/layouts/**/*.astro",

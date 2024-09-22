@@ -4,8 +4,6 @@
 /// <reference types="vite-plugin-pwa/info" />
 /// <reference types="vite-plugin-pwa/pwa-assets" />
 
-type EdgeLocals = import("@astrojs/vercel").EdgeLocals;
-
 interface ImportMetaEnv {
   [key: string]: string;
 }
@@ -15,6 +13,7 @@ interface ImportMeta {
 }
 
 declare namespace App {
+  type EdgeLocals = import("@astrojs/vercel").EdgeLocals;
   interface Locals extends EdgeLocals {}
 }
 

@@ -3,7 +3,7 @@ import type { PwaOptions } from "@vite-pwa/astro";
 import type icon from "astro-icon";
 import type { MarkdocIntegrationOptions } from "node_modules/@astrojs/markdoc/dist/options";
 
-import icons from "../config/icons.json";
+import icons from "../data/icons.json";
 
 type TIconOptions = NonNullable<Parameters<typeof icon>[0]>;
 
@@ -22,7 +22,7 @@ export const sitemapOptions: SitemapOptions = {
 const manifest = (() => {
   type ManifestPromise = Promise<PwaOptions["manifest"]>;
   try {
-    return import("../config/manifest.json").then(
+    return import("../data/manifest.json").then(
       (r) => r.default,
     ) as ManifestPromise;
   } catch (error) {
