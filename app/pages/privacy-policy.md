@@ -6,23 +6,17 @@ author: "Prince Muel"
 publishedAt: 2024-4-23
 ---
 
-import Link from "@/components/link.astro";
-
-export const components = { a: Link };
-
-# {frontmatter.title}
-
 princemuel.com (&apos;we&apos;, &apos;us&apos;, or &apos;our&apos;)
 provides this Privacy Policy to inform you of our policies and
 procedures regarding the collection, use and disclosure of personal
 information we may receive from users of our website (&apos;Site&apos;),
-accessible from https://princemuel.com, and any other services
+accessible from <https://princemuel.com>, and any other services
 offered by us in connection with our site (any and all of the foregoing
 the &apos;Services&apos;).
 
 If you have additional questions or require more information about our
-Privacy Policy, do not hesitate to contact us at
-vansomecsam@gmail.com. This Privacy Policy applies only to our
+Privacy Policy, do not hesitate to contact us at <vansomecsam@gmail.com>.
+This Privacy Policy applies only to our
 online activities and is valid for visitors to our website with regards
 to the information that they shared and/or collect in princemuel.com.
 This policy is not applicable to any information collected offline or

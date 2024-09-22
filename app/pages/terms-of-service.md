@@ -6,12 +6,6 @@ author: "Prince Muel"
 publishedAt: 2024-4-23
 ---
 
-import Link from "@/components/link.astro";
-
-export const components = { a: Link };
-
-# {frontmatter.title}
-
 ## Liability
 
 Our commitment to providing this service is founded on the principles of
