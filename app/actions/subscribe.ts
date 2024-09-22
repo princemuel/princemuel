@@ -1,6 +1,6 @@
-import { resend } from "@/library/config/clients";
-import { envVars } from "@/library/config/environment";
-import { checkIfRateLimited } from "@/library/helpers/rate-limit";
+import { resend } from "@/config/clients";
+import { envVars } from "@/config/environment";
+import { checkIfRateLimited } from "@/helpers/rate-limit";
 import { ActionError, defineAction } from "astro:actions";
 import { z } from "astro:schema";
 
