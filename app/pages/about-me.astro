@@ -1,10 +1,11 @@
 ---
 import AvatarImage from "@/assets/images/placeholder.avif";
 import Prose from "@/components/atoms/prose.astro";
-import { published_date } from "@/config/site";
+import { published_date } from "@/config/site-settings";
+import { Content } from "@/content/pages/about-me.md";
 import { withBaseUrl } from "@/helpers/with-base-url";
-import ProfileLayout from "@/layouts/about.astro";
-import { profile_ld } from "@/schema/structured-data";
+import RootLayout from "@/layouts/root.astro";
+import { profile_ld } from "@/lib/jsonld";
 import { remove_key } from "@/utilities/objects";
 import type {
   BreadcrumbList,
@@ -79,11 +80,18 @@ const jsonld = {
 } satisfies Graph;
 ---
 
-<ProfileLayout
-  title="Prince Muel - Whoami"
+<RootLayout
+  title={["Whoami"]}
   description="Frontend Engineer, Coding Instructor, Musician"
-  jsonld={jsonld}
   type="profile"
 >
-  <Prose>HI</Prose>
-</ProfileLayout>
+  <script
+    is:inline
+    type="application/ld+json"
+    slot="jsonld"
+    set:html={JSON.stringify(jsonld)}
+  />
+  <Prose>
+    <Content />
+  </Prose>
+</RootLayout>

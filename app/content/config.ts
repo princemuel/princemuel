@@ -1,8 +1,8 @@
+import path from "node:path";
+import { defineCollection, reference, z } from "astro:content";
+import type { Icon } from "virtual:astro-icon";
 import { MediaObject, baseSchema } from "@/lib/collections";
 import { file, glob } from "astro/loaders";
-import { defineCollection, reference, z } from "astro:content";
-import path from "node:path";
-import type { Icon } from "virtual:astro-icon";
 
 const slugify = ((options) => {
   if (options.data.slug) return options.data.slug as string;

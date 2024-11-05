@@ -1,6 +1,6 @@
 import { octokit } from "@/config/clients";
 import { handler } from "@/helpers/api-handler";
-import { get_code_from_status, RequestError } from "@/helpers/errors";
+import { RequestError, get_code_from_status } from "@/helpers/errors";
 import { RequestError as GHRequestError } from "octokit";
 
 export const GET = handler(async () => {
@@ -9,8 +9,7 @@ export const GET = handler(async () => {
       owner: import.meta.env.OCTOKIT_USERNAME,
       repo: "princemuel.com",
     });
-    const payload = response.data.stargazers_count;
-    return Response.json({ payload }, { status: 200 });
+    return Response.json({ payload: response.data.stargazers_count }, { status: 200 });
   } catch (error) {
     if (!(error instanceof GHRequestError)) throw error;
     throw new RequestError(

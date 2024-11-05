@@ -1,25 +1,13 @@
-import { envVars } from "@/config/environment";
-import { published_date } from "@/config/site";
+import { published_date } from "@/config/site-settings";
 import { handler } from "@/helpers/api-handler";
 import { convertTime } from "@/utilities/time";
 import rss, { type RSSFeedItem } from "@astrojs/rss";
 import { getCollection, getEntry } from "astro:content";
 
 export const GET = handler(async (ctx) => {
-  const baseUrl = new URL("/", ctx.site).toString();
   const [author, collection] = await Promise.all([
     getEntry("authors", "princemuel"),
-    getCollection("posts", ({ data }) => {
-      const status = ["draft", "preview", "published"] as const;
-      return (
-        data.language === "en" &&
-        (import.meta.env.MODE === "production"
-          ? envVars.ENABLE_PREVIEW && data.status !== "draft"
-            ? status.includes(data.status)
-            : data.status === "published"
-          : true)
-      );
-    }),
+    getCollection("posts", ({ data }) => !(import.meta.env.PROD && data.draft)),
   ]);
 
   const results = (collection ?? []).map(async (item) => {
@@ -28,15 +16,11 @@ export const GET = handler(async (ctx) => {
     return {
       title: item.data.title,
       description: item.data.description,
-      categories: [...new Set(...item.data.tags, ...item.data.keywords)],
+      categories: [...new Set(item.data.tags)],
       pubDate: item.data.publishedAt,
       author: `${author.data.links.email} (${author.data.name})`,
-      link: new URL(`/blog/${item.id}`, baseUrl).toString(),
+      link: new URL(`/blog/${item.id}`, import.meta.env.SITE).toString(),
       commentsUrl: "https://github.com/princemuel/princemuel.com/discussions",
-      customData: `
-        <slug>${item.id}</slug>
-        <lead>${`${item.id}-lead`}</lead>
-      `,
     } as RSSFeedItem;
   });
 
@@ -46,7 +30,7 @@ export const GET = handler(async (ctx) => {
     title: `${author.data.name}'s Blog Feed`,
     description:
       "My Personal Website scaffolded with Astro. If you subscribe to this RSS feed, you will receive updates and summaries of my new posts",
-    site: new URL("/", baseUrl),
+    site: new URL("/", import.meta.env.SITE),
     items: await Promise.all(results),
     trailingSlash: true,
     customData: `
@@ -61,8 +45,8 @@ export const GET = handler(async (ctx) => {
       <webMaster>${author.data.links.email} (${author.data.name})</webMaster>
       <copyright>Copyright 2024 ${author.data.name}</copyright>
       <ttl>${convertTime(7).mins}</ttl>
-      <atom:link href="${new URL("/blog/feed.xml", baseUrl)}" rel="self" type="application/rss+xml"/>
+      <atom:link href="${new URL("/blog/feed.xml", import.meta.env.SITE)}" rel="self" type="application/rss+xml"/>
     `,
-    stylesheet: "/feed.xsl",
+    stylesheet: false,
   });
 });

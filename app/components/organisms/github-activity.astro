@@ -1,10 +1,10 @@
 ---
+import { z } from "astro:schema";
 import { octokit } from "@/config/clients";
 import { moment } from "@/helpers/datetime";
 import { hasValues } from "@/utilities/arrays";
 import { pluralize } from "@/utilities/strings";
 import { Icon } from "astro-icon/components";
-import { z } from "astro:schema";
 import Link from "../atoms/link.astro";
 import Time from "../atoms/time.astro";
 
@@ -13,12 +13,9 @@ const response = await octokit.rest.activity.listEventsForAuthenticatedUser({
   per_page: 20,
 });
 
-const githubUrl = (url: string | URL) =>
-  url.toString().replace("api.", "").replace("/repos", "");
+const githubUrl = (url: string | URL) => url.toString().replace("api.", "").replace("/repos", "");
 
-const commitSchema = z
-  .array(z.object({ message: z.string().default("") }))
-  .default([]);
+const commitSchema = z.array(z.object({ message: z.string().default("") })).default([]);
 ---
 
 {

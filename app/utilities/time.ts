@@ -1,10 +1,4 @@
-export function convertTime(
-  days = 0,
-  hours = 0,
-  minutes = 0,
-  seconds = 0,
-  milliseconds = 0,
-) {
+export function convertTime(days = 0, hours = 0, minutes = 0, seconds = 0, milliseconds = 0) {
   if (
     typeof days !== "number" ||
     typeof hours !== "number" ||
@@ -21,8 +15,7 @@ export function convertTime(
   }
 
   // Calculate total milliseconds
-  const totalMs =
-    (((days * 24 + hours) * 60 + minutes) * 60 + seconds) * 1000 + milliseconds;
+  const totalMs = (((days * 24 + hours) * 60 + minutes) * 60 + seconds) * 1000 + milliseconds;
 
   // Calculate other units
   const totalSecs = totalMs / 1000;

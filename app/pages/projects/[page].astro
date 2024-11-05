@@ -1,23 +1,15 @@
 ---
 import Link from "@/components/atoms/link.astro";
 import Prose from "@/components/atoms/prose.astro";
-import { envVars } from "@/config/environment";
-import ProjectLayout from "@/layouts/project.astro";
+import RootLayout from "@/layouts/root.astro";
 import type { GetStaticPaths } from "astro";
 import { getCollection, getEntry, render } from "astro:content";
 
 export const getStaticPaths = (async ({ paginate }) => {
-  const entries = await getCollection("projects", ({ data }) => {
-    const status = ["draft", "preview", "published"] as const;
-    return (
-      data.language === "en" &&
-      (import.meta.env.MODE === "production"
-        ? envVars.ENABLE_PREVIEW && data.status !== "draft"
-          ? status.includes(data.status)
-          : data.status === "published"
-        : true)
-    );
-  });
+  const entries = await getCollection(
+    "projects",
+    ({ data }) => !(import.meta.env.PROD && data.draft),
+  );
 
   return paginate(entries, { pageSize: 1 });
 }) satisfies GetStaticPaths;
@@ -40,7 +32,7 @@ entry.data.duration ||= remarkPluginFrontmatter.duration;
 entry.data.words ||= remarkPluginFrontmatter.words;
 ---
 
-<ProjectLayout title="" description="" jsonld={{}}>
+<RootLayout title={[""]} description="">
   <Prose>
     <h1 id="headline">{entry.data.title}</h1>
     <Content />
@@ -50,4 +42,4 @@ entry.data.words ||= remarkPluginFrontmatter.words;
     {page.url.prev ? <Link href={page.url.prev}>Previous</Link> : null}
     {page.url.next ? <Link href={page.url.next}>Next</Link> : null}
   </div>
-</ProjectLayout>
+</RootLayout>

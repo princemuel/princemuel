@@ -3,8 +3,7 @@ import { waitUntil } from "@vercel/functions";
 
 export const prerender = false;
 
-const CONFETTI_URL =
-  "https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js";
+const CONFETTI_URL = "https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js";
 
 export const GET = handler(async () => {
   const { readable, writable } = new TransformStream();
@@ -26,9 +25,7 @@ async function streamData(writable: WritableStream, wait_time = 1500) {
 
   const [_, confetti] = await Promise.all([
     new Promise((resolve) => setTimeout(resolve, wait_time)),
-    fetch(CONFETTI_URL, { signal: AbortSignal.timeout(5000) }).then(
-      (response) => response.text(),
-    ),
+    fetch(CONFETTI_URL, { signal: AbortSignal.timeout(5000) }).then((response) => response.text()),
   ]);
 
   writer.write(`

@@ -1,39 +1,33 @@
-import vercel from "@astrojs/vercel/serverless";
+import vercel from "@astrojs/vercel";
 import { defineConfig } from "astro/config";
 import { loadEnv } from "vite";
+import { envSchema } from "./config/env-schema";
 import { integrations } from "./config/integrations";
-import { rehypePlugins } from "./config/rehype";
-import { remarkPlugins } from "./config/remark";
+import { rehypePlugins, remarkPlugins } from "./config/remark-rehype";
 
 const mode = process.env.NODE_ENV ?? "production";
-export const envVars = loadEnv(mode, process.cwd(), "");
+const envVars = loadEnv(mode, process.cwd(), "");
 
 // https://astro.build/config
 export default defineConfig({
-  output: "hybrid",
+  output: "static",
   srcDir: "./app",
-  site: envVars.PUBLIC_SITE_URL,
-  experimental: {
-    globalRoutePriority: true,
-    contentCollectionCache: true,
-    serverIslands: true,
-    contentIntellisense: true,
-    contentLayer: true,
-    directRenderScript: true,
-  },
-  security: { checkOrigin: true },
+  site: envVars.PUBLIC_URL,
+  env: { validateSecrets: true, schema: envSchema },
+  experimental: { contentIntellisense: true },
   markdown: {
     syntaxHighlight: "shiki",
     remarkPlugins: remarkPlugins,
     rehypePlugins: rehypePlugins,
   },
   integrations: [...integrations],
+  image: {
+    remotePatterns: [{ protocol: "https", hostname: "**.unsplash.com" }],
+  },
   adapter: vercel({
+    isr: true,
     edgeMiddleware: true,
-    functionPerRoute: false,
     imageService: true,
-    webAnalytics: {
-      enabled: envVars.NODE_ENV === "production",
-    },
+    webAnalytics: { enabled: mode === "production" },
   }),
 });

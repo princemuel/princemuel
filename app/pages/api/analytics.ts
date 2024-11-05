@@ -1,4 +1,3 @@
-import { db } from "@/config/clients";
 import { handler } from "@/helpers/api-handler";
 import { RequestError } from "@/helpers/errors";
 import { geolocation } from "@vercel/functions";
@@ -28,9 +27,9 @@ export const POST = handler(async ({ request }) => {
   if (!parsed.success)
     throw RequestError.failedPrecondition(parsed.error.message);
 
-  await db.analytics.create({ data: parsed.data });
+  // await db.analytics.create({ data: parsed.data });
   return Response.json({
-    success: true,
+    ok: true,
     payload: "Analytics data sent successfully",
   });
 });

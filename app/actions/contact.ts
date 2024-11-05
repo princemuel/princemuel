@@ -1,21 +1,15 @@
+import { ActionError, defineAction } from "astro:actions";
+import { RESEND_ADDRESS } from "astro:env/server";
+import { z } from "astro:schema";
 import { resend } from "@/config/clients";
-import { envVars } from "@/config/environment";
 import { checkIfRateLimited } from "@/helpers/rate-limit";
 import { capitalize } from "@/utilities/strings";
-import { ActionError, defineAction } from "astro:actions";
-import { z } from "astro:schema";
 
 export const contactAction = defineAction({
   accept: "form",
   input: z.object({
-    firstName: z
-      .string({ message: "This field is required" })
-      .min(1, { message: "This field is required" })
-      .max(64),
-    lastName: z
-      .string({ message: "This field is required" })
-      .min(1, { message: "This field is required" })
-      .max(64),
+    firstName: z.string({ message: "This field is required" }).min(1, { message: "This field is required" }).max(64),
+    lastName: z.string({ message: "This field is required" }).min(1, { message: "This field is required" }).max(64),
     email: z
       .string({ message: "This field is required" })
       .min(1, { message: "This field is required" })
@@ -47,7 +41,7 @@ export const contactAction = defineAction({
 
     const response = await resend.emails.send({
       from: `${body.firstName} <${body.email}>`,
-      to: envVars.RESEND_ADDRESS,
+      to: RESEND_ADDRESS,
       subject: `${capitalize(body.queryType)} email from ${body.firstName} ${body.lastName}`,
       replyTo: body.email,
       text: body.message,
@@ -55,11 +49,11 @@ export const contactAction = defineAction({
 
     return response.data
       ? {
-          success: true,
+          ok: true,
           payload: `Email #${response.data.id.slice(0, 5)} sent`,
         }
       : response.error
-        ? { success: false, payload: response.error.message }
-        : { success: false, payload: "Request failed" };
+        ? { ok: false, payload: response.error.message }
+        : { ok: false, payload: "Request failed" };
   },
 });

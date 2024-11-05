@@ -1,6 +1,6 @@
 [
   {
-    "id": "princemuel.com",
+    "id": "princemuel",
     "path": "app/archive",
     "schema": {
       "path": "markdoc.config.mjs",

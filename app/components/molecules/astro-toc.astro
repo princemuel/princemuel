@@ -1,7 +1,7 @@
 ---
+import { hasValues } from "@/utilities/arrays";
 import type { MarkdownHeading } from "astro";
 import TocItem from "./toc-item.astro";
-import { hasValues } from "@/utilities/arrays";
 
 type Props = { headings?: MarkdownHeading[] };
 
@@ -35,32 +35,36 @@ const headings = (hs ?? []).filter((h) => h.depth === 2);
   import { getElement, getElements } from "@/helpers/dom";
 
   class AstroToc extends HTMLElement {
-    declare observer: IntersectionObserver | null;
+    #observer: IntersectionObserver | null;
     constructor() {
       super();
-      this.observer = null;
+      this.#observer = null;
     }
 
     public connectedCallback() {
-      this.setupObserver();
+      this.#setupObserver();
     }
 
     public disconnectedCallback() {
-      if (this.observer) this.observer.disconnect();
+      if (this.#observer) this.#observer.disconnect();
     }
 
-    private setupObserver() {
-      this.observer = new IntersectionObserver(
-        (entries) => this.handleIntersection(entries),
+    #setupObserver() {
+      const attrName = "data-id";
+      this.#observer = new IntersectionObserver(
+        (entries) => this.#handleIntersection(entries, attrName),
         { rootMargin: "-15% 0px -80% 0px" },
       );
-      const sections = getElements("section[data-id]", HTMLElement);
-      sections.forEach((section) => this.observer?.observe(section));
+      const sections = getElements(`section[${attrName}]`, HTMLElement);
+      sections.forEach((section) => this.#observer?.observe(section));
     }
 
-    private handleIntersection(entries: IntersectionObserverEntry[]) {
+    #handleIntersection(
+      entries: IntersectionObserverEntry[],
+      attrName: string,
+    ) {
       entries.forEach((entry) => {
-        const slug = entry.target.getAttribute("data-id");
+        const slug = entry.target.getAttribute(attrName);
         const link = getElement(`a[href="#${slug}"]`, HTMLAnchorElement, this);
         const tocItem = link.closest("li");
         if (!tocItem) return;

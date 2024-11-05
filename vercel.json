@@ -1,14 +1,13 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "regions": ["iad1"],
   "framework": "astro",
   "outputDirectory": null,
   "cleanUrls": true,
   "headers": [
     {
       "source": "/manifest.webmanifest",
-      "headers": [
-        { "key": "Content-Type", "value": "application/manifest+json" }
-      ]
+      "headers": [{ "key": "Content-Type", "value": "application/manifest+json" }]
     },
     {
       "source": "/sw.js",

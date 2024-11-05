@@ -5,11 +5,7 @@
 
 export const run = <T>(fn: () => T): T => fn();
 
-export async function asyncPool<T, V>(
-  array: T[],
-  limit: number,
-  fn: (item: T) => Promise<V>,
-): Promise<V[]> {
+export async function asyncPool<T, V>(array: T[], limit: number, fn: (item: T) => Promise<V>): Promise<V[]> {
   const results: Promise<V>[] = [];
   const executing = new Set<Promise<V>>();
 

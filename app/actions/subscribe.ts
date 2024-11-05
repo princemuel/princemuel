@@ -1,8 +1,8 @@
-import { resend } from "@/config/clients";
-import { envVars } from "@/config/environment";
-import { checkIfRateLimited } from "@/helpers/rate-limit";
 import { ActionError, defineAction } from "astro:actions";
+import { RESEND_AUDIENCE } from "astro:env/server";
 import { z } from "astro:schema";
+import { resend } from "@/config/clients";
+import { checkIfRateLimited } from "@/helpers/rate-limit";
 
 export const subscribeAction = defineAction({
   accept: "form",
@@ -25,16 +25,16 @@ export const subscribeAction = defineAction({
     const response = await resend.contacts.create({
       email: body.email,
       unsubscribed: false,
-      audienceId: envVars.RESEND_AUDIENCE,
+      audienceId: RESEND_AUDIENCE,
     });
 
     return response.data
       ? {
-          success: true,
+          ok: true,
           payload: `Contact #${response.data.id.slice(0, 5)} created`,
         }
       : response.error
-        ? { success: false, payload: response.error.message }
-        : { success: false, payload: "Request failed" };
+        ? { ok: false, payload: response.error.message }
+        : { ok: false, payload: "Request failed" };
   },
 });

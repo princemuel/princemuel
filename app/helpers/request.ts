@@ -19,30 +19,16 @@ const handlers = new Map<string, (response: Response) => Promise<unknown>>([
   // Add more content types and handlers as needed
 ]);
 
-export async function request<T>(
-  ...args: Parameters<typeof fetch>
-): Promise<T> {
-  try {
-    const response = await fetch(...args);
-
-    if (!response.ok) {
-      const body = await response.text();
-      throw RequestError.unavailable(
-        `Request failed due to network issues: ${body}`,
-      );
-    }
-
-    const handler = handlers.get(response.headers.get("content-type") ?? "");
-    if (!handler)
-      return Promise.reject(
-        RequestError.unimplemented("Unsupported content type"),
-      );
-
-    return handler(response) as T;
-  } catch (error) {
-    if (error instanceof DOMException && error.name === "AbortError") {
-      return Promise.reject(RequestError.canceled("Request aborted"));
-    }
-    return Promise.reject(error);
-  }
+export async function request<T>(...args: Parameters<typeof fetch>): Promise<T> {
+  return fetch(...args)
+    .then((r) => {
+      if (!r.ok) throw RequestError.unavailable("Request failed due to network issues");
+      return r;
+    })
+    .then((response) => {
+      const content_type = response.headers.get("content-type") ?? "text/plain";
+      const handler = handlers.get(content_type) ?? handleText;
+      return handler(response) as T;
+    })
+    .catch((e) => Promise.reject(e));
 }

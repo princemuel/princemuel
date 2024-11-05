@@ -9,50 +9,52 @@ datasource db {
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
-model User {
-  id         String   @id @default(uuid())
-  email      String   @unique
-  name       String?
-  created_at DateTime @default(now()) @map("created_at")
-  posts      Post[]
-
-  @@map("users")
-}
-
-model Post {
-  id        String   @id @default(uuid())
-  title     String
-  slug      String   @unique
-  content   String?
-  published Boolean  @default(false)
-  views     Int      @default(0)
-  authorId  String?  @map("author_id")
-  createdAt DateTime @default(now()) @map("created_at")
-  author    User?    @relation(fields: [authorId], references: [id])
-
-  @@index([authorId])
-  @@map("posts")
-}
-
 model Analytics {
   id        String   @id @default(uuid())
-  createdAt DateTime @default(now()) @map("created_at")
-  url       String
-  referrer  String?
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  url       String   @db.VarChar(256)
+  referrer  String?  @db.VarChar(256)
   flag      String?
   country   String?
-  city      String?
+  city      String?  @db.VarChar(256)
   latitude  Float?
   longitude Float?
 
   @@map("analytics")
 }
 
+///
+
+model User {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  email     String   @unique @db.VarChar(256)
+  name      String?  @db.VarChar(256)
+  posts     Post[]
+
+  @@map("users")
+}
+
+model Post {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  title     String   @db.VarChar(256)
+  uniqueId  String   @unique @map("unique_id")
+  content   String?
+  published Boolean  @default(false)
+  views     Int      @default(0)
+  authorId  String?  @map("author_id")
+  author    User?    @relation(fields: [authorId], references: [id])
+
+  @@index([authorId])
+  @@map("posts")
+}
+
 model Reactions {
   id        String   @id @default(uuid())
   slug      String
   reaction  String
-  createdAt DateTime @default(now()) @map("created_at")
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
 
   @@map("reactions")
 }

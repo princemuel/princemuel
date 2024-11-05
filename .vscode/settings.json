@@ -1,21 +1,4 @@
 {
-  "[astro]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[github-actions-workflow]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[mdx]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[tailwindcss]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[yaml]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "astro.content-intellisense": true,
-  "biome.rename": true,
   "dotenv.enableAutocloaking": false,
   "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
   "editor.codeActionsOnSave": {
@@ -26,11 +9,9 @@
     "source.organizeImports.biome": "explicit"
   },
   "editor.defaultFormatter": "biomejs.biome",
-  "editor.fontSize": 13,
   "editor.formatOnSave": true,
   "editor.formatOnSaveMode": "file",
   "editor.inlineSuggest.enabled": true,
-  "editor.lineHeight": 23,
   "editor.tabSize": 2,
   "editor.wordWrap": "bounded",
   "editor.wordWrapColumn": 96,
@@ -47,9 +28,6 @@
   "material-icon-theme.activeIconPack": "react_redux",
   "material-icon-theme.folders.theme": "specific",
   "npm-intellisense.packageSubfoldersIntellisense": true,
-  "oxc_language_server.enable": false,
-  "prettier.documentSelectors": ["**/*.astro"],
-  "prettier.experimentalTernaries": true,
   "tailwindCSS.emmetCompletions": true,
   "tailwindCSS.experimental.classRegex": [
     ["tv\\((([^()]*|\\([^()]*\\))*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]
@@ -66,6 +44,18 @@
   "yaml.schemas": {
     "https://json.schemastore.org/github-issue-config.json": "file:///home/sahara/Workspace/Repos/princemuel.com/.github/ISSUE_TEMPLATE/config.yml"
   },
+  "astro.content-intellisense": true,
+  "prettier.documentSelectors": ["**/*.astro"],
+  "prettier.experimentalTernaries": true,
+  "[github-actions-workflow]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[tailwindcss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[yaml]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "[sql]": {
     "editor.defaultFormatter": "mtxr.sqltools"
   },
@@ -73,10 +63,29 @@
     "**.mdoc": "mdx"
     // "**.mdoc": "markdown"
   },
-  "[markdoc]": {
-    "editor.defaultFormatter": "stripe.markdoc-language-support"
+  "[astro]": {
+    "editor.defaultFormatter": "biomejs.biome"
   },
   "[markdown]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  },
+  "[mdx]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[markdoc]": {
+    "editor.defaultFormatter": "stripe.markdoc-language-support"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "mdx.server.enable": true,
+  "mdx.validate.validateDuplicateLinkDefinitions": "warning",
+  "mdx.validate.validateFileLinks": "warning",
+  "mdx.validate.validateFragmentLinks": "warning",
+  "mdx.validate.validateMarkdownFileLinkFragments": "warning",
+  "mdx.validate.validateReferences": "warning",
+  "mdx.validate.validateUnusedLinkDefinitions": "warning"
 }

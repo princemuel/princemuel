@@ -2,7 +2,7 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "astro/tsconfigs/strictest",
   "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist", ".vercel", ".astro"],
+  "exclude": ["ignored/**", "dist", ".vercel"],
   "compilerOptions": {
     "incremental": true,
     "noErrorTruncation": true,

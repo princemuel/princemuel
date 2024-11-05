@@ -1,24 +1,43 @@
-import { singleton } from "@/utilities/objects";
-import { PrismaClient } from "@prisma/client";
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
 import { Octokit } from "octokit";
 import { Resend } from "resend";
-import { envVars } from "./environment";
+
+import {
+  OCTOKIT_TOKEN,
+  RESEND_TOKEN,
+  UPSTASH_LIMIT_TOKEN,
+  UPSTASH_LIMIT_WINDOW,
+  UPSTASH_REDIS_REST_TOKEN,
+  UPSTASH_REDIS_REST_URL,
+} from "astro:env/server";
+
+import { singleton } from "@/utilities/objects";
 
 // https://github.com/octokit/octokit.js/#readme
-export const octokit = new Octokit({ auth: envVars.OCTOKIT_TOKEN });
-export const resend = new Resend(envVars.RESEND_TOKEN);
+export const octokit = new Octokit({ auth: OCTOKIT_TOKEN });
+export const resend = new Resend(RESEND_TOKEN);
 
-export const db = singleton("__db__", () => new PrismaClient());
+// export const db = singleton("__prisma__", () => new PrismaClient());
+
+// export const getConnection = singleton("_db_", () => {
+//   const client = new PrismaClient();
+//   void client.$connect();
+//   return {
+//     db: client,
+//     [Symbol.asyncDispose]: () => {
+//       void client.$disconnect();
+//     },
+//   };
+// });
 
 export const redis = new Redis({
-  url: envVars.UPSTASH_REDIS_REST_URL,
-  token: envVars.UPSTASH_REDIS_REST_TOKEN,
+  url: UPSTASH_REDIS_REST_URL,
+  token: UPSTASH_REDIS_REST_TOKEN,
 });
 
-const tokens = envVars.UPSTASH_LIMIT_TOKEN;
-const duration = envVars.UPSTASH_LIMIT_WINDOW as Parameters<
+const tokens = UPSTASH_LIMIT_TOKEN;
+const duration = UPSTASH_LIMIT_WINDOW as Parameters<
   typeof Ratelimit.slidingWindow
 >[1];
 

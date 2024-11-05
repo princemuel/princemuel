@@ -2,8 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-a,
-button {
+:is(a, button, label, option, details) {
   @apply cursor-pointer;
 }
 

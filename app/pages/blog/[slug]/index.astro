@@ -1,20 +1,26 @@
 ---
+import AvatarImage from "@/assets/images/placeholder.avif";
 import Container from "@/components/atoms/container.astro";
 import Link from "@/components/atoms/link.astro";
 import Main from "@/components/atoms/main.astro";
 import Pattern from "@/components/atoms/pattern.astro";
 import Prose from "@/components/atoms/prose.astro";
+import Time from "@/components/atoms/time.astro";
 import AstroToc from "@/components/molecules/astro-toc.astro";
-import { envVars } from "@/config/environment";
 import { log_in_dev } from "@/helpers/log-in-dev";
 import { withBaseUrl } from "@/helpers/with-base-url";
+import Layout from "@/layouts/layout.astro";
 import RootLayout from "@/layouts/root.astro";
-import { blog_ld, profile_ld } from "@/schema/structured-data";
+import { blog_ld, profile_ld } from "@/lib/jsonld";
 import { remove_key } from "@/utilities/objects";
-import type { GetStaticPaths } from "astro";
+import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
 import { getCollection, getEntry, render } from "astro:content";
+import { OCTOKIT_USERNAME } from "astro:env/server";
 import { execSync } from "node:child_process";
 import { join } from "node:path";
+
+import type { GetStaticPaths } from "astro";
 import type {
   Article,
   BreadcrumbList,
@@ -24,23 +30,11 @@ import type {
   WithContext,
 } from "schema-dts";
 
-import AvatarImage from "@/assets/images/placeholder.avif";
-import Time from "@/components/atoms/time.astro";
-import { Icon } from "astro-icon/components";
-import { Image } from "astro:assets";
-
 export const getStaticPaths = (async () => {
-  const entries = await getCollection("posts", ({ data }) => {
-    const status = ["draft", "preview", "published"] as const;
-    return (
-      data.language === "en" &&
-      (import.meta.env.MODE === "production"
-        ? envVars.ENABLE_PREVIEW && data.status !== "draft"
-          ? status.includes(data.status)
-          : data.status === "published"
-        : true)
-    );
-  });
+  const entries = await getCollection(
+    "posts",
+    ({ data }) => !(import.meta.env.PROD && data.draft),
+  );
 
   return entries.map((entry) => ({
     props: { entry },
@@ -62,6 +56,7 @@ entry.data.updatedAt = new Date(remarkPluginFrontmatter.updatedAt);
 entry.data.duration = remarkPluginFrontmatter.duration;
 entry.data.words = remarkPluginFrontmatter.words;
 
+console.log(remarkPluginFrontmatter);
 const article_ld = {
   "@context": "https://schema.org",
   "@type": "Article",
@@ -169,30 +164,23 @@ const jsonld = {
   ]),
 } satisfies Graph;
 
-const {
-  title,
-  description,
-  tags,
-  keywords,
-  permalink,
-  publishedAt,
-  updatedAt,
-} = entry.data;
+const { title, description, tags, permalink, publishedAt, updatedAt } =
+  entry.data;
 
 const github_links = (() => {
   try {
     const [username = "", repo = "", branch = "", file_name = ""] = [
-      import.meta.env.OCTOKIT_USERNAME,
+      OCTOKIT_USERNAME,
       execSync("basename -s .git `git config --get remote.origin.url`"),
       execSync("git rev-parse --abbrev-ref HEAD"),
       (Content.moduleId ?? "").split("/app")[1] ?? "",
-    ].map((value) => value.toString().trim() as string);
+    ].map((value) => value.toString().trim());
 
     const searchParams = new URLSearchParams({
       labels: "Status: Needs Triage",
       template: "suggestion.yml",
       title: `${title}: <Short description of your suggestion>`,
-      "lesson-link": Astro.url.href,
+      "resource-url": Astro.url.href,
     });
 
     const github_link = `https://github.com/${username}/${repo}`;
@@ -219,110 +207,119 @@ const github_links = (() => {
 
 <RootLayout
   type="article"
-  title={title}
+  title={[title]}
   description={description}
   publishedAt={publishedAt}
   updatedAt={updatedAt}
   canonical={permalink}
-  keywords={[...new Set(...tags, ...keywords)]}
+  keywords={[...new Set(...tags)]}
 >
   <script
     is:inline
     type="application/ld+json"
-    slot="structured-data"
+    slot="jsonld"
     set:html={JSON.stringify(jsonld)}
   />
-  <div class="min-w-full">
-    <section class="bg-gradient-to-t from-white to-gray-100">
-      <Container class="mb-20 lg:pt-10">
-        <div class="relative mx-auto max-w-3xl">
-          <Pattern
-            class="-left-16 bottom-1/4 hidden w-72 -translate-x-full opacity-20 lg:block"
-          />
-          <Pattern
-            class="-right-16 bottom-1/4 hidden w-72 translate-x-full opacity-20 lg:block"
-          />
 
-          <!-- <div class="transform-none opacity-100 grayscale-0"> -->
-          <div class="">
-            <div class="mx-auto w-48 pb-5 drop-shadow-2xl lg:pb-10">
-              <!-- POST THUMBNAIL -->
-              <Icon name="placeholder" class="h-auto w-full" />
+  <Layout>
+    <div>
+      <section class="bg-gradient-to-t from-white to-gray-100">
+        <Container class="mb-20 lg:pt-10">
+          <div class="relative mx-auto max-w-3xl">
+            <Pattern
+              class="-left-16 bottom-1/4 hidden w-72 -translate-x-full opacity-20 lg:block"
+            />
+            <Pattern
+              class="-right-16 bottom-1/4 hidden w-72 translate-x-full opacity-20 lg:block"
+            />
+
+            <!-- <div class="transform-none opacity-100 grayscale-0"> -->
+            <div class="">
+              <div class="mx-auto w-48 pb-5 drop-shadow-2xl lg:pb-10">
+                <!-- POST THUMBNAIL -->
+                <Icon name="placeholder" class="h-auto w-full" />
+              </div>
+            </div>
+
+            <header
+              class="flex flex-col items-center gap-8 text-center text-xl"
+            >
+              <div
+                class="font-mono text-base font-medium uppercase text-gray-500"
+              >
+                <Link
+                  href={"#"}
+                  class="text-black hocus:text-gray-600 hocus:underline"
+                  >Engineering
+                </Link>
+                <span class="mx-3 text-gray-300">—</span>
+                <Time datetime={publishedAt} />
+              </div>
+
+              <h1
+                id="headline"
+                class="text-balance text-4xl font-bold text-gray-800 lg:text-6xl"
+              >
+                {title}
+              </h1>
+
+              <div
+                class="mt-16 inline-grid grid-cols-[2fr_1fr_auto_1fr_2fr] items-center gap-5 text-2xl font-medium text-gray-500"
+              >
+                <hr class="border border-gray-200" />
+                <Link
+                  href="https://x.com/iamprincemuel"
+                  class="p-5 hover:text-black"
+                >
+                  <Icon name="fa:twitter" role="img" />
+                </Link>
+
+                <Image
+                  width={44}
+                  height={44}
+                  alt="Prince Muel"
+                  src={AvatarImage}
+                  class="size-12 rounded-full shadow-md"
+                />
+
+                <Link
+                  href="https://x.com/iamprincemuel"
+                  class="p-5 hover:text-black"
+                >
+                  <Icon name="fa:github" role="img" />
+                </Link>
+                <hr class="border border-gray-200" />
+              </div>
+            </header>
+          </div>
+        </Container>
+      </section>
+
+      <Container class="">
+        <Main class="grid grid-cols-12 gap-6 xl:gap-8">
+          <div
+            class="col-span-full xl:col-span-7 xl:col-start-2 xl:max-w-prose"
+          >
+            <div class="mx-auto max-w-prose pb-6 xl:mx-0">
+              <Prose class="">
+                <Content frontmatter={entry.data} />
+              </Prose>
+              <section class="flex items-center justify-between">
+                {
+                  github_links.map((link) => (
+                    <Link href={link.url}>{link.text} </Link>
+                  ))
+                }
+              </section>
             </div>
           </div>
-
-          <header class="flex flex-col items-center gap-8 text-center text-xl">
-            <div
-              class="font-mono text-base font-medium uppercase text-gray-500"
-            >
-              <Link
-                href={"#"}
-                class="text-black hocus:text-gray-600 hocus:underline"
-                >Engineering
-              </Link>
-              <span class="mx-3 text-gray-300">—</span>
-              <Time datetime={publishedAt} />
-            </div>
-
-            <h1
-              id="headline"
-              class="text-balance text-4xl font-bold text-gray-800 lg:text-6xl"
-            >
-              {title}
-            </h1>
-
-            <div
-              class="mt-16 inline-grid grid-cols-[2fr_1fr_auto_1fr_2fr] items-center gap-5 text-2xl font-medium text-gray-500"
-            >
-              <hr class="border border-gray-200" />
-              <Link
-                href="https://x.com/iamprincemuel"
-                class="p-5 hover:text-black"
-              >
-                <Icon name="fa:twitter" role="img" />
-              </Link>
-
-              <Image
-                width={44}
-                height={44}
-                alt="Prince Muel"
-                src={AvatarImage}
-                class="size-12 rounded-full shadow-md"
-              />
-
-              <Link
-                href="https://x.com/iamprincemuel"
-                class="p-5 hover:text-black"
-              >
-                <Icon name="fa:github" role="img" />
-              </Link>
-              <hr class="border border-gray-200" />
-            </div>
-          </header>
-        </div>
+          <aside
+            class="col-span-3 col-start-10 hidden justify-self-end xl:block"
+          >
+            <AstroToc headings={markdown.headings} />
+          </aside>
+        </Main>
       </Container>
-    </section>
-
-    <Container class="">
-      <Main class="grid grid-cols-12 gap-6 xl:gap-8">
-        <div class="col-span-full xl:col-span-7 xl:col-start-2 xl:max-w-prose">
-          <div class="mx-auto max-w-prose pb-6 xl:mx-0">
-            <Prose class="">
-              <Content />
-            </Prose>
-            <section class="flex items-center justify-between">
-              {
-                github_links.map((link) => (
-                  <Link href={link.url}>{link.text} </Link>
-                ))
-              }
-            </section>
-          </div>
-        </div>
-        <aside class="col-span-3 col-start-10 hidden justify-self-end xl:block">
-          <AstroToc headings={markdown.headings} />
-        </aside>
-      </Main>
-    </Container>
-  </div>
+    </div>
+  </Layout>
 </RootLayout>

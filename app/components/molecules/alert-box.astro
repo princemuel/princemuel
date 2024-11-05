@@ -3,14 +3,14 @@ import { Icon } from "astro-icon/components";
 import { AstroError } from "astro/errors";
 import { tv } from "tailwind-variants";
 
+import type { Icon as IconType } from "virtual:astro-icon";
 import type { HTMLAttributes } from "astro/types";
 import type { VariantProps } from "tailwind-variants";
-import type { Icon as IconType } from "virtual:astro-icon";
 
 const alertBox = tv({
   slots: {
     base: "mt-4 flex flex-col gap-2 border-s-4 border-solid p-4 text-white",
-    label: "flex items-center gap-2 text-xs font-medium",
+    label: "flex items-center gap-2 font-medium text-xs",
     icon: "fill-current text-lg",
     // icon: "text-base size-4",
     content: "",

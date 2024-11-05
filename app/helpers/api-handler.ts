@@ -1,28 +1,20 @@
 import type { APIContext } from "astro";
-import { get_status_from_code, RequestError } from "./errors";
+import { RequestError, get_status_from_code } from "./errors";
 import { log_in_dev } from "./log-in-dev";
 
 export const handler = <
   Props extends Record<string, unknown> = Record<string, unknown>,
-  Params extends Record<string, string | undefined> = Record<
-    string,
-    string | undefined
-  >,
+  Params extends Record<string, string | undefined> = Record<string, string | undefined>,
 >(
-  callback: (
-    context: APIContext<Props, Params>,
-  ) => Response | Promise<Response>,
+  callback: (context: APIContext<Props, Params>) => Promise<Response>,
 ) => {
   return async (context: APIContext<Props, Params>) => {
     try {
-      return await callback(context);
+      return callback(context);
     } catch (e) {
       log_in_dev(e);
       const { code, payload } = createErrorResponse(e);
-      return Response.json(
-        { success: false, code, payload },
-        { status: get_status_from_code(code) },
-      );
+      return Response.json({ ok: false, code, payload }, { status: get_status_from_code(code) });
     }
   };
 };

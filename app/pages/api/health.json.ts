@@ -1,11 +1,3 @@
 export const prerender = false;
 
-export async function GET() {
-  return Response.json(
-    {
-      success: true,
-      payload: "Hi there! I'm healthy...Thanks for checking up on me!",
-    },
-    { status: 200 },
-  );
-}
+export const GET = async () => new Response("Hi there! I'm healthy...Thanks for checking up on me!");

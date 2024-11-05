@@ -1,0 +1,30 @@
+{
+  "fa": ["arrow-circle-left", "github", "twitter"],
+  "logos": ["astro-icon"],
+  "lucide": [
+    "badge-check",
+    "bar-chart",
+    "briefcase-business",
+    "clock-4",
+    "command",
+    "home",
+    "library",
+    "mail-plus",
+    "moon-star",
+    "move-right",
+    "notebook-pen",
+    "pen-line",
+    "rss",
+    "square-user",
+    "sun"
+  ],
+  "mdi": [
+    "discord",
+    "email-outline",
+    "github",
+    "instagram",
+    "linkedin",
+    "youtube"
+  ],
+  "ri": ["price-tag-3-fill", "quill-pen-fill"]
+}
