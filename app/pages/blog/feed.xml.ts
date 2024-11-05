@@ -1,8 +1,8 @@
+import { getCollection, getEntry } from "astro:content";
 import { published_date } from "@/config/site-settings";
 import { handler } from "@/helpers/api-handler";
 import { convertTime } from "@/utilities/time";
 import rss, { type RSSFeedItem } from "@astrojs/rss";
-import { getCollection, getEntry } from "astro:content";
 
 export const GET = handler(async (ctx) => {
   const [author, collection] = await Promise.all([

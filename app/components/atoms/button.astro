@@ -27,7 +27,8 @@ const button = tv({
   },
 });
 
-type Props<E extends HTMLTag> = VariantProps<typeof button> & Polymorphic<{ as: E }>;
+type Props<E extends HTMLTag> = VariantProps<typeof button> &
+  Polymorphic<{ as: E }>;
 
 const { as, class: className, size, color, ...rest } = Astro.props;
 

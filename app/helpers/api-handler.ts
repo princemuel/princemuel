@@ -4,7 +4,10 @@ import { log_in_dev } from "./log-in-dev";
 
 export const handler = <
   Props extends Record<string, unknown> = Record<string, unknown>,
-  Params extends Record<string, string | undefined> = Record<string, string | undefined>,
+  Params extends Record<string, string | undefined> = Record<
+    string,
+    string | undefined
+  >,
 >(
   callback: (context: APIContext<Props, Params>) => Promise<Response>,
 ) => {
@@ -14,7 +17,10 @@ export const handler = <
     } catch (e) {
       log_in_dev(e);
       const { code, payload } = createErrorResponse(e);
-      return Response.json({ ok: false, code, payload }, { status: get_status_from_code(code) });
+      return Response.json(
+        { ok: false, code, payload },
+        { status: get_status_from_code(code) },
+      );
     }
   };
 };

@@ -1,7 +1,7 @@
+import { execSync } from "node:child_process";
 import { rehypeHeadingIds } from "@astrojs/markdown-remark";
 import rehypeSectionHeadings from "@maxmmyron/rehype-section-headings";
 import { toString as parseToString } from "mdast-util-to-string";
-import { execSync } from "node:child_process";
 import getReadingTime from "reading-time";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeExternalLinks from "rehype-external-links";

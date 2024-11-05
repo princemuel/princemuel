@@ -2,7 +2,9 @@
 import { Image as AstroImage } from "astro:assets";
 import type { ComponentProps } from "astro/types";
 
-type Props = Prettify<ComponentProps<typeof AstroImage> & { src: ImageMetadata | string }>;
+type Props = Prettify<
+  ComponentProps<typeof AstroImage> & { src: ImageMetadata | string }
+>;
 
 const { src, alt } = Astro.props;
 ---

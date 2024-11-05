@@ -1,9 +1,9 @@
 ---
+import { getCollection, getEntry, render } from "astro:content";
 import Link from "@/components/atoms/link.astro";
 import Prose from "@/components/atoms/prose.astro";
 import RootLayout from "@/layouts/root.astro";
 import type { GetStaticPaths } from "astro";
-import { getCollection, getEntry, render } from "astro:content";
 
 export const getStaticPaths = (async ({ paginate }) => {
   const entries = await getCollection(

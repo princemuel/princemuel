@@ -1,12 +1,12 @@
 ---
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
 import Link from "@/components/atoms/link.astro";
 import Prose from "@/components/atoms/prose.astro";
 import Time from "@/components/atoms/time.astro";
 import PostDivider from "@/components/molecules/post-divider.astro";
 import RootLayout from "@/layouts/root.astro";
 import { hasValues } from "@/utilities/arrays";
-import { Image } from "astro:assets";
-import { getCollection } from "astro:content";
 
 let entries = await getCollection(
   "projects",

@@ -8,8 +8,14 @@ import { capitalize } from "@/utilities/strings";
 export const contactAction = defineAction({
   accept: "form",
   input: z.object({
-    firstName: z.string({ message: "This field is required" }).min(1, { message: "This field is required" }).max(64),
-    lastName: z.string({ message: "This field is required" }).min(1, { message: "This field is required" }).max(64),
+    firstName: z
+      .string({ message: "This field is required" })
+      .min(1, { message: "This field is required" })
+      .max(64),
+    lastName: z
+      .string({ message: "This field is required" })
+      .min(1, { message: "This field is required" })
+      .max(64),
     email: z
       .string({ message: "This field is required" })
       .min(1, { message: "This field is required" })

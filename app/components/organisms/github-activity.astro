@@ -13,9 +13,12 @@ const response = await octokit.rest.activity.listEventsForAuthenticatedUser({
   per_page: 20,
 });
 
-const githubUrl = (url: string | URL) => url.toString().replace("api.", "").replace("/repos", "");
+const githubUrl = (url: string | URL) =>
+  url.toString().replace("api.", "").replace("/repos", "");
 
-const commitSchema = z.array(z.object({ message: z.string().default("") })).default([]);
+const commitSchema = z
+  .array(z.object({ message: z.string().default("") }))
+  .default([]);
 ---
 
 {

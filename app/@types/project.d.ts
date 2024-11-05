@@ -1,4 +1,6 @@
-type ImageProps = import("astro:assets").LocalImageProps | import("astro:assets").RemoteImageProps;
+type ImageProps =
+  | import("astro:assets").LocalImageProps
+  | import("astro:assets").RemoteImageProps;
 type ImageSrc = ImageProps["src"];
 
 type Directives = {

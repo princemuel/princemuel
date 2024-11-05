@@ -10,7 +10,10 @@ export const GET = handler(async () => {
   ]);
 
   const response = await fetch(
-    new URL(`export?${searchParams.toString()}`, `https://www.googleapis.com/drive/v3/files/${fileId}/`),
+    new URL(
+      `export?${searchParams.toString()}`,
+      `https://www.googleapis.com/drive/v3/files/${fileId}/`,
+    ),
     { signal: AbortSignal.timeout(10000) },
   );
 
