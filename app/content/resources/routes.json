@@ -1,0 +1,44 @@
+[
+  {
+    "id": "home",
+    "text": "home",
+    "href": "/",
+    "icon": "lucide:home"
+  },
+  {
+    "id": "about",
+    "text": "about",
+    "href": "/about-me",
+    "icon": "lucide:square-user"
+  },
+  {
+    "id": "articles",
+    "text": "articles",
+    "href": "/articles",
+    "icon": "lucide:notebook-pen"
+  },
+  {
+    "id": "blog",
+    "text": "blog",
+    "href": "/blog",
+    "icon": "lucide:pen-line"
+  },
+  {
+    "id": "dashboard",
+    "text": "dashboard",
+    "href": "/dashboard",
+    "icon": "lucide:bar-chart"
+  },
+  {
+    "id": "projects",
+    "text": "projects",
+    "href": "/projects",
+    "icon": "lucide:briefcase-business"
+  },
+  {
+    "id": "resources",
+    "text": "resources",
+    "href": "/resources",
+    "icon": "lucide:library"
+  }
+]
