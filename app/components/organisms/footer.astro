@@ -1,26 +1,20 @@
 ---
-import { published_date } from "@/config/site";
-import { date_nf } from "@/helpers/datetime";
+import { dateline } from "@/helpers/datetime";
 import { Icon } from "astro-icon/components";
 import type { HTMLAttributes } from "astro/types";
 import { getCollection } from "astro:content";
 import Container from "../atoms/container.astro";
 import Link from "../atoms/link.astro";
 import Time from "../atoms/time.astro";
-import NewsletterForm from "./newsletter-form.astro";
-
-const datetime = published_date;
-const buildDate = new Date(Date.now());
+import NewsletterForm from "../molecules/newsletter-form.astro";
 
 type Props = HTMLAttributes<"footer">;
 
 const { class: className, ...rest } = Astro.props;
 
-const excluded = ["discord", "youtube"];
-
-const social = await getCollection(
-  "social",
-  ({ id }) => !excluded.includes(id),
+const socials = await getCollection(
+  "socials",
+  ({ id }) => !["discord", "youtube"].includes(id),
 );
 
 const routes = {
@@ -35,8 +29,8 @@ const routes = {
     { href: "/tags", text: "Tags" },
     { href: "/resume.pdf", text: "Resume" },
     { href: "/newsletter", text: "Newsletter" },
-    { href: "/privacy-policy", text: "Privacy Policy" },
-    { href: "/terms-of-service", text: "Terms of Service" },
+    { href: "/legal/privacy-policy", text: "Privacy Policy" },
+    { href: "/legal/terms-of-service", text: "Terms of Service" },
   ],
   extras: [
     { href: "/resources", text: "Setup" },
@@ -47,12 +41,14 @@ const routes = {
   ],
 };
 
-const footer_date = date_nf("en-US", {
+const formatter = dateline("en-US", {
   month: "long",
   day: "numeric",
   hour: "numeric",
   minute: "numeric",
 });
+
+const buildDate = new Date(Date.now());
 ---
 
 <footer {...rest} class:list={["pt-16", className]}>
@@ -116,30 +112,25 @@ const footer_date = date_nf("en-US", {
     >
       <div class="order-1 flex items-center gap-4 text-2xl md:order-2">
         {
-          social
-            .sort((a, b) => a.data.order - b.data.order)
-            .map((link) => (
-              <Link
-                href={link.data.href}
-                class:list={[
-                  "group flex items-center transition",
-                  "text-gray-800 hocus:text-gray-500",
-                ]}
-              >
-                <Icon name={link.data.icon} class="" />
-                <span class="sr-only">{link.data.text}</span>
-              </Link>
-            ))
+          socials.map((link) => (
+            <Link
+              href={link.data.href}
+              class:list={[
+                "group flex items-center transition",
+                "text-xl text-gray-800 hocus:text-gray-500",
+              ]}
+            >
+              <Icon name={link.data.icon} class="" />
+              <span class="sr-only">{link.data.text}</span>
+            </Link>
+          ))
         }
       </div>
 
       <p class="order-2 text-xs text-gray-800 md:order-1">
-        &copy;
-        <Time datetime={new Date("2020-07-29T16:43:29.577Z")}>
-          {new Date("2020-07-29T16:43:29.577Z").getFullYear()}
+        <Time datetime={buildDate.toISOString()}>
+          &copy; {buildDate.getFullYear()}
         </Time>
-        to&nbsp;
-        <Time datetime={datetime}>present</Time>
         <span>Prince Muel. All Rights Reserved</span>
       </p>
     </div>
@@ -156,7 +147,7 @@ const footer_date = date_nf("en-US", {
           >{Astro.generator}</Link
         > on
         <Time datetime={buildDate.toISOString()}
-          >{footer_date.format(buildDate)}</Time
+          >{formatter.format(buildDate)}</Time
         >
       </p>
     </Container>

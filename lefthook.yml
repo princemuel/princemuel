@@ -3,12 +3,11 @@
 #   Refer for explanation to following link:
 #   https://github.com/evilmartians/lefthook/blob/master/docs/configuration.md
 
-
 pre-push:
   commands:
     format:
-      glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
-      run: npx @biomejs/biome check --no-errors-on-unmatched --files-ignore-unknown=true --colors=off {push_files}
+      glob: "*.{js,ts,mjs,jsx,tsx,json}"
+      run: npx @biomejs/biome check --write --unsafe --no-errors-on-unmatched --use-editorconfig=true --files-ignore-unknown=true --colors=off {push_files}
 
 commit-msg:
   commands:
@@ -21,12 +20,15 @@ commit-msg:
 pre-commit:
   parallel: true
   commands:
+    lint:
+      glob: "*.{js,ts,mjs,jsx,tsx,json,astro}"
+      run: npx @biomejs/biome check --fix --unsafe --assists-enabled=true --no-errors-on-unmatched --use-editorconfig=true --files-ignore-unknown=true --colors=off {staged_files}
     format:
-      glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
-      run: npx @biomejs/biome check --write --no-errors-on-unmatched --files-ignore-unknown=true --colors=off {staged_files}
+      glob: "*.{astro,md,mdx,mdoc,prisma,yml,yaml}"
+      run: npx prettier {staged_files} -w -u --no-error-on-unmatched-pattern --config ./.prettierrc.json --cache
       stage_fixed: true
 
 post-merge:
   commands:
-   install-packages:
-     run: corepack use pnpm
+    install-packages:
+      run: npm install
