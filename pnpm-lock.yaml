@@ -40,6 +40,9 @@ importers:
       "@vercel/speed-insights":
         specifier: ^1.0.14
         version: 1.0.14(react@18.3.1)
+      astro-icon:
+        specifier: ^1.1.2
+        version: 1.1.2
       isbot:
         specifier: ^5.1.17
         version: 5.1.17
@@ -149,9 +152,6 @@ importers:
       astro-font:
         specifier: ^0.1.81
         version: 0.1.81
-      astro-icon:
-        specifier: ^1.1.2
-        version: 1.1.2
       lefthook:
         specifier: ^1.8.2
         version: 1.8.2
@@ -6671,7 +6671,6 @@ packages:
       {
         integrity: sha512-T9eIRCs6b0J1SHKYIvD8+KCJMcWZ900iZyxdnSCdqxN12Z1ijzT+jY5nrk72Jw4B0HGzms2NgpryArlJqvc3Lw==,
       }
-    cpu: [x64, arm64, wasm32]
     os: [darwin, linux, win32]
 
   lilconfig@2.1.0:
