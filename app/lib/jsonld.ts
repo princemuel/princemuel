@@ -1,7 +1,7 @@
-import AvatarImage from "@/assets/images/placeholder.avif";
-import { withBaseUrl } from "@/helpers/with-base-url";
 import { execSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
+import AvatarImage from "@/assets/images/placeholder.avif";
+import { withBaseUrl } from "@/helpers/with-base-url";
 import { invariant } from "outvariant";
 import type { Person, WebPage, WebSite, WithContext } from "schema-dts";
 import { published_date } from "../config/settings";
