@@ -22,7 +22,7 @@
 
 Hiya! <img src='/assets/wave.gif' alt='Just saying hello' width='24' height='24' /> My name is Samuel and I am a self-taught software engineer. I am curating this blog in order to share my knowledge and experience on engineering and beyond. I am currently updating my projects and it's a work in progress.
 
-If you like my material consider following my on social networks:
+If you like my material consider following on:
 
 - [Twitter @iamprincemuel](https://twitter.com/iamprincemuel)
 - [GitHub princemuel](https://github.com/princemuel)
