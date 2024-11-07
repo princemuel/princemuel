@@ -1,6 +1,7 @@
 /// <reference types="vite-plugin-pwa/vanillajs" />
 /// <reference types="vite-plugin-pwa/info" />
 /// <reference types="vite-plugin-pwa/pwa-assets" />
+/// <reference types="../.astro/icon.d.ts" />
 
 interface ImportMetaEnv {
   [key: string]: string;
@@ -19,4 +20,3 @@ interface globalThis {
 }
 
 declare const __APP_BUILD_DATE__: string;
-export declare module "virtual:astro-icon";
