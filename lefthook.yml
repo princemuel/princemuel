@@ -5,13 +5,17 @@
 
 pre-push:
   commands:
-    format:
+    js-lint:
       glob: "*.{js,ts,mjs,jsx,tsx,json}"
-      run: npx @biomejs/biome check --write --unsafe --no-errors-on-unmatched --use-editorconfig=true --files-ignore-unknown=true --colors=off {push_files}
+      run: pnpm dlx @biomejs/biome check --write --unsafe --no-errors-on-unmatched --use-editorconfig=true --files-ignore-unknown=true --colors=off {push_files}
+
+    rust-lint:
+      glob: "*.rs"
+      run: cargo clippy -- --deny warnings
 
 commit-msg:
   commands:
-    sign-off:
+    check-sign-off:
       run: 'test $(grep -c "^Signed-off-by: " {1}) -lt 2'
   scripts:
     "commitlint.sh":
@@ -20,15 +24,29 @@ commit-msg:
 pre-commit:
   parallel: true
   commands:
-    lint:
+    js-lint:
       glob: "*.{js,ts,mjs,jsx,tsx,json,astro}"
-      run: npx @biomejs/biome check --fix --unsafe --assists-enabled=true --no-errors-on-unmatched --use-editorconfig=true --files-ignore-unknown=true --colors=off {staged_files}
-    format:
+      run: pnpm dlx @biomejs/biome check --fix --unsafe --assists-enabled=true --no-errors-on-unmatched --use-editorconfig=true --files-ignore-unknown=true --colors=off {staged_files}
+
+    js-format:
       glob: "*.{astro,md,mdx,mdoc,prisma,yml,yaml}"
-      run: npx prettier {staged_files} -w -u --no-error-on-unmatched-pattern --config ./.prettierrc.json --cache
+      run: pnpm dlx prettier {staged_files} -w -u --no-error-on-unmatched-pattern --config ./.prettierrc.json --cache
+      stage_fixed: true
+
+    rust-lint:
+      glob: "*.rs"
+      run: cargo clippy -- --deny warnings # Ensures no warnings or lint errors in Rust code
+
+    rust-autofix:
+      glob: "*.rs"
+      run: cargo fix --allow-dirty --allow-staged # Automatically fixes Rust issues
+
+    rust-format:
+      glob: "*.rs"
+      run: cargo fmt --all # Formats Rust code to keep style consistent
       stage_fixed: true
 
 post-merge:
   commands:
-    install-packages:
-      run: npm install
+    js-install-deps:
+      run: pnpm install
