@@ -10,7 +10,7 @@ const envVars = loadEnv(mode, process.cwd(), "");
 
 // https://astro.build/config
 export default defineConfig({
-  output: "static",
+  output: "server",
   srcDir: "./app",
   site: envVars.PUBLIC_SITE_URL,
   env: { validateSecrets: true, schema: envSchema },

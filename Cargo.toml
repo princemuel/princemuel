@@ -12,6 +12,7 @@
   tokio        = { version = "1", features = ["macros"] }
   # Documentation: https://docs.rs/vercel_runtime/latest/vercel_runtime
   vercel_runtime = { version = "1" }
+wasm-tools = "1.219.1"
 
 # You can specify a library for shared logic here (optional)
 [lib]
