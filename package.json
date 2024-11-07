@@ -10,7 +10,7 @@
     "dev": "astro dev --host",
     "start": "astro dev",
     "serve": "vercel dev --listen 4321",
-    "build": "bash ./scripts/unshallow.sh && astro check && astro build",
+    "build": "bash ./scripts/unshallow.sh && pnpm astro check && astro build",
     "build:prod": "astro check && astro build",
     "build:force": "astro check && astro build -- --force",
     "preview": "astro preview",
