@@ -1,5 +1,5 @@
 ---
-layout: "../layouts/legal.astro"
+layout: "../../layouts/legal.astro"
 title: "Privacy Policy"
 description: "The privacy policy of this website"
 author: "Prince Muel"
