@@ -1,4 +1,4 @@
-import vercel from "@astrojs/vercel";
+import vercel from "@astrojs/vercel/serverless";
 import { defineConfig } from "astro/config";
 import { loadEnv } from "vite";
 import { envSchema } from "./config/env-schema";
