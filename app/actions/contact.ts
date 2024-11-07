@@ -1,9 +1,9 @@
-import { resend } from "@/library/config/clients";
-import { envVars } from "@/library/config/environment";
-import { checkIfRateLimited } from "@/library/helpers/rate-limit";
-import { capitalize } from "@/shared/utils/strings";
 import { ActionError, defineAction } from "astro:actions";
+import { RESEND_ADDRESS } from "astro:env/server";
 import { z } from "astro:schema";
+import { resend } from "@/config/clients";
+import { checkIfRateLimited } from "@/helpers/rate-limit";
+import { capitalize } from "@/utilities/strings";
 
 export const contactAction = defineAction({
   accept: "form",
@@ -47,7 +47,7 @@ export const contactAction = defineAction({
 
     const response = await resend.emails.send({
       from: `${body.firstName} <${body.email}>`,
-      to: envVars.RESEND_ADDRESS,
+      to: RESEND_ADDRESS,
       subject: `${capitalize(body.queryType)} email from ${body.firstName} ${body.lastName}`,
       replyTo: body.email,
       text: body.message,
@@ -55,11 +55,11 @@ export const contactAction = defineAction({
 
     return response.data
       ? {
-          success: true,
+          ok: true,
           payload: `Email #${response.data.id.slice(0, 5)} sent`,
         }
       : response.error
-        ? { success: false, payload: response.error.message }
-        : { success: false, payload: "Request failed" };
+        ? { ok: false, payload: response.error.message }
+        : { ok: false, payload: "Request failed" };
   },
 });

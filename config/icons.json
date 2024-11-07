@@ -1,31 +1,32 @@
 {
+  "fa": [
+    "arrow-circle-left",
+    "discord",
+    "email",
+    "github",
+    "instagram",
+    "linkedin",
+    "youtube",
+    "twitter"
+  ],
+  "logos": ["astro-icon"],
   "lucide": [
     "badge-check",
     "bar-chart",
     "briefcase-business",
-    "clock",
     "clock-4",
     "command",
     "home",
-    "info",
     "library",
-    "pen-line",
     "mail-plus",
     "moon-star",
     "move-right",
     "notebook-pen",
+    "pen-line",
     "rss",
     "square-user",
-    "sun"
-  ],
-  "logos": ["astro-icon"],
-  "mdi": [
-    "discord",
-    "email-outline",
-    "github",
-    "instagram",
-    "linkedin",
-    "youtube"
+    "sun",
+    "zap"
   ],
   "ri": ["price-tag-3-fill", "quill-pen-fill"]
 }

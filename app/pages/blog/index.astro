@@ -1,119 +1,110 @@
 ---
 import { getCollection } from "astro:content";
-import Link from "@/components/link.astro";
-import PostDivider from "@/components/post-divider.astro";
-import Prose from "@/components/prose.astro";
-import Time from "@/components/time.astro";
-import BlogLayout from "@/layouts/posts.astro";
-import { envVars } from "@/lib/config/environment";
-import { hasValues, normalize } from "@/shared/utils";
+import Link from "@/components/atoms/link.astro";
+import Prose from "@/components/atoms/prose.astro";
+import Time from "@/components/atoms/time.astro";
+import PostDivider from "@/components/molecules/post-divider.astro";
+import Layout from "@/layouts/layout.astro";
+import RootLayout from "@/layouts/root.astro";
+import { hasValues } from "@/utilities/arrays";
 import { Icon } from "astro-icon/components";
 
-const status = ["draft", "preview", "published"] as const;
-
-const entries = await getCollection("posts", ({ data }) => {
-  return import.meta.env.MODE === "production"
-    ? envVars.ENABLE_PREVIEW && data.status !== "draft"
-      ? status.includes(data.status)
-      : data.status === "published"
-    : true;
-});
-
-const allEntries = entries.sort((a, b) => {
+let entries = await getCollection(
+  "posts",
+  ({ data }) => !(import.meta.env.PROD && data.draft),
+);
+entries = entries.sort((a, b) => {
   return Number(b.data.publishedAt) - Number(a.data.publishedAt);
 });
 ---
 
-<BlogLayout title="Blog" description="" jsonld={{}}>
-  <Prose id="article">
-    <dl
-      class="not-prose flex items-center justify-between gap-2 font-mono text-[.625rem] font-bold tracking-tighter text-pink-600 dark:text-pink-500"
-    >
-      <dt>Posts</dt>
-      <dd>x{allEntries.length}</dd>
-    </dl>
+<RootLayout title={["Blog"]} description="">
+  <Layout>
+    <Prose id="article">
+      <dl
+        class="not-prose flex items-center justify-between gap-2 font-sans text-[.625rem] font-bold tracking-tighter text-gray-600"
+      >
+        <dt>Posts</dt>
+        <dd>x{entries.length}</dd>
+      </dl>
 
-    <h1 id="heading" class="mt-6">
-      <Link class="linked" aria-hidden tabindex="-1" href="/posts">
-        Blog Posts
-      </Link>
-    </h1>
+      <h1 id="headline" class="mt-6">
+        <Link class="linked" aria-hidden tabindex="-1" href="/posts">
+          Blog Posts
+        </Link>
+      </h1>
 
-    <p>
-      You'll find a mixed bag of content here. I'm mainly focussed on "How to"
-      guides but every now and then I'll throw in a curve ball.
-    </p>
+      <p>
+        You'll find a mixed bag of content here. I'm mainly focussed on "How to"
+        guides but every now and then I'll throw in a curve ball.
+      </p>
 
-    <Fragment>
-      <div class="not-prose flex flex-col gap-5">
-        {
-          allEntries.map((entry, idx, array) => {
-            const previous = array.at(idx - 1)?.data.publishedAt || new Date();
-            const divide =
-              idx === 0 ||
-              new Date(entry.data.publishedAt).getMonth() !==
-                new Date(previous).getMonth();
+      <Fragment>
+        <div class="not-prose flex flex-col gap-5">
+          {
+            entries.map((entry, idx, array) => {
+              const previous =
+                array.at(idx - 1)?.data.publishedAt || new Date();
+              const divide =
+                idx === 0 ||
+                new Date(entry.data.publishedAt).getMonth() !==
+                  new Date(previous).getMonth();
 
-            const { title, summary, publishedAt, tags } = entry.data;
-            // const _cover = media?.cover;
+              const { title, summary, publishedAt, tags } = entry.data;
+              // const _cover = media?.cover;
 
-            return (
-              <Fragment>
-                {divide && <PostDivider datetime={publishedAt} />}
+              return (
+                <Fragment>
+                  {divide && <PostDivider datetime={publishedAt} />}
 
-                <article
-                  aria-describedby={`${normalize(entry.slug)}-desc`}
-                  aria-labelledby={normalize(entry.slug)}
-                  aria-setsize="-1"
-                  aria-posinset={idx + 1}
-                  class="group"
-                >
-                  <div class="flex flex-col items-start gap-3">
-                    <h2 class="font-mono text-lg tracking-tighter text-rose-600 group-hover:underline dark:text-rose-500">
-                      <Link href={`/blog/${entry.slug}`}>{title}</Link>
-                    </h2>
+                  <article
+                    aria-describedby={`${entry.id}-desc`}
+                    aria-labelledby={entry.id}
+                    aria-setsize="-1"
+                    aria-posinset={idx + 1}
+                    class="group"
+                  >
+                    <div class="flex flex-col items-start gap-3">
+                      <h2 class="font-sans text-lg tracking-tighter text-gray-600 group-hover:underline">
+                        <Link href={`/blog/${entry.id}`}>{title}</Link>
+                      </h2>
 
-                    <p class="flex items-center gap-2 text-sm text-slate-600 md:text-base dark:text-slate-400">
-                      <Icon
-                        name="ri:quill-pen-fill"
-                        class="text-slate-900 dark:text-white"
-                      />
-                      <span>{summary}</span>
-                    </p>
-
-                    <div class="flex flex-wrap items-center gap-4">
-                      <p class="flex items-center gap-2 text-xs md:text-sm">
-                        <Icon
-                          name="lucide:clock-4"
-                          class="text-slate-900 dark:text-white"
-                        />
-                        <Time datetime={publishedAt} />
+                      <p class="flex items-center gap-2 text-sm text-gray-600 md:text-base">
+                        <Icon name="ri:quill-pen-fill" class="text-gray-900" />
+                        <span>{summary}</span>
                       </p>
 
-                      {hasValues(tags) && (
-                        <div class="flex flex-wrap items-center gap-2 text-xs md:text-sm">
-                          <Icon
-                            name="ri:price-tag-3-fill"
-                            class="text-slate-950 dark:text-white"
-                          />
-                          {tags.map((tag) => (
-                            <Link
-                              href={`/tags/${tag}`}
-                              class="lowercase underline"
-                            >
-                              #{tag}
-                            </Link>
-                          ))}
-                        </div>
-                      )}
+                      <div class="flex flex-wrap items-center gap-4">
+                        <p class="flex items-center gap-2 text-xs md:text-sm">
+                          <Icon name="lucide:clock-4" class="text-gray-900" />
+                          <Time datetime={publishedAt} />
+                        </p>
+
+                        {hasValues(tags) && (
+                          <div class="flex flex-wrap items-center gap-2 text-xs md:text-sm">
+                            <Icon
+                              name="ri:price-tag-3-fill"
+                              class="text-gray-950"
+                            />
+                            {tags.map((tag) => (
+                              <Link
+                                href={`/tags/${tag}`}
+                                class="lowercase underline"
+                              >
+                                #{tag}
+                              </Link>
+                            ))}
+                          </div>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                </article>
-              </Fragment>
-            );
-          })
-        }
-      </div>
-    </Fragment>
-  </Prose>
-</BlogLayout>
+                  </article>
+                </Fragment>
+              );
+            })
+          }
+        </div>
+      </Fragment>
+    </Prose>
+  </Layout>
+</RootLayout>

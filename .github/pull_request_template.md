@@ -1,12 +1,15 @@
 <!-- Thank you for taking the time to contribute to The Odin Project. In order to get this pull request (PR) merged in a reasonable amount of time, you must complete this entire template. -->
 
 ## Because
+
 <!-- Summarize the purpose or reasons for this PR, e.g. what problem it solves or what benefit it provides. -->
 
 ## This PR
+
 <!-- A bullet point list of one or more items describing the specific changes. -->
 
 ## Issue
+
 <!--
 If this PR closes an open issue in this repo, replace the XXXXX below with the issue number, e.g. Closes #2013.
 
@@ -16,13 +19,17 @@ If this PR does not close, but is related to another issue or PR, you can link i
 
 _Note:_ any pull request created for an issue that already has someone else assigned **will be closed without review**.
 -->
+
 Closes #XXXXX
 
 ## Additional Information
+
 <!-- Any other information about this PR, such as a link to a Discord discussion. -->
 
 ## Pull Request Requirements
+
 <!-- Replace the whitespace between the square brackets with an 'x', e.g. [x]. After you create the PR, they will become checkboxes that you can click on. -->
+
 - [ ] I have thoroughly read and understand [The Repo's contributing guide](https://github.com/princemuel/princemuel.com/blob/main/CONTRIBUTING.md)
 - [ ] The title of this PR follows the `location of change: brief description of change` format, e.g. `Intro to HTML and CSS lesson: Fix link text`
 - [ ] The `Because` section summarizes the reason for this PR

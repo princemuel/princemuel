@@ -1,59 +1,34 @@
-import mdx from "@astrojs/mdx";
-import partytown from "@astrojs/partytown";
-import sitemap from "@astrojs/sitemap";
-import tailwind from "@astrojs/tailwind";
-import vercel from "@astrojs/vercel/serverless";
-import pwa from "@vite-pwa/astro";
-import type { AstroIntegration } from "astro";
-import expressiveCode from "astro-expressive-code";
-import icon from "astro-icon";
-import metaTags from "astro-meta-tags";
+import vercel from "@astrojs/vercel";
 import { defineConfig } from "astro/config";
 import { loadEnv } from "vite";
-import { IconOptions, PWAOptions, sitemapOptions } from "./plugins/options";
-import { rehypePlugins } from "./plugins/rehype";
-import { remarkPlugins } from "./plugins/remark";
+import { envSchema } from "./config/env-schema";
+import { integrations } from "./config/integrations";
+import { rehypePlugins, remarkPlugins } from "./config/remark-rehype";
 
 const mode = process.env.NODE_ENV ?? "production";
 const envVars = loadEnv(mode, process.cwd(), "");
 
-const integrations: AstroIntegration[] = [
-  icon(IconOptions),
-  expressiveCode(),
-  mdx({ gfm: true, extendMarkdownConfig: true }),
-  sitemap(sitemapOptions),
-  pwa(PWAOptions),
-  tailwind({ applyBaseStyles: false }),
-  metaTags(),
-  partytown(),
-];
-
 // https://astro.build/config
 export default defineConfig({
-  output: "hybrid",
+  output: "static",
   srcDir: "./app",
-  site: envVars.PUBLIC_SITE_URL,
-  experimental: {
-    globalRoutePriority: true,
-    contentCollectionCache: true,
-    serverIslands: true,
-    contentIntellisense: true,
-    contentLayer: true,
-    directRenderScript: true,
-  },
-  security: { checkOrigin: true },
+  site: envVars.PUBLIC_URL,
+  env: { validateSecrets: true, schema: envSchema },
+  experimental: { contentIntellisense: true },
   markdown: {
-    syntaxHighlight: false,
+    syntaxHighlight: "shiki",
     remarkPlugins: remarkPlugins,
     rehypePlugins: rehypePlugins,
   },
   integrations: [...integrations],
+  image: {
+    remotePatterns: [{ protocol: "https", hostname: "**.unsplash.com" }],
+  },
+  vite: { define: { __APP_BUILD_DATE__: JSON.stringify(new Date()) } },
   adapter: vercel({
+    isr: true,
     edgeMiddleware: true,
-    functionPerRoute: false,
     imageService: true,
-    webAnalytics: {
-      enabled: envVars.NODE_ENV === "production",
-    },
+    webAnalytics: { enabled: mode === "production" },
   }),
 });

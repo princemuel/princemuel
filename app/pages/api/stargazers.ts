@@ -1,16 +1,19 @@
-import { octokit } from "@/library/config/clients";
-import { handler } from "@/shared/helpers/api-handler";
-import { get_code_from_status, RequestError } from "@/shared/helpers/errors";
+import { OCTOKIT_USERNAME } from "astro:env/server";
+import { octokit } from "@/config/clients";
+import { handler } from "@/helpers/api-handler";
+import { RequestError, get_code_from_status } from "@/helpers/errors";
 import { RequestError as GHRequestError } from "octokit";
 
 export const GET = handler(async () => {
   try {
     const response = await octokit.rest.repos.get({
-      owner: import.meta.env.OCTOKIT_USERNAME,
+      owner: OCTOKIT_USERNAME,
       repo: "princemuel.com",
     });
-    const payload = response.data.stargazers_count;
-    return Response.json({ payload }, { status: 200 });
+    return Response.json(
+      { payload: response.data.stargazers_count },
+      { status: 200 },
+    );
   } catch (error) {
     if (!(error instanceof GHRequestError)) throw error;
     throw new RequestError(

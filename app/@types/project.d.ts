@@ -3,20 +3,22 @@ type ImageProps =
   | import("astro:assets").RemoteImageProps;
 type ImageSrc = ImageProps["src"];
 
+type Directives = {
+  noindex?: boolean;
+  nofollow?: boolean;
+  nosnippet?: boolean;
+};
+
 type Meta = {
-  title: string;
+  title: [value: string, absolute?: boolean];
   description: string;
   keywords?: string[];
-  image?: {
-    src: string | URL;
-    alt: string;
-  };
+  image?: string;
   canonical?: string | URL | null;
   type?: OpenGraph["type"];
   publishedAt?: ConstructorParameters<typeof Date>[0] | null;
   updatedAt?: ConstructorParameters<typeof Date>[0] | null;
-  noindex?: boolean;
-  nofollow?: boolean;
+  directives?: Directives;
 };
 type OpenGraph = {
   type?: "website" | "article" | "book" | "profile";

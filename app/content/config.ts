@@ -1,13 +1,30 @@
 import { defineCollection, reference, z } from "astro:content";
 import type { Icon } from "virtual:astro-icon";
-import { baseSchema } from "@/lib/schema/base";
-import { MediaObject } from "@/lib/schema/constraints";
-import { glob } from "astro/loaders";
+import { MediaObject, baseSchema } from "@/lib/collections";
+import { file, glob } from "astro/loaders";
 
-const projectCollection = defineCollection({
+// const slugify = ((options) => {
+//   if (options.data.slug) return options.data.slug as string;
+//   return path.basename(options.entry, ".mdx");
+// }) satisfies Parameters<typeof glob>[0]["generateId"];
+
+// pattern: "**/[^_]*.{md,mdoc}"
+const posts = defineCollection({
   loader: glob({
+    base: "app/content/posts",
     pattern: "**/[^_]*.{md,mdx}",
-    base: "./app/database/projects",
+  }),
+  schema: ({ image }) =>
+    baseSchema.extend({
+      media: MediaObject(image).optional(),
+      others: z.array(reference("posts")).default([]),
+    }),
+});
+
+const projects = defineCollection({
+  loader: glob({
+    base: "app/content/projects",
+    pattern: "**/[^_]*.{md,mdx}",
   }),
   schema: ({ image }) =>
     baseSchema.extend({
@@ -22,37 +39,11 @@ const projectCollection = defineCollection({
     }),
 });
 
-const blogCollection = defineCollection({
-  type: "content",
-  schema: ({ image }) =>
-    baseSchema.extend({
-      media: MediaObject(image).optional(),
-      others: z.array(reference("blog")).optional(),
-    }),
-});
-
-const categoryCollection = defineCollection({
-  type: "data",
-  schema: z.object({ name: z.string().min(1) }),
-});
-
-const keywordCollection = defineCollection({
-  type: "data",
-  schema: z.object({ title: z.string().min(1) }),
-});
-
-const routeCollection = defineCollection({
-  type: "data",
-  schema: z.object({
-    text: z.string().min(1),
-    href: z.string().min(1),
-    icon: z.custom<Icon>((value) => value && typeof value === "string"),
-    order: z.number().finite().int().nonnegative().safe().lte(255).default(0),
+const changelog = defineCollection({
+  loader: glob({
+    base: "app/content/changelog",
+    pattern: "**/[^_]*.{md,mdx}",
   }),
-});
-
-const changelogCollection = defineCollection({
-  type: "content",
   schema: z.object({
     title: z.string().min(2),
     description: z.string().min(2),
@@ -63,18 +54,8 @@ const changelogCollection = defineCollection({
   }),
 });
 
-const socialCollection = defineCollection({
-  type: "data",
-  schema: z.object({
-    order: z.number().finite().int().nonnegative().safe().default(0),
-    href: z.string().min(1),
-    text: z.string().min(1),
-    icon: z.custom<Icon>((value) => value && typeof value === "string"),
-  }),
-});
-
-const authorCollection = defineCollection({
-  type: "data",
+const authors = defineCollection({
+  loader: file("app/content/resources/authors.json"),
   schema: z.object({
     alternate: z.string().min(1).max(255).optional(),
     name: z.string().min(1).max(255).optional(),
@@ -82,13 +63,18 @@ const authorCollection = defineCollection({
       url: z.string().url().optional(),
       email: z.string().email().optional(),
       avatar: z.string().optional(),
-      social: z.record(z.string(), z.string().url()).optional(),
+      social: z.record(z.string().min(1), z.string().url()).optional(),
     }),
   }),
 });
 
-const publicationCollection = defineCollection({
-  type: "data",
+const categories = defineCollection({
+  loader: file("app/content/resources/categories.json"),
+  schema: z.object({ name: z.string().min(1) }),
+});
+
+const publications = defineCollection({
+  loader: file("app/content/resources/publications.json"),
   schema: z.object({
     name: z.string().min(1),
     image: z.string().optional(),
@@ -96,14 +82,31 @@ const publicationCollection = defineCollection({
   }),
 });
 
+const routes = defineCollection({
+  loader: file("app/content/resources/routes.json"),
+  schema: z.object({
+    href: z.string().min(1),
+    text: z.string().min(1),
+    icon: z.custom<Icon>((value) => value && typeof value === "string"),
+  }),
+});
+
+const socials = defineCollection({
+  loader: file("app/content/resources/socials.json"),
+  schema: z.object({
+    href: z.string().min(1),
+    text: z.string().min(1),
+    icon: z.custom<Icon>((value) => value && typeof value === "string"),
+  }),
+});
+
 export const collections = {
-  authors: authorCollection,
-  categories: categoryCollection,
-  changelog: changelogCollection,
-  keywords: keywordCollection,
-  posts: blogCollection,
-  projects: projectCollection,
-  publications: publicationCollection,
-  routes: routeCollection,
-  social: socialCollection,
+  routes,
+  authors,
+  publications,
+  categories,
+  socials,
+  posts,
+  projects,
+  changelog,
 };

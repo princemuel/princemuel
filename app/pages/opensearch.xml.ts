@@ -1,6 +1,6 @@
-import { handler } from "@/shared/helpers/api-handler";
+import { handler } from "@/helpers/api-handler";
 
-export const GET = handler(() => {
+export const GET = handler(async () => {
   const response = `
   <OpenSearchDescription
     xmlns="http://a9.com/-/spec/opensearch/1.1/"

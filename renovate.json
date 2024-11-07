@@ -1,4 +1,7 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["customManagers:biomeVersions"]
+  "extends": [
+    "customManagers:biomeVersions",
+    "local>netlify-templates/renovate-config"
+  ]
 }
