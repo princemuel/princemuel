@@ -1,0 +1,15 @@
+documentation:
+  - changed-files:
+      - any-glob-to-any-file: "README.md"
+
+content:
+  - changed-files:
+      - any-glob-to-any-file:
+          ["**/content/*.md", "**/content/*.mdx", "**/content/*.json"]
+  - head-branch: ["^content", "content"]
+
+feature:
+  - head-branch: ["^staging", "staging"]
+
+release:
+  - base-branch: "main"

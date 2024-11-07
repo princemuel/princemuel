@@ -1,0 +1,20 @@
+# Explicitly ignore common file types in an Astro or React project that you do NOT want to format
+*.js
+*.mjs
+*.jsx
+*.ts
+*.tsx
+*.lock
+*.toml
+*.txt
+*.log
+
+# Ignore common directories that don't need formatting
+node_modules/
+.astro/
+build/
+dist/
+vercel/
+coverage/
+public/
+out/

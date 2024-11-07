@@ -5,6 +5,7 @@ on:
   workflow_dispatch:
 jobs:
   snake:
+    if: false
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
