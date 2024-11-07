@@ -2,19 +2,20 @@
 import Indicator from "@/components/atoms/indicator.astro";
 import SkipLink from "@/components/atoms/skip-link.astro";
 import ReloadPrompt from "@/components/molecules/reload-prompt.astro";
-import Construction from "@/components/templates/construction.astro";
 import ContentSlot from "@/components/templates/content-slot.astro";
-import Maintenance from "@/components/templates/maintenance.astro";
-import Meta from "@/components/templates/meta.astro";
-import { getSiteSettings } from "@/config/site-settings";
+import SiteStatus from "@/components/templates/site-status.astro";
+import { getSiteSettings } from "@/config/settings";
 import SpeedInsights from "@vercel/speed-insights/astro";
+import Meta from "./meta.astro";
 
 type Props = Meta & {
   type?: OpenGraph["type"];
   className?: string;
   language?: "en" | "fr" | "es";
 };
+
 const settings = getSiteSettings();
+
 const {
   title,
   image,
@@ -65,7 +66,7 @@ const {
   <body class="relative bg-white font-sans text-base font-normal antialiased">
     <SkipLink />
     <ContentSlot>
-      <Construction slot="construction" />
+      <SiteStatus slot="site-status" />
       <div
         slot="live"
         class:list={[
@@ -75,7 +76,6 @@ const {
       >
         <slot />
       </div>
-      <Maintenance slot="maintenance" />
     </ContentSlot>
     <ReloadPrompt />
     {import.meta.env.DEV ? <Indicator /> : <SpeedInsights />}

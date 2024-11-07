@@ -1,11 +1,11 @@
 ---
 import { getCollection } from "astro:content";
-import { dateline } from "@/helpers/datetime";
 import { Icon } from "astro-icon/components";
 import type { HTMLAttributes } from "astro/types";
 import Container from "../atoms/container.astro";
 import Link from "../atoms/link.astro";
 import Time from "../atoms/time.astro";
+import Attribution from "../molecules/attribution.astro";
 import NewsletterForm from "../molecules/newsletter-form.astro";
 
 type Props = HTMLAttributes<"footer">;
@@ -40,13 +40,6 @@ const routes = {
     { href: "/contact-me", text: "Contact Me" },
   ],
 };
-
-const formatter = dateline("en-US", {
-  month: "long",
-  day: "numeric",
-  hour: "numeric",
-  minute: "numeric",
-});
 
 const buildDate = new Date(Date.now());
 ---
@@ -137,19 +130,6 @@ const buildDate = new Date(Date.now());
   </Container>
 
   <div class="bg-gray-200">
-    <Container class="flex items-center justify-center py-1">
-      <p
-        class="flex flex-wrap content-center items-center gap-1 text-xs text-gray-800"
-      >
-        <span>Built with </span>
-        <Icon name="logos:astro-icon" />
-        <Link href="https://docs.astro.build/en/concepts/why-astro/"
-          >{Astro.generator}</Link
-        > on
-        <Time datetime={buildDate.toISOString()}
-          >{formatter.format(buildDate)}</Time
-        >
-      </p>
-    </Container>
+    <Attribution />
   </div>
 </footer>

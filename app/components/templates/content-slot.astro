@@ -3,13 +3,5 @@ import { SITE_STATUS } from "astro:env/server";
 ---
 
 <Fragment>
-  {
-    SITE_STATUS === "live" ? (
-      <slot name="live" />
-    ) : SITE_STATUS === "construction" ? (
-      <slot name="construction" />
-    ) : SITE_STATUS === "maintenance" ? (
-      <slot name="maintenance" />
-    ) : null
-  }
+  {SITE_STATUS === "live" ? <slot name="live" /> : <slot name="site-status" />}
 </Fragment>
