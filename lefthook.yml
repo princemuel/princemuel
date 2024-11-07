@@ -1,0 +1,52 @@
+# EXAMPLE USAGE:
+#
+#   Refer for explanation to following link:
+#   https://github.com/evilmartians/lefthook/blob/master/docs/configuration.md
+
+pre-push:
+  commands:
+    js-lint:
+      glob: "*.{js,ts,mjs,jsx,tsx,json}"
+      run: pnpm dlx @biomejs/biome check --write --unsafe --no-errors-on-unmatched --use-editorconfig=true --files-ignore-unknown=true --colors=off {push_files}
+
+    rust-lint:
+      glob: "*.rs"
+      run: cargo clippy -- --deny warnings
+
+commit-msg:
+  commands:
+    check-sign-off:
+      run: 'test $(grep -c "^Signed-off-by: " {1}) -lt 2'
+  scripts:
+    "commitlint.sh":
+      runner: bash
+
+pre-commit:
+  parallel: true
+  commands:
+    js-lint:
+      glob: "*.{js,ts,mjs,jsx,tsx,json,astro}"
+      run: pnpm dlx @biomejs/biome check --fix --unsafe --assists-enabled=true --no-errors-on-unmatched --use-editorconfig=true --files-ignore-unknown=true --colors=off {staged_files}
+
+    js-format:
+      glob: "*.{astro,md,mdx,mdoc,prisma,yml,yaml}"
+      run: pnpm dlx prettier {staged_files} -w -u --no-error-on-unmatched-pattern --config ./.prettierrc.json --cache
+      stage_fixed: true
+
+    rust-lint:
+      glob: "*.rs"
+      run: cargo clippy -- --deny warnings # Ensures no warnings or lint errors in Rust code
+
+    rust-autofix:
+      glob: "*.rs"
+      run: cargo fix --allow-dirty --allow-staged # Automatically fixes Rust issues
+
+    rust-format:
+      glob: "*.rs"
+      run: cargo fmt --all # Formats Rust code to keep style consistent
+      stage_fixed: true
+
+post-merge:
+  commands:
+    js-install-deps:
+      run: pnpm install
