@@ -1,7 +1,7 @@
-import { defineCollection, reference, z } from "astro:content";
-import type { Icon } from "virtual:astro-icon";
 import { MediaObject, baseSchema } from "@/lib/collections";
 import { file, glob } from "astro/loaders";
+import { defineCollection, reference, z } from "astro:content";
+import type { Icon } from "virtual:astro-icon";
 
 // const slugify = ((options) => {
 //   if (options.data.slug) return options.data.slug as string;
@@ -49,8 +49,8 @@ const changelog = defineCollection({
     description: z.string().min(2),
     author: reference("authors"),
     version: z.string().min(1),
-    publishedAt: z.coerce.date(),
-    updatedAt: z.coerce.date().optional(),
+    publishedAt: z.date(),
+    updatedAt: z.date().optional(),
   }),
 });
 

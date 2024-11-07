@@ -8,7 +8,7 @@ type Schema = NonNullable<Environment>["schema"];
 const z = envField;
 
 export const envSchema: Schema = {
-  PUBLIC_URL: z.string({ context: "client", access: "public", url: true }),
+  PUBLIC_SITE_URL: z.string({ context: "client", access: "public", url: true }),
 
   GOOGLE_DRIVE_TOKEN: z.string({ context: "server", access: "secret" }),
   GOOGLE_DRIVE_FILE_ID: z.string({ context: "server", access: "secret" }),

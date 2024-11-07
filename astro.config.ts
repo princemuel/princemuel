@@ -12,7 +12,7 @@ const envVars = loadEnv(mode, process.cwd(), "");
 export default defineConfig({
   output: "static",
   srcDir: "./app",
-  site: envVars.PUBLIC_URL,
+  site: envVars.PUBLIC_SITE_URL,
   env: { validateSecrets: true, schema: envSchema },
   experimental: { contentIntellisense: true },
   markdown: {
