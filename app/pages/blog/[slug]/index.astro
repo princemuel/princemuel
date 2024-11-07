@@ -30,6 +30,7 @@ import type {
   WithContext,
 } from "schema-dts";
 
+export const prerender = true;
 export const getStaticPaths = (async () => {
   const entries = await getCollection(
     "posts",
