@@ -1,12 +1,13 @@
 import { octokit } from "@/config/clients";
 import { handler } from "@/helpers/api-handler";
 import { RequestError, get_code_from_status } from "@/helpers/errors";
+import { OCTOKIT_USERNAME } from "astro:env/server";
 import { RequestError as GHRequestError } from "octokit";
 
 export const GET = handler(async () => {
   try {
     const response = await octokit.rest.repos.get({
-      owner: import.meta.env.OCTOKIT_USERNAME,
+      owner: OCTOKIT_USERNAME,
       repo: "princemuel.com",
     });
     return Response.json(

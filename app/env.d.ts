@@ -18,3 +18,5 @@ interface Window {
 interface globalThis {
   __singletons: Map<string, unknown>;
 }
+
+declare const __APP_BUILD_DATE__: string;

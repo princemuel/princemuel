@@ -4,8 +4,8 @@
   "editor.codeActionsOnSave": {
     "quickfix.biome": "explicit",
     "source.addMissingImports": "explicit",
-    "source.fixAll": "explicit",
     "source.organizeImports": "explicit",
+    "source.fixAll": "explicit",
     "source.organizeImports.biome": "explicit"
   },
   "editor.defaultFormatter": "biomejs.biome",
@@ -22,7 +22,7 @@
     "output.selfClosingStyle": "xhtml"
   },
   "eslint.enable": false,
-  "javascript.experimental.updateImportsOnPaste": true,
+
   "json.validate.enable": true,
   "markdown.extension.syntax.plainTheme": true,
   "material-icon-theme.activeIconPack": "react_redux",
@@ -37,7 +37,6 @@
   },
   "tailwindCSS.rootFontSize": 16,
   "typescript.enablePromptUseWorkspaceTsdk": true,
-  "typescript.experimental.updateImportsOnPaste": true,
   "typescript.tsdk": "node_modules/typescript/lib",
   "window.autoDetectColorScheme": true,
   "workbench.tree.indent": 8,
@@ -87,5 +86,46 @@
   "mdx.validate.validateFragmentLinks": "warning",
   "mdx.validate.validateMarkdownFileLinkFragments": "warning",
   "mdx.validate.validateReferences": "warning",
-  "mdx.validate.validateUnusedLinkDefinitions": "warning"
+  "mdx.validate.validateUnusedLinkDefinitions": "warning",
+
+  "rust-analyzer.cargo.features": "all",
+  "rust-analyzer.checkOnSave": true,
+  "rust-analyzer.check.command": "clippy",
+  "rust-analyzer.check.features": "all",
+  "rust-analyzer.completion.autoimport.enable": true,
+  "rust-analyzer.completion.callable.snippets": "add_parentheses", //
+  "rust-analyzer.completion.fullFunctionSignatures.enable": true,
+  "rust-analyzer.completion.termSearch.enable": true,
+  "rust-analyzer.diagnostics.useRustcErrorCode": true,
+  "rust-analyzer.hover.actions.enable": true,
+  "rust-analyzer.hover.actions.references.enable": false, //
+  "rust-analyzer.imports.granularity.group": "module", //
+  "rust-analyzer.imports.prefix": "self", //
+  "rust-analyzer.inlayHints.bindingModeHints.enable": true,
+  "rust-analyzer.inlayHints.closingBraceHints.minLines": 25,
+  "rust-analyzer.inlayHints.closureCaptureHints.enable": true, //
+  "rust-analyzer.inlayHints.closureReturnTypeHints.enable": "with_block", //
+  "rust-analyzer.inlayHints.closureStyle": "impl_fn", //
+  "rust-analyzer.inlayHints.discriminantHints.enable": "fieldless", //
+  "rust-analyzer.inlayHints.implicitDrops.enable": false,
+  "rust-analyzer.inlayHints.lifetimeElisionHints.enable": "skip_trivial",
+  "rust-analyzer.inlayHints.typeHints.enable": true,
+  "rust-analyzer.inlayHints.parameterHints.enable": false,
+  "rust-analyzer.inlayHints.rangeExclusiveHints.enable": true,
+  "rust-analyzer.interpret.tests": false, //
+  // "rust-analyzer.linkedProjects": [],
+  "rust-analyzer.restartServerOnConfigChange": true,
+  "rust-analyzer.semanticHighlighting.punctuation.enable": false,
+  "rust-analyzer.typing.autoClosingAngleBrackets.enable": true,
+
+  "evenBetterToml.formatter.alignComments": true,
+  "evenBetterToml.formatter.alignEntries": true,
+  "evenBetterToml.formatter.arrayAutoCollapse": true,
+  "evenBetterToml.formatter.arrayAutoExpand": true,
+  "evenBetterToml.formatter.arrayTrailingComma": true,
+  "evenBetterToml.formatter.columnWidth": 96,
+  "evenBetterToml.formatter.reorderArrays": true,
+  "evenBetterToml.formatter.reorderKeys": true,
+  "evenBetterToml.formatter.trailingNewline": true,
+  "evenBetterToml.semanticTokens": true
 }

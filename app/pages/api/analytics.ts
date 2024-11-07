@@ -1,7 +1,7 @@
-import { z } from "astro:schema";
 import { handler } from "@/helpers/api-handler";
 import { RequestError } from "@/helpers/errors";
 import { geolocation } from "@vercel/functions";
+import { z } from "astro:schema";
 import { isbot } from "isbot";
 
 export const prerender = false;

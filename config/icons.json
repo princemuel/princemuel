@@ -1,5 +1,14 @@
 {
-  "fa": ["arrow-circle-left", "github", "twitter"],
+  "fa": [
+    "arrow-circle-left",
+    "discord",
+    "email",
+    "github",
+    "instagram",
+    "linkedin",
+    "youtube",
+    "twitter"
+  ],
   "logos": ["astro-icon"],
   "lucide": [
     "badge-check",
@@ -16,15 +25,8 @@
     "pen-line",
     "rss",
     "square-user",
-    "sun"
-  ],
-  "mdi": [
-    "discord",
-    "email-outline",
-    "github",
-    "instagram",
-    "linkedin",
-    "youtube"
+    "sun",
+    "zap"
   ],
   "ri": ["price-tag-3-fill", "quill-pen-fill"]
 }
