@@ -24,6 +24,7 @@ export default defineConfig({
   image: {
     remotePatterns: [{ protocol: "https", hostname: "**.unsplash.com" }],
   },
+  vite: { define: { __APP_BUILD_DATE__: JSON.stringify(new Date()) } },
   adapter: vercel({
     isr: true,
     edgeMiddleware: true,

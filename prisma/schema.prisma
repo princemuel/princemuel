@@ -1,35 +1,32 @@
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["typedSql"]
+  previewFeatures = ["driverAdapters", "typedSql"]
 }
 
 datasource db {
-  provider          = "postgresql"
-  url               = env("DATABASE_URL")
-  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+  provider = "sqlite"
+  url      = "file:./dev.db"
 }
 
 model Analytics {
   id        String   @id @default(uuid())
-  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
-  url       String   @db.VarChar(256)
-  referrer  String?  @db.VarChar(256)
+  createdAt DateTime @default(now()) @map("created_at")
+  url       String
+  referrer  String?
   flag      String?
   country   String?
-  city      String?  @db.VarChar(256)
+  city      String?
   latitude  Float?
   longitude Float?
 
   @@map("analytics")
 }
 
-///
-
 model User {
   id        String   @id @default(uuid())
-  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
-  email     String   @unique @db.VarChar(256)
-  name      String?  @db.VarChar(256)
+  createdAt DateTime @default(now()) @map("created_at")
+  email     String   @unique
+  name      String?
   posts     Post[]
 
   @@map("users")
@@ -37,8 +34,8 @@ model User {
 
 model Post {
   id        String   @id @default(uuid())
-  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
-  title     String   @db.VarChar(256)
+  createdAt DateTime @default(now()) @map("created_at")
+  title     String
   uniqueId  String   @unique @map("unique_id")
   content   String?
   published Boolean  @default(false)
@@ -54,7 +51,7 @@ model Reactions {
   id        String   @id @default(uuid())
   slug      String
   reaction  String
-  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  createdAt DateTime @default(now()) @map("created_at")
 
   @@map("reactions")
 }

@@ -13,7 +13,7 @@ export const envSchema: Schema = {
   GOOGLE_DRIVE_TOKEN: z.string({ context: "server", access: "secret" }),
   GOOGLE_DRIVE_FILE_ID: z.string({ context: "server", access: "secret" }),
   DATABASE_URL: z.string({ context: "server", access: "secret" }),
-  SHADOW_DATABASE_URL: z.string({ context: "server", access: "secret" }),
+  DATABASE_TOKEN: z.string({ context: "server", access: "secret" }),
   ASTRO_KEY: z.string({ context: "server", access: "secret" }),
   WAKATIME_TOKEN: z.string({ context: "server", access: "secret" }),
   RESEND_ADDRESS: z.string({ context: "server", access: "secret" }),
@@ -23,11 +23,10 @@ export const envSchema: Schema = {
   OCTOKIT_VERSION: z.string({ context: "server", access: "secret" }),
   OCTOKIT_URL: z.string({ context: "server", access: "secret", url: true }),
   OCTOKIT_USERNAME: z.string({ context: "server", access: "secret" }),
-  ENABLE_PREVIEW: z.boolean({ context: "server", access: "secret" }),
   SITE_STATUS: z.enum({
     access: "secret",
     context: "server",
-    values: ["construction", "maintenance", "live"],
+    values: ["construction", "maintenance", "downtime", "live"],
   }),
   UPSTASH_REDIS_REST_URL: z.string({
     access: "secret",

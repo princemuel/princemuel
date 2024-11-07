@@ -1,9 +1,14 @@
+import { createClient } from "@libsql/client";
+import { PrismaLibSQL } from "@prisma/adapter-libsql";
+import { PrismaClient } from "@prisma/client";
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
 import { Octokit } from "octokit";
 import { Resend } from "resend";
 
 import {
+  DATABASE_TOKEN,
+  DATABASE_URL,
   OCTOKIT_TOKEN,
   RESEND_TOKEN,
   UPSTASH_LIMIT_TOKEN,
@@ -18,7 +23,14 @@ import { singleton } from "@/utilities/objects";
 export const octokit = new Octokit({ auth: OCTOKIT_TOKEN });
 export const resend = new Resend(RESEND_TOKEN);
 
-// export const db = singleton("__prisma__", () => new PrismaClient());
+export const db = singleton("__prisma__", () => {
+  const libsql = createClient({
+    url: DATABASE_URL,
+    authToken: DATABASE_TOKEN,
+  });
+  const adapter = new PrismaLibSQL(libsql);
+  return new PrismaClient({ adapter });
+});
 
 // export const getConnection = singleton("_db_", () => {
 //   const client = new PrismaClient();
