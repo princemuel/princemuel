@@ -136,7 +136,7 @@ const subs = audiences.data?.data ?? [];
         []
       ).join(" ");
     }
-    if (data?.success) {
+    if (data?.ok) {
       toast.dataset.state = "success";
       toast.textContent = data.payload;
     }
