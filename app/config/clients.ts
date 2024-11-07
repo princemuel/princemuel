@@ -13,8 +13,6 @@ import {
   RESEND_TOKEN,
   UPSTASH_LIMIT_TOKEN,
   UPSTASH_LIMIT_WINDOW,
-  UPSTASH_REDIS_REST_TOKEN,
-  UPSTASH_REDIS_REST_URL,
 } from "astro:env/server";
 
 import { singleton } from "@/utilities/objects";
@@ -43,18 +41,13 @@ export const db = singleton("__prisma__", () => {
 //   };
 // });
 
-export const redis = new Redis({
-  url: UPSTASH_REDIS_REST_URL,
-  token: UPSTASH_REDIS_REST_TOKEN,
-});
-
 const tokens = UPSTASH_LIMIT_TOKEN;
 const duration = UPSTASH_LIMIT_WINDOW as Parameters<
   typeof Ratelimit.slidingWindow
 >[1];
 
 export const ratelimit = new Ratelimit({
-  redis: redis,
+  redis: Redis.fromEnv(),
   analytics: true,
   limiter: Ratelimit.slidingWindow(tokens, duration),
   prefix: "@upstash/ratelimit",
