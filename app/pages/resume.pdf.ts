@@ -1,38 +1,30 @@
-import { envVars } from "@/lib/config/environment";
-import { ProjectError } from "@/shared/helpers/errors";
-import { invariant } from "outvariant";
+import { GOOGLE_DRIVE_FILE_ID, GOOGLE_DRIVE_TOKEN } from "astro:env/server";
+import { handler } from "@/helpers/api-handler";
+import { RequestError } from "@/helpers/errors";
 
-export async function GET() {
-  try {
-    const fileId = envVars.GOOGLE_DRIVE_FILE_ID;
-    const searchParams = new URLSearchParams([
-      ["mimeType", "application/pdf"],
-      ["key", envVars.GOOGLE_DRIVE_TOKEN],
-    ]);
+export const GET = handler(async () => {
+  const fileId = GOOGLE_DRIVE_FILE_ID;
+  const searchParams = new URLSearchParams([
+    ["mimeType", "application/pdf"],
+    ["key", GOOGLE_DRIVE_TOKEN],
+  ]);
 
-    const response = await fetch(
-      new URL(
-        `export?${searchParams.toString()}`,
-        `https://www.googleapis.com/drive/v3/files/${fileId}/`,
-      ),
-    );
+  const response = await fetch(
+    new URL(
+      `export?${searchParams.toString()}`,
+      `https://www.googleapis.com/drive/v3/files/${fileId}/`,
+    ),
+    { signal: AbortSignal.timeout(10000) },
+  );
 
-    invariant.as(
-      (message) => ProjectError.unavailable(message),
-      response.ok,
-      "Failed to fetch resource",
-    );
+  if (!response.ok) throw RequestError.unavailable("Failed to fetch resource");
 
-    const buffer = Buffer.from(await response.arrayBuffer());
+  const buffer = Buffer.from(await response.arrayBuffer());
 
-    return new Response(buffer, {
-      headers: {
-        "Content-Type": "application/pdf",
-        "Content-Disposition": "inline; filename=resume",
-      },
-    });
-  } catch (error) {
-    console.error("Error exporting PDF:", error);
-    return new Response(null, { status: 500 });
-  }
-}
+  return new Response(buffer, {
+    headers: {
+      "Content-Type": "application/pdf",
+      "Content-Disposition": "inline; filename=resume",
+    },
+  });
+});

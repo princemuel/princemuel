@@ -3,12 +3,26 @@
   "framework": "astro",
   "outputDirectory": null,
   "cleanUrls": true,
+  "installCommand": null,
+  "regions": ["fra1"],
   "functions": {
     "api/**/*.rs": {
       "runtime": "vercel-rust@4.0.7"
     }
   },
+  "crons": [
+    {
+      "path": "/api/health",
+      "schedule": "0 5 * * *"
+    }
+  ],
   "headers": [
+    {
+      "source": "/manifest.webmanifest",
+      "headers": [
+        { "key": "Content-Type", "value": "application/manifest+json" }
+      ]
+    },
     {
       "source": "/sw.js",
       "headers": [
@@ -19,14 +33,20 @@
       ]
     },
     {
-      "source": "/manifest.webmanifest",
-      "headers": [
-        { "key": "Content-Type", "value": "application/manifest+json" }
-      ]
-    },
-    {
       "source": "/(.*)",
       "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, s-maxage=3600, stale-while-revalidate=86400"
+        },
+        {
+          "key": "CDN-Cache-Control",
+          "value": "public, s-maxage=7200, stale-while-revalidate=604800"
+        },
+        {
+          "key": "Vercel-CDN-Cache-Control",
+          "value": "public, s-maxage=86400, stale-while-revalidate=604800"
+        },
         { "key": "X-Content-Type-Options", "value": "nosniff" },
         { "key": "X-Frame-Options", "value": "DENY" },
         { "key": "X-XSS-Protection", "value": "1; mode=block" }

@@ -1,11 +1,12 @@
 ---
 import AvatarImage from "@/assets/images/placeholder.avif";
-import Article from "@/components/article.astro";
-import ProfileLayout from "@/layouts/about-me.astro";
-import { published_date } from "@/lib/config/site";
-import { profile_ld } from "@/lib/schema/structured-data";
-import { withBaseUrl } from "@/shared/helpers/with-base-url";
-import { remove_key } from "@/shared/utils";
+import Prose from "@/components/atoms/prose.astro";
+import { published_date } from "@/config/settings";
+import { Content } from "@/content/pages/about-me.md";
+import { withBaseUrl } from "@/helpers/with-base-url";
+import RootLayout from "@/layouts/root.astro";
+import { profile_ld } from "@/lib/jsonld";
+import { remove_key } from "@/utilities/objects";
 import type {
   BreadcrumbList,
   Graph,
@@ -51,7 +52,7 @@ const image_ld = {
 const breadcrumb_ld = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
-  "@id": withBaseUrl(`/about-me/#breadcrumb`).toString(),
+  "@id": withBaseUrl("/about-me/#breadcrumb").toString(),
   itemListElement: [
     {
       "@type": "ListItem",
@@ -70,23 +71,27 @@ const breadcrumb_ld = {
 
 const jsonld = {
   "@context": "https://schema.org",
-  "@graph": remove_key(
-    [page_ld, image_ld, breadcrumb_ld, profile_ld],
-    "@context",
-  ),
+  "@graph": remove_key("@context", [
+    page_ld,
+    image_ld,
+    breadcrumb_ld,
+    profile_ld,
+  ]),
 } satisfies Graph;
 ---
 
-<ProfileLayout
-  title="Prince Muel - Frontend Engineer, Educator, Musician"
-  description=""
+<RootLayout
+  title={["Whoami"]}
+  description="Frontend Engineer, Coding Instructor, Musician"
+  type="profile"
 >
   <script
     is:inline
     type="application/ld+json"
-    slot="structured-data"
+    slot="jsonld"
     set:html={JSON.stringify(jsonld)}
   />
-
-  <Article>HI</Article>
-</ProfileLayout>
+  <Prose>
+    <Content />
+  </Prose>
+</RootLayout>

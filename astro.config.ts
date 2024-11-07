@@ -1,28 +1,34 @@
-import vercel from "@astrojs/vercel/serverless";
+import vercel from "@astrojs/vercel";
 import { defineConfig } from "astro/config";
-import { envVars } from "./config/env";
+import { loadEnv } from "vite";
+import { envSchema } from "./config/env-schema";
 import { integrations } from "./config/integrations";
-import { rehypePlugins } from "./config/rehype";
-import { remarkPlugins } from "./config/remark";
+import { rehypePlugins, remarkPlugins } from "./config/remark-rehype";
+
+const mode = process.env.NODE_ENV ?? "production";
+const envVars = loadEnv(mode, process.cwd(), "");
 
 // https://astro.build/config
 export default defineConfig({
-  output: "hybrid",
-  site: envVars.PUBLIC_SITE_URL,
+  output: "static",
   srcDir: "./app",
-  experimental: {
-    globalRoutePriority: true,
-    contentCollectionCache: true,
-    serverIslands: true,
+  site: envVars.PUBLIC_URL,
+  env: { validateSecrets: true, schema: envSchema },
+  experimental: { contentIntellisense: true },
+  markdown: {
+    syntaxHighlight: "shiki",
+    remarkPlugins: remarkPlugins,
+    rehypePlugins: rehypePlugins,
   },
-  security: { checkOrigin: true },
-  markdown: { syntaxHighlight: false, remarkPlugins, rehypePlugins },
-  integrations: integrations,
+  integrations: [...integrations],
+  image: {
+    remotePatterns: [{ protocol: "https", hostname: "**.unsplash.com" }],
+  },
+  vite: { define: { __APP_BUILD_DATE__: JSON.stringify(new Date()) } },
   adapter: vercel({
     isr: true,
     edgeMiddleware: true,
-    functionPerRoute: false,
     imageService: true,
-    webAnalytics: { enabled: true },
+    webAnalytics: { enabled: mode === "production" },
   }),
 });

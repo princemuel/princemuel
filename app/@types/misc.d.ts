@@ -11,12 +11,11 @@ type Lookup<T> = { [K in keyof T]: { key: K } }[keyof T];
 type MapKeys<M extends Map<unknown, unknown>> = Prettify<
   Array<Parameters<M["get"]>[0]>
 >;
-type IterableToArray<T> =
-  T extends Iterable<infer I>
-    ? I[]
-    : T extends ArrayLike<infer A>
-      ? A[]
-      : never;
+type IterableToArray<T> = T extends Iterable<infer I>
+  ? I[]
+  : T extends ArrayLike<infer A>
+    ? A[]
+    : never;
 
 type ObjectEntry<T extends NonNullable<unknown>> = T extends object
   ? { [K in keyof T]: [K, Required<T>[K]] }[keyof T] extends infer E
@@ -62,6 +61,7 @@ type DeepRequired<T> = T extends BrowserNativeObject | Blob
       [K in keyof T]-?: NonNullable<DeepRequired<T[K]>>;
     };
 
+// biome-ignore lint/complexity/noBannedTypes: <explanation>
 type DeepPartial<T> = T extends Function
   ? T
   : T extends Array<infer A>
@@ -89,7 +89,9 @@ type OptionalUnion<
 > = U extends unknown ? { [P in Exclude<A, keyof U>]?: never } & U : never;
 
 type IfAvailable<T, Fallback = void> = true | false extends (
-  T extends never ? true : false
+  T extends never
+    ? true
+    : false
 )
   ? Fallback
   : keyof T extends never
@@ -161,17 +163,20 @@ type PrimitiveType =
   | null
   | undefined;
 
+// biome-ignore lint/complexity/noBannedTypes: <explanation>
 type AtomicObject = Function | RegExp | Promise<unknown> | Date;
 type BrowserNativeObject = Date | FileList | File;
 
 // get method names in an object
 type FunctionPropertyNames<T> = {
+  // biome-ignore lint/complexity/noBannedTypes: <explanation>
   [P in keyof T]: T[P] extends Function ? P : never;
 }[keyof T];
 type FunctionProperties<T> = Pick<T, FunctionPropertyNames<T>>;
 
 // get non method names in an object
 type NonFunctionPropertyNames<T> = {
+  // biome-ignore lint/complexity/noBannedTypes: <explanation>
   [P in keyof T]: T[P] extends Function ? never : P;
 }[keyof T];
 type NonFunctionProperties<T> = Pick<T, NonFunctionPropertyNames<T>>;

@@ -1,20 +1,21 @@
 ---
-import Article from "@/components/article.astro";
-// import BlogCard from "@/components/blog-card.astro";
+import Prose from "@/components/atoms/prose.astro";
+import { Content as HomeIntro } from "@/content/partials/_home-intro.mdx";
 import HomeLayout from "@/layouts/home.astro";
+import { home_ld } from "@/lib/jsonld";
+import { remove_key } from "@/utilities/objects";
+import type { Graph } from "schema-dts";
 
-const jsonld = "";
+const jsonld = {
+  "@context": "https://schema.org",
+  "@graph": remove_key("@context", [home_ld]),
+} satisfies Graph;
 ---
 
-<HomeLayout title="Home" description="Home">
-  <script
-    is:inline
-    type="application/ld+json"
-    slot="head"
-    set:html={JSON.stringify(jsonld)}
-  />
-
-  <Article class="" />
-
-  <!--   <BlogCard /> -->
+<HomeLayout title={["Home"]} description="Home" jsonld={jsonld}>
+  <Prose class="">
+    <h1 class="mb-1 font-sans text-3xl sm:text-5xl">Sam Chukwuzube</h1>
+    <h2 class="mt-1 font-sans">Frontend Engineer (Freelance)</h2>
+    <HomeIntro />
+  </Prose>
 </HomeLayout>

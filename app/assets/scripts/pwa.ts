@@ -1,36 +1,74 @@
 import { registerSW } from "virtual:pwa-register";
+import { getElement } from "@/helpers/dom";
 
-let swActivated = false;
+const period = 1.5 * 24 * 60 * 60 * 1000; // check for updates every day
 
-const period = 60 * 60 * 1000; // check for updates every hour
+window.addEventListener("load", () => {
+  let swActivated = false;
 
-registerSW({
-  immediate: true,
-  onOfflineReady() {
-    console.info("[Vite Plugin PWA] PWA application ready to work offline");
-  },
-  onNeedRefresh() {
-    console.info("[Vite Plugin PWA] PWA application needs an update");
-  },
-  onRegisteredSW(swUrl, r) {
-    if (period <= 0) return;
-    if (r?.active?.state === "activated") {
-      swActivated = true;
-      sync(period, swUrl, r);
-      console.info(
-        `[Vite Plugin PWA] SW registered: ${swUrl} after activation`,
-      );
-    } else if (r?.installing) {
-      r.installing.addEventListener("statechange", (e) => {
-        const sw = e.target as ServiceWorker;
-        swActivated = sw.state === "activated";
-        if (swActivated) sync(period, swUrl, r);
-        console.info(
-          `[Vite Plugin PWA] SW registered: ${swUrl} after installing`,
-        );
-      });
+  const pwaToast = getElement("#pwa-toast", HTMLDivElement);
+  const pwaToastMessage = getElement(".message #toast-message", HTMLDivElement);
+  const pwaCloseBtn = getElement("#pwa-close", HTMLButtonElement);
+  const pwaRefreshBtn = getElement("#pwa-refresh", HTMLButtonElement);
+
+  let refreshSW: ((reloadPage?: boolean) => Promise<void>) | undefined;
+
+  const refreshCallback = () => refreshSW?.(true);
+
+  const hidePwaToast = (raf = false) => {
+    if (raf) {
+      requestAnimationFrame(() => hidePwaToast(false));
+      return;
     }
-  },
+    if (pwaToast.classList.contains("refresh"))
+      pwaRefreshBtn.removeEventListener("click", refreshCallback);
+
+    pwaToast.classList.remove("show", "refresh");
+  };
+
+  const showPwaToast = (offline: boolean) => {
+    if (!offline) pwaRefreshBtn.addEventListener("click", refreshCallback);
+    requestAnimationFrame(() => {
+      hidePwaToast(false);
+      if (!offline) pwaToast.classList.add("refresh");
+      pwaToast.classList.add("show");
+    });
+  };
+
+  pwaCloseBtn.addEventListener("click", () => hidePwaToast(true));
+
+  registerSW({
+    immediate: true,
+    onOfflineReady() {
+      pwaToastMessage.innerHTML =
+        "[Vite Plugin PWA] PWA application ready to work offline";
+      showPwaToast(true);
+    },
+    onNeedRefresh() {
+      pwaToastMessage.innerHTML =
+        "[Vite Plugin PWA] PWA application needs an update";
+      showPwaToast(false);
+    },
+    onRegisteredSW(swUrl, r) {
+      if (period <= 0) return;
+      if (r?.active?.state === "activated") {
+        swActivated = true;
+        sync(period, swUrl, r);
+        console.info(
+          `[Vite Plugin PWA] SW registered: ${swUrl} after activation`,
+        );
+      } else if (r?.installing) {
+        r.installing.addEventListener("statechange", (e) => {
+          const sw = e.target as ServiceWorker;
+          swActivated = sw.state === "activated";
+          if (swActivated) sync(period, swUrl, r);
+          console.info(
+            `[Vite Plugin PWA] SW registered: ${swUrl} after installing`,
+          );
+        });
+      }
+    },
+  });
 });
 
 /**

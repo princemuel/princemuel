@@ -1,53 +1,57 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters", "typedSql"]
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
-}
-
-model User {
-  id    String  @id @default(uuid())
-  email String  @unique @db.VarChar(256)
-  name  String? @db.VarChar(256)
-  posts Post[]
-}
-
-model Post {
-  id        String   @id @default(uuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  title     String
-  content   String?
-  published Boolean  @default(false)
-  viewCount Int      @default(0)
-  author    User?    @relation(fields: [authorId], references: [id])
-  authorId  String?
+  provider = "sqlite"
+  url      = "file:./dev.db"
 }
 
 model Analytics {
   id        String   @id @default(uuid())
-  createdAt DateTime @default(now())
-  pathname  String   @db.VarChar(256)
-  referrer  String?  @db.VarChar(256)
-  flag      String?  @db.VarChar(256)
-  country   String?  @db.VarChar(256)
-  city      String?  @db.VarChar(256)
+  createdAt DateTime @default(now()) @map("created_at")
+  url       String
+  referrer  String?
+  flag      String?
+  country   String?
+  city      String?
   latitude  Float?
   longitude Float?
+
+  @@map("analytics")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  email     String   @unique
+  name      String?
+  posts     Post[]
+
+  @@map("users")
+}
+
+model Post {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  title     String
+  uniqueId  String   @unique @map("unique_id")
+  content   String?
+  published Boolean  @default(false)
+  views     Int      @default(0)
+  authorId  String?  @map("author_id")
+  author    User?    @relation(fields: [authorId], references: [id])
+
+  @@index([authorId])
+  @@map("posts")
 }
 
 model Reactions {
   id        String   @id @default(uuid())
-  createdAt DateTime @default(now())
-  slug      String   @db.VarChar(256)
-  reaction  String   @db.VarChar(256)
+  slug      String
+  reaction  String
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("reactions")
 }

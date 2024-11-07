@@ -1,41 +1,42 @@
-import { db } from "@/lib/config/clients";
-import { parseError, raise } from "@/shared/utils";
-import { geolocation } from "@vercel/edge";
-import type { APIRoute } from "astro";
+import { z } from "astro:schema";
+import { handler } from "@/helpers/api-handler";
+import { RequestError } from "@/helpers/errors";
+import { geolocation } from "@vercel/functions";
 import { isbot } from "isbot";
-import { z } from "zod";
 
 export const prerender = false;
 
 const schema = z.object({
-  pathname: z.string(),
+  url: z.string(),
   referrer: z.string(),
   flag: z.string().optional(),
   city: z.string().optional(),
   country: z.string().optional(),
-  latitude: z.number().optional(),
-  longitude: z.number().optional(),
+  latitude: z.coerce.number().optional(),
+  longitude: z.coerce.number().optional(),
 });
 
-export const POST: APIRoute = async ({ request }) => {
-  try {
-    if (isbot(request.headers.get("User-Agent")))
-      raise("Invalid request detected.");
-
-    const body = (await request.json()) as any;
-    const geo = geolocation(request);
-
-    const result = schema.parse({ ...body, ...geo });
-
-    await db.analytics.create({ data: result });
-
-    return Response.json({ success: true, message: "Request Success" });
-  } catch (e) {
-    return Response.json(
-      { success: false, message: parseError(e) },
-      { status: 400 },
+export const POST = handler(async ({ request }) => {
+  if (isbot(request.headers.get("User-Agent")))
+    throw RequestError.permissionDenied(
+      "This endpoint is not available for bots",
     );
-  }
-};
 
-export const config = { runtime: "edge" };
+  const response = await Promise.all([request.json(), geolocation(request)]);
+  const parsed = schema.safeParse(Object.assign({}, ...response));
+  if (!parsed.success)
+    throw RequestError.failedPrecondition(parsed.error.message);
+
+  // await db.analytics.create({ data: parsed.data });
+  return Response.json({
+    ok: true,
+    payload: "Analytics data sent successfully",
+  });
+});
+
+export const ALL = handler(
+  async ({ request }) =>
+    new Response(`HTTP method ${request.method} not allowed`, {
+      status: 405,
+    }),
+);

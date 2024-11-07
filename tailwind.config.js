@@ -8,19 +8,15 @@ import twConfig from "./config/tailwind.json";
 
 /** @type {import('tailwindcss').Config} */
 export default {
-  darkMode: ["selector", '[data-theme="dark"]'],
+  // darkMode: ["selector", '[data-mode="dark"]'],
   content: [
-    "./app/pages/**/*.{astro,md,mdx}",
+    "./app/pages/**/*.{astro,md,mdx,mdoc}",
     "./app/layouts/**/*.astro",
-    "./app/components/**/*.{astro,tsx}",
-    "./app/content/**/*.{md,mdx}",
+    "./app/components/**/*.astro",
+    "./app/content/**/*.{md,mdx,mdoc,json}",
   ],
-  future: {
-    hoverOnlyWhenSupported: true,
-    respectDefaultRingColorOpacity: true,
-    disableColorOpacityUtilitiesByDefault: true,
-  },
-  experimental: { optimizeUniversalDefaults: true },
+  future: "all",
+  experimental: "all",
   theme: {
     screens: {
       "3xs": "24em", // @media (min-width: 384px) { ... }
@@ -40,10 +36,6 @@ export default {
           twConfig.theme.fontFamily.mono,
           ...twDefaultTheme.fontFamily.mono,
         ],
-        accent: [
-          twConfig.theme.fontFamily.accent,
-          ...twDefaultTheme.fontFamily.mono,
-        ],
       },
       cursor: twConfig.theme.cursor,
       screens: {
@@ -55,20 +47,8 @@ export default {
         "2xl": "96em", // @media (min-width: 1536px) { ... }
         "3xl": "112.5em", // @media (min-width: 1800px) { ... }
       },
-      animation: {
-        float: "float 6s ease-in-out infinite",
-        rotate: "rotate 1s ease-out",
-      },
-      keyframes: {
-        float: {
-          "0%, 100%": { transform: "translate3d(0px, -8px, 0)" },
-          "50%": { transform: "translate3d(0px, 8px, 0)" },
-        },
-        rotate: {
-          "0%": { transform: "rotate(-45deg)" },
-          "100%": { transform: "rotate(0deg)" },
-        },
-      },
+      animation: twConfig.theme.animation,
+      keyframes: twConfig.theme.keyframes,
     },
   },
   plugins: [
@@ -76,16 +56,16 @@ export default {
     twTypography({ target: "modern" }),
     twScrollbar({ nocompatible: true, preferredStrategy: "pseudoelements" }),
     twForms({ strategy: "base" }),
-    twPlugin(function ({ theme, addUtilities, addVariant, matchUtilities }) {
+    twPlugin(({ theme, addUtilities, addVariant, matchUtilities }) => {
       addVariant("optional", "&:optional");
       addVariant("hocus", ["&:hover", "&:focus"]);
       addVariant("inverted-colors", "@media (inverted-colors: inverted)");
-      addVariant("neon", '&:where([data-theme="neon"], [data-theme="neon"] *)');
 
       addUtilities({
-        ".grid-repeat-autofit": { "--tw-grid-repeat": "auto-fit" },
-        ".grid-repeat-autofill": { "--tw-grid-repeat": "auto-fill" },
+        ".auto-fit": { "--tw-repeat": "auto-fit" },
+        ".auto-fill": { "--tw-repeat": "auto-fill" },
       });
+
       addUtilities({
         ".mask-radial-gradient": {
           maskImage: "radial-gradient(rgba(0, 0, 0, 0.8), transparent 60%)",
@@ -96,7 +76,7 @@ export default {
         },
       });
       addUtilities({
-        ".full-w-bg": {
+        ".bg-w-full": {
           backgroundColor: "currentColor",
           boxShadow: "0 0 0 100vmax currentColor, 0 0 2rem currentColor",
           clipPath: "inset(0 -100vmax)",
@@ -106,7 +86,7 @@ export default {
       matchUtilities(
         {
           "grid-cols-fluid": (value) => ({
-            gridTemplateColumns: `repeat(var(--tw-grid-repeat), minmax(min(100%, ${value}), 1fr))`,
+            gridTemplateColumns: `repeat(var(--tw-repeat), minmax(min(100%, ${value}), 1fr))`,
           }),
         },
         { values: theme("width") },
