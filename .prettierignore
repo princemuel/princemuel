@@ -5,7 +5,6 @@
 *.ts
 *.tsx
 *.lock
-*.toml
 *.txt
 *.log
 
