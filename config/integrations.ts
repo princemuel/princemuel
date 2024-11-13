@@ -10,9 +10,9 @@ import icon from "astro-icon";
 import twDefaultTheme from "tailwindcss/defaultTheme";
 import { importConfig } from "./components";
 
+import twConfig from "../tailwind.json";
 import icons from "./icons.json";
 import manifest from "./manifest.json";
-import twConfig from "./tailwind.json";
 
 import type { SitemapOptions } from "@astrojs/sitemap";
 import type { PwaOptions } from "@vite-pwa/astro";
@@ -79,7 +79,6 @@ const ecConfigOptions: AstroExpressiveCodeOptions = {
 
 export const integrations: AstroIntegration[] = [
   icon(IconOptions),
-  // markdoc(markdownOptions),
   autoImport(importConfig),
   expressiveCode(ecConfigOptions),
   mdx({ gfm: true, extendMarkdownConfig: true }),

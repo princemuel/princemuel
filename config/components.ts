@@ -9,9 +9,6 @@ export const importConfig: ImportConfig = {
     {
       "./app/components/atoms/figure.astro": [["default", "Figure"]],
     },
-    // {
-    //   "astro-embed": ["Tweet", "YouTube"],
-    // },
     {
       "astro-icon/components": ["Icon"],
     },
