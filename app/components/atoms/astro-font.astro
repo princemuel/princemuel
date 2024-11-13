@@ -2,7 +2,7 @@
 import { join } from "node:path";
 import { AstroFont as Font } from "astro-font";
 
-const fontsPath = join(process.cwd(), "public", "static", "fonts");
+const fontsPath = join(process.cwd(), "app", "assets", "fonts");
 ---
 
 <Font
@@ -12,7 +12,7 @@ const fontsPath = join(process.cwd(), "public", "static", "fonts");
       src: [
         {
           style: "normal",
-          path: join(fontsPath, "lisa-regular.woff2"),
+          path: join(fontsPath, "lisa-normal.woff2"),
         },
         {
           style: "italic",
@@ -21,7 +21,7 @@ const fontsPath = join(process.cwd(), "public", "static", "fonts");
       ],
       preload: false,
       display: "swap",
-      cssVariable: "font-mono",
+      cssVariable: "--font-mono-lisa",
       fallback: "monospace",
       fallbackName: "__Mono_Lisa_Fallback",
     },

@@ -5,7 +5,6 @@ import ReloadPrompt from "@/components/molecules/reload-prompt.astro";
 import ContentSlot from "@/components/templates/content-slot.astro";
 import SiteStatus from "@/components/templates/site-status.astro";
 import { getSiteSettings } from "@/config/settings";
-import SpeedInsights from "@vercel/speed-insights/astro";
 import Meta from "./meta.astro";
 
 type Props = Meta & {
@@ -28,6 +27,7 @@ const {
   directives = {},
   language = settings.language,
 } = Astro.props;
+// "[--font-mono-lisa]:flex"
 ---
 
 <!doctype html>
@@ -36,19 +36,13 @@ const {
   dir="auto"
   data-reader-theme="github-light-default"
   data-theme="light"
-  class:list={[
-    "scrollbar scrollbar-w-1 scrollbar-h-6",
-    "scrollbar-track-rounded-full scrollbar-thumb-rounded-full scrollbar-corner-rounded-full",
-    "scrollbar-track-gray-300 scrollbar-thumb-gray-700 scrollbar-corner-gray-500",
-    "selection:bg-gray-300 selection:text-gray-900",
-    "scroll-smooth",
-  ]}
+  class:list={["motion-safe:scroll-smooth"]}
 >
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="referrer" content="origin-when-cross-origin" />
-    <!-- <meta name="color-scheme" content="dark light" /> -->
+    <meta name="color-scheme" content="dark light" />
     <Meta
       title={title}
       description={description}
@@ -64,20 +58,14 @@ const {
     <slot name="jsonld" />
   </head>
   <body class="relative bg-white font-sans text-base font-normal antialiased">
-    <SkipLink />
     <ContentSlot>
-      <SiteStatus slot="site-status" />
-      <div
-        slot="live"
-        class:list={[
-          "grid grid-rows-[auto_1fr_auto]",
-          "min-h-screen supports-[min-height:100svh]:min-h-svh",
-        ]}
-      >
+      <SiteStatus slot="site-status-down" />
+      <Fragment slot="site-status-live">
+        <SkipLink />
         <slot />
-      </div>
+        <Indicator />
+        <ReloadPrompt />
+      </Fragment>
     </ContentSlot>
-    <ReloadPrompt />
-    {import.meta.env.DEV ? <Indicator /> : <SpeedInsights />}
   </body>
 </html>

@@ -7,17 +7,16 @@ import { pwaInfo } from "virtual:pwa-info";
 import { defaultKeywords, delimiter } from "@/config/settings";
 import { formatCanonicalURL } from "@/helpers/format-canonical";
 
-import MonoItalic from "@fontsource-variable/source-code-pro/files/source-code-pro-latin-wght-italic.woff2";
-import MonoNormal from "@fontsource-variable/source-code-pro/files/source-code-pro-latin-wght-normal.woff2";
-import SansItalic from "@fontsource-variable/ubuntu-sans/files/ubuntu-sans-latin-ext-wght-italic.woff2";
-import SansNormal from "@fontsource-variable/ubuntu-sans/files/ubuntu-sans-latin-ext-wght-normal.woff2";
+import MonoItalic from "@/assets/fonts/lisa-italic.woff2";
+import MonoNormal from "@/assets/fonts/lisa-normal.woff2";
+import SansItalic from "@fontsource-variable/ubuntu-sans/files/ubuntu-sans-latin-wght-italic.woff2";
+import SansNormal from "@fontsource-variable/ubuntu-sans/files/ubuntu-sans-latin-wght-normal.woff2";
 
-import "@fontsource-variable/source-code-pro/wght-italic.css";
-import "@fontsource-variable/source-code-pro/wght.css";
 import "@fontsource-variable/ubuntu-sans/wght-italic.css";
 import "@fontsource-variable/ubuntu-sans/wght.css";
 
 import "@/assets/styles/global.css";
+import AstroFont from "@/components/atoms/astro-font.astro";
 import { pluralize } from "@/utilities/strings";
 
 type Props = Meta & { og?: OpenGraph; twitter?: Twitter };
@@ -239,6 +238,7 @@ const img = await generated;
         href={MonoItalic}
         crossorigin="anonymous"
       />
+      <AstroFont />
     </Fragment>
   )
 }
