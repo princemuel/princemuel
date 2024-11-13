@@ -1,0 +1,9 @@
+.linked {
+  @apply relative no-underline;
+}
+
+.linked:hover::before {
+  content: " ";
+  mask-image: url(/static/assets/linked.svg);
+  @apply absolute top-1/2 -left-5 size-4 -translate-y-1/2 bg-gray-500 sm:block;
+}

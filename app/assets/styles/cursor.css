@@ -1,0 +1,3 @@
+:is(a, button, label, option, details) {
+  @apply cursor-pointer;
+}
