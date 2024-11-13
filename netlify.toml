@@ -1,0 +1,26 @@
+# example netlify.toml
+[build]
+  command        = "pnpm run build"
+  edge_functions = "netlify/edge-functions"
+  functions      = "netlify/functions"
+  ignore         = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF ."
+  publish        = "dist"
+
+
+  # Uncomment to use this redirect for Single Page Applications like create-react-app.
+  # Not needed for static site generators.
+
+[[redirects]]
+  force  = true                         # ensure to always redirect
+  from   = "/api/*"                     # simplify all calls to serverless functions
+  status = 200                          # ok code
+  to     = "/.netlify/functions/:splat" # all function calls will go to this path
+
+  ## (optional) Settings for Netlify Dev
+  ## https://github.com/netlify/cli/blob/main/docs/netlify-dev.md#project-detection
+  #[dev]
+  #  command = "yarn start" # Command to start your dev server
+  #  port = 3000 # Port that the dev server will be listening on
+  #  publish = "dist" # Folder with the static content for _redirect file
+
+  ## more info on configuring this file: https://ntl.fyi/file-based-build-config
