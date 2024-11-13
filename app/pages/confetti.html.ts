@@ -1,5 +1,4 @@
 import { handler } from "@/helpers/api-handler";
-import { waitUntil } from "@vercel/functions";
 
 export const prerender = false;
 
@@ -9,7 +8,7 @@ const CONFETTI_URL =
 export const GET = handler(async () => {
   const { readable, writable } = new TransformStream();
 
-  waitUntil(streamData(writable));
+  streamData(writable);
 
   return new Response(readable, {
     headers: { "Content-Type": "text/html; charset=utf-8" },

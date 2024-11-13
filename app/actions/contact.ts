@@ -1,9 +1,9 @@
-import { ActionError, defineAction } from "astro:actions";
-import { RESEND_ADDRESS } from "astro:env/server";
-import { z } from "astro:schema";
 import { resend } from "@/config/clients";
 import { checkIfRateLimited } from "@/helpers/rate-limit";
 import { capitalize } from "@/utilities/strings";
+import { ActionError, defineAction } from "astro:actions";
+import { RESEND_ADDRESS } from "astro:env/server";
+import { z } from "astro:schema";
 
 export const contactAction = defineAction({
   accept: "form",
@@ -36,8 +36,8 @@ export const contactAction = defineAction({
         message: "To submit this form, please consent to being contacted",
       }),
   }),
-  handler: async (body, { request }) => {
-    const { isRateLimited } = await checkIfRateLimited(request);
+  handler: async (body, { request, clientAddress }) => {
+    const { isRateLimited } = await checkIfRateLimited(request, clientAddress);
 
     if (isRateLimited)
       throw new ActionError({

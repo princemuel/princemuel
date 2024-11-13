@@ -1,8 +1,8 @@
-import { OCTOKIT_USERNAME } from "astro:env/server";
 import { octokit } from "@/config/clients";
 import { handler } from "@/helpers/api-handler";
 import { RequestError, get_code_from_status } from "@/helpers/errors";
-import { RequestError as GHRequestError } from "octokit";
+import { OCTOKIT_USERNAME } from "astro:env/server";
+import { RequestError as GithubError } from "octokit";
 
 export const GET = handler(async () => {
   try {
@@ -14,12 +14,12 @@ export const GET = handler(async () => {
       { payload: response.data.stargazers_count },
       { status: 200 },
     );
-  } catch (error) {
-    if (!(error instanceof GHRequestError)) throw error;
+  } catch (e) {
+    if (!(e instanceof GithubError)) throw e;
     throw new RequestError(
-      get_code_from_status(error.status),
-      error.message,
-      new Error(error.message, { cause: error.cause }),
+      get_code_from_status(e.status),
+      e.message,
+      new Error(e.message, { cause: e.cause }),
     );
   }
 });
