@@ -4,19 +4,22 @@ import { ClientRouter } from "astro:transitions";
 import { pwaAssetsHead } from "virtual:pwa-assets/head";
 import { pwaInfo } from "virtual:pwa-info";
 // import ThemeProvider from "./theme-provider.astro";
-import { defaultKeywords, delimiter } from "@/config/settings";
+import { defaultKeywords, delimiter, getSiteSettings } from "@/config/settings";
 import { formatCanonicalURL } from "@/helpers/format-canonical";
 
-import MonoItalic from "@/assets/fonts/lisa-italic.woff2";
-import MonoNormal from "@/assets/fonts/lisa-normal.woff2";
-import SansItalic from "@fontsource-variable/ubuntu-sans/files/ubuntu-sans-latin-wght-italic.woff2";
-import SansNormal from "@fontsource-variable/ubuntu-sans/files/ubuntu-sans-latin-wght-normal.woff2";
+import SansItalic from "@fontsource-variable/cabin/files/cabin-latin-wght-italic.woff2";
+import SansNormal from "@fontsource-variable/cabin/files/cabin-latin-wght-normal.woff2";
+// import SansItalic from "@fontsource-variable/ubuntu-sans/files/ubuntu-sans-latin-wght-italic.woff2";
+// import SansNormal from "@fontsource-variable/ubuntu-sans/files/ubuntu-sans-latin-wght-normal.woff2";
+import MonoNormal from "/static/fonts/lisa-normal.woff2";
 
-import "@fontsource-variable/ubuntu-sans/wght-italic.css";
-import "@fontsource-variable/ubuntu-sans/wght.css";
+// import "@fontsource-variable/cabin/wght.css";
+// import "@fontsource-variable/ubuntu-sans/wght.css";
 
+import "@/assets/styles/debug.css"; // uncomment this to debug your styles
+import "@/assets/styles/fonts.css";
 import "@/assets/styles/global.css";
-import AstroFont from "@/components/atoms/astro-font.astro";
+
 import { pluralize } from "@/utilities/strings";
 
 type Props = Meta & { og?: OpenGraph; twitter?: Twitter };
@@ -48,18 +51,19 @@ const generated = (async () => {
     image || import("@/assets/images/princemuel-open-graph-image-2024.jpg");
   return getImage({ src: image_src, format: "png", width: 1200, height: 630 });
 })();
+const settings = getSiteSettings();
 
-const name = "Prince Muel";
-const locale = "en";
-const application_name = `${name}'s Personal Website`;
+const name = settings.name;
+const locale = settings.language;
+const application_name = `${name}'s Domain`;
 const linkCanonical = formatCanonicalURL(canonical || Astro.url.pathname, true);
 const seoKeywords = keywords ? keywords : defaultKeywords;
 const published_at = new Date(publishedAt ?? Date.now());
 const updated_at = new Date(updatedAt ?? published_at);
 
 const htmlTitle = ((title, delimiter, absolute) => {
-  const defaultTitle = `Prince Muel ${delimiter} Frontend Engineer (Freelance)`;
-  const template = `%s ${delimiter} Prince Muel`;
+  const defaultTitle = name;
+  const template = `%s ${delimiter} ${name}`;
   if (absolute) return title || defaultTitle;
   if (!title) return defaultTitle;
   return template.replace("%s", title);
@@ -231,14 +235,6 @@ const img = await generated;
         href={MonoNormal}
         crossorigin="anonymous"
       />
-      <link
-        rel="prefetch"
-        as="font"
-        type="font/woff2"
-        href={MonoItalic}
-        crossorigin="anonymous"
-      />
-      <AstroFont />
     </Fragment>
   )
 }

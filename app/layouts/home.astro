@@ -1,7 +1,4 @@
 ---
-import Container from "@/components/atoms/container.astro";
-import Main from "@/components/atoms/main.astro";
-import Profile from "@/components/molecules/profile.astro";
 import type { ComponentProps } from "astro/types";
 import RootLayout from "./root.astro";
 
@@ -22,16 +19,5 @@ const { jsonld, ...rest } = Astro.props;
     set:html={JSON.stringify(jsonld)}
   />
 
-  <Container class="my-10">
-    <Main class="relative grid grid-cols-1 gap-4 lg:grid-cols-7 xl:gap-8">
-      <aside
-        class="sticky top-28 col-span-2 flex h-fit w-full flex-col gap-6 max-lg:hidden"
-      >
-        <Profile />
-      </aside>
-      <div class="col-span-5 max-lg:col-span-1">
-        <slot />
-      </div>
-    </Main>
-  </Container>
+  <slot />
 </RootLayout>
