@@ -1,7 +1,7 @@
 import { WEBHOOK_SECRET } from "astro:env/server";
 import { z } from "astro:schema";
 import { handler } from "@/helpers/api-handler";
-import { RequestError } from "@/helpers/errors";
+import { RequestError } from "@/helpers/request-error";
 import { purgeCache } from "@netlify/functions";
 import { isbot } from "isbot";
 
@@ -11,17 +11,14 @@ const schema = z.object({ id: z.string() });
 
 export const POST = handler(async ({ request }) => {
   if (isbot(request.headers.get("User-Agent")))
-    throw RequestError.permissionDenied(
-      "This endpoint is not available for bots",
-    );
+    throw RequestError.permissionDenied("This endpoint is not available for bots");
 
   if (request.headers.get("X-Webhook-Secret") !== WEBHOOK_SECRET) {
     return new Response("Unauthorized", { status: 401 });
   }
 
   const parsed = schema.safeParse(await request.json());
-  if (!parsed.success)
-    throw RequestError.failedPrecondition("Invalid data received");
+  if (!parsed.success) throw RequestError.failedPrecondition("Invalid data received");
   const result = parsed.data;
 
   await purgeCache({ tags: [result.id] });

@@ -42,9 +42,7 @@ export const db = singleton("__prisma__", () => {
 // });
 
 const tokens = UPSTASH_LIMIT_TOKEN;
-const duration = UPSTASH_LIMIT_WINDOW as Parameters<
-  typeof Ratelimit.slidingWindow
->[1];
+const duration = UPSTASH_LIMIT_WINDOW as Parameters<typeof Ratelimit.slidingWindow>[1];
 
 export const ratelimit = new Ratelimit({
   redis: Redis.fromEnv(),

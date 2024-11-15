@@ -8,10 +8,7 @@ type Props = HTMLAttributes<"nav">;
 
 // const excluded = ["resources", "articles", "dashboard"];
 const excluded = [""];
-const routes = await getCollection(
-  "routes",
-  (data) => !excluded.includes(data.id),
-);
+const routes = await getCollection("routes", (data) => !excluded.includes(data.id));
 ---
 
 <nav
@@ -28,13 +25,8 @@ const routes = await getCollection(
         ]}
         href={route.data.href}
       >
-        <Icon
-          name={route.data.icon}
-          class="text-lg text-inherit sm:text-xl md:hidden"
-        />
-        <span class="sr-only text-inherit md:not-sr-only">
-          {route.data.text}
-        </span>
+        <Icon name={route.data.icon} class="text-lg text-inherit sm:text-xl md:hidden" />
+        <span class="sr-only text-inherit md:not-sr-only">{route.data.text}</span>
       </Navlink>
     ))
   }

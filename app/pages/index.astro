@@ -22,18 +22,15 @@ const jsonld = {
     set:html={JSON.stringify(jsonld)}
   />
   <Container>
-    <MainContent
-      class:list={[
-        "grid grid-cols-1 lg:grid-cols-[5rem,1fr]",
-        "gap-4 md:gap-6 lg:gap-12",
-      ]}
-    >
-      <Markdown class="lg:col-start-2">
-        <h1 class="text-2xl font-extrabold">Sam Chukwuzube</h1>
-        <!--<h2 class="mt-1 font-sans">Frontend Engineer (Freelance)</h2> -->
+    <div class="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-[5rem,1fr] lg:gap-12">
+      <MainContent class="lg:col-start-2">
+        <Markdown>
+          <h1 class="text-2xl font-extrabold">Sam Chukwuzube</h1>
+          <!--<h2 class="mt-1 font-sans">Frontend Engineer (Freelance)</h2> -->
 
-        <!-- <Content /> -->
-      </Markdown>
-    </MainContent>
+          <!-- <Content /> -->
+        </Markdown>
+      </MainContent>
+    </div>
   </Container>
 </RootLayout>

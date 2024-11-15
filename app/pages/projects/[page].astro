@@ -19,10 +19,7 @@ const { page } = Astro.props;
 const entry = page.data.at(0);
 if (!entry) return Astro.rewrite("/404");
 
-const [markdown, _author] = await Promise.all([
-  render(entry),
-  getEntry(entry.data.author),
-]);
+const [markdown, _author] = await Promise.all([render(entry), getEntry(entry.data.author)]);
 
 const { Content, remarkPluginFrontmatter } = markdown || {};
 

@@ -1,7 +1,7 @@
 import { OCTOKIT_USERNAME } from "astro:env/server";
 import { octokit } from "@/config/clients";
 import { handler } from "@/helpers/api-handler";
-import { RequestError, get_code_from_status } from "@/helpers/errors";
+import { RequestError, get_code_from_status } from "@/helpers/request-error";
 import { RequestError as GithubError } from "octokit";
 
 export const GET = handler(async () => {
@@ -10,10 +10,7 @@ export const GET = handler(async () => {
       owner: OCTOKIT_USERNAME,
       repo: "princemuel.com",
     });
-    return Response.json(
-      { payload: response.data.stargazers_count },
-      { status: 200 },
-    );
+    return Response.json({ payload: response.data.stargazers_count }, { status: 200 });
   } catch (e) {
     if (!(e instanceof GithubError)) throw e;
     throw new RequestError(

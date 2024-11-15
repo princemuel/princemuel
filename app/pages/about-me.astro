@@ -7,13 +7,7 @@ import { withBaseUrl } from "@/helpers/with-base-url";
 import RootLayout from "@/layouts/root.astro";
 import { profile_ld } from "@/lib/jsonld";
 import { remove_key } from "@/utilities/objects";
-import type {
-  BreadcrumbList,
-  Graph,
-  ImageObject,
-  ProfilePage,
-  WithContext,
-} from "schema-dts";
+import type { BreadcrumbList, Graph, ImageObject, ProfilePage, WithContext } from "schema-dts";
 
 const page_ld = {
   "@context": "https://schema.org",
@@ -71,12 +65,7 @@ const breadcrumb_ld = {
 
 const jsonld = {
   "@context": "https://schema.org",
-  "@graph": remove_key("@context", [
-    page_ld,
-    image_ld,
-    breadcrumb_ld,
-    profile_ld,
-  ]),
+  "@graph": remove_key("@context", [page_ld, image_ld, breadcrumb_ld, profile_ld]),
 } satisfies Graph;
 ---
 

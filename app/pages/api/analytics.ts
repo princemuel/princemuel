@@ -1,7 +1,7 @@
 import { PUBLIC_SITE_URL } from "astro:env/client";
 import { z } from "astro:schema";
 import { handler } from "@/helpers/api-handler";
-import { RequestError } from "@/helpers/errors";
+import { RequestError } from "@/helpers/request-error";
 import { isbot } from "isbot";
 
 export const prerender = false;
@@ -18,9 +18,7 @@ const schema = z.object({
 
 export const POST = handler(async ({ request }) => {
   if (isbot(request.headers.get("User-Agent")))
-    throw RequestError.permissionDenied(
-      "This endpoint is not available for bots",
-    );
+    throw RequestError.permissionDenied("This endpoint is not available for bots");
 
   const response = await Promise.all([
     request.json(),
@@ -28,8 +26,7 @@ export const POST = handler(async ({ request }) => {
   ]);
 
   const parsed = schema.safeParse(Object.assign({}, ...response));
-  if (!parsed.success)
-    throw RequestError.failedPrecondition(parsed.error.message);
+  if (!parsed.success) throw RequestError.failedPrecondition(parsed.error.message);
 
   // await db.analytics.create({ data: parsed.data });
   return Response.json({

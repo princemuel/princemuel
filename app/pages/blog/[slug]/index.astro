@@ -36,10 +36,7 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
 const { entry } = Astro.props;
 
-const [markdown, author] = await Promise.all([
-  render(entry),
-  getEntry(entry.data.author),
-]);
+const [markdown, author] = await Promise.all([render(entry), getEntry(entry.data.author)]);
 
 const { Content, remarkPluginFrontmatter } = markdown;
 
@@ -156,8 +153,7 @@ const jsonld = {
   ]),
 } satisfies Graph;
 
-const { title, description, tags, permalink, publishedAt, updatedAt } =
-  entry.data;
+const { title, description, tags, permalink, publishedAt, updatedAt } = entry.data;
 
 const github_links = (() => {
   try {

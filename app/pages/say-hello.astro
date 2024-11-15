@@ -28,27 +28,19 @@ const formErrors = isInputError(result?.error) ? result.error.fields : {};
           <p class="text-balance text-sm">
             Thanks for completing the form. We&apos;ll be in touch soon!
           </p>
-          <Link
-            href="/"
-            class="flex items-center gap-2 text-sm text-gray-900 underline"
-          >
+          <Link href="/" class="flex items-center gap-2 text-sm text-gray-900 underline">
             <Icon name="fa:arrow-circle-left" /> <span>Go to homepage</span>
           </Link>
         </div>
       )
     }
 
-    <form
-      method="POST"
-      action={actions.contact}
-      class="flex flex-col gap-6 md:gap-8"
-    >
+    <form method="POST" action={actions.contact} class="flex flex-col gap-6 md:gap-8">
       <header class="flex flex-col gap-5">
         <h1 class="text-3xl font-medium text-gray-900">Contact Me</h1>
 
         <p class="text-gray-900">
-          Let me know what's on your mind and I'll get back to you as soon as
-          possible.
+          Let me know what's on your mind and I'll get back to you as soon as possible.
         </p>
       </header>
 
@@ -114,10 +106,7 @@ const formErrors = isInputError(result?.error) ? result.error.fields : {};
         </div>
 
         <div class="group col-span-6 flex flex-col gap-2">
-          <label
-            for="fields.email.input"
-            class="space-x-1 text-sm font-medium text-gray-600"
-          >
+          <label for="fields.email.input" class="space-x-1 text-sm font-medium text-gray-600">
             <span>Email Address</span><span class="text-red-500">*</span>
           </label>
           <input
@@ -225,10 +214,7 @@ const formErrors = isInputError(result?.error) ? result.error.fields : {};
         </fieldset>
 
         <div class="group col-span-6 flex flex-col gap-2">
-          <label
-            for="fields.message.input"
-            class="space-x-1 text-sm font-medium text-gray-600"
-          >
+          <label for="fields.message.input" class="space-x-1 text-sm font-medium text-gray-600">
             <span>Message</span>
             <span class="text-red-500">*</span>
           </label>

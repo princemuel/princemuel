@@ -28,14 +28,8 @@ export default {
       colors: twConfig.theme.colors,
       borderRadius: { pill: "100vmax" },
       fontFamily: {
-        sans: [
-          twConfig.theme.fontFamily.sans,
-          ...twDefaultTheme.fontFamily.sans,
-        ],
-        mono: [
-          twConfig.theme.fontFamily.mono,
-          ...twDefaultTheme.fontFamily.mono,
-        ],
+        sans: [twConfig.theme.fontFamily.sans, ...twDefaultTheme.fontFamily.sans],
+        mono: [twConfig.theme.fontFamily.mono, ...twDefaultTheme.fontFamily.mono],
       },
       cursor: twConfig.theme.cursor,
       screens: {
@@ -71,8 +65,7 @@ export default {
           maskImage: "radial-gradient(rgba(0, 0, 0, 0.8), transparent 60%)",
         },
         ".mask-linear-gradient-to-b": {
-          maskImage:
-            "linear-gradient(to bottom, white 0%, white 33%, transparent 90%)",
+          maskImage: "linear-gradient(to bottom, white 0%, white 33%, transparent 90%)",
         },
       });
       addUtilities({

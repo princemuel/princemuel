@@ -2,10 +2,7 @@
 import { getCollection } from "astro:content";
 import RootLayout from "@/layouts/root.astro";
 
-let entries = await getCollection(
-  "posts",
-  ({ data }) => !(import.meta.env.PROD && data.draft),
-);
+let entries = await getCollection("posts", ({ data }) => !(import.meta.env.PROD && data.draft));
 entries = entries.sort((a, b) => {
   return Number(b.data.publishedAt) - Number(a.data.publishedAt);
 });
