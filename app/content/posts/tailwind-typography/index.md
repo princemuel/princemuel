@@ -7,7 +7,7 @@ tags:
   - TypeScript
   - Astro
 author: princemuel
-publishedAt: "2024-04-18T04:30:14.388Z"
+publishedAt: 2024-04-18T04:30:14.388Z
 ---
 
 > This article is from [TailwindLabs](https://tailwindcss-typography.vercel.app/). I put this article to demonstrate how you can write blog posts/proses using AstroPaper theme.

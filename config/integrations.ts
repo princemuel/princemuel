@@ -1,16 +1,12 @@
 import mdx from "@astrojs/mdx";
 import partytown from "@astrojs/partytown";
 import sitemap from "@astrojs/sitemap";
-import { pluginCollapsibleSections } from "@expressive-code/plugin-collapsible-sections";
-import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
 import pwa from "@vite-pwa/astro";
 import autoImport from "astro-auto-import";
 import expressiveCode from "astro-expressive-code";
 import icon from "astro-icon";
-import twDefaultTheme from "tailwindcss/defaultTheme";
 import { importConfig } from "./components";
 
-import twConfig from "../tailwind.json";
 import icons from "./icons.json";
 import manifest from "./manifest.json";
 
@@ -60,21 +56,8 @@ const PWAOptions: PwaOptions = {
 };
 
 const ecConfigOptions: AstroExpressiveCodeOptions = {
-  themes: ["github-dark-high-contrast", "github-light-high-contrast"],
-  styleOverrides: {
-    codeFontFamily: [
-      twConfig.theme.fontFamily.mono,
-      ...twDefaultTheme.fontFamily.mono,
-    ].join(","),
-    uiFontFamily: [
-      twConfig.theme.fontFamily.sans,
-      ...twDefaultTheme.fontFamily.sans,
-    ].join(","),
-  },
-  plugins: [pluginCollapsibleSections(), pluginLineNumbers()],
   useThemedSelectionColors: false,
   themeCssSelector: (theme) => `[data-reader-theme='${theme.name}']`,
-  defaultProps: { showLineNumbers: false },
 };
 
 export const integrations: AstroIntegration[] = [

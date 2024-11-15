@@ -26,7 +26,7 @@ export const envSchema: Schema = {
   RESEND_AUDIENCE: z.string({ context: "server", access: "secret" }),
   RESEND_TOKEN: z.string({ context: "server", access: "secret" }),
 
-  REVALIDATE_SECRET: z.string({ context: "server", access: "secret" }),
+  WEBHOOK_SECRET: z.string({ context: "server", access: "secret" }),
   SITE_STATUS: z.enum({
     access: "secret",
     context: "server",

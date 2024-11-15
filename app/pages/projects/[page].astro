@@ -1,7 +1,7 @@
 ---
 import { getCollection, getEntry, render } from "astro:content";
 import Link from "@/components/atoms/link.astro";
-import Prose from "@/components/atoms/prose.astro";
+import Markdown from "@/components/atoms/markdown.astro";
 import RootLayout from "@/layouts/root.astro";
 import type { GetStaticPaths } from "astro";
 
@@ -30,13 +30,15 @@ const { Content, remarkPluginFrontmatter } = markdown || {};
 entry.data.updatedAt ||= new Date(remarkPluginFrontmatter.updatedAt);
 entry.data.duration ||= remarkPluginFrontmatter.duration;
 entry.data.words ||= remarkPluginFrontmatter.words;
+
+Astro.response.headers.set("Netlify-Vary", "query=sort|page|per_page");
 ---
 
 <RootLayout title={[""]} description="">
-  <Prose>
+  <Markdown>
     <h1 id="headline">{entry.data.title}</h1>
     <Content />
-  </Prose>
+  </Markdown>
 
   <div class="flex items-center gap-4">
     {page.url.prev ? <Link href={page.url.prev}>Previous</Link> : null}

@@ -1,6 +1,6 @@
 ---
 import AvatarImage from "@/assets/images/placeholder.avif";
-import Prose from "@/components/atoms/prose.astro";
+import Markdown from "@/components/atoms/markdown.astro";
 import { published_date } from "@/config/settings";
 import { Content } from "@/content/pages/about-me.md";
 import { withBaseUrl } from "@/helpers/with-base-url";
@@ -91,7 +91,7 @@ const jsonld = {
     slot="jsonld"
     set:html={JSON.stringify(jsonld)}
   />
-  <Prose>
+  <Markdown>
     <Content />
-  </Prose>
+  </Markdown>
 </RootLayout>
