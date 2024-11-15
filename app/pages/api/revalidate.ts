@@ -1,8 +1,8 @@
+import { WEBHOOK_SECRET } from "astro:env/server";
+import { z } from "astro:schema";
 import { handler } from "@/helpers/api-handler";
 import { RequestError } from "@/helpers/errors";
 import { purgeCache } from "@netlify/functions";
-import { WEBHOOK_SECRET } from "astro:env/server";
-import { z } from "astro:schema";
 import { isbot } from "isbot";
 
 export const prerender = false;
