@@ -62,8 +62,6 @@
     "@commitlint/config-conventional": "^19.5.0",
     "@expressive-code/plugin-collapsible-sections": "^0.38.3",
     "@expressive-code/plugin-line-numbers": "^0.38.3",
-    "@fontsource-variable/cabin": "^5.1.0",
-    "@fontsource-variable/source-code-pro": "^5.1.0",
     "@fontsource-variable/ubuntu-sans": "^5.1.0",
     "@iconify-json/fa": "^1.2.0",
     "@iconify-json/lucide": "^1.2.14",

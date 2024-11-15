@@ -2,7 +2,6 @@
   "fa": [
     "arrow-circle-left",
     "discord",
-    "email",
     "github",
     "instagram",
     "linkedin",
@@ -28,5 +27,5 @@
     "sun",
     "zap"
   ],
-  "ri": ["price-tag-3-fill", "quill-pen-fill"]
+  "ri": ["quill-pen-fill"]
 }
