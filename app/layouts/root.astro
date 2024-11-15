@@ -5,6 +5,7 @@ import ReloadPrompt from "@/components/molecules/reload-prompt.astro";
 import ContentSlot from "@/components/templates/content-slot.astro";
 import SiteStatus from "@/components/templates/site-status.astro";
 import { getSiteSettings } from "@/config/settings";
+import Layout from "./layout.astro";
 import Meta from "./meta.astro";
 
 type Props = Meta & {
@@ -56,12 +57,19 @@ const {
     <slot name="head" />
     <slot name="jsonld" />
   </head>
-  <body class="relative bg-white font-sans text-base font-normal antialiased">
+  <body
+    class:list={[
+      "relative min-h-screen antialiased",
+      "bg-white font-sans font-normal dark:bg-gray-900",
+    ]}
+  >
     <ContentSlot>
       <SiteStatus slot="site-status-down" />
       <Fragment slot="site-status-live">
         <SkipLink />
-        <slot />
+        <Layout>
+          <slot />
+        </Layout>
         <Indicator />
         <ReloadPrompt />
       </Fragment>
