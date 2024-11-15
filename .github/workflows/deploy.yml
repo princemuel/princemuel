@@ -19,14 +19,14 @@ jobs:
         with:
           node-version-file: ".nvmrc"
 
-      - name: install pnpm
-        run: |
-          curl -fsSL https://get.pnpm.io/install.sh | sh -
+      # - name: install pnpm
+      #   run: |
+      #     curl -fsSL https://get.pnpm.io/install.sh | sh -
 
       - name: install dependencies
-        run: pnpm install
+        run: npm install
 
       - name: apply all pending migrations to the database
-        run: pnpm prisma migrate deploy
+        run: npx prisma migrate deploy
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
