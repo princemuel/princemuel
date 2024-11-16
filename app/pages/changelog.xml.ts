@@ -2,10 +2,10 @@ import { published_date } from "@/config/settings";
 import { handler } from "@/helpers/api-handler";
 import { convertTime } from "@/utilities/time";
 
+import { getCollection, getEntry } from "astro:content";
+
 import rss from "@astrojs/rss";
 import { marked as mkd } from "marked";
-
-import { getCollection, getEntry } from "astro:content";
 
 import { normalize } from "node:path";
 
@@ -22,7 +22,7 @@ export const GET = handler(async (ctx) => {
     return {
       title: `v${item.data.version}`,
       description: item.data.description,
-      content: await mkd(item.body, { gfm: true, breaks: true, async: true }),
+      content: mkd(item.body, { gfm: true, breaks: true }),
       pubDate: item.data.publishedAt,
       author: `${author.data.links.email} (${author.data.name})`,
       link: new URL(

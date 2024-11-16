@@ -111,14 +111,8 @@ const img = await generated;
 <link
   rel="alternate"
   type="application/rss+xml"
-  title={`${name}'s Blog RSS Feed`}
-  href={new URL("/blog/feed.xml", Astro.site)}
-/>
-<link
-  rel="alternate"
-  type="application/rss+xml"
-  href={new URL("/changelog.xml", Astro.site)}
-  title="Changelog (Version History)"
+  title={`${name}'s RSS Feed`}
+  href={new URL("/rss.xml", Astro.site)}
 />
 
 {/* Open Graph / Facebook */}

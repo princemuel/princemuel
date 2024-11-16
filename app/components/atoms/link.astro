@@ -16,7 +16,7 @@ const is_internal = href.startsWith("/") || href.startsWith("#");
 
 const props = is_internal
   ? { ...Astro.props }
-  : { ...Astro.props, target: "_blank", rel: "noopener noreferrer nofollow" };
+  : { ...Astro.props, target: "_blank", rel: "noopener noreferrer nofollow external" };
 ---
 
 <a {...props} href={href}>

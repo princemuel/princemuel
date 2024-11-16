@@ -1,13 +1,10 @@
+import { getCollection, getEntry } from "astro:content";
+
 import { published_date } from "@/config/settings";
 import { handler } from "@/helpers/api-handler";
 import { convertTime } from "@/utilities/time";
 
-import { getCollection, getEntry } from "astro:content";
-
-import rss from "@astrojs/rss";
-import { marked as mkd } from "marked";
-
-import type { RSSFeedItem } from "@astrojs/rss";
+import rss, { type RSSFeedItem } from "@astrojs/rss";
 
 export const GET = handler(async (ctx) => {
   const [author, collection] = await Promise.all([
@@ -22,7 +19,6 @@ export const GET = handler(async (ctx) => {
       title: item.data.title,
       description: item.data.description,
       categories: [...new Set(item.data.tags)],
-      content: mkd(item.body, { gfm: true, breaks: true }),
       pubDate: item.data.publishedAt,
       author: `${author.data.links.email} (${author.data.name})`,
       link: new URL(`/blog/${item.id}`, import.meta.env.SITE).toString(),

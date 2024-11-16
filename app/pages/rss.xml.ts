@@ -13,6 +13,8 @@ export const GET = handler(async (ctx) => {
   const [author, collection] = await Promise.all([
     getEntry("authors", "princemuel"),
     getCollection("posts", ({ data }) => !(import.meta.env.PROD && data.draft)),
+    getCollection("projects", ({ data }) => !(import.meta.env.PROD && data.draft)),
+    getCollection("posts", ({ data }) => !(import.meta.env.PROD && data.draft)),
   ]);
 
   const results = (collection ?? []).map(async (item) => {
@@ -21,11 +23,10 @@ export const GET = handler(async (ctx) => {
     return {
       title: item.data.title,
       description: item.data.description,
-      categories: [...new Set(item.data.tags)],
       content: mkd(item.body, { gfm: true, breaks: true }),
       pubDate: item.data.publishedAt,
       author: `${author.data.links.email} (${author.data.name})`,
-      link: new URL(`/blog/${item.id}`, import.meta.env.SITE).toString(),
+      link: new URL(`/${item.collection}/${item.id}`, import.meta.env.SITE).toString(),
       commentsUrl: "https://github.com/princemuel/princemuel.com/discussions",
     } as RSSFeedItem;
   });
@@ -33,9 +34,9 @@ export const GET = handler(async (ctx) => {
   //https://openlibrary.org/developers/api
   return rss({
     xmlns: { atom: "http://www.w3.org/2005/Atom" },
-    title: `${author.data.name}'s Blog Feed`,
+    title: `${author.data.name}'s RSS Feed`,
     description:
-      "My Personal Website scaffolded with Astro. If you subscribe to this RSS feed, you will receive updates and summaries of my new posts",
+      "My Personal Website scaffolded with Astro. If you subscribe to this RSS feed, you will receive updates and summaries of all relevant data on my site",
     site: new URL("/", import.meta.env.SITE),
     items: await Promise.all(results),
     trailingSlash: true,
@@ -51,7 +52,7 @@ export const GET = handler(async (ctx) => {
       <webMaster>${author.data.links.email} (${author.data.name})</webMaster>
       <copyright>Copyright 2024 ${author.data.name}</copyright>
       <ttl>${convertTime(7).mins}</ttl>
-      <atom:link href="${new URL("/blog/feed.xml", import.meta.env.SITE)}" rel="self" type="application/rss+xml"/>
+      <atom:link href="${new URL("/rss.xml", import.meta.env.SITE)}" rel="self" type="application/rss+xml"/>
     `,
     stylesheet: false,
   });
