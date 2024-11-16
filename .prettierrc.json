@@ -11,6 +11,7 @@
   "arrowParens": "always",
   "quoteProps": "as-needed",
   "experimentalTernaries": false,
+  "singleAttributePerLine": false,
 
   "tailwindConfig": "tailwind.config.js",
   "tailwindFunctions": ["tw", "cn", "tv"],

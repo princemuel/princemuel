@@ -32,7 +32,7 @@ entry.data.words ||= remarkPluginFrontmatter.words;
 Astro.response.headers.set("Netlify-Vary", "query=sort|page|per_page");
 ---
 
-<RootLayout title={[""]} description="">
+<RootLayout title={[entry.data.title, true]} description={entry.data.description}>
   <Markdown>
     <h1 id="headline">{entry.data.title}</h1>
     <Content />

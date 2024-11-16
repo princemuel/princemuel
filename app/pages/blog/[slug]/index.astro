@@ -9,8 +9,7 @@ import { withBaseUrl } from "@/helpers/with-base-url";
 import RootLayout from "@/layouts/root.astro";
 import { blog_ld, profile_ld } from "@/lib/jsonld";
 import { remove_key } from "@/utilities/objects";
-
-import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
+import type { GetStaticPaths } from "astro";
 import type {
   Article,
   BreadcrumbList,
@@ -32,8 +31,6 @@ export const getStaticPaths = (async () => {
     params: { slug: entry.id },
   }));
 }) satisfies GetStaticPaths;
-
-type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
 const { entry } = Astro.props;
 
@@ -193,10 +190,12 @@ const github_links = (() => {
   }
 })();
 
-Astro.response.headers.set("netlify-cache-tag", entry.id);
+console.log(JSON.stringify(github_links));
+
+Astro.response.headers.set("netlify-cache-tag", entry.slug);
 ---
 
-<RootLayout title={[""]} description="">
+<RootLayout title={[title, true]} description={description}>
   <script
     is:inline
     type="application/ld+json"

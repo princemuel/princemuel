@@ -3,6 +3,7 @@ import { getImage } from "astro:assets";
 import { ClientRouter } from "astro:transitions";
 import { pwaAssetsHead } from "virtual:pwa-assets/head";
 import { pwaInfo } from "virtual:pwa-info";
+import Avatar from "@/assets/images/princemuel-open-graph-image-2024.jpg";
 // import ThemeProvider from "./theme-provider.astro";
 import { defaultKeywords, delimiter, getSiteSettings } from "@/config/settings";
 import { formatCanonicalURL } from "@/helpers/format-canonical";
@@ -42,7 +43,7 @@ const twitter = {
 } satisfies Twitter;
 
 const generated = (async () => {
-  const image_src = image || import("@/assets/images/princemuel-open-graph-image-2024.jpg");
+  const image_src = image || Avatar;
   return getImage({ src: image_src, format: "png", width: 1200, height: 630 });
 })();
 const settings = getSiteSettings();
