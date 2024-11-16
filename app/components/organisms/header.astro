@@ -1,9 +1,11 @@
 ---
+import Container from "@/components/atoms/container.astro";
+import Link from "@/components/atoms/link.astro";
+import RoutesMenu from "@/components/molecules/routes.astro";
+
 import { Picture } from "astro:assets";
-import Avatar from "@/assets/images/princemuel-open-graph-image-2024.jpg";
-import Container from "../atoms/container.astro";
-import Link from "../atoms/link.astro";
-import RoutesMenu from "../molecules/routes.astro";
+
+import avatar from "@/assets/images/princemuel-open-graph-image-2024.jpg";
 ---
 
 <header class="mt-8 lg:mt-16">
@@ -17,13 +19,13 @@ import RoutesMenu from "../molecules/routes.astro";
           width={80}
           height={80}
           alt="Prince Muel"
-          src={Avatar}
+          src={avatar}
           formats={["avif", "webp"]}
           loading="eager"
         />
       </Link>
 
-      <div class="grid grid-cols-subgrid flex-col gap-3 lg:gap-4">
+      <div class="grid grid-cols-subgrid flex-col gap-3">
         <Link href="/" class="block text-xl font-extrabold text-gray-800 lg:text-3xl">
           Samuel Chukwuzube
         </Link>

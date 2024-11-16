@@ -1,4 +1,6 @@
-import { type SchemaContext, reference, z } from "astro:content";
+import { reference, z } from "astro:content";
+
+import type { SchemaContext } from "astro:content";
 
 export const baseSchema = z.object({
   title: z.string().min(2),

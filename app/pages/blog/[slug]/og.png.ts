@@ -1,15 +1,20 @@
-import { readFile } from "node:fs/promises";
-import { join, resolve } from "node:path";
-import { getCollection, getEntry } from "astro:content";
-import PlaceholderImage from "@/assets/images/blog-placeholder-5.jpg";
 import { handler } from "@/helpers/api-handler";
+
+import { getImage } from "astro:assets";
+import { getCollection, getEntry } from "astro:content";
+
+import { resolve } from "node:path";
+
 import satori from "satori";
 import { html } from "satori-html";
 import sharp from "sharp";
 
+import regular from "@/assets/fonts/ubuntu-400.ttf";
+import bold from "@/assets/fonts/ubuntu-700.ttf";
+import cover from "@/assets/images/blog-placeholder-5.jpg";
+
 import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
 
-export const prerender = true;
 export const getStaticPaths = (async () => {
   const entries = await getCollection(
     "posts",
@@ -27,20 +32,20 @@ type Properties = InferGetStaticPropsType<typeof getStaticPaths>;
 export const GET = handler<Properties>(async ({ props }) => {
   const entry = props.entry;
 
-  const image_src = entry.data.media?.cover?.src || PlaceholderImage.src;
+  const generated = (async () => {
+    const image_src = entry.data.media?.cover?.src || cover;
+    return getImage({ src: image_src, format: "png", width: 1200, height: 630 });
+  })();
+
+  const image_src = entry.data.media?.cover?.src || cover.src;
 
   const image_path = import.meta.env.DEV
     ? resolve(image_src.replace(/\?.*/, "").replace("/@fs", ""))
     : resolve(image_src.replace("/", "dist/"));
 
-  console.log(image_path);
-
-  const [light, regular, bold] = await Promise.all([
-    readFile(join(process.cwd(), "app", "assets", "fonts", "ubuntu-300.ttf")),
-    readFile(join(process.cwd(), "app", "assets", "fonts", "ubuntu-400.ttf")),
-    readFile(join(process.cwd(), "app", "assets", "fonts", "ubuntu-700.ttf")),
-    // readFile(image_path),
-  ]);
+  console.log("image_src", image_src);
+  console.log("image_path", image_path);
+  console.log("generated", (await generated).src);
 
   const author = await getEntry(entry.data.author);
 
@@ -65,9 +70,8 @@ export const GET = handler<Properties>(async ({ props }) => {
     height: 630,
     embedFont: true,
     fonts: [
-      { name: "Ubuntu", data: light.buffer, style: "normal", weight: 300 },
-      { name: "Ubuntu", data: regular.buffer, style: "normal", weight: 400 },
-      { name: "Ubuntu", data: bold.buffer, style: "normal", weight: 700 },
+      { name: "Ubuntu", data: Buffer.from(regular), style: "normal", weight: 400 },
+      { name: "Ubuntu", data: Buffer.from(bold), style: "normal", weight: 700 },
     ],
   });
 
@@ -78,6 +82,9 @@ export const GET = handler<Properties>(async ({ props }) => {
 
   return new Response(png, {
     status: 200,
-    headers: { "Content-Type": "image/png" },
+    headers: {
+      "Content-Type": "image/png",
+      "Cache-Control": "public, max-age=31536000, immutable",
+    },
   });
 });

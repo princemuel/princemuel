@@ -1,17 +1,17 @@
 export const importConfig: ImportConfig = {
   imports: [
-    {
-      "./app/components/atoms/link.astro": [["default", "Link"]],
-    },
     // {
-    //   "./app/components/atoms/codesandbox.astro": [["default", "CodeSandbox"]],
+    //   "./app/components/atoms/link.astro": [["default", "Link"]],
     // },
-    {
-      "./app/components/atoms/figure.astro": [["default", "Figure"]],
-    },
-    {
-      "astro-icon/components": ["Icon"],
-    },
+    // // {
+    // //   "./app/components/atoms/codesandbox.astro": [["default", "CodeSandbox"]],
+    // // },
+    // {
+    //   "./app/components/atoms/figure.astro": [["default", "Figure"]],
+    // },
+    // {
+    //   "astro-icon/components": ["Icon"],
+    // },
   ],
 };
 

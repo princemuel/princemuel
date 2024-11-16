@@ -1,15 +1,25 @@
 ---
-import Avatar from "@/assets/images/princemuel-open-graph-image-2024.jpg";
 import Container from "@/components/atoms/container.astro";
 import MainContent from "@/components/atoms/main.astro";
 import Markdown from "@/components/atoms/markdown.astro";
-import { published_date } from "@/config/settings";
-import { Content } from "@/content/pages/about-me.md";
-import { withBaseUrl } from "@/helpers/with-base-url";
 import RootLayout from "@/layouts/root.astro";
-import { profile_ld } from "@/lib/jsonld";
+
+import { Content } from "@/content/pages/about-me.md";
+
+import avatar from "@/assets/images/princemuel-open-graph-image-2024.jpg";
+
+import { published_date } from "@/config/settings";
+import { withBaseUrl } from "@/helpers/with-base-url";
+import { profile_ld } from "@/schema/jsonld";
 import { remove_key } from "@/utilities/objects";
-import type { BreadcrumbList, Graph, ImageObject, ProfilePage, WithContext } from "schema-dts";
+
+import type {
+  BreadcrumbList,
+  Graph,
+  ImageObject,
+  ProfilePage,
+  WithContext,
+} from "schema-dts";
 
 const page_ld = {
   "@context": "https://schema.org",
@@ -20,10 +30,10 @@ const page_ld = {
   description: "",
   isPartOf: { "@id": withBaseUrl("/about-me").toString() },
   primaryImageOfPage: {
-    "@id": withBaseUrl(Avatar.src).toString(),
+    "@id": withBaseUrl(avatar.src).toString(),
   },
-  image: { "@id": withBaseUrl(Avatar.src).toString() },
-  thumbnailUrl: withBaseUrl(Avatar.src).toString(),
+  image: { "@id": withBaseUrl(avatar.src).toString() },
+  thumbnailUrl: withBaseUrl(avatar.src).toString(),
   datePublished: published_date.toISOString(),
   dateModified: new Date().toISOString(),
   breadcrumb: { "@id": withBaseUrl("/about-me#breadcrumb").toString() },
@@ -39,8 +49,8 @@ const page_ld = {
 const image_ld = {
   "@context": "https://schema.org",
   "@type": "ImageObject",
-  "@id": withBaseUrl(Avatar.src).toString(),
-  url: withBaseUrl(Avatar.src).toString(),
+  "@id": withBaseUrl(avatar.src).toString(),
+  url: withBaseUrl(avatar.src).toString(),
   width: "1200",
   height: "630",
 } satisfies WithContext<ImageObject>;
@@ -85,7 +95,9 @@ const jsonld = {
   <Container class="mt-12">
     <div class="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-[5rem,1fr] lg:gap-12">
       <MainContent class="flex flex-col gap-2 lg:col-start-2">
-        <h1 class="text-2xl font-extrabold text-gray-800">Who the hell am I?</h1>
+        <h1 id="headline" class="text-2xl font-extrabold text-gray-800">
+          Who the hell am I?
+        </h1>
         <Markdown>
           <Content />
         </Markdown>

@@ -1,22 +1,23 @@
 ---
-import { getImage } from "astro:assets";
-import { ClientRouter } from "astro:transitions";
-import { pwaAssetsHead } from "virtual:pwa-assets/head";
-import { pwaInfo } from "virtual:pwa-info";
-import Avatar from "@/assets/images/princemuel-open-graph-image-2024.jpg";
-// import ThemeProvider from "./theme-provider.astro";
+import avatar from "@/assets/images/princemuel-open-graph-image-2024.jpg";
+
 import { defaultKeywords, delimiter, getSiteSettings } from "@/config/settings";
 import { formatCanonicalURL } from "@/helpers/format-canonical";
+import { pluralize } from "@/utilities/strings";
 
-import SansItalic from "@fontsource-variable/ubuntu-sans/files/ubuntu-sans-latin-wght-italic.woff2";
-import SansNormal from "@fontsource-variable/ubuntu-sans/files/ubuntu-sans-latin-wght-normal.woff2";
-import MonoNormal from "/static/fonts/lisa-normal.woff2";
+import { getImage } from "astro:assets";
+import { ClientRouter } from "astro:transitions";
+
+import { pwaAssetsHead } from "virtual:pwa-assets/head";
+import { pwaInfo } from "virtual:pwa-info";
+
+import italic from "@fontsource-variable/ubuntu-sans/files/ubuntu-sans-latin-wght-italic.woff2";
+import normal from "@fontsource-variable/ubuntu-sans/files/ubuntu-sans-latin-wght-normal.woff2";
+import mono from "/static/fonts/lisa-normal.woff2";
 
 // import "@/assets/styles/debug.css"; // uncomment this to debug your styles
 import "@/assets/styles/fonts.css";
 import "@/assets/styles/global.css";
-
-import { pluralize } from "@/utilities/strings";
 
 type Props = Meta & { og?: OpenGraph; twitter?: Twitter };
 
@@ -43,7 +44,7 @@ const twitter = {
 } satisfies Twitter;
 
 const generated = (async () => {
-  const image_src = image || Avatar;
+  const image_src = image || avatar;
   return getImage({ src: image_src, format: "png", width: 1200, height: 630 });
 })();
 const settings = getSiteSettings();
@@ -66,7 +67,10 @@ const htmlTitle = ((title, delimiter, absolute) => {
 
 const { noindex, nofollow, nosnippet } = directives;
 
-const directive = [noindex ? "noindex" : "index", nofollow ? "nofollow" : "follow"].join(",");
+const directive = [
+  noindex ? "noindex" : "index",
+  nofollow ? "nofollow" : "follow",
+].join(",");
 
 const img = await generated;
 ---
@@ -99,7 +103,11 @@ const img = await generated;
 
 {/* Permalink / Sitemap / Feed / Changelog */}
 <link rel="canonical" href={linkCanonical} />
-<link rel="sitemap" type="application/xml" href={new URL("/sitemap-index.xml", Astro.site)} />
+<link
+  rel="sitemap"
+  type="application/xml"
+  href={new URL("/sitemap-index.xml", Astro.site)}
+/>
 <link
   rel="alternate"
   type="application/rss+xml"
@@ -166,7 +174,11 @@ const img = await generated;
         content={published_at.toISOString()}
       />
       <meta property="article:modified_time" content={updated_at.toISOString()} />
-      <meta name="updated_date" property="og:updated_date" content={updated_at.toISOString()} />
+      <meta
+        name="updated_date"
+        property="og:updated_date"
+        content={updated_at.toISOString()}
+      />
       <meta name="author" property="article:author" content={""} />
       <meta property="article:tag" content={keywords.join(",")} />
     </Fragment>
@@ -185,21 +197,9 @@ const img = await generated;
 }
 
 {/* Font Loaders */}
-<link rel="preload" as="font" type="font/woff2" href={SansNormal} crossorigin="anonymous" />
-<link rel="preload" as="font" type="font/woff2" href={SansItalic} crossorigin="anonymous" />
-{
-  og.type === "article" && (
-    <Fragment>
-      <link
-        rel="prefetch"
-        as="font"
-        type="font/woff2"
-        href={MonoNormal}
-        crossorigin="anonymous"
-      />
-    </Fragment>
-  )
-}
+<link rel="preload" as="font" type="font/woff2" href={normal} crossorigin="anonymous" />
+<link rel="preload" as="font" type="font/woff2" href={italic} crossorigin="anonymous" />
+<link rel="prefetch" as="font" type="font/woff2" href={mono} crossorigin="anonymous" />
 
 {/* Webmentions */}
 <link rel="webmention" href="https://webmention.io/princemuel.com/webmention" />

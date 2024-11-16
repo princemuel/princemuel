@@ -1,10 +1,14 @@
+import avatar from "@/assets/images/placeholder.avif";
+
+import { withBaseUrl } from "@/helpers/with-base-url";
+import { published_date } from "../config/settings";
+
+import { invariant } from "outvariant";
+
 import { execSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
-import AvatarImage from "@/assets/images/placeholder.avif";
-import { withBaseUrl } from "@/helpers/with-base-url";
-import { invariant } from "outvariant";
+
 import type { Person, WebPage, WebSite, WithContext } from "schema-dts";
-import { published_date } from "../config/settings";
 
 const updatedAt = (() => {
   try {
@@ -27,9 +31,9 @@ export const profile_ld = {
   image: {
     "@type": "ImageObject",
     inLanguage: "en-US",
-    "@id": withBaseUrl(AvatarImage.src).toString(),
-    url: withBaseUrl(AvatarImage.src).toString(),
-    contentUrl: withBaseUrl(AvatarImage.src).toString(),
+    "@id": withBaseUrl(avatar.src).toString(),
+    url: withBaseUrl(avatar.src).toString(),
+    contentUrl: withBaseUrl(avatar.src).toString(),
     caption: "Prince Muel",
   },
   description: "Muel is a frontend engineer. ",
@@ -92,10 +96,12 @@ export const blog_ld = {
   description:
     "Sometimes my general thoughts and rambles but more often these posts follow my experimentation, learning, and front-end development discoveries that are worth a share with the world. All feedback is always welcome.",
   isPartOf: { "@id": withBaseUrl("/blog").toString() },
-  primaryImageOfPage: { "@id": withBaseUrl(AvatarImage.src).toString() },
-  image: { "@id": withBaseUrl(AvatarImage.src).toString() },
+  primaryImageOfPage: { "@id": withBaseUrl(avatar.src).toString() },
+  image: { "@id": withBaseUrl(avatar.src).toString() },
   datePublished: published_date.toISOString(),
   dateModified: updatedAt.toISOString(),
   inLanguage: "en-US",
-  potentialAction: [{ "@type": "DiscoverAction", target: withBaseUrl("/blog").toString() }],
+  potentialAction: [
+    { "@type": "DiscoverAction", target: withBaseUrl("/blog").toString() },
+  ],
 } satisfies WithContext<WebPage>;

@@ -1,14 +1,20 @@
 ---
-import { execSync } from "node:child_process";
-import { join } from "node:path";
-import { getCollection, getEntry, render } from "astro:content";
-import { OCTOKIT_USERNAME } from "astro:env/server";
+import Container from "@/components/atoms/container.astro";
+import MainContent from "@/components/atoms/main.astro";
 import Markdown from "@/components/atoms/markdown.astro";
+import RootLayout from "@/layouts/root.astro";
+
 import { log_in_dev } from "@/helpers/log-in-dev";
 import { withBaseUrl } from "@/helpers/with-base-url";
-import RootLayout from "@/layouts/root.astro";
-import { blog_ld, profile_ld } from "@/lib/jsonld";
+import { blog_ld, profile_ld } from "@/schema/jsonld";
 import { remove_key } from "@/utilities/objects";
+
+import { getCollection, getEntry, render } from "astro:content";
+import { OCTOKIT_USERNAME } from "astro:env/server";
+
+import { execSync } from "node:child_process";
+import { join } from "node:path";
+
 import type { GetStaticPaths } from "astro";
 import type {
   Article,
@@ -19,7 +25,6 @@ import type {
   WithContext,
 } from "schema-dts";
 
-export const prerender = true;
 export const getStaticPaths = (async () => {
   const entries = await getCollection(
     "posts",
@@ -34,7 +39,10 @@ export const getStaticPaths = (async () => {
 
 const { entry } = Astro.props;
 
-const [markdown, author] = await Promise.all([render(entry), getEntry(entry.data.author)]);
+const [markdown, author] = await Promise.all([
+  render(entry),
+  getEntry(entry.data.author),
+]);
 
 const { Content, remarkPluginFrontmatter } = markdown;
 
@@ -192,7 +200,7 @@ const github_links = (() => {
 
 console.log(JSON.stringify(github_links));
 
-Astro.response.headers.set("netlify-cache-tag", entry.slug);
+Astro.response.headers.set("netlify-cache-tag", entry.id);
 ---
 
 <RootLayout title={[title, true]} description={description}>
@@ -202,8 +210,27 @@ Astro.response.headers.set("netlify-cache-tag", entry.slug);
     slot="jsonld"
     set:html={JSON.stringify(jsonld)}
   />
+  <h1 id="headline">{entry.data.title}</h1>
   <Markdown>
-    <h1 id="headline">{entry.data.title}</h1>
     <Content />
   </Markdown>
+</RootLayout>
+
+<RootLayout title={[title, true]} description={description}>
+  <script
+    is:inline
+    type="application/ld+json"
+    slot="jsonld"
+    set:html={JSON.stringify(jsonld)}
+  />
+  <Container class="mt-12">
+    <div class="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-[5rem,1fr] lg:gap-12">
+      <MainContent class="flex flex-col gap-3 lg:col-start-2">
+        <h1 id="headline" class="text-2xl font-extrabold text-gray-800">Projects</h1>
+        <Markdown>
+          <Content />
+        </Markdown>
+      </MainContent>
+    </div>
+  </Container>
 </RootLayout>

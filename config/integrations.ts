@@ -5,15 +5,14 @@ import pwa from "@vite-pwa/astro";
 import autoImport from "astro-auto-import";
 import expressiveCode from "astro-expressive-code";
 import icon from "astro-icon";
-import { importConfig } from "./components";
 
+import { importConfig } from "./components";
 import icons from "./icons.json";
 import manifest from "./manifest.json";
 
 import type { SitemapOptions } from "@astrojs/sitemap";
 import type { PwaOptions } from "@vite-pwa/astro";
 import type { AstroIntegration } from "astro";
-import type { AstroExpressiveCodeOptions } from "astro-expressive-code";
 type TIconOptions = NonNullable<Parameters<typeof icon>[0]>;
 
 const IconOptions: TIconOptions = {
@@ -27,8 +26,6 @@ const sitemapOptions: SitemapOptions = {
   lastmod: new Date(),
   filter: (page) => !(page.includes("/api/") || page.includes(".xml")),
 };
-
-// const markdownOptions: MarkdocIntegrationOptions = {};
 
 const PWAOptions: PwaOptions = {
   registerType: "prompt",
@@ -55,15 +52,10 @@ const PWAOptions: PwaOptions = {
   },
 };
 
-const ecConfigOptions: AstroExpressiveCodeOptions = {
-  useThemedSelectionColors: false,
-  themeCssSelector: (theme) => `[data-reader-theme='${theme.name}']`,
-};
-
 export const integrations: AstroIntegration[] = [
   icon(IconOptions),
   autoImport(importConfig),
-  expressiveCode(ecConfigOptions),
+  expressiveCode({}),
   mdx({ gfm: true, extendMarkdownConfig: true }),
   sitemap(sitemapOptions),
   pwa(PWAOptions),

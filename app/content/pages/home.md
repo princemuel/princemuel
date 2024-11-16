@@ -1,3 +1,6 @@
+  <!-- I want to setup my homepage to be a hub of (featured) posts,
+  (featured) projects, a short bio with a link to my About page,  -->
+
 I'm [@princemuel](https://x.com/iamprincemuel),, a mostly frontend developer,
 educator, digital creator, and relentless problem-solver.
 

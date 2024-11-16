@@ -1,7 +1,9 @@
 import { OCTOKIT_USERNAME } from "astro:env/server";
+
 import { octokit } from "@/config/clients";
 import { handler } from "@/helpers/api-handler";
 import { RequestError, get_code_from_status } from "@/helpers/request-error";
+
 import { RequestError as GithubError } from "octokit";
 
 export const GET = handler(async () => {

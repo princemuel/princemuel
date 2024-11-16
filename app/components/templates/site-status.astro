@@ -1,7 +1,8 @@
 ---
+import Container from "@/components/atoms/container.astro";
+import Attribution from "@/components/molecules/attribution.astro";
+
 import { SITE_STATUS } from "astro:env/server";
-import Container from "../atoms/container.astro";
-import Attribution from "../molecules/attribution.astro";
 
 const status = {
   maintenance: {
@@ -26,7 +27,7 @@ const status = {
 >
   <Container>
     <header class="text-center">
-      <h1 class="text-xl font-bold md:text-3xl">{status.title}</h1>
+      <h1 id="headline" class="text-xl font-bold md:text-3xl">{status.title}</h1>
       <p class="mx-auto px-12 py-4 text-gray-900">
         {status.message}
       </p>

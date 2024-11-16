@@ -1,13 +1,13 @@
-import { execSync } from "node:child_process";
 import { rehypeHeadingIds } from "@astrojs/markdown-remark";
 import rehypeSectionHeadings from "@maxmmyron/rehype-section-headings";
 import { toString as parseToString } from "mdast-util-to-string";
 import getReadingTime from "reading-time";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeExternalLinks from "rehype-external-links";
-import remarkDirective from "remark-directive";
 import remarkEmoji from "remark-emoji";
 import { visit } from "unist-util-visit";
+
+import { execSync } from "node:child_process";
 
 import type { RehypePlugins, RemarkPlugins } from "astro";
 type UnArray<T> = NonNullable<T extends (infer U)[] ? U : T>;
@@ -45,7 +45,6 @@ const remarkModifiedTime: RemarkPlugin = () => (_, file) => {
 };
 
 export const remarkPlugins: RemarkPlugins = [
-  remarkDirective,
   remarkDeruntify,
   remarkReadingTime,
   remarkModifiedTime,
@@ -60,5 +59,8 @@ export const rehypePlugins: RehypePlugins = [
     { behavior: "wrap", properties: { class: "linked" } },
     // properties: { class: "linked", ariaHidden: "", tabIndex: -1 },
   ],
-  [rehypeExternalLinks, { rel: ["noopener", "noreferrer", "external"], target: "_blank" }],
+  [
+    rehypeExternalLinks,
+    { rel: ["noopener", "noreferrer", "external"], target: "_blank" },
+  ],
 ];

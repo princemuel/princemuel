@@ -8,6 +8,7 @@
 
 <script>
   import { getElement } from "@/helpers/dom";
+
   import { registerSW } from "virtual:pwa-register";
 
   const period = 1.5 * 24 * 60 * 60 * 1000; // check for updates every day
@@ -49,7 +50,8 @@
     registerSW({
       immediate: true,
       onOfflineReady() {
-        pwaToastMessage.innerHTML = "[Vite Plugin PWA] PWA application ready to work offline";
+        pwaToastMessage.innerHTML =
+          "[Vite Plugin PWA] PWA application ready to work offline";
         showPwaToast(true);
       },
       onNeedRefresh() {

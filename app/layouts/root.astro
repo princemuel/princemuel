@@ -3,9 +3,10 @@ import SkipLink from "@/components/atoms/skip-link.astro";
 import ReloadPrompt from "@/components/molecules/reload-prompt.astro";
 import ContentSlot from "@/components/templates/content-slot.astro";
 import SiteStatus from "@/components/templates/site-status.astro";
-import { getSiteSettings } from "@/config/settings";
 import Layout from "./layout.astro";
 import Meta from "./meta.astro";
+
+import { getSiteSettings } from "@/config/settings";
 
 type Props = Meta & {
   type?: OpenGraph["type"];

@@ -1,6 +1,7 @@
 import netlify from "@astrojs/netlify";
 import { defineConfig } from "astro/config";
 import { loadEnv } from "vite";
+
 import { envSchema } from "./config/env-schema";
 import { integrations } from "./config/integrations";
 import { rehypePlugins, remarkPlugins } from "./config/remark-rehype";
@@ -10,7 +11,7 @@ const envVars = loadEnv(mode, process.cwd(), "");
 
 // https://astro.build/config
 export default defineConfig({
-  output: "server",
+  output: "static",
   srcDir: "./app",
   site: envVars.PUBLIC_SITE_URL,
   env: { validateSecrets: true, schema: envSchema },

@@ -40,7 +40,8 @@ window.addEventListener("load", () => {
   registerSW({
     immediate: true,
     onOfflineReady() {
-      pwaToastMessage.innerHTML = "[Vite Plugin PWA] PWA application ready to work offline";
+      pwaToastMessage.innerHTML =
+        "[Vite Plugin PWA] PWA application ready to work offline";
       showPwaToast(true);
     },
     onNeedRefresh() {

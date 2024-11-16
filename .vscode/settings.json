@@ -14,7 +14,7 @@
   "editor.inlineSuggest.enabled": true,
   "editor.tabSize": 2,
   "editor.wordWrap": "bounded",
-  "editor.wordWrapColumn": 96,
+  "editor.wordWrapColumn": 88,
   "emmet.includeLanguages": {
     "typescriptreact": "html"
   },
@@ -88,7 +88,7 @@
   "evenBetterToml.formatter.arrayAutoCollapse": true,
   "evenBetterToml.formatter.arrayAutoExpand": true,
   "evenBetterToml.formatter.arrayTrailingComma": true,
-  "evenBetterToml.formatter.columnWidth": 96,
+  "evenBetterToml.formatter.columnWidth": 88,
   "evenBetterToml.formatter.reorderArrays": true,
   "evenBetterToml.formatter.reorderKeys": true,
   "evenBetterToml.formatter.trailingNewline": true,

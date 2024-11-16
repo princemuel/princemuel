@@ -1,7 +1,10 @@
-import { defineCollection, reference, z } from "astro:content";
-import type { Icon } from "virtual:astro-icon";
-import { MediaObject, baseSchema } from "@/lib/collections";
+import { MediaObject, baseSchema } from "@/schema/content";
+
 import { file, glob } from "astro/loaders";
+
+import { defineCollection, reference, z } from "astro:content";
+
+import type { Icon } from "virtual:astro-icon";
 
 const posts = defineCollection({
   loader: glob({

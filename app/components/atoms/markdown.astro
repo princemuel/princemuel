@@ -1,14 +1,17 @@
 ---
 import LinkedSVG from "@/assets/icons/linked.svg";
+
 import type { HTMLAttributes } from "astro/types";
+
 type Props = HTMLAttributes<"article">;
 
 const { class: className, ...rest } = Astro.props;
 
-let image = `url(${LinkedSVG.src})`;
+const linked = `url(${LinkedSVG.src})`;
 ---
 
 <article
+  id="article"
   class:list={[
     "prose prose-base prose-gray xl:prose-lg dark:prose-invert",
     "prose-a:font-bold",
@@ -19,4 +22,4 @@ let image = `url(${LinkedSVG.src})`;
   <slot />
 </article>
 
-<style define:vars={{ image }}></style>
+<style define:vars={{ linked }}></style>

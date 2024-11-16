@@ -26,7 +26,9 @@ export const errorMap: ZodErrorMap = (issue, ctx) => {
       if (unionError.code === "invalid_type" || unionError.code === "invalid_literal") {
         const flattenedErrorPath = flattenErrorPath(unionError.path);
         if (typeOrLiteralErrByPath.has(flattenedErrorPath)) {
-          typeOrLiteralErrByPath.get(flattenedErrorPath)?.expected.push(unionError.expected);
+          typeOrLiteralErrByPath
+            .get(flattenedErrorPath)
+            ?.expected.push(unionError.expected);
         } else {
           typeOrLiteralErrByPath.set(flattenedErrorPath, {
             code: unionError.code,
