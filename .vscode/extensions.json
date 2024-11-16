@@ -4,6 +4,7 @@
     "astro-build.astro-vscode",
     "bradlc.vscode-tailwindcss",
     "unifiedjs.vscode-mdx",
-    "tamasfe.even-better-toml"
+    "tamasfe.even-better-toml",
+    "biomejs.biome"
   ]
 }

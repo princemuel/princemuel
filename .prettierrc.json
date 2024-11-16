@@ -1,5 +1,5 @@
 {
-  "printWidth": 80,
+  "printWidth": 96,
   "tabWidth": 2,
   "useTabs": false,
   "semi": true,
@@ -11,15 +11,12 @@
   "arrowParens": "always",
   "quoteProps": "as-needed",
   "experimentalTernaries": false,
+  "singleAttributePerLine": false,
 
   "tailwindConfig": "tailwind.config.js",
   "tailwindFunctions": ["tw", "cn", "tv"],
   "tailwindAttributes": ["tw"],
-  "plugins": [
-    "prettier-plugin-prisma",
-    "prettier-plugin-astro",
-    "prettier-plugin-tailwindcss"
-  ],
+  "plugins": ["prettier-plugin-prisma", "prettier-plugin-astro", "prettier-plugin-tailwindcss"],
   "overrides": [
     {
       "files": "*.astro",

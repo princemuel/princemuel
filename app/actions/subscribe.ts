@@ -13,9 +13,8 @@ export const subscribeAction = defineAction({
       .min(1, { message: "This field is required" })
       .email({ message: "Please enter a valid email address" }),
   }),
-  handler: async (body, { request }) => {
-    const { isRateLimited } = await checkIfRateLimited(request);
-
+  handler: async (body, { request, clientAddress }) => {
+    const { isRateLimited } = await checkIfRateLimited(request, clientAddress);
     if (isRateLimited)
       throw new ActionError({
         code: "TOO_MANY_REQUESTS",

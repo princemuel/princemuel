@@ -9,9 +9,7 @@ import { published_date } from "../config/settings";
 const updatedAt = (() => {
   try {
     const __filename = fileURLToPath(import.meta.url);
-    const timeBuffer = execSync(
-      `git log -1 --pretty="format:%cI" "${__filename}"`,
-    );
+    const timeBuffer = execSync(`git log -1 --pretty="format:%cI" "${__filename}"`);
     invariant(timeBuffer.toString().trim(), "Invalid DateTimeFormat");
     return new Date(timeBuffer.toString().trim());
   } catch {
@@ -99,7 +97,5 @@ export const blog_ld = {
   datePublished: published_date.toISOString(),
   dateModified: updatedAt.toISOString(),
   inLanguage: "en-US",
-  potentialAction: [
-    { "@type": "DiscoverAction", target: withBaseUrl("/blog").toString() },
-  ],
+  potentialAction: [{ "@type": "DiscoverAction", target: withBaseUrl("/blog").toString() }],
 } satisfies WithContext<WebPage>;

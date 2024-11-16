@@ -1,15 +1,5 @@
 {
-  "fa": [
-    "arrow-circle-left",
-    "discord",
-    "email",
-    "github",
-    "instagram",
-    "linkedin",
-    "youtube",
-    "twitter"
-  ],
-  "logos": ["astro-icon"],
+  "fa": ["discord", "github", "instagram", "linkedin", "youtube", "twitter"],
   "lucide": [
     "badge-check",
     "bar-chart",
@@ -22,11 +12,12 @@
     "moon-star",
     "move-right",
     "notebook-pen",
+    "notepad-text",
     "pen-line",
     "rss",
     "square-user",
     "sun",
     "zap"
   ],
-  "ri": ["price-tag-3-fill", "quill-pen-fill"]
+  "ri": ["quill-pen-fill"]
 }

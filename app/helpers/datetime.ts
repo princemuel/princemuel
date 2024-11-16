@@ -1,8 +1,6 @@
 import { isServer } from "../utilities/guards";
 
-export const dateline = (
-  ...args: ConstructorParameters<typeof Intl.DateTimeFormat>
-) => {
+export const dateline = (...args: ConstructorParameters<typeof Intl.DateTimeFormat>) => {
   const [locales, options] = args;
   const language: Intl.LocalesArgument =
     locales || (isServer ? ["en", "en-US"] : navigator.language);

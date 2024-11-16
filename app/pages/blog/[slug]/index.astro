@@ -1,25 +1,14 @@
 ---
 import { execSync } from "node:child_process";
 import { join } from "node:path";
-import { Image } from "astro:assets";
 import { getCollection, getEntry, render } from "astro:content";
 import { OCTOKIT_USERNAME } from "astro:env/server";
-import AvatarImage from "@/assets/images/placeholder.avif";
-import Container from "@/components/atoms/container.astro";
-import Link from "@/components/atoms/link.astro";
-import Main from "@/components/atoms/main.astro";
-import Pattern from "@/components/atoms/pattern.astro";
-import Prose from "@/components/atoms/prose.astro";
-import Time from "@/components/atoms/time.astro";
-import AstroToc from "@/components/molecules/astro-toc.astro";
+import Markdown from "@/components/atoms/markdown.astro";
 import { log_in_dev } from "@/helpers/log-in-dev";
 import { withBaseUrl } from "@/helpers/with-base-url";
-import Layout from "@/layouts/layout.astro";
 import RootLayout from "@/layouts/root.astro";
 import { blog_ld, profile_ld } from "@/lib/jsonld";
 import { remove_key } from "@/utilities/objects";
-import { Icon } from "astro-icon/components";
-
 import type { GetStaticPaths } from "astro";
 import type {
   Article,
@@ -45,10 +34,7 @@ export const getStaticPaths = (async () => {
 
 const { entry } = Astro.props;
 
-const [markdown, author] = await Promise.all([
-  render(entry),
-  getEntry(entry.data.author),
-]);
+const [markdown, author] = await Promise.all([render(entry), getEntry(entry.data.author)]);
 
 const { Content, remarkPluginFrontmatter } = markdown;
 
@@ -165,8 +151,7 @@ const jsonld = {
   ]),
 } satisfies Graph;
 
-const { title, description, tags, permalink, publishedAt, updatedAt } =
-  entry.data;
+const { title, description } = entry.data;
 
 const github_links = (() => {
   try {
@@ -204,123 +189,21 @@ const github_links = (() => {
     return [];
   }
 })();
+
+console.log(JSON.stringify(github_links));
+
+Astro.response.headers.set("netlify-cache-tag", entry.slug);
 ---
 
-<RootLayout
-  type="article"
-  title={[title]}
-  description={description}
-  publishedAt={publishedAt}
-  updatedAt={updatedAt}
-  canonical={permalink}
-  keywords={[...new Set(...tags)]}
->
+<RootLayout title={[title, true]} description={description}>
   <script
     is:inline
     type="application/ld+json"
     slot="jsonld"
     set:html={JSON.stringify(jsonld)}
   />
-
-  <Layout>
-    <div>
-      <section class="bg-gradient-to-t from-white to-gray-100">
-        <Container class="mb-20 lg:pt-10">
-          <div class="relative mx-auto max-w-3xl">
-            <Pattern
-              class="-left-16 bottom-1/4 hidden w-72 -translate-x-full opacity-20 lg:block"
-            />
-            <Pattern
-              class="-right-16 bottom-1/4 hidden w-72 translate-x-full opacity-20 lg:block"
-            />
-
-            <!-- <div class="transform-none opacity-100 grayscale-0"> -->
-            <div class="">
-              <div class="mx-auto w-48 pb-5 drop-shadow-2xl lg:pb-10">
-                <!-- POST THUMBNAIL -->
-                <Icon name="placeholder" class="h-auto w-full" />
-              </div>
-            </div>
-
-            <header
-              class="flex flex-col items-center gap-8 text-center text-xl"
-            >
-              <div
-                class="font-mono text-base font-medium uppercase text-gray-500"
-              >
-                <Link
-                  href={"#"}
-                  class="text-black hocus:text-gray-600 hocus:underline"
-                  >Engineering
-                </Link>
-                <span class="mx-3 text-gray-300">—</span>
-                <Time datetime={publishedAt} />
-              </div>
-
-              <h1
-                id="headline"
-                class="text-balance text-4xl font-bold text-gray-800 lg:text-6xl"
-              >
-                {title}
-              </h1>
-
-              <div
-                class="mt-16 inline-grid grid-cols-[2fr_1fr_auto_1fr_2fr] items-center gap-5 text-2xl font-medium text-gray-500"
-              >
-                <hr class="border border-gray-200" />
-                <Link
-                  href="https://x.com/iamprincemuel"
-                  class="p-5 hover:text-black"
-                >
-                  <Icon name="fa:twitter" role="img" />
-                </Link>
-
-                <Image
-                  width={44}
-                  height={44}
-                  alt="Prince Muel"
-                  src={AvatarImage}
-                  class="size-12 rounded-full shadow-md"
-                />
-
-                <Link
-                  href="https://x.com/iamprincemuel"
-                  class="p-5 hover:text-black"
-                >
-                  <Icon name="fa:github" role="img" />
-                </Link>
-                <hr class="border border-gray-200" />
-              </div>
-            </header>
-          </div>
-        </Container>
-      </section>
-
-      <Container class="">
-        <Main class="grid grid-cols-12 gap-6 xl:gap-8">
-          <div
-            class="col-span-full xl:col-span-7 xl:col-start-2 xl:max-w-prose"
-          >
-            <div class="mx-auto max-w-prose pb-6 xl:mx-0">
-              <Prose class="">
-                <Content frontmatter={entry.data} />
-              </Prose>
-              <section class="flex items-center justify-between">
-                {
-                  github_links.map((link) => (
-                    <Link href={link.url}>{link.text} </Link>
-                  ))
-                }
-              </section>
-            </div>
-          </div>
-          <aside
-            class="col-span-3 col-start-10 hidden justify-self-end xl:block"
-          >
-            <AstroToc headings={markdown.headings} />
-          </aside>
-        </Main>
-      </Container>
-    </div>
-  </Layout>
+  <Markdown>
+    <h1 id="headline">{entry.data.title}</h1>
+    <Content />
+  </Markdown>
 </RootLayout>

@@ -1,8 +1,5 @@
 ---
-import Container from "@/components/atoms/container.astro";
-import Main from "@/components/atoms/main.astro";
-import Prose from "@/components/atoms/prose.astro";
-import Profile from "@/components/molecules/profile.astro";
+import Markdown from "@/components/atoms/markdown.astro";
 import type { MarkdownLayoutProps } from "astro";
 import RootLayout from "./root.astro";
 
@@ -14,18 +11,7 @@ const { title, description } = frontmatter;
 ---
 
 <RootLayout title={[title]} description={description}>
-  <Container class="my-10">
-    <Main class="relative grid grid-cols-1 gap-4 lg:grid-cols-7 xl:gap-8">
-      <div class="col-span-5 max-lg:col-span-1">
-        <Prose>
-          <slot />
-        </Prose>
-      </div>
-      <aside
-        class="sticky top-28 col-span-2 flex h-fit w-full flex-col gap-6 max-lg:hidden"
-      >
-        <Profile />
-      </aside>
-    </Main>
-  </Container>
+  <Markdown>
+    <slot />
+  </Markdown>
 </RootLayout>

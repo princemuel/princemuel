@@ -1,4 +1,4 @@
-import { RequestError } from "./errors";
+import { RequestError } from "./request-error";
 
 const handleJson = (response: Response) => response.json();
 const handleText = (response: Response) => response.text();
@@ -19,13 +19,10 @@ const handlers = new Map<string, (response: Response) => Promise<unknown>>([
   // Add more content types and handlers as needed
 ]);
 
-export async function request<T>(
-  ...args: Parameters<typeof fetch>
-): Promise<T> {
+export async function request<T>(...args: Parameters<typeof fetch>): Promise<T> {
   return fetch(...args)
     .then((r) => {
-      if (!r.ok)
-        throw RequestError.unavailable("Request failed due to network issues");
+      if (!r.ok) throw RequestError.unavailable("Request failed due to network issues");
       return r;
     })
     .then((response) => {

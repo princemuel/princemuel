@@ -4,16 +4,16 @@ import twScrollbar from "tailwind-scrollbar";
 import twAnimate from "tailwindcss-animate";
 import twDefaultTheme from "tailwindcss/defaultTheme";
 import twPlugin from "tailwindcss/plugin";
-import twConfig from "./config/tailwind.json";
+import twConfig from "./tailwind.json";
 
 /** @type {import('tailwindcss').Config} */
 export default {
-  // darkMode: ["selector", '[data-mode="dark"]'],
+  darkMode: ["selector", '[data-mode="dark"]'],
   content: [
-    "./app/pages/**/*.{astro,md,mdx,mdoc}",
+    "./app/pages/**/*.{astro,md,mdx}",
     "./app/layouts/**/*.astro",
     "./app/components/**/*.astro",
-    "./app/content/**/*.{md,mdx,mdoc,json}",
+    "./app/content/**/*.{md,mdx,json}",
   ],
   future: "all",
   experimental: "all",
@@ -28,14 +28,8 @@ export default {
       colors: twConfig.theme.colors,
       borderRadius: { pill: "100vmax" },
       fontFamily: {
-        sans: [
-          twConfig.theme.fontFamily.sans,
-          ...twDefaultTheme.fontFamily.sans,
-        ],
-        mono: [
-          twConfig.theme.fontFamily.mono,
-          ...twDefaultTheme.fontFamily.mono,
-        ],
+        sans: [twConfig.theme.fontFamily.sans, ...twDefaultTheme.fontFamily.sans],
+        mono: [twConfig.theme.fontFamily.mono, ...twDefaultTheme.fontFamily.mono],
       },
       cursor: twConfig.theme.cursor,
       screens: {
@@ -55,7 +49,7 @@ export default {
     twAnimate,
     twTypography({ target: "modern" }),
     twScrollbar({ nocompatible: true, preferredStrategy: "pseudoelements" }),
-    twForms({ strategy: "base" }),
+    twForms({ strategy: "class" }),
     twPlugin(({ theme, addUtilities, addVariant, matchUtilities }) => {
       addVariant("optional", "&:optional");
       addVariant("hocus", ["&:hover", "&:focus"]);
@@ -71,8 +65,7 @@ export default {
           maskImage: "radial-gradient(rgba(0, 0, 0, 0.8), transparent 60%)",
         },
         ".mask-linear-gradient-to-b": {
-          maskImage:
-            "linear-gradient(to bottom, white 0%, white 33%, transparent 90%)",
+          maskImage: "linear-gradient(to bottom, white 0%, white 33%, transparent 90%)",
         },
       });
       addUtilities({

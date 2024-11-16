@@ -22,9 +22,9 @@ export const getStaticPaths = (async () => {
   }));
 }) satisfies GetStaticPaths;
 
-type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+type Properties = InferGetStaticPropsType<typeof getStaticPaths>;
 
-export const GET = handler<Props>(async ({ props }) => {
+export const GET = handler<Properties>(async ({ props }) => {
   const entry = props.entry;
 
   const image_src = entry.data.media?.cover?.src || PlaceholderImage.src;
@@ -35,11 +35,11 @@ export const GET = handler<Props>(async ({ props }) => {
 
   console.log(image_path);
 
-  const [light, regular, bold, _image] = await Promise.all([
+  const [light, regular, bold] = await Promise.all([
     readFile(join(process.cwd(), "app", "assets", "fonts", "ubuntu-300.ttf")),
     readFile(join(process.cwd(), "app", "assets", "fonts", "ubuntu-400.ttf")),
     readFile(join(process.cwd(), "app", "assets", "fonts", "ubuntu-700.ttf")),
-    readFile(image_path),
+    // readFile(image_path),
   ]);
 
   const author = await getEntry(entry.data.author);

@@ -54,17 +54,11 @@ export const remarkPlugins: RemarkPlugins = [
 
 export const rehypePlugins: RehypePlugins = [
   rehypeHeadingIds,
-  [
-    rehypeSectionHeadings,
-    { sectionDataAttribute: "data-id", maxHeadingRank: 2 },
-  ],
+  [rehypeSectionHeadings, { sectionDataAttribute: "data-id", maxHeadingRank: 2 }],
   [
     rehypeAutolinkHeadings,
     { behavior: "wrap", properties: { class: "linked" } },
     // properties: { class: "linked", ariaHidden: "", tabIndex: -1 },
   ],
-  [
-    rehypeExternalLinks,
-    { rel: ["noopener", "noreferrer", "external"], target: "_blank" },
-  ],
+  [rehypeExternalLinks, { rel: ["noopener", "noreferrer", "external"], target: "_blank" }],
 ];

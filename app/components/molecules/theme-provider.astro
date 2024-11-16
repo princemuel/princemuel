@@ -3,24 +3,9 @@ import { Icon } from "astro-icon/components";
 ---
 
 <template data-id="x-theme-icons">
-  <Icon
-    name="lucide:sun"
-    data-id="x-light"
-    role="presentation"
-    class="animate-rotate"
-  />
-  <Icon
-    name="lucide:moon-star"
-    data-id="x-dark"
-    role="presentation"
-    class="animate-rotate"
-  />
-  <Icon
-    name="lucide:zap"
-    data-id="x-auto"
-    role="presentation"
-    class="animate-rotate"
-  />
+  <Icon name="lucide:sun" data-id="x-light" role="presentation" class="animate-rotate" />
+  <Icon name="lucide:moon-star" data-id="x-dark" role="presentation" class="animate-rotate" />
+  <Icon name="lucide:zap" data-id="x-auto" role="presentation" class="animate-rotate" />
 </template>
 
 {/* This is intentionally inlined to avoid FOUC. */}
@@ -40,8 +25,7 @@ import { Icon } from "astro-icon/components";
           const widget = document.querySelector("astro-theme");
           /** @type {HTMLTemplateElement | null} */
           const tmpl = document.querySelector(`[data-id="x-theme-icons"]`);
-          const themeIcon =
-            tmpl && tmpl.content.querySelector(`[data-id="x-${theme}"]`);
+          const themeIcon = tmpl && tmpl.content.querySelector(`[data-id="x-${theme}"]`);
           widget.querySelector("svg")?.remove();
           if (themeIcon) {
             widget

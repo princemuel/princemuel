@@ -1,5 +1,4 @@
 import { handler } from "@/helpers/api-handler";
-import { waitUntil } from "@vercel/functions";
 
 export const prerender = false;
 
@@ -9,7 +8,7 @@ const CONFETTI_URL =
 export const GET = handler(async () => {
   const { readable, writable } = new TransformStream();
 
-  waitUntil(streamData(writable));
+  streamData(writable);
 
   return new Response(readable, {
     headers: { "Content-Type": "text/html; charset=utf-8" },
@@ -26,8 +25,8 @@ async function streamData(writable: WritableStream, wait_time = 1500) {
 
   const [_, confetti] = await Promise.all([
     new Promise((resolve) => setTimeout(resolve, wait_time)),
-    fetch(CONFETTI_URL, { signal: AbortSignal.timeout(5000) }).then(
-      (response) => response.text(),
+    fetch(CONFETTI_URL, { signal: AbortSignal.timeout(5000) }).then((response) =>
+      response.text(),
     ),
   ]);
 

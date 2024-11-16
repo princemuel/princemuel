@@ -1,0 +1,5 @@
+*,
+*::after,
+*::before {
+  background: hsl(0 100% 50% / 0.1);
+}

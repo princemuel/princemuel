@@ -1,4 +1,4 @@
-import vercel from "@astrojs/vercel";
+import netlify from "@astrojs/netlify";
 import { defineConfig } from "astro/config";
 import { loadEnv } from "vite";
 import { envSchema } from "./config/env-schema";
@@ -24,11 +24,6 @@ export default defineConfig({
   image: {
     remotePatterns: [{ protocol: "https", hostname: "**.unsplash.com" }],
   },
-  vite: { define: { __APP_BUILD_DATE__: JSON.stringify(new Date()) } },
-  adapter: vercel({
-    isr: true,
-    edgeMiddleware: true,
-    imageService: true,
-    webAnalytics: { enabled: mode === "production" },
-  }),
+  vite: { define: { __BUILD_DATE__: JSON.stringify(new Date()) } },
+  adapter: netlify({ cacheOnDemandPages: true }),
 });

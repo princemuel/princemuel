@@ -1,49 +1,35 @@
 ---
 import { Picture } from "astro:assets";
-import AvatarImage from "@/assets/images/placeholder.avif";
-import { Icon } from "astro-icon/components";
-// import AstroThemeWidget from "./astro-theme.astro";
+import Avatar from "@/assets/images/princemuel-open-graph-image-2024.jpg";
 import Container from "../atoms/container.astro";
 import Link from "../atoms/link.astro";
-import RoutesMenu from "../molecules/routes-menu.astro";
+import RoutesMenu from "../molecules/routes.astro";
 ---
 
-<header
-  class="sticky top-0 z-10 w-full border-b border-gray-200 bg-gray-100/80 backdrop-blur-md transition-colors ease-in-out"
->
-  <Container class="">
-    <div class="py-4">
-      <div class="flex items-center max-md:justify-between">
-        <figure class="px-2 sm:p-0">
-          <Link
-            href="/"
-            class="flex size-9 items-center justify-center overflow-hidden rounded-full border-2"
-          >
-            <Picture
-              width={32}
-              height={32}
-              alt="Prince Muel"
-              src={AvatarImage}
-              formats={["avif", "webp"]}
-              loading="eager"
-            />
-          </Link>
-          <figcaption class="sr-only">Home</figcaption>
-        </figure>
+<header class="mt-8 lg:mt-16">
+  <Container>
+    <div class="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-[5rem,1fr] lg:gap-12">
+      <Link
+        href="/"
+        class="flex size-10 items-center justify-center overflow-hidden rounded-full md:size-12 lg:size-20"
+      >
+        <Picture
+          width={80}
+          height={80}
+          alt="Prince Muel"
+          src={Avatar}
+          formats={["avif", "webp"]}
+          loading="eager"
+        />
+      </Link>
 
-        <div
-          class="max-md:fixed max-md:inset-x-0 max-md:bottom-[5vh] max-md:z-50 max-md:grid max-md:w-full max-md:place-content-center md:ml-auto"
-        >
-          <nav aria-label="Main">
-            <RoutesMenu />
-          </nav>
-        </div>
+      <div class="grid grid-cols-subgrid flex-col gap-3 lg:gap-4">
+        <Link href="/" class="block text-xl font-extrabold text-gray-800 lg:text-3xl">
+          Samuel Chukwuzube
+        </Link>
 
-        <div class="flex items-center gap-2">
-          {/*<AstroThemeWidget /> */}
-          <div class="">
-            <Icon name="lucide:command" class="text-xl text-gray-900" />
-          </div>
+        <div class:list={[""]}>
+          <RoutesMenu />
         </div>
       </div>
     </div>

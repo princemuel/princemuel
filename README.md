@@ -6,7 +6,10 @@
   <img alt="Checked with Biome" src="https://img.shields.io/badge/Checked_with-Biome-60a5fa?style=flat&logo=biome"  />
   <img alt="Linted with Biome" src="https://img.shields.io/badge/Linted_with-Biome-60a5fa?style=flat&logo=biome"  />
   <img alt="Formatted with Biome" src="https://img.shields.io/badge/Formatted_with-Biome-60a5fa?style=flat&logo=biome"  />
+  <img alt="Formatted with Biome" src="https://img.shields.io/badge/Formatted_with-Biome-60a5fa?style=flat&logo=biome"  />
 </p>
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/43950cce-2ed3-434f-b933-5b514313e843/deploy-status)](https://app.netlify.com/sites/chukwuzube/deploys)
 
 ## About Me
 
