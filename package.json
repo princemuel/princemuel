@@ -10,7 +10,7 @@
     "dev": "astro dev --host",
     "start": "astro dev",
     "serve": "netlify dev",
-    "build": "astro build",
+    "build": "astro check && astro build",
     "build:prod": "astro check && astro build",
     "build:force": "astro check && astro build -- --force",
     "preview": "astro preview",
