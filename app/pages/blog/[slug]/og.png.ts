@@ -1,8 +1,8 @@
-import { readFile } from "node:fs/promises";
-import { join, resolve } from "node:path";
-import { getCollection, getEntry } from "astro:content";
 import PlaceholderImage from "@/assets/images/blog-placeholder-5.jpg";
 import { handler } from "@/helpers/api-handler";
+import { getCollection, getEntry } from "astro:content";
+import { readFile } from "node:fs/promises";
+import { join, resolve } from "node:path";
 import satori from "satori";
 import { html } from "satori-html";
 import sharp from "sharp";
@@ -35,11 +35,11 @@ export const GET = handler<Properties>(async ({ props }) => {
 
   console.log(image_path);
 
-  const [light, regular, bold, _image] = await Promise.all([
+  const [light, regular, bold] = await Promise.all([
     readFile(join(process.cwd(), "app", "assets", "fonts", "ubuntu-300.ttf")),
     readFile(join(process.cwd(), "app", "assets", "fonts", "ubuntu-400.ttf")),
     readFile(join(process.cwd(), "app", "assets", "fonts", "ubuntu-700.ttf")),
-    readFile(image_path),
+    // readFile(image_path),
   ]);
 
   const author = await getEntry(entry.data.author);
