@@ -1,4 +1,8 @@
 ---
+import { execSync } from "node:child_process";
+import { join } from "node:path";
+import { getCollection, getEntry, render } from "astro:content";
+import { OCTOKIT_USERNAME } from "astro:env/server";
 import Markdown from "@/components/atoms/markdown.astro";
 import { log_in_dev } from "@/helpers/log-in-dev";
 import { withBaseUrl } from "@/helpers/with-base-url";
@@ -6,10 +10,6 @@ import RootLayout from "@/layouts/root.astro";
 import { blog_ld, profile_ld } from "@/lib/jsonld";
 import { remove_key } from "@/utilities/objects";
 import type { GetStaticPaths } from "astro";
-import { getCollection, getEntry, render } from "astro:content";
-import { OCTOKIT_USERNAME } from "astro:env/server";
-import { execSync } from "node:child_process";
-import { join } from "node:path";
 import type {
   Article,
   BreadcrumbList,
