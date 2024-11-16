@@ -9,6 +9,7 @@ import sharp from "sharp";
 
 import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
 
+export const prerender = true;
 export const getStaticPaths = (async () => {
   const entries = await getCollection(
     "posts",

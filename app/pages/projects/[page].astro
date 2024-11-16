@@ -5,6 +5,7 @@ import Markdown from "@/components/atoms/markdown.astro";
 import RootLayout from "@/layouts/root.astro";
 import type { GetStaticPaths } from "astro";
 
+export const prerender = true;
 export const getStaticPaths = (async ({ paginate }) => {
   const entries = await getCollection(
     "projects",

@@ -1,5 +1,5 @@
 ---
-layout: "../layouts/legal.astro"
+layout: "../../layouts/legal.astro"
 title: "Terms of Service"
 description: "The terms and services of this website"
 author: "Prince Muel"
