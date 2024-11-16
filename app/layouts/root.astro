@@ -1,5 +1,4 @@
 ---
-import Indicator from "@/components/atoms/indicator.astro";
 import SkipLink from "@/components/atoms/skip-link.astro";
 import ReloadPrompt from "@/components/molecules/reload-prompt.astro";
 import ContentSlot from "@/components/templates/content-slot.astro";
@@ -70,7 +69,6 @@ const {
         <Layout>
           <slot />
         </Layout>
-        <Indicator />
         <ReloadPrompt />
       </Fragment>
     </ContentSlot>

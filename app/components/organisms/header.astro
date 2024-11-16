@@ -1,6 +1,6 @@
 ---
+import Avatar from "@/assets/images/princemuel-open-graph-image-2024.jpg";
 import { Picture } from "astro:assets";
-import AvatarAVIF from "@/assets/images/placeholder.avif";
 import Container from "../atoms/container.astro";
 import Link from "../atoms/link.astro";
 import RoutesMenu from "../molecules/routes.astro";
@@ -17,13 +17,13 @@ import RoutesMenu from "../molecules/routes.astro";
           width={80}
           height={80}
           alt="Prince Muel"
-          src={AvatarAVIF}
+          src={Avatar}
           formats={["avif", "webp"]}
           loading="eager"
         />
       </Link>
 
-      <div class="flex flex-col gap-3 lg:gap-4">
+      <div class="grid grid-cols-subgrid flex-col gap-3 lg:gap-4">
         <Link href="/" class="block text-xl font-extrabold text-gray-800 lg:text-3xl">
           Samuel Chukwuzube
         </Link>

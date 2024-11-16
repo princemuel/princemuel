@@ -2,7 +2,7 @@
 import Container from "@/components/atoms/container.astro";
 import MainContent from "@/components/atoms/main.astro";
 import Markdown from "@/components/atoms/markdown.astro";
-// import { Content } from "@/content/pages/home.md";
+import { Content } from "@/content/pages/home.md";
 import RootLayout from "@/layouts/root.astro";
 import { home_ld } from "@/lib/jsonld";
 import { remove_key } from "@/utilities/objects";
@@ -14,21 +14,19 @@ const jsonld = {
 } satisfies Graph;
 ---
 
-<RootLayout title={["Home"]} description="Home">
+<RootLayout title={["Prince Muel", true]} description="Home">
   <script
     is:inline
     type="application/ld+json"
     slot="jsonld"
     set:html={JSON.stringify(jsonld)}
   />
-  <Container>
+  <Container class="mt-12">
     <div class="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-[5rem,1fr] lg:gap-12">
-      <MainContent class="lg:col-start-2">
+      <MainContent class="flex flex-col gap-2 lg:col-start-2">
+        <h1 class="text-2xl font-extrabold text-gray-800">Who the hell am I?</h1>
         <Markdown>
-          <h1 class="text-2xl font-extrabold">Sam Chukwuzube</h1>
-          <!--<h2 class="mt-1 font-sans">Frontend Engineer (Freelance)</h2> -->
-
-          <!-- <Content /> -->
+          <Content />
         </Markdown>
       </MainContent>
     </div>

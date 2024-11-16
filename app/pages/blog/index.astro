@@ -1,6 +1,6 @@
 ---
-import { getCollection } from "astro:content";
 import RootLayout from "@/layouts/root.astro";
+import { getCollection } from "astro:content";
 
 let entries = await getCollection("posts", ({ data }) => !(import.meta.env.PROD && data.draft));
 entries = entries.sort((a, b) => {

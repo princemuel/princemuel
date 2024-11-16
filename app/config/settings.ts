@@ -1,4 +1,4 @@
-export const delimiter = "-";
+export const delimiter = "–";
 export const published_date = new Date("2024-02-01T16:43:29.577Z");
 
 export function getSiteSettings() {

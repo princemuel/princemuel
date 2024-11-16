@@ -1,5 +1,7 @@
 ---
-import AvatarImage from "@/assets/images/placeholder.avif";
+import Avatar from "@/assets/images/princemuel-open-graph-image-2024.jpg";
+import Container from "@/components/atoms/container.astro";
+import MainContent from "@/components/atoms/main.astro";
 import Markdown from "@/components/atoms/markdown.astro";
 import { published_date } from "@/config/settings";
 import { Content } from "@/content/pages/about-me.md";
@@ -18,10 +20,10 @@ const page_ld = {
   description: "",
   isPartOf: { "@id": withBaseUrl("/about-me").toString() },
   primaryImageOfPage: {
-    "@id": withBaseUrl(AvatarImage.src).toString(),
+    "@id": withBaseUrl(Avatar.src).toString(),
   },
-  image: { "@id": withBaseUrl(AvatarImage.src).toString() },
-  thumbnailUrl: withBaseUrl(AvatarImage.src).toString(),
+  image: { "@id": withBaseUrl(Avatar.src).toString() },
+  thumbnailUrl: withBaseUrl(Avatar.src).toString(),
   datePublished: published_date.toISOString(),
   dateModified: new Date().toISOString(),
   breadcrumb: { "@id": withBaseUrl("/about-me#breadcrumb").toString() },
@@ -37,8 +39,8 @@ const page_ld = {
 const image_ld = {
   "@context": "https://schema.org",
   "@type": "ImageObject",
-  "@id": withBaseUrl(AvatarImage.src).toString(),
-  url: withBaseUrl(AvatarImage.src).toString(),
+  "@id": withBaseUrl(Avatar.src).toString(),
+  url: withBaseUrl(Avatar.src).toString(),
   width: "1200",
   height: "630",
 } satisfies WithContext<ImageObject>;
@@ -80,7 +82,14 @@ const jsonld = {
     slot="jsonld"
     set:html={JSON.stringify(jsonld)}
   />
-  <Markdown>
-    <Content />
-  </Markdown>
+  <Container class="mt-12">
+    <div class="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-[5rem,1fr] lg:gap-12">
+      <MainContent class="flex flex-col gap-2 lg:col-start-2">
+        <h1 class="text-2xl font-extrabold text-gray-800">Who the hell am I?</h1>
+        <Markdown>
+          <Content />
+        </Markdown>
+      </MainContent>
+    </div>
+  </Container>
 </RootLayout>

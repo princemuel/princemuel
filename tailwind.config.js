@@ -49,7 +49,7 @@ export default {
     twAnimate,
     twTypography({ target: "modern" }),
     twScrollbar({ nocompatible: true, preferredStrategy: "pseudoelements" }),
-    twForms({ strategy: "base" }),
+    twForms({ strategy: "class" }),
     twPlugin(({ theme, addUtilities, addVariant, matchUtilities }) => {
       addVariant("optional", "&:optional");
       addVariant("hocus", ["&:hover", "&:focus"]);

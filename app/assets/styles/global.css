@@ -7,7 +7,7 @@
 }
 
 .linked {
-  @apply relative no-underline;
+  @apply relative font-extrabold text-inherit no-underline;
 
   &:hover::before {
     content: "";

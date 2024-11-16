@@ -21,8 +21,6 @@
   "emmet.preferences": {
     "output.selfClosingStyle": "xhtml"
   },
-  "eslint.enable": false,
-
   "json.validate.enable": true,
   "markdown.extension.syntax.plainTheme": true,
   "material-icon-theme.activeIconPack": "react_redux",
@@ -71,9 +69,6 @@
   "[mdx]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "[markdoc]": {
-    "editor.defaultFormatter": "stripe.markdoc-language-support"
-  },
   "[json]": {
     "editor.defaultFormatter": "biomejs.biome"
   },
@@ -100,5 +95,6 @@
   "evenBetterToml.semanticTokens": true,
   "[postcss]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  },
+  "editor.fontFamily": "'Cascadia Code', 'Droid Sans Mono', 'monospace', monospace"
 }
