@@ -25,5 +25,5 @@ export default defineConfig({
     remotePatterns: [{ protocol: "https", hostname: "**.unsplash.com" }],
   },
   vite: { define: { __BUILD_DATE__: JSON.stringify(new Date()) } },
-  adapter: netlify({ edgeMiddleware: true, cacheOnDemandPages: true }),
+  adapter: netlify({ cacheOnDemandPages: true }),
 });
