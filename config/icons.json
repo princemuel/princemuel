@@ -1,6 +1,5 @@
 {
   "fa": ["discord", "github", "instagram", "linkedin", "youtube", "twitter"],
-  "logos": ["astro-icon"],
   "lucide": [
     "badge-check",
     "bar-chart",
