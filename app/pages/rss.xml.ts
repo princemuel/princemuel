@@ -2,6 +2,7 @@ import { published_date } from "@/config/settings";
 import { handler } from "@/helpers/api-handler";
 import { convertTime } from "@/utilities/time";
 
+import { getImage } from "astro:assets";
 import { getCollection, getEntry } from "astro:content";
 
 import rss from "@astrojs/rss";
@@ -18,12 +19,21 @@ export const GET = handler(async (ctx) => {
   ]);
 
   const results = (collection ?? []).map(async (item) => {
-    const author = await getEntry(item.data.author);
+    const [author, img] = await Promise.all([
+      getEntry(item.data.author),
+      item?.data?.media?.cover &&
+        getImage({ src: item?.data?.media?.cover?.src, format: "png" }),
+    ]);
 
     return {
       title: item.data.title,
       description: item.data.description,
       content: mkd(item.body, { gfm: true, breaks: true }),
+      enclosure: img && {
+        length: 0,
+        url: new URL(img.src, ctx.site).toString(),
+        type: "image/png",
+      },
       pubDate: item.data.publishedAt,
       author: `${author.data.links.email} (${author.data.name})`,
       link: new URL(`/${item.collection}/${item.id}`, import.meta.env.SITE).toString(),
