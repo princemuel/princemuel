@@ -6,6 +6,8 @@ import { RequestError, get_code_from_status } from "@/helpers/request-error";
 
 import { RequestError as GithubError } from "octokit";
 
+export const prerender = false;
+
 export const GET = handler(async () => {
   try {
     const response = await octokit.rest.repos.get({

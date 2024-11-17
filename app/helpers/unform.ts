@@ -1,4 +1,4 @@
-export function removePrefixFromFormData(
+export function unform(
   formData: FormData,
   prefix: string,
 ): Record<string, FormDataEntryValue> {
