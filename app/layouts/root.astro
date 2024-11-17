@@ -3,8 +3,8 @@ import SkipLink from "@/components/atoms/skip-link.astro";
 import ReloadPrompt from "@/components/molecules/reload-prompt.astro";
 import ContentSlot from "@/components/templates/content-slot.astro";
 import SiteStatus from "@/components/templates/site-status.astro";
-import Layout from "./layout.astro";
-import Meta from "./meta.astro";
+import Layout from "@/layouts/layout.astro";
+import Meta from "@/layouts/meta.astro";
 
 import { getSiteSettings } from "@/config/settings";
 
@@ -36,7 +36,7 @@ const {
   dir="auto"
   data-theme="github-light-default"
   data-mode="light"
-  class:list={["motion-safe:scroll-smooth"]}
+  class:list={["antialiased motion-safe:scroll-smooth"]}
 >
   <head>
     <meta charset="utf-8" />
@@ -54,13 +54,11 @@ const {
       updatedAt={updatedAt}
       canonical={canonical}
     />
-    <slot name="head" />
-    <slot name="jsonld" />
   </head>
   <body
     class:list={[
-      "relative min-h-screen antialiased",
-      "bg-white font-sans font-normal dark:bg-gray-900",
+      "relative min-h-screen font-sans font-normal",
+      "bg-white dark:bg-gray-900",
     ]}
   >
     <ContentSlot>
