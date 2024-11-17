@@ -51,7 +51,6 @@ entry.data.updatedAt = new Date(remarkPluginFrontmatter.updatedAt);
 entry.data.duration = remarkPluginFrontmatter.duration;
 entry.data.words = remarkPluginFrontmatter.words;
 
-console.log(remarkPluginFrontmatter);
 const article_ld = {
   "@context": "https://schema.org",
   "@type": "Article",
@@ -204,16 +203,18 @@ Astro.response.headers.set("netlify-cache-tag", entry.id);
 ---
 
 <RootLayout title={[title, true]} description={description}>
-  <script
-    is:inline
-    type="application/ld+json"
-    slot="jsonld"
-    set:html={JSON.stringify(jsonld)}
-  />
+  <Fragment slot="head">
+    <script
+      is:inline
+      type="application/ld+json"
+      slot="head"
+      set:html={JSON.stringify(jsonld)}
+    />
+  </Fragment>
   <Container class="mt-12">
     <div class="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-[5rem,1fr] lg:gap-12">
       <MainContent class="flex flex-col gap-3 lg:col-start-2">
-        <h1 id="headline" class="text-2xl font-extrabold text-gray-800">Projects</h1>
+        <h1 id="headline" class="text-5xl font-extrabold text-gray-800">{title}</h1>
         <Markdown>
           <Content />
         </Markdown>

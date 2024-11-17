@@ -14,6 +14,7 @@ const posts = defineCollection({
   schema: ({ image }) =>
     baseSchema.extend({
       media: MediaObject(image).optional(),
+      publication: reference("publications").optional(),
       others: z.array(reference("posts")).default([]),
     }),
 });
@@ -27,6 +28,7 @@ const projects = defineCollection({
     baseSchema.extend({
       tools: z.array(z.string()).default([]),
       media: MediaObject(image).optional(),
+      status: z.enum(["completed", "ongoing"]).default("completed"),
       link: z
         .object({
           site: z.string().url().optional(),

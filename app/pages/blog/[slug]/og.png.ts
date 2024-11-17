@@ -3,14 +3,13 @@ import { handler } from "@/helpers/api-handler";
 import { getImage } from "astro:assets";
 import { getCollection, getEntry } from "astro:content";
 
-import { resolve } from "node:path";
+import { readFile } from "node:fs/promises";
+import { join, resolve } from "node:path";
 
 import satori from "satori";
 import { html } from "satori-html";
 import sharp from "sharp";
 
-import regular from "@/assets/fonts/ubuntu-400.ttf";
-import bold from "@/assets/fonts/ubuntu-700.ttf";
 import cover from "@/assets/images/blog-placeholder-5.jpg";
 
 import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
@@ -29,7 +28,7 @@ export const getStaticPaths = (async () => {
 
 type Properties = InferGetStaticPropsType<typeof getStaticPaths>;
 
-export const GET = handler<Properties>(async ({ props }) => {
+export const GET = handler<Properties>(async ({ props, site }) => {
   const entry = props.entry;
 
   const generated = (async () => {
@@ -43,12 +42,16 @@ export const GET = handler<Properties>(async ({ props }) => {
     ? resolve(image_src.replace(/\?.*/, "").replace("/@fs", ""))
     : resolve(image_src.replace("/", "dist/"));
 
+  const [img, regular, bold, author] = await Promise.all([
+    generated,
+    readFile(join(process.cwd(), "app", "assets", "fonts", "ubuntu-400.ttf")),
+    readFile(join(process.cwd(), "app", "assets", "fonts", "ubuntu-700.ttf")),
+    getEntry(entry.data.author),
+  ]);
+
   console.log("image_src", image_src);
   console.log("image_path", image_path);
-  console.log("generated", (await generated).src);
-
-  const author = await getEntry(entry.data.author);
-
+  console.log("generated", img);
   // <img
   //   src=${new URL(img.src, site)}
   //   width="500"
@@ -57,21 +60,23 @@ export const GET = handler<Properties>(async ({ props }) => {
   // />
 
   const markup = html`
-    <div
-      tw="flex h-[40rem] w-[75rem] flex-col items-center justify-center px-6"
-    >
-      <h1 tw="text-6xl font-bold text-slate-700">${author.data.name}</h1>
-      <h2 tw="text-4xl font-bold text-slate-500">${entry.data.title}</h2>
-      <h3 tw="text-2xl font-normal text-slate-500">${entry.data.summary}</h3>
+  <div tw="flex h-[40rem] bg-white w-[75rem] flex-col items-center justify-center px-6"
+  >
+  <h1 tw="text-6xl font-bold text-gray-900">${author.data.name}</h1>
+  <h2 tw="text-5xlfont-bold text-gray-500">${entry.data.title}</h2>
+  <h3 tw="text-2xl font-normal text-gray-500">${entry.data.summary}</h3>
+
+
     </div>
   `;
+
   const svg = await satori(markup, {
     width: 1200,
     height: 630,
     embedFont: true,
     fonts: [
-      { name: "Ubuntu", data: Buffer.from(regular), style: "normal", weight: 400 },
-      { name: "Ubuntu", data: Buffer.from(bold), style: "normal", weight: 700 },
+      { name: "Ubuntu Sans", data: regular, style: "normal", weight: 400 },
+      { name: "Ubuntu Sans", data: bold, style: "normal", weight: 700 },
     ],
   });
 

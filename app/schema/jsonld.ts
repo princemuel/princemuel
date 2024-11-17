@@ -1,7 +1,7 @@
 import avatar from "@/assets/images/placeholder.avif";
 
+import { published_date } from "@/config/settings";
 import { withBaseUrl } from "@/helpers/with-base-url";
-import { published_date } from "../config/settings";
 
 import { invariant } from "outvariant";
 

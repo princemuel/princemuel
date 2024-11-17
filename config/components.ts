@@ -1,4 +1,4 @@
-export const importConfig: ImportConfig = {
+export const import_options: ImportConfig = {
   imports: [
     // {
     //   "./app/components/atoms/link.astro": [["default", "Link"]],
