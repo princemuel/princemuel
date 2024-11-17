@@ -3,7 +3,7 @@ layout: "../../layouts/legal.astro"
 title: "Terms of Service"
 description: "The terms and services of this website"
 author: "Prince Muel"
-publishedAt: 2024-4-23
+publishedAt: 2024-04-23T14:25:32.000Z
 ---
 
 ## Liability
