@@ -4,7 +4,7 @@ import { getImage } from "astro:assets";
 import { getCollection, getEntry } from "astro:content";
 
 import { readFile } from "node:fs/promises";
-import { join, resolve } from "node:path";
+import { join } from "node:path";
 
 import satori from "satori";
 import { html } from "satori-html";
@@ -26,21 +26,15 @@ export const getStaticPaths = (async () => {
   }));
 }) satisfies GetStaticPaths;
 
-type Properties = InferGetStaticPropsType<typeof getStaticPaths>;
+type P = InferGetStaticPropsType<typeof getStaticPaths>;
 
-export const GET = handler<Properties>(async ({ props, site }) => {
-  const entry = props.entry;
+export const GET = handler<P>(async (ctx) => {
+  const entry = ctx.props.entry;
 
   const generated = (async () => {
     const image_src = entry.data.media?.cover?.src || cover;
     return getImage({ src: image_src, format: "png", width: 1200, height: 630 });
   })();
-
-  const image_src = entry.data.media?.cover?.src || cover.src;
-
-  const image_path = import.meta.env.DEV
-    ? resolve(image_src.replace(/\?.*/, "").replace("/@fs", ""))
-    : resolve(image_src.replace("/", "dist/"));
 
   const [img, regular, bold, author] = await Promise.all([
     generated,
@@ -49,8 +43,6 @@ export const GET = handler<Properties>(async ({ props, site }) => {
     getEntry(entry.data.author),
   ]);
 
-  console.log("image_src", image_src);
-  console.log("image_path", image_path);
   console.log("generated", img);
   // <img
   //   src=${new URL(img.src, site)}
@@ -63,7 +55,7 @@ export const GET = handler<Properties>(async ({ props, site }) => {
   <div tw="flex h-[40rem] bg-white w-[75rem] flex-col items-center justify-center px-6"
   >
   <h1 tw="text-6xl font-bold text-gray-900">${author.data.name}</h1>
-  <h2 tw="text-5xlfont-bold text-gray-500">${entry.data.title}</h2>
+  <h2 tw="text-5xl font-bold text-gray-500">${entry.data.title}</h2>
   <h3 tw="text-2xl font-normal text-gray-500">${entry.data.summary}</h3>
 
 

@@ -1,6 +1,7 @@
 import { resend } from "@/config/clients";
 import { checkIfRateLimited } from "@/helpers/rate-limit";
 import { capitalize } from "@/utilities/strings";
+
 import { ActionError, defineAction } from "astro:actions";
 import { RESEND_ADDRESS } from "astro:env/server";
 import { z } from "astro:schema";

@@ -1,5 +1,6 @@
 ---
 import Container from "@/components/atoms/container.astro";
+import MainContent from "@/components/atoms/main.astro";
 import Attribution from "@/components/molecules/attribution.astro";
 
 import { SITE_STATUS } from "astro:env/server";
@@ -21,10 +22,7 @@ const status = {
 }[SITE_STATUS];
 ---
 
-<main
-  id="main-content"
-  class="grid h-screen place-content-center supports-[height:100svh]:h-svh"
->
+<MainContent class="grid h-screen place-content-center supports-[height:100svh]:h-svh">
   <Container>
     <header class="text-center">
       <h1 id="headline" class="text-xl font-bold md:text-3xl">{status.title}</h1>
@@ -37,4 +35,4 @@ const status = {
       <Attribution />
     </div>
   </Container>
-</main>
+</MainContent>
