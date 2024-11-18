@@ -9,14 +9,20 @@ import { Content } from "@/content/pages/projects.md";
 
 import { getCollection } from "astro:content";
 
-const collection = await getCollection(
-  "projects",
-  ({ data }) => !(import.meta.env.PROD && data.draft),
-);
+import type { GetStaticPaths } from "astro";
 
-const entries = collection.sort((a, b) => {
-  return Number(b.data.publishedAt) - Number(a.data.publishedAt);
-});
+export const getStaticPaths = (async ({ paginate }) => {
+  const entries = await getCollection(
+    "projects",
+    ({ data }) => !(import.meta.env.PROD && data.draft),
+  );
+
+  return paginate(entries, { pageSize: 1 });
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
+
+const entries = page.data;
 ---
 
 <RootLayout
@@ -31,7 +37,7 @@ const entries = collection.sort((a, b) => {
           <Content />
         </Markdown>
 
-        <section class="flex flex-col gap-10">
+        <section class="flex flex-col gap-8">
           {
             entries.map(({ id, data }) => (
               <article class="flex flex-col gap-1">
@@ -48,12 +54,17 @@ const entries = collection.sort((a, b) => {
                   href={`/projects/${id}`}
                   class="mt-2 flex text-sm text-gray-500 hocus:text-gray-700 hocus:underline"
                 >
-                  Visit the website &RightArrow;
+                  Read project breakdown &RightArrow;
                 </Link>
               </article>
             ))
           }
         </section>
+
+        <div class="flex items-center gap-4 text-sm">
+          {page.url.prev ? <Link href={page.url.prev}>Previous</Link> : null}
+          {page.url.next ? <Link href={page.url.next}>Next</Link> : null}
+        </div>
       </MainContent>
     </div>
   </Container>
