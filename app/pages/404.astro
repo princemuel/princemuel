@@ -4,14 +4,13 @@ import MainContent from "@/components/atoms/main.astro";
 import Markdown from "@/components/atoms/markdown.astro";
 import RootLayout from "@/layouts/root.astro";
 
-import { Content } from "@/content/pages/offline.md";
+import { Content } from "@/content/pages/404.md";
 
-const description =
-  "The offline page of this site. Users land here when they try to navigate to a page but have network issues or are offline";
+const description = "Accesibility Statement for Prince Muel's site";
 ---
 
 <RootLayout
-  title={["Offline Page"]}
+  title={["404: Not found", true]}
   description={description}
   directives={{ noindex: true, nofollow: true, nosnippet: true }}
 >
@@ -19,7 +18,7 @@ const description =
     <div class="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-[5rem,1fr] lg:gap-12">
       <MainContent class="flex flex-col gap-2 lg:col-start-2">
         <h1 id="headline" class="text-2xl font-extrabold text-gray-800">
-          Offline Page
+          404: Not found
         </h1>
         <Markdown>
           <Content />
