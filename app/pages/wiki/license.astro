@@ -1,0 +1,25 @@
+---
+import Container from "@/components/atoms/container.astro";
+import MainContent from "@/components/atoms/main.astro";
+import Markdown from "@/components/atoms/markdown.astro";
+import RootLayout from "@/layouts/root.astro";
+
+import { Content } from "../../../LICENSE.md";
+
+const description = "License & Disclaimer for Prince Muel's site";
+---
+
+<RootLayout title={["License & Disclaimer"]} description={description}>
+  <Container class="mt-12">
+    <div class="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-[5rem,1fr] lg:gap-12">
+      <MainContent class="flex flex-col gap-2 lg:col-start-2">
+        <h1 id="headline" class="text-2xl font-extrabold text-gray-800">
+          License & Disclaimer
+        </h1>
+        <Markdown>
+          <Content />
+        </Markdown>
+      </MainContent>
+    </div>
+  </Container>
+</RootLayout>
