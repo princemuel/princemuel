@@ -2,7 +2,6 @@
 import Container from "@/components/atoms/container.astro";
 import Link from "@/components/atoms/link.astro";
 import Time from "@/components/atoms/time.astro";
-import Attribution from "@/components/molecules/attribution.astro";
 
 import { Icon } from "astro-icon/components";
 
@@ -21,25 +20,26 @@ const socials = await getCollection(
 
 const routes = {
   general: [
-    { href: "/", text: "Home" },
-    { href: "/about-me", text: "About Me" },
     { href: "/blog", text: "Blog" },
+    { href: "/about-me", text: "About Me" },
     { href: "/projects", text: "Projects" },
-    { href: "/wiki", text: "Wiki" },
+    { href: "/articles", text: "Articles" },
+    { href: "/journal", text: "Journal" },
   ],
   specifics: [
-    { href: "/journal", text: "Journal" },
+    { href: "/wiki", text: "Wiki" },
     { href: "/resume.pdf", text: "Resume" },
     { href: "/newsletter", text: "Newsletter" },
-    { href: "/legal/privacy-policy", text: "Privacy Policy" },
-    { href: "/legal/terms-of-service", text: "Terms of Service" },
+    { href: "/tweets", text: "Tweets" },
+    { href: "/say-hello", text: "Contact Me" },
   ],
   extras: [
-    { href: "/resources", text: "Setup" },
-    { href: "/tweets", text: "Tweets" },
-    { href: "/sponsor-me", text: "Sponsor Me" },
-    { href: "/hire-me", text: "Hire Me" },
-    { href: "/say-hello", text: "Contact Me" },
+    { href: "/wiki", text: "Setup" },
+    { href: "/wiki/license", text: "License" },
+    { href: "/wiki/accessibility", text: "Accessibility" },
+    { href: "/legal/privacy-policy", text: "Privacy Policy" },
+    { href: "/legal/terms-of-service", text: "Terms of Service" },
+    // { href: "/sponsor-me", text: "Sponsor Me" },
   ],
 };
 
@@ -137,8 +137,4 @@ const date = new Date();
       </div>
     </div>
   </Container>
-
-  <div class="bg-gray-200">
-    <Attribution />
-  </div>
 </footer>
