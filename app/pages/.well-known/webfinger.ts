@@ -1,4 +1,4 @@
-import { handler } from "@/helpers/api-handler";
+import { handler } from "../../helpers/api-handler";
 
 export const GET = handler(async () => {
   return Response.json({

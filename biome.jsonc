@@ -4,18 +4,18 @@
   "files": { "ignoreUnknown": true },
   "linter": {
     "enabled": true,
-    "rules": { "recommended": true },
+    "rules": { "recommended": true }
   },
   "formatter": {
     "enabled": true,
     "lineWidth": 88,
-    "indentStyle": "space",
+    "indentStyle": "space"
   },
   "vcs": {
     "enabled": true,
     "clientKind": "git",
     "useIgnoreFile": true,
-    "defaultBranch": "main",
+    "defaultBranch": "main"
   },
   "overrides": [
     {
@@ -24,10 +24,10 @@
         "rules": {
           "style": {
             "useConst": "off",
-            "useImportType": "off",
-          },
-        },
-      },
-    },
-  ],
+            "useImportType": "off"
+          }
+        }
+      }
+    }
+  ]
 }
