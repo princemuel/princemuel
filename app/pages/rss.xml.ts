@@ -36,7 +36,7 @@ export const GET = handler(async (ctx) => {
       },
       pubDate: item.data.publishedAt,
       author: `${author.data.links.email} (${author.data.name})`,
-      link: new URL(`/${item.collection}/${item.id}`, import.meta.env.SITE).toString(),
+      link: new URL(`/${item.collection}/${item.id}`, ctx.site).toString(),
       commentsUrl: "https://github.com/princemuel/princemuel.com/discussions",
     } as RSSFeedItem;
   });
@@ -47,7 +47,7 @@ export const GET = handler(async (ctx) => {
     title: `${author.data.name}'s RSS Feed`,
     description:
       "My Personal Website scaffolded with Astro. If you subscribe to this RSS feed, you will receive updates and summaries of all relevant data on my site",
-    site: new URL("/", import.meta.env.SITE),
+    site: new URL("/", ctx.site),
     items: await Promise.all(results),
     trailingSlash: true,
     customData: `
@@ -62,7 +62,7 @@ export const GET = handler(async (ctx) => {
       <webMaster>${author.data.links.email} (${author.data.name})</webMaster>
       <copyright>Copyright 2024 ${author.data.name}</copyright>
       <ttl>${convertTime(7).mins}</ttl>
-      <atom:link href="${new URL("/rss.xml", import.meta.env.SITE)}" rel="self" type="application/rss+xml"/>
+      <atom:link href="${new URL("/rss.xml", ctx.site)}" rel="self" type="application/rss+xml"/>
     `,
     stylesheet: false,
   });

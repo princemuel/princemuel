@@ -27,7 +27,7 @@ export const GET = handler(async (ctx) => {
       author: `${author.data.links.email} (${author.data.name})`,
       link: new URL(
         `/changelog.xml#v${normalize(item.data.version)}`,
-        import.meta.env.SITE,
+        ctx.site,
       ).toString(),
       commentsUrl: "https://github.com/princemuel/princemuel.com/discussions",
     } as RSSFeedItem;
@@ -37,7 +37,7 @@ export const GET = handler(async (ctx) => {
     xmlns: { atom: "http://www.w3.org/2005/Atom" },
     title: `${author.data.name}'s Site Changelog`,
     description: `Version History for ${author.data.name}'s Website, containing all the recent changes.`,
-    site: new URL("/", import.meta.env.SITE),
+    site: new URL("/", ctx.site),
     items: await Promise.all(results),
     trailingSlash: true,
     customData: `
@@ -52,7 +52,7 @@ export const GET = handler(async (ctx) => {
       <webMaster>${author.data.links.email} (${author.data.name})</webMaster>
       <copyright>Copyright 2024 ${author.data.name}</copyright>
       <ttl>${convertTime(7).mins}</ttl>
-      <atom:link href="${new URL("/changelog.xml", import.meta.env.SITE)}" rel="self" type="application/rss+xml"/>
+      <atom:link href="${new URL("/changelog.xml", ctx.site)}" rel="self" type="application/rss+xml"/>
     `,
     stylesheet: false,
   });
