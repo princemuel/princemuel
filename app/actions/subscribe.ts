@@ -5,6 +5,8 @@ import { ActionError, defineAction } from "astro:actions";
 import { RESEND_AUDIENCE } from "astro:env/server";
 import { z } from "astro:schema";
 
+import { experimental_AstroContainer as AstroContainer } from "astro/container";
+
 export const subscribeAction = defineAction({
   accept: "form",
   input: z.object({
@@ -21,6 +23,8 @@ export const subscribeAction = defineAction({
         code: "TOO_MANY_REQUESTS",
         message: "You have reached your request limit",
       });
+
+    await AstroContainer.create();
 
     const response = await resend.contacts.create({
       email: body.email,
