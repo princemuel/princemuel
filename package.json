@@ -44,7 +44,7 @@
     "isbot": "^5.1.17",
     "octokit": "^4.0.2",
     "outvariant": "^1.4.3",
-    "resend": "4.0.1-alpha.0",
+    "resend": "4.0.1",
     "sharp": "^0.33.5",
     "signal-polyfill": "^0.2.1",
     "tailwind-variants": "^0.3.0"
@@ -94,7 +94,7 @@
     "rehype-external-links": "^3.0.0",
     "remark-emoji": "^5.0.1",
     "remark-toc": "^9.0.0",
-    "satori": "^0.11.3",
+    "satori": "^0.12.0",
     "satori-html": "^0.3.2",
     "schema-dts": "^1.1.2",
     "tailwind-scrollbar": "^3.1.0",
