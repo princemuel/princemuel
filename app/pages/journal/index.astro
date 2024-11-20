@@ -7,8 +7,8 @@ import RootLayout from "@/layouts/root.astro";
 
 import { Content } from "@/content/pages/journals.md";
 
-import Time from "@/components/atoms/time.astro";
 import { getCollection } from "astro:content";
+import Time from "@/components/atoms/time.astro";
 
 const collection = await getCollection(
   "journal",
