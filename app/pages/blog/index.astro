@@ -25,13 +25,13 @@ const entries = collection.sort((a, b) => {
 >
   <Container class="mt-12">
     <div class="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-[5rem,1fr] lg:gap-12">
-      <MainContent class="flex flex-col gap-3 lg:col-start-2">
-        <h1 id="headline" class="text-2xl font-extrabold text-gray-800">Blog</h1>
+      <MainContent class="flex flex-col gap-4 lg:col-start-2">
+        <h1 id="headline" class="text-3xl font-extrabold text-gray-800">Blog</h1>
         <Markdown>
           <Content />
         </Markdown>
 
-        <section class="flex flex-col gap-10">
+        <section class="mt-8 flex flex-col gap-8">
           {
             entries.map(({ id, data }) => (
               <article class="flex flex-col gap-1">

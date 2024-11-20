@@ -7,10 +7,11 @@ import RootLayout from "@/layouts/root.astro";
 
 import { Content } from "@/content/pages/journals.md";
 
+import Time from "@/components/atoms/time.astro";
 import { getCollection } from "astro:content";
 
 const collection = await getCollection(
-  "posts",
+  "journal",
   ({ data }) => !(import.meta.env.PROD && data.draft),
 );
 
@@ -22,8 +23,8 @@ const entries = collection.sort((a, b) => {
 <RootLayout title={["Journal"]} description="journal">
   <Container class="mt-12">
     <div class="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-[5rem,1fr] lg:gap-12">
-      <MainContent class="flex flex-col gap-3 lg:col-start-2">
-        <h1 id="headline" class="text-2xl font-extrabold text-gray-800">
+      <MainContent class="flex flex-col gap-4 lg:col-start-2">
+        <h1 id="headline" class="text-3xl font-extrabold text-gray-800">
           Work Journal
         </h1>
 
@@ -31,27 +32,33 @@ const entries = collection.sort((a, b) => {
           <Content />
         </Markdown>
 
-        <section class="flex flex-col gap-10">
+        <section class="mt-8 flex flex-col gap-6">
           {
-            entries.map(({ id, data }) => (
-              <article class="flex flex-col gap-1">
-                <h3>
-                  <Link
-                    href={`/journal/${id}`}
-                    class="text-lg font-bold text-gray-800 hocus:underline"
-                  >
-                    {data.title}
-                  </Link>
-                </h3>
-                <p class="text-base text-gray-600">{data.summary}</p>
-                <Link
-                  href={`/journal/${id}`}
-                  class="mt-2 flex text-sm text-gray-500 hocus:text-gray-700 hocus:underline"
-                >
-                  Read this article &RightArrow;
-                </Link>
-              </article>
-            ))
+            entries.map(({ id, data }) => {
+              const date = data.publishedAt ?? new Date();
+              const [year, month, day, slug] = [
+                date.getFullYear(),
+                String(date.getMonth() + 1).padStart(2, "0"),
+                String(date.getDate()).padStart(2, "0"),
+                id,
+              ];
+              return (
+                <article class="flex flex-col gap-1">
+                  <Time
+                    datetime={data.publishedAt}
+                    class="text-xs font-bold uppercase tracking-wider text-gray-400"
+                  />
+                  <h3>
+                    <Link
+                      href={`/journal/${year}/${month}/${day}/${slug}`}
+                      class="text-lg font-bold text-gray-800 hocus:underline"
+                    >
+                      {data.title}
+                    </Link>
+                  </h3>
+                </article>
+              );
+            })
           }
         </section>
       </MainContent>

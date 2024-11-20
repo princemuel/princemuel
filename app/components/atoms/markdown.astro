@@ -6,20 +6,10 @@ import type { HTMLAttributes } from "astro/types";
 type Props = HTMLAttributes<"article">;
 
 const { class: className, ...rest } = Astro.props;
-
-const linked = `url(${LinkedSVG.src})`;
 ---
 
-<article
-  id="article"
-  class:list={[
-    "prose prose-base prose-gray dark:prose-invert",
-    "prose-a:font-bold",
-    className,
-  ]}
-  {...rest}
->
+<article id="article" class="prose xl:prose-lg dark:prose-invert" {...rest}>
   <slot />
 </article>
 
-<style define:vars={{ linked }}></style>
+<style define:vars={{ linked: `url(${LinkedSVG.src})` }}></style>

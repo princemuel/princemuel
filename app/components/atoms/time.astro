@@ -13,5 +13,5 @@ const date = datetime ? new Date(datetime) : new Date();
 ---
 
 <time datetime={date.toISOString()} {...attrs}>
-  <slot>{moment.format(date).replace(/,\s(\d{2})/, " $1")}</slot>
+  <slot>{moment.format(date)}</slot>
 </time>

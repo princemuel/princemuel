@@ -5,21 +5,29 @@ import Time from "@/components/atoms/time.astro";
 
 import { Icon } from "astro-icon/components";
 
-import { moment } from "@/helpers/datetime";
+import { getSiteSettings } from "@/config/settings";
 
 const buildDate = new Date(__BUILD_DATE__);
+
+const formatter = new Intl.DateTimeFormat(getSiteSettings().language, {
+  weekday: "short",
+  year: "numeric",
+  month: "short",
+  day: "2-digit",
+});
 ---
 
-<div class="absolute bottom-0 w-full bg-gray-200">
+<div class="absolute bottom-0 w-full bg-gray-100">
   <Container class="flex items-center justify-center py-1">
     <p class="flex flex-wrap content-center items-center gap-1 text-xs text-gray-800">
       <span>Built with </span>
       <Icon name="astro-icon" />
-      <Link href="https://docs.astro.build/en/concepts/why-astro/"
-        >{Astro.generator}</Link
-      > on
+      <Link href="https://docs.astro.build/en/concepts/why-astro/">
+        {Astro.generator}
+      </Link>
+      <span>on</span>
       <Time datetime={buildDate.toISOString()}>
-        {moment.format(buildDate)}
+        {formatter.format(buildDate)}
       </Time>
     </p>
   </Container>

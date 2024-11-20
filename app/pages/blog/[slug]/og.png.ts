@@ -12,9 +12,9 @@ import sharp from "sharp";
 
 import cover from "@/assets/images/blog-placeholder-5.jpg";
 
-import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
+import type { InferGetStaticPropsType } from "astro";
 
-export const getStaticPaths = (async () => {
+export async function getStaticPaths() {
   const entries = await getCollection(
     "posts",
     ({ data }) => !(import.meta.env.PROD && data.draft),
@@ -24,11 +24,11 @@ export const getStaticPaths = (async () => {
     props: { entry },
     params: { slug: entry.id },
   }));
-}) satisfies GetStaticPaths;
+}
 
-type P = InferGetStaticPropsType<typeof getStaticPaths>;
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
-export const GET = handler<P>(async (ctx) => {
+export const GET = handler<Props>(async (ctx) => {
   const entry = ctx.props.entry;
 
   const generated = (async () => {

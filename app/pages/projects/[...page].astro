@@ -17,7 +17,7 @@ export const getStaticPaths = (async ({ paginate }) => {
     ({ data }) => !(import.meta.env.PROD && data.draft),
   );
 
-  return paginate(entries, { pageSize: 1 });
+  return paginate(entries, { pageSize: 10 });
 }) satisfies GetStaticPaths;
 
 const { page } = Astro.props;
@@ -31,16 +31,16 @@ const entries = page.data;
 >
   <Container class="mt-12">
     <div class="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-[5rem,1fr] lg:gap-12">
-      <MainContent class="flex flex-col gap-3 lg:col-start-2">
-        <h1 id="headline" class="text-2xl font-extrabold text-gray-800">Projects</h1>
+      <MainContent class="flex flex-col gap-4 lg:col-start-2">
+        <h1 id="headline" class="text-3xl font-extrabold text-gray-800">Projects</h1>
         <Markdown>
           <Content />
         </Markdown>
 
-        <section class="flex flex-col gap-8">
+        <section class="mt-8 flex flex-col gap-8">
           {
             entries.map(({ id, data }) => (
-              <article class="flex flex-col gap-1">
+              <article class="flex flex-col gap-0.5">
                 <h3>
                   <Link
                     href={`/projects/${id}`}
@@ -52,9 +52,9 @@ const entries = page.data;
                 <p class="text-base text-gray-600">{data.summary}</p>
                 <Link
                   href={`/projects/${id}`}
-                  class="mt-2 flex text-sm text-gray-500 hocus:text-gray-700 hocus:underline"
+                  class="mt-2 flex text-sm text-gray-500 hocus:text-gray-800 hocus:underline"
                 >
-                  Read project breakdown &RightArrow;
+                  View project details &RightArrow;
                 </Link>
               </article>
             ))

@@ -4,25 +4,26 @@ import MainContent from "@/components/atoms/main.astro";
 import Markdown from "@/components/atoms/markdown.astro";
 import RootLayout from "@/layouts/root.astro";
 
-import { getCollection, getEntry, render } from "astro:content";
+import { getCollection, render } from "astro:content";
 
 export async function getStaticPaths() {
-  const entries = await getCollection(
-    "projects",
-    ({ data }) => !(import.meta.env.PROD && data.draft),
-  );
+  const entries = await getCollection("journal");
 
-  return entries.map((entry) => ({
-    props: { entry },
-    params: { slug: entry.id },
-  }));
+  return entries.map((entry) => {
+    const date = entry.data.publishedAt ?? new Date();
+    const [year, month, day, slug] = [
+      date.getFullYear(),
+      String(date.getMonth() + 1).padStart(2, "0"),
+      String(date.getDate()).padStart(2, "0"),
+      entry.id,
+    ];
+    return { params: { year, month, day, slug }, props: { entry } };
+  });
 }
 
 const { entry } = Astro.props;
 
-const [markdown] = await Promise.all([render(entry), getEntry(entry.data.author)]);
-
-const { Content, remarkPluginFrontmatter } = markdown;
+const { Content, remarkPluginFrontmatter } = await render(entry);
 
 // update the collection schema with plugin data
 entry.data.updatedAt = new Date(remarkPluginFrontmatter.updatedAt);
@@ -34,7 +35,7 @@ const { title, description } = entry.data;
 Astro.response.headers.set("netlify-cache-tag", entry.id);
 ---
 
-<RootLayout title={[title, true]} description={description}>
+<RootLayout title={[title]} description={description}>
   <Fragment slot="head"> </Fragment>
   <Container class="mt-12">
     <div class="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-[5rem,1fr] lg:gap-12">
