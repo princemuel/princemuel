@@ -2,10 +2,8 @@
   "dotenv.enableAutocloaking": false,
   "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
   "editor.codeActionsOnSave": {
-    "quickfix.biome": "explicit",
-    "source.addMissingImports": "explicit",
-    "source.organizeImports": "explicit",
-    "source.fixAll": "explicit",
+    "quickFix.biome": "explicit",
+    "source.fixAll.biome": "explicit",
     "source.organizeImports.biome": "explicit"
   },
   "editor.defaultFormatter": "biomejs.biome",
@@ -44,6 +42,10 @@
   "astro.content-intellisense": true,
   "prettier.documentSelectors": ["**/*.astro"],
   "prettier.experimentalTernaries": true,
+  "material-icon-theme.files.associations": {
+    "**.mdoc": "mdx"
+    // "**.mdoc": "markdown"
+  },
   "[github-actions-workflow]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -56,9 +58,23 @@
   "[sql]": {
     "editor.defaultFormatter": "mtxr.sqltools"
   },
-  "material-icon-theme.files.associations": {
-    "**.mdoc": "mdx"
-    // "**.mdoc": "markdown"
+  "[json]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "biomejs.biome"
   },
   "[astro]": {
     "editor.defaultFormatter": "biomejs.biome"
@@ -69,11 +85,8 @@
   "[mdx]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "[json]": {
-    "editor.defaultFormatter": "biomejs.biome"
-  },
-  "[jsonc]": {
-    "editor.defaultFormatter": "biomejs.biome"
+  "[postcss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "mdx.server.enable": true,
   "mdx.validate.validateDuplicateLinkDefinitions": "warning",
@@ -93,8 +106,5 @@
   "evenBetterToml.formatter.reorderKeys": true,
   "evenBetterToml.formatter.trailingNewline": true,
   "evenBetterToml.semanticTokens": true,
-  "[postcss]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
   "editor.fontFamily": "'Cascadia Code', 'Droid Sans Mono', 'monospace', monospace"
 }
