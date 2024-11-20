@@ -2,6 +2,8 @@ import { MediaObject, baseSchema } from "@/schema/content";
 
 import { file, glob } from "astro/loaders";
 
+import { mockLoader as mocker } from "@ascorbic/mock-loader";
+
 import { defineCollection, reference, z } from "astro:content";
 
 import type { Icon } from "virtual:astro-icon";
@@ -13,6 +15,8 @@ const posts = defineCollection({
   }),
   schema: ({ image }) =>
     baseSchema.extend({
+      author: reference("authors"),
+      contributors: z.array(reference("authors")).default([]),
       media: MediaObject(image).optional(),
       // publication: reference("publications").optional(),
       others: z.array(reference("posts")).default([]),
@@ -26,9 +30,12 @@ const projects = defineCollection({
   }),
   schema: ({ image }) =>
     baseSchema.extend({
+      author: reference("authors"),
       tools: z.array(z.string()).default([]),
       media: MediaObject(image).optional(),
-      status: z.enum(["completed", "ongoing"]).default("completed"),
+      status: z
+        .enum(["planned", "in-progress", "completed", "archived"])
+        .default("planned"),
       link: z
         .object({
           site: z.string().url().optional(),
@@ -52,6 +59,15 @@ const projects = defineCollection({
 //     title: z.string().optional(),
 //   }),
 // });
+
+const journal = defineCollection({
+  loader: mocker({
+    seed: 32,
+    entryCount: 10,
+    mockHTML: true,
+    schema: baseSchema,
+  }),
+});
 
 const changelog = defineCollection({
   loader: glob({
@@ -120,6 +136,7 @@ export const collections = {
   publications,
   categories,
   socials,
+  journal,
   posts,
   projects,
   changelog,

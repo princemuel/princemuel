@@ -15,7 +15,6 @@ contributors:
 media:
   cover:
   image:
-  thumbnail:
   alt:
   audio:
   video:

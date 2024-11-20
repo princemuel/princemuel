@@ -15,7 +15,6 @@ import { OCTOKIT_USERNAME } from "astro:env/server";
 import { execSync } from "node:child_process";
 import { join } from "node:path";
 
-import type { GetStaticPaths } from "astro";
 import type {
   Article,
   BreadcrumbList,
@@ -25,7 +24,7 @@ import type {
   WithContext,
 } from "schema-dts";
 
-export const getStaticPaths = (async () => {
+export async function getStaticPaths() {
   const entries = await getCollection(
     "posts",
     ({ data }) => !(import.meta.env.PROD && data.draft),
@@ -35,7 +34,7 @@ export const getStaticPaths = (async () => {
     props: { entry },
     params: { slug: entry.id },
   }));
-}) satisfies GetStaticPaths;
+}
 
 const { entry } = Astro.props;
 
@@ -213,8 +212,8 @@ Astro.response.headers.set("netlify-cache-tag", entry.id);
   </Fragment>
   <Container class="mt-12">
     <div class="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-[5rem,1fr] lg:gap-12">
-      <MainContent class="flex flex-col gap-3 lg:col-start-2">
-        <h1 id="headline" class="text-5xl font-extrabold text-gray-800">{title}</h1>
+      <MainContent class="flex flex-col gap-4 lg:col-start-2">
+        <h1 id="headline" class="text-3xl font-extrabold text-gray-800">{title}</h1>
         <Markdown>
           <Content />
         </Markdown>
