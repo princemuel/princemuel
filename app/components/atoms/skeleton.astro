@@ -3,7 +3,8 @@ import type { HTMLAttributes } from "astro/types";
 
 type Props = HTMLAttributes<"div">;
 
-const { class: className, ...rest } = Astro.props;
+const { class: className, ...attrs } = Astro.props;
 ---
 
-<div {...rest} class:list={["animate-pulse rounded-md bg-gray-50/30", className]}></div>
+<div {...attrs} class:list={["animate-pulse rounded-md bg-gray-50/30", className]}>
+</div>

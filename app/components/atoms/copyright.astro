@@ -1,6 +1,4 @@
 ---
-import { moment } from "@/helpers/datetime";
-
 import type { HTMLAttributes } from "astro/types";
 
 interface Props extends Omit<HTMLAttributes<"time">, "datetime"> {
@@ -13,5 +11,5 @@ const date = new Date(datetime ?? new Date());
 ---
 
 <time datetime={date.toISOString()} {...attrs}>
-  <slot>{moment.format(date)}</slot>
+  &copy; {date.getFullYear()}
 </time>

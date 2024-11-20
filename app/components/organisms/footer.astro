@@ -1,5 +1,6 @@
 ---
 import Container from "@/components/atoms/container.astro";
+import Copyright from "@/components/atoms/copyright.astro";
 import Link from "@/components/atoms/link.astro";
 import Time from "@/components/atoms/time.astro";
 
@@ -11,7 +12,7 @@ import type { HTMLAttributes } from "astro/types";
 
 type Props = HTMLAttributes<"footer">;
 
-const { class: className, ...rest } = Astro.props;
+const { class: className, ...attrs } = Astro.props;
 
 const socials = await getCollection(
   "socials",
@@ -46,7 +47,7 @@ const routes = {
 const date = new Date();
 ---
 
-<footer {...rest} class:list={["mt-20", className]}>
+<footer {...attrs} class:list={["mt-20", className]}>
   <Container>
     <div class="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-[5rem,1fr] lg:gap-12">
       <nav
@@ -129,9 +130,12 @@ const date = new Date();
         </div>
 
         <p class="order-2 text-xs text-gray-800 md:order-1">
-          <Time server:defer datetime={date.toISOString()}>
-            &copy; {date.getFullYear()}
-          </Time>
+          <Copyright server:defer datetime={date.toISOString()}>
+            <Time slot="fallback" datetime={date.toISOString()}>
+              &copy; {date.getFullYear()}
+            </Time>
+          </Copyright>
+
           <span>Prince Muel. All Rights Reserved</span>
         </p>
       </div>
