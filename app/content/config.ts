@@ -14,7 +14,7 @@ const posts = defineCollection({
   schema: ({ image }) =>
     baseSchema.extend({
       media: MediaObject(image).optional(),
-      publication: reference("publications").optional(),
+      // publication: reference("publications").optional(),
       others: z.array(reference("posts")).default([]),
     }),
 });
@@ -37,6 +37,21 @@ const projects = defineCollection({
         .default({}),
     }),
 });
+
+// const journal = defineCollection({
+//   loader: loader({
+//     repo: {
+//       owner: OCTOKIT_USERNAME,
+//       name: "markdown",
+//       branch: "main",
+//       directory: "journal",
+//     },
+//     incremental: true,
+//   }),
+//   schema: z.object({
+//     title: z.string().optional(),
+//   }),
+// });
 
 const changelog = defineCollection({
   loader: glob({

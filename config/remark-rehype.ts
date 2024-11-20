@@ -36,12 +36,14 @@ const remarkDeruntify: RemarkPlugin = () => (tree) => {
 
 const remarkModifiedTime: RemarkPlugin = () => (_, file) => {
   const filepath = file.history[0];
-  // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-  const output = execSync(`git log -1 --pretty="format:%cI" "${filepath}"`);
-  //@ts-expect-error
-  file.data.astro.frontmatter.updatedAt = new Date(
-    output.toString().trim() || Date.now(),
-  ).toISOString();
+  try {
+    const output = execSync(`git log -1 --pretty="format:%cI" "${filepath}"`);
+    //@ts-expect-error
+    file.data.astro.frontmatter.updatedAt = new Date(output.toString().trim());
+  } catch (error) {
+    //@ts-expect-error
+    file.data.astro.frontmatter.updatedAt = new Date();
+  }
 };
 
 export const remarkPlugins: RemarkPlugins = [
