@@ -10,6 +10,7 @@ import { Content } from "@/content/pages/projects.md";
 import { getCollection } from "astro:content";
 
 import type { GetStaticPaths } from "astro";
+import { Icon } from "astro-icon/components";
 
 export const getStaticPaths = (async ({ paginate }) => {
   const entries = await getCollection(
@@ -41,14 +42,25 @@ const entries = page.data;
           {
             entries.map(({ id, data }) => (
               <article class="flex flex-col gap-0.5">
-                <h3>
-                  <Link
-                    href={`/projects/${id}`}
-                    class="text-lg font-bold text-gray-800 hocus:underline"
-                  >
-                    {data.title}
-                  </Link>
-                </h3>
+                <hgroup class="flex items-center gap-2">
+                  <h3>
+                    <Link
+                      href={`/projects/${id}`}
+                      class="text-lg font-bold text-gray-800 hocus:underline"
+                    >
+                      {data.title}
+                    </Link>
+                  </h3>
+                  <p class="rounded-pill bg-slate-500 p-1">
+                    <span class="sr-only">status: {data.status}</span>
+                    <Icon
+                      name="lucide:rotate-ccw"
+                      size={10}
+                      class="text-white"
+                      title={`status: ${data.status}`}
+                    />
+                  </p>
+                </hgroup>
                 <p class="text-base text-gray-600">{data.summary}</p>
                 <Link
                   href={`/projects/${id}`}

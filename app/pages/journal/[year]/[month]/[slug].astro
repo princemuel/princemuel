@@ -2,6 +2,7 @@
 import Markdown from "@/components/content/markdown.astro";
 import Article from "@/components/layout/article.astro";
 import Container from "@/components/layout/container.astro";
+import Time from "@/components/primitives/time.astro";
 import Root from "@/layouts/root.astro";
 
 import { getCollection, render } from "astro:content";
@@ -27,17 +28,25 @@ entry.data.updatedAt = new Date(remarkPluginFrontmatter.updatedAt);
 entry.data.duration = remarkPluginFrontmatter.duration;
 entry.data.words = remarkPluginFrontmatter.words;
 
-const { title, description } = entry.data;
+const { title, description, publishedAt } = entry.data;
 
 Astro.response.headers.set("netlify-cache-tag", entry.id);
 ---
 
 <Root title={[title]} description={description}>
-  <Fragment slot="head"> </Fragment>
+  <Fragment slot="head"></Fragment>
+
   <Container class="mt-12">
     <div class="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-[5rem,1fr] lg:gap-12">
       <Article class="flex flex-col gap-4 lg:col-start-2">
-        <h1 id="headline" class="text-3xl font-extrabold text-gray-800">{title}</h1>
+        <header class="flex flex-col gap-1">
+          <Time
+            datetime={publishedAt}
+            class="text-xs font-bold uppercase tracking-wider text-gray-400"
+          />
+          <h1 id="headline" class="text-3xl font-extrabold text-gray-800">{title}</h1>
+        </header>
+
         <Markdown>
           <Content />
         </Markdown>

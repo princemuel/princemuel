@@ -18,6 +18,7 @@ media:
   alt:
   audio:
   video:
+type:
 link:
   site:
   repo:

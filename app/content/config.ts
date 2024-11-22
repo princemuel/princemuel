@@ -21,6 +21,24 @@ const posts = defineCollection({
     }),
 });
 
+const ps = [
+  "game",
+  "website",
+  "app",
+  "template",
+  "plugin",
+  "library",
+  "docs",
+  "tool",
+  "resource",
+  "design",
+  "service",
+  "script",
+  "theme",
+  "widget",
+  "component",
+] as const;
+
 const projects = defineCollection({
   loader: glob({
     base: "app/content/projects",
@@ -28,6 +46,7 @@ const projects = defineCollection({
   }),
   schema: ({ image }) =>
     baseSchema.extend({
+      kind: z.enum(ps).default("app"),
       author: reference("authors"),
       tools: z.array(z.string()).default([]),
       media: MediaObject(image).optional(),
@@ -40,7 +59,6 @@ const projects = defineCollection({
           repo: z.string().url().optional(),
         })
         .default({}),
-      type: z.union([z.literal("game"), z.literal("site"), z.literal("software")]),
     }),
 });
 

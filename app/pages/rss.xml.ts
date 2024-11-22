@@ -42,7 +42,7 @@ export const GET = handler(async (ctx) => {
   //https://openlibrary.org/developers/api
   return rss({
     xmlns: { atom: "http://www.w3.org/2005/Atom" },
-    title: `${author.data.name}'s RSS Feed`,
+    title: `${author.data.name}'s Master RSS Feed`,
     description:
       "My Personal Website scaffolded with Astro. If you subscribe to this RSS feed, you will receive updates and summaries of all relevant data on my site",
     site: new URL("/", ctx.site),
