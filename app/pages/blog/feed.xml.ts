@@ -1,12 +1,13 @@
 import { published_date } from "@/config/settings";
 import { handler } from "@/helpers/api-handler";
-import { convertTime } from "@/utilities/time";
+import { timeToUnits } from "@/utilities/time";
 
 import { getImage } from "astro:assets";
 import { getCollection, getEntry } from "astro:content";
 
 import rss from "@astrojs/rss";
-import { marked as mkd } from "marked";
+
+import { marked } from "marked";
 
 import type { RSSFeedItem } from "@astrojs/rss";
 
@@ -27,7 +28,7 @@ export const GET = handler(async (ctx) => {
       title: item.data.title,
       description: item.data.description,
       categories: [...new Set(item.data.tags)],
-      content: mkd(item.body, { gfm: true, breaks: true }),
+      content: marked(item.body ?? "", { gfm: true, breaks: true }),
       enclosure: img && {
         length: 0,
         url: new URL(img.src, ctx.site).toString(),
@@ -60,7 +61,7 @@ export const GET = handler(async (ctx) => {
       </managingEditor>
       <webMaster>${author.data.links.email} (${author.data.name})</webMaster>
       <copyright>Copyright 2024 ${author.data.name}</copyright>
-      <ttl>${convertTime(7).mins}</ttl>
+      <ttl>${timeToUnits(7).mins}</ttl>
       <atom:link href="${new URL("/blog/feed.xml", ctx.site)}" rel="self" type="application/rss+xml"/>
     `,
     stylesheet: false,

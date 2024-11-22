@@ -1,13 +1,13 @@
 import { published_date } from "@/config/settings";
 import { handler } from "@/helpers/api-handler";
-import { convertTime } from "@/utilities/time";
+import { normalize } from "@/utilities/strings";
+import { timeToUnits } from "@/utilities/time";
 
 import { getCollection, getEntry } from "astro:content";
 
 import rss from "@astrojs/rss";
-import { marked as mkd } from "marked";
 
-import { normalize } from "node:path";
+import { marked } from "marked";
 
 import type { RSSFeedItem } from "@astrojs/rss";
 
@@ -22,7 +22,7 @@ export const GET = handler(async (ctx) => {
     return {
       title: `v${item.data.version}`,
       description: item.data.description,
-      content: mkd(item.body, { gfm: true, breaks: true }),
+      content: marked(item.body ?? "", { gfm: true, breaks: true }),
       pubDate: item.data.publishedAt,
       author: `${author.data.links.email} (${author.data.name})`,
       link: new URL(
@@ -51,7 +51,7 @@ export const GET = handler(async (ctx) => {
       </managingEditor>
       <webMaster>${author.data.links.email} (${author.data.name})</webMaster>
       <copyright>Copyright 2024 ${author.data.name}</copyright>
-      <ttl>${convertTime(7).mins}</ttl>
+      <ttl>${timeToUnits(7).mins}</ttl>
       <atom:link href="${new URL("/changelog.xml", ctx.site)}" rel="self" type="application/rss+xml"/>
     `,
     stylesheet: false,
