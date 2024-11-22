@@ -1,0 +1,38 @@
+---
+import Article from "@/components/layout/article.astro";
+import Container from "@/components/layout/container.astro";
+import Attribution from "@/components/shared/attribution.astro";
+
+import { SITE_STATUS } from "astro:env/server";
+
+const status = {
+  maintenance: {
+    title: "🚧 Site Under Maintenance",
+    message: "We are currently updating our site. Please check back soon",
+  },
+  construction: {
+    title: "🚧 Site Under Construction",
+    message: "I am currently at work on this website. Stay tuned for updates!",
+  },
+  downtime: {
+    title: "⚠️ Site is Temporarily Unavailable",
+    message: "We are experiencing technical difficulties. Please try again later.",
+  },
+  live: { title: "", message: "" },
+}[SITE_STATUS];
+---
+
+<Article class="grid h-screen place-content-center supports-[height:100svh]:h-svh">
+  <Container>
+    <header class="text-center">
+      <h1 id="headline" class="text-xl font-bold md:text-3xl">{status.title}</h1>
+      <p class="mx-auto px-12 py-4 text-gray-900">
+        {status.message}
+      </p>
+    </header>
+
+    <div class="absolute bottom-0 left-0 right-0 bg-gray-200">
+      <Attribution />
+    </div>
+  </Container>
+</Article>

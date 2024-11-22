@@ -1,14 +1,11 @@
-import { defineCollection, reference, z } from "astro:content";
-import type { Icon } from "virtual:astro-icon";
-import { MediaObject, baseSchema } from "@/lib/collections";
+import { MediaObject, baseSchema } from "@/schema/content";
+
 import { file, glob } from "astro/loaders";
 
-// const slugify = ((options) => {
-//   if (options.data.slug) return options.data.slug as string;
-//   return path.basename(options.entry, ".mdx");
-// }) satisfies Parameters<typeof glob>[0]["generateId"];
+import { defineCollection, reference, z } from "astro:content";
 
-// pattern: "**/[^_]*.{md,mdoc}"
+import type { Icon } from "virtual:astro-icon";
+
 const posts = defineCollection({
   loader: glob({
     base: "app/content/posts",
@@ -16,10 +13,31 @@ const posts = defineCollection({
   }),
   schema: ({ image }) =>
     baseSchema.extend({
+      author: reference("authors"),
+      contributors: z.array(reference("authors")).default([]),
       media: MediaObject(image).optional(),
+      // publication: reference("publications").optional(),
       others: z.array(reference("posts")).default([]),
     }),
 });
+
+const ps = [
+  "game",
+  "website",
+  "app",
+  "template",
+  "plugin",
+  "library",
+  "docs",
+  "tool",
+  "resource",
+  "design",
+  "service",
+  "script",
+  "theme",
+  "widget",
+  "component",
+] as const;
 
 const projects = defineCollection({
   loader: glob({
@@ -28,8 +46,13 @@ const projects = defineCollection({
   }),
   schema: ({ image }) =>
     baseSchema.extend({
+      kind: z.enum(ps).default("app"),
+      author: reference("authors"),
       tools: z.array(z.string()).default([]),
       media: MediaObject(image).optional(),
+      status: z
+        .enum(["planned", "in-progress", "completed", "archived"])
+        .default("planned"),
       link: z
         .object({
           site: z.string().url().optional(),
@@ -37,6 +60,24 @@ const projects = defineCollection({
         })
         .default({}),
     }),
+});
+
+const journal = defineCollection({
+  loader: glob({
+    base: "app/content/journal",
+    pattern: "**/[^_]*.{md,mdx}",
+  }),
+  schema: z.object({
+    title: z.string().min(2),
+    description: z.string().min(2),
+    draft: z.boolean().default(true),
+    publishedAt: z.date(),
+    updatedAt: z.date().optional(),
+    duration: z.string().default("1 min read"),
+    words: z.number().finite().int().nonnegative().lte(65535).default(200),
+    language: z.enum(["en", "es", "fr"]).default("en"),
+    permalink: z.string().url().optional(),
+  }),
 });
 
 const changelog = defineCollection({
@@ -49,8 +90,8 @@ const changelog = defineCollection({
     description: z.string().min(2),
     author: reference("authors"),
     version: z.string().min(1),
-    publishedAt: z.coerce.date(),
-    updatedAt: z.coerce.date().optional(),
+    publishedAt: z.date(),
+    updatedAt: z.date().optional(),
   }),
 });
 
@@ -106,6 +147,7 @@ export const collections = {
   publications,
   categories,
   socials,
+  journal,
   posts,
   projects,
   changelog,

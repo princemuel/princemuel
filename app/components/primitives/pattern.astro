@@ -1,0 +1,22 @@
+---
+import PatternPNG from "@/assets/images/pattern.png";
+
+import type { HTMLAttributes } from "astro/types";
+
+type Props = Omit<HTMLAttributes<"div">, "class:list">;
+
+const { class: className, ...attrs } = Astro.props;
+const image = `url(${PatternPNG.src})`;
+---
+
+<div
+  {...attrs}
+  class:list={[
+    "absolute top-0 bg-repeat",
+    "bg-[image:var(--image)] bg-[length:1.5rem]",
+    className,
+  ]}
+>
+</div>
+
+<style define:vars={{ image }}></style>

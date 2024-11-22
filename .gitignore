@@ -61,7 +61,8 @@ typings/
 .env.production.local
 
 # generated types
-.astro/
+.astro/*
+!.astro/icon.d.ts
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache

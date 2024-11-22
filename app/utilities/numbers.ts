@@ -34,8 +34,5 @@ export function format_num(num: number, digits?: number | undefined) {
 
   const validDigits = digits ? Math.abs(digits) : 1;
 
-  return (
-    (num / value).toFixed(validDigits).replace(TRAILING_ZERO_REGEX, "$1") +
-    symbol
-  );
+  return (num / value).toFixed(validDigits).replace(TRAILING_ZERO_REGEX, "$1") + symbol;
 }

@@ -7,15 +7,9 @@
   },
   {
     "id": "about",
-    "text": "about",
+    "text": "about me",
     "href": "/about-me",
     "icon": "lucide:square-user"
-  },
-  {
-    "id": "articles",
-    "text": "articles",
-    "href": "/articles",
-    "icon": "lucide:notebook-pen"
   },
   {
     "id": "blog",
@@ -24,10 +18,16 @@
     "icon": "lucide:pen-line"
   },
   {
-    "id": "dashboard",
-    "text": "dashboard",
-    "href": "/dashboard",
-    "icon": "lucide:bar-chart"
+    "id": "articles",
+    "text": "articles",
+    "href": "/articles",
+    "icon": "lucide:notebook-pen"
+  },
+  {
+    "id": "wiki",
+    "text": "wiki",
+    "href": "/wiki",
+    "icon": "lucide:library"
   },
   {
     "id": "projects",
@@ -36,9 +36,9 @@
     "icon": "lucide:briefcase-business"
   },
   {
-    "id": "resources",
-    "text": "resources",
-    "href": "/resources",
-    "icon": "lucide:library"
+    "id": "journal",
+    "text": "journal",
+    "href": "/journal",
+    "icon": "ri:quill-pen-fill"
   }
 ]

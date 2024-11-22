@@ -1,13 +1,13 @@
-import { execSync } from "node:child_process";
 import { rehypeHeadingIds } from "@astrojs/markdown-remark";
 import rehypeSectionHeadings from "@maxmmyron/rehype-section-headings";
 import { toString as parseToString } from "mdast-util-to-string";
 import getReadingTime from "reading-time";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeExternalLinks from "rehype-external-links";
-import remarkDirective from "remark-directive";
 import remarkEmoji from "remark-emoji";
 import { visit } from "unist-util-visit";
+
+import { execSync } from "node:child_process";
 
 import type { RehypePlugins, RemarkPlugins } from "astro";
 type UnArray<T> = NonNullable<T extends (infer U)[] ? U : T>;
@@ -36,16 +36,17 @@ const remarkDeruntify: RemarkPlugin = () => (tree) => {
 
 const remarkModifiedTime: RemarkPlugin = () => (_, file) => {
   const filepath = file.history[0];
-  // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-  const output = execSync(`git log -1 --pretty="format:%cI" "${filepath}"`);
-  //@ts-expect-error
-  file.data.astro.frontmatter.updatedAt = new Date(
-    output.toString().trim() || Date.now(),
-  ).toISOString();
+  try {
+    const output = execSync(`git log -1 --pretty="format:%cI" "${filepath}"`);
+    //@ts-expect-error
+    file.data.astro.frontmatter.updatedAt = new Date(output.toString().trim());
+  } catch (error) {
+    //@ts-expect-error
+    file.data.astro.frontmatter.updatedAt = new Date();
+  }
 };
 
 export const remarkPlugins: RemarkPlugins = [
-  remarkDirective,
   remarkDeruntify,
   remarkReadingTime,
   remarkModifiedTime,
@@ -54,10 +55,7 @@ export const remarkPlugins: RemarkPlugins = [
 
 export const rehypePlugins: RehypePlugins = [
   rehypeHeadingIds,
-  [
-    rehypeSectionHeadings,
-    { sectionDataAttribute: "data-id", maxHeadingRank: 2 },
-  ],
+  [rehypeSectionHeadings, { sectionDataAttribute: "data-id", maxHeadingRank: 2 }],
   [
     rehypeAutolinkHeadings,
     { behavior: "wrap", properties: { class: "linked" } },

@@ -7,9 +7,9 @@ export const tw = (...classes: CnOptions) => cn(...classes)({ twMerge: true });
   ---------------------------------*
  */
 
-export function capitalize(str: string) {
-  if (!str || typeof str !== "string") return str;
-  return str.charAt(0).toLocaleUpperCase() + str.slice(1).toLocaleUpperCase();
+export function capitalize<S extends string>(str: S) {
+  return (str.charAt(0).toLocaleUpperCase() +
+    str.slice(1).toLocaleUpperCase()) as Capitalize<typeof str>;
 }
 
 export const normalize = (str: string) => str.replace(/[^\w]/g, "-");

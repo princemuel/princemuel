@@ -1,9 +1,9 @@
 import { handler } from "@/helpers/api-handler";
 
-export const GET = handler(async () => {
+export const GET = handler(async (ctx) => {
   const humansText = [
     "This website was built by Samuel Chukwuzube!",
-    `/* TEAM */\nChef: Samuel Chukwuzube\nContact: ${new URL("contact-me", import.meta.env.SITE)}\nTwitter: @iamprincemuel\nLocation: Lagos, Nigeria`,
+    `/* TEAM */\nChef: Samuel Chukwuzube\nContact: ${new URL("say-hello", ctx.site)}\nTwitter: @iamprincemuel\nLocation: Lagos, Nigeria`,
     `/* SITE */\nLast update: ${new Intl.DateTimeFormat("en-CA")
       .format(new Date())
       .replaceAll(

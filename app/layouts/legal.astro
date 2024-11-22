@@ -1,10 +1,10 @@
 ---
-import Container from "@/components/atoms/container.astro";
-import Main from "@/components/atoms/main.astro";
-import Prose from "@/components/atoms/prose.astro";
-import Profile from "@/components/molecules/profile.astro";
+import Markdown from "@/components/content/markdown.astro";
+import Article from "@/components/layout/article.astro";
+import Container from "@/components/layout/container.astro";
+import Root from "@/layouts/root.astro";
+
 import type { MarkdownLayoutProps } from "astro";
-import RootLayout from "./root.astro";
 
 type Props = MarkdownLayoutProps<{ title: string; description: string }>;
 
@@ -13,19 +13,17 @@ const { frontmatter } = Astro.props;
 const { title, description } = frontmatter;
 ---
 
-<RootLayout title={[title]} description={description}>
-  <Container class="my-10">
-    <Main class="relative grid grid-cols-1 gap-4 lg:grid-cols-7 xl:gap-8">
-      <div class="col-span-5 max-lg:col-span-1">
-        <Prose>
+<Root title={[title, true]} description={description}>
+  <Container class="mt-12">
+    <div class="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-[5rem,1fr] lg:gap-12">
+      <Article class="flex flex-col gap-2 lg:col-start-2">
+        <h1 id="headline" class="text-3xl font-extrabold text-gray-800">
+          {title}
+        </h1>
+        <Markdown>
           <slot />
-        </Prose>
-      </div>
-      <aside
-        class="sticky top-28 col-span-2 flex h-fit w-full flex-col gap-6 max-lg:hidden"
-      >
-        <Profile />
-      </aside>
-    </Main>
+        </Markdown>
+      </Article>
+    </div>
   </Container>
-</RootLayout>
+</Root>

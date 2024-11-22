@@ -6,13 +6,12 @@
   @apply cursor-pointer;
 }
 
-@layer components {
-  .linked {
-    @apply relative no-underline;
-  }
-  .linked:hover::before {
-    content: " ";
-    mask-image: url(/static/assets/linked.svg);
+.linked {
+  @apply relative text-[0.8em] font-extrabold leading-none text-inherit no-underline;
+
+  &:hover::before {
+    content: "";
+    mask-image: var(--linked);
     @apply absolute -left-5 top-1/2 size-4 -translate-y-1/2 bg-gray-500 sm:block;
   }
 }

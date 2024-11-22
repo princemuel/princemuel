@@ -1,7 +1,0 @@
----
-import { SITE_STATUS } from "astro:env/server";
----
-
-<Fragment>
-  {SITE_STATUS === "live" ? <slot name="live" /> : <slot name="site-status" />}
-</Fragment>

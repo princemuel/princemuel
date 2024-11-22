@@ -1,12 +1,18 @@
 ---
-import AvatarImage from "@/assets/images/placeholder.avif";
-import Prose from "@/components/atoms/prose.astro";
-import { published_date } from "@/config/settings";
+import Markdown from "@/components/content/markdown.astro";
+import Article from "@/components/layout/article.astro";
+import Container from "@/components/layout/container.astro";
+import Root from "@/layouts/root.astro";
+
 import { Content } from "@/content/pages/about-me.md";
+
+import avatar from "@/assets/images/princemuel-open-graph-image-2024.jpg";
+
+import { published_date } from "@/config/settings";
 import { withBaseUrl } from "@/helpers/with-base-url";
-import RootLayout from "@/layouts/root.astro";
-import { profile_ld } from "@/lib/jsonld";
+import { profile_ld } from "@/schema/jsonld";
 import { remove_key } from "@/utilities/objects";
+
 import type {
   BreadcrumbList,
   Graph,
@@ -24,10 +30,10 @@ const page_ld = {
   description: "",
   isPartOf: { "@id": withBaseUrl("/about-me").toString() },
   primaryImageOfPage: {
-    "@id": withBaseUrl(AvatarImage.src).toString(),
+    "@id": withBaseUrl(avatar.src).toString(),
   },
-  image: { "@id": withBaseUrl(AvatarImage.src).toString() },
-  thumbnailUrl: withBaseUrl(AvatarImage.src).toString(),
+  image: { "@id": withBaseUrl(avatar.src).toString() },
+  thumbnailUrl: withBaseUrl(avatar.src).toString(),
   datePublished: published_date.toISOString(),
   dateModified: new Date().toISOString(),
   breadcrumb: { "@id": withBaseUrl("/about-me#breadcrumb").toString() },
@@ -43,8 +49,8 @@ const page_ld = {
 const image_ld = {
   "@context": "https://schema.org",
   "@type": "ImageObject",
-  "@id": withBaseUrl(AvatarImage.src).toString(),
-  url: withBaseUrl(AvatarImage.src).toString(),
+  "@id": withBaseUrl(avatar.src).toString(),
+  url: withBaseUrl(avatar.src).toString(),
   width: "1200",
   height: "630",
 } satisfies WithContext<ImageObject>;
@@ -71,16 +77,11 @@ const breadcrumb_ld = {
 
 const jsonld = {
   "@context": "https://schema.org",
-  "@graph": remove_key("@context", [
-    page_ld,
-    image_ld,
-    breadcrumb_ld,
-    profile_ld,
-  ]),
+  "@graph": remove_key("@context", [page_ld, image_ld, breadcrumb_ld, profile_ld]),
 } satisfies Graph;
 ---
 
-<RootLayout
+<Root
   title={["Whoami"]}
   description="Frontend Engineer, Coding Instructor, Musician"
   type="profile"
@@ -88,10 +89,19 @@ const jsonld = {
   <script
     is:inline
     type="application/ld+json"
-    slot="jsonld"
+    slot="head"
     set:html={JSON.stringify(jsonld)}
   />
-  <Prose>
-    <Content />
-  </Prose>
-</RootLayout>
+  <Container class="mt-12">
+    <div class="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-[5rem,1fr] lg:gap-12">
+      <Article class="flex flex-col gap-2 lg:col-start-2">
+        <h1 id="headline" class="text-3xl font-extrabold text-gray-800">
+          Who the hell am I?
+        </h1>
+        <Markdown>
+          <Content />
+        </Markdown>
+      </Article>
+    </div>
+  </Container>
+</Root>

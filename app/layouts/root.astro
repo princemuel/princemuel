@@ -1,12 +1,12 @@
 ---
-import Indicator from "@/components/atoms/indicator.astro";
-import SkipLink from "@/components/atoms/skip-link.astro";
-import ReloadPrompt from "@/components/molecules/reload-prompt.astro";
-import ContentSlot from "@/components/templates/content-slot.astro";
-import SiteStatus from "@/components/templates/site-status.astro";
+import ContentSlot from "@/components/layout/content-slot.astro";
+import SiteStatus from "@/components/layout/site-status.astro";
+import SkipLink from "@/components/shared/skip-link.astro";
+import ReloadPrompt from "@/components/widgets/reload-prompt.astro";
+import Layout from "@/layouts/layout.astro";
+import Meta from "@/layouts/meta.astro";
+
 import { getSiteSettings } from "@/config/settings";
-import SpeedInsights from "@vercel/speed-insights/astro";
-import Meta from "./meta.astro";
 
 type Props = Meta & {
   type?: OpenGraph["type"];
@@ -34,21 +34,15 @@ const {
 <html
   lang={language}
   dir="auto"
-  data-reader-theme="github-light-default"
-  data-theme="light"
-  class:list={[
-    "scrollbar scrollbar-w-1 scrollbar-h-6",
-    "scrollbar-track-rounded-full scrollbar-thumb-rounded-full scrollbar-corner-rounded-full",
-    "scrollbar-track-gray-300 scrollbar-thumb-gray-700 scrollbar-corner-gray-500",
-    "selection:bg-gray-300 selection:text-gray-900",
-    "scroll-smooth",
-  ]}
+  data-theme="github-light-default"
+  data-mode="light"
+  class:list={["antialiased motion-safe:scroll-smooth"]}
 >
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="referrer" content="origin-when-cross-origin" />
-    <!-- <meta name="color-scheme" content="dark light" /> -->
+    <meta name="color-scheme" content="dark light" />
     <Meta
       title={title}
       description={description}
@@ -60,24 +54,22 @@ const {
       updatedAt={updatedAt}
       canonical={canonical}
     />
-    <slot name="head" />
-    <slot name="jsonld" />
   </head>
-  <body class="relative bg-white font-sans text-base font-normal antialiased">
-    <SkipLink />
+  <body
+    class:list={[
+      "relative min-h-screen font-sans font-normal",
+      "bg-white dark:bg-gray-900",
+    ]}
+  >
     <ContentSlot>
-      <SiteStatus slot="site-status" />
-      <div
-        slot="live"
-        class:list={[
-          "grid grid-rows-[auto_1fr_auto]",
-          "min-h-screen supports-[min-height:100svh]:min-h-svh",
-        ]}
-      >
-        <slot />
-      </div>
+      <SiteStatus slot="site-status-down" />
+      <Fragment slot="site-status-live">
+        <SkipLink />
+        <Layout>
+          <slot />
+        </Layout>
+        <ReloadPrompt />
+      </Fragment>
     </ContentSlot>
-    <ReloadPrompt />
-    {import.meta.env.DEV ? <Indicator /> : <SpeedInsights />}
   </body>
 </html>

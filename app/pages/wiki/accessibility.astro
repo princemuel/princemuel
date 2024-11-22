@@ -1,0 +1,25 @@
+---
+import Markdown from "@/components/content/markdown.astro";
+import Article from "@/components/layout/article.astro";
+import Container from "@/components/layout/container.astro";
+import Root from "@/layouts/root.astro";
+
+import { Content } from "@/content/pages/accessibility.md";
+
+const description = "Accesibility Statement for Prince Muel's site";
+---
+
+<Root title={["Accessibility Statement"]} description={description}>
+  <Container class="mt-12">
+    <div class="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-[5rem,1fr] lg:gap-12">
+      <Article class="flex flex-col gap-2 lg:col-start-2">
+        <h1 id="headline" class="text-3xl font-extrabold text-gray-800">
+          Accessibility Statement
+        </h1>
+        <Markdown>
+          <Content />
+        </Markdown>
+      </Article>
+    </div>
+  </Container>
+</Root>

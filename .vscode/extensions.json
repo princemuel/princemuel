@@ -3,7 +3,10 @@
     "esbenp.prettier-vscode",
     "astro-build.astro-vscode",
     "bradlc.vscode-tailwindcss",
+    "editorconfig.editorconfig",
     "unifiedjs.vscode-mdx",
-    "tamasfe.even-better-toml"
-  ]
+    "tamasfe.even-better-toml",
+    "biomejs.biome"
+  ],
+  "unwantedRecommendations": []
 }

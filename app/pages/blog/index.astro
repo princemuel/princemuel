@@ -1,110 +1,60 @@
 ---
-import { getCollection } from "astro:content";
-import Link from "@/components/atoms/link.astro";
-import Prose from "@/components/atoms/prose.astro";
-import Time from "@/components/atoms/time.astro";
-import PostDivider from "@/components/molecules/post-divider.astro";
-import Layout from "@/layouts/layout.astro";
-import RootLayout from "@/layouts/root.astro";
-import { hasValues } from "@/utilities/arrays";
-import { Icon } from "astro-icon/components";
+import Markdown from "@/components/content/markdown.astro";
+import Article from "@/components/layout/article.astro";
+import Container from "@/components/layout/container.astro";
+import Link from "@/components/primitives/link.astro";
+import Root from "@/layouts/root.astro";
 
-let entries = await getCollection(
+import { Content } from "@/content/pages/blog.md";
+
+import { getCollection } from "astro:content";
+
+const collection = await getCollection(
   "posts",
   ({ data }) => !(import.meta.env.PROD && data.draft),
 );
-entries = entries.sort((a, b) => {
+
+const entries = collection.sort((a, b) => {
   return Number(b.data.publishedAt) - Number(a.data.publishedAt);
 });
 ---
 
-<RootLayout title={["Blog"]} description="">
-  <Layout>
-    <Prose id="article">
-      <dl
-        class="not-prose flex items-center justify-between gap-2 font-sans text-[.625rem] font-bold tracking-tighter text-gray-600"
-      >
-        <dt>Posts</dt>
-        <dd>x{entries.length}</dd>
-      </dl>
+<Root
+  title={["Blog"]}
+  description="A space where I talk about web development and other programming related (or not) things."
+>
+  <Container class="mt-12">
+    <div class="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-[5rem,1fr] lg:gap-12">
+      <Article class="flex flex-col gap-4 lg:col-start-2">
+        <h1 id="headline" class="text-3xl font-extrabold text-gray-800">Blog</h1>
+        <Markdown>
+          <Content />
+        </Markdown>
 
-      <h1 id="headline" class="mt-6">
-        <Link class="linked" aria-hidden tabindex="-1" href="/posts">
-          Blog Posts
-        </Link>
-      </h1>
-
-      <p>
-        You'll find a mixed bag of content here. I'm mainly focussed on "How to"
-        guides but every now and then I'll throw in a curve ball.
-      </p>
-
-      <Fragment>
-        <div class="not-prose flex flex-col gap-5">
+        <section class="mt-8 flex flex-col gap-8">
           {
-            entries.map((entry, idx, array) => {
-              const previous =
-                array.at(idx - 1)?.data.publishedAt || new Date();
-              const divide =
-                idx === 0 ||
-                new Date(entry.data.publishedAt).getMonth() !==
-                  new Date(previous).getMonth();
-
-              const { title, summary, publishedAt, tags } = entry.data;
-              // const _cover = media?.cover;
-
-              return (
-                <Fragment>
-                  {divide && <PostDivider datetime={publishedAt} />}
-
-                  <article
-                    aria-describedby={`${entry.id}-desc`}
-                    aria-labelledby={entry.id}
-                    aria-setsize="-1"
-                    aria-posinset={idx + 1}
-                    class="group"
+            entries.map(({ id, data }) => (
+              <article class="flex flex-col gap-1">
+                <h3>
+                  <Link
+                    href={`/blog/${id}`}
+                    class="text-lg font-bold text-gray-800 hocus:underline"
                   >
-                    <div class="flex flex-col items-start gap-3">
-                      <h2 class="font-sans text-lg tracking-tighter text-gray-600 group-hover:underline">
-                        <Link href={`/blog/${entry.id}`}>{title}</Link>
-                      </h2>
-
-                      <p class="flex items-center gap-2 text-sm text-gray-600 md:text-base">
-                        <Icon name="ri:quill-pen-fill" class="text-gray-900" />
-                        <span>{summary}</span>
-                      </p>
-
-                      <div class="flex flex-wrap items-center gap-4">
-                        <p class="flex items-center gap-2 text-xs md:text-sm">
-                          <Icon name="lucide:clock-4" class="text-gray-900" />
-                          <Time datetime={publishedAt} />
-                        </p>
-
-                        {hasValues(tags) && (
-                          <div class="flex flex-wrap items-center gap-2 text-xs md:text-sm">
-                            <Icon
-                              name="ri:price-tag-3-fill"
-                              class="text-gray-950"
-                            />
-                            {tags.map((tag) => (
-                              <Link
-                                href={`/tags/${tag}`}
-                                class="lowercase underline"
-                              >
-                                #{tag}
-                              </Link>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  </article>
-                </Fragment>
-              );
-            })
+                    {data.title}
+                  </Link>
+                </h3>
+                <p class="text-base text-gray-600">{data.summary}</p>
+                <Link
+                  href={`/blog/${id}`}
+                  class="mt-2 flex text-sm text-gray-500 hocus:text-gray-700 hocus:underline"
+                >
+                  Read this article &RightArrow;
+                </Link>
+              </article>
+            ))
           }
-        </div>
-      </Fragment>
-    </Prose>
-  </Layout>
-</RootLayout>
+        </section>
+      </Article>
+    </div>
+  </Container>
+</Root>

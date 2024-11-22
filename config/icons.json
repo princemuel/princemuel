@@ -1,19 +1,10 @@
 {
-  "fa": [
-    "arrow-circle-left",
-    "discord",
-    "email",
-    "github",
-    "instagram",
-    "linkedin",
-    "youtube",
-    "twitter"
-  ],
-  "logos": ["astro-icon"],
+  "fa": ["discord", "github", "instagram", "linkedin", "youtube", "twitter"],
   "lucide": [
     "badge-check",
     "bar-chart",
     "briefcase-business",
+    "circle-check-big",
     "clock-4",
     "command",
     "home",
@@ -22,11 +13,14 @@
     "moon-star",
     "move-right",
     "notebook-pen",
+    "notepad-text",
     "pen-line",
+    "rotate-ccw",
     "rss",
+    "settings",
     "square-user",
     "sun",
     "zap"
   ],
-  "ri": ["price-tag-3-fill", "quill-pen-fill"]
+  "ri": ["quill-pen-fill"]
 }

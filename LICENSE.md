@@ -1,4 +1,5 @@
-This material is available for **private, non-commercial** use under the GPL version 3. A copy of this document is provided below.
+This material is available for **private, non-commercial** use under the GPL v3.
+A copy of this document is provided below.
 
 ---
 

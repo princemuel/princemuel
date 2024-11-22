@@ -1,15 +1,20 @@
-import { readFile } from "node:fs/promises";
-import { join, resolve } from "node:path";
-import { getCollection, getEntry } from "astro:content";
-import PlaceholderImage from "@/assets/images/blog-placeholder-5.jpg";
 import { handler } from "@/helpers/api-handler";
+
+import { getImage } from "astro:assets";
+import { getCollection, getEntry } from "astro:content";
+
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
+
 import satori from "satori";
 import { html } from "satori-html";
 import sharp from "sharp";
 
-import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
+import cover from "@/assets/images/blog-placeholder-5.jpg";
 
-export const getStaticPaths = (async () => {
+import type { InferGetStaticPropsType } from "astro";
+
+export async function getStaticPaths() {
   const entries = await getCollection(
     "posts",
     ({ data }) => !(import.meta.env.PROD && data.draft),
@@ -19,30 +24,26 @@ export const getStaticPaths = (async () => {
     props: { entry },
     params: { slug: entry.id },
   }));
-}) satisfies GetStaticPaths;
+}
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
-export const GET = handler<Props>(async ({ props }) => {
-  const entry = props.entry;
+export const GET = handler<Props>(async (ctx) => {
+  const entry = ctx.props.entry;
 
-  const image_src = entry.data.media?.cover?.src || PlaceholderImage.src;
+  const generated = (async () => {
+    const image_src = entry.data.media?.cover?.src || cover;
+    return getImage({ src: image_src, format: "png", width: 1200, height: 630 });
+  })();
 
-  const image_path = import.meta.env.DEV
-    ? resolve(image_src.replace(/\?.*/, "").replace("/@fs", ""))
-    : resolve(image_src.replace("/", "dist/"));
-
-  console.log(image_path);
-
-  const [light, regular, bold, _image] = await Promise.all([
-    readFile(join(process.cwd(), "app", "assets", "fonts", "ubuntu-300.ttf")),
+  const [img, regular, bold, author] = await Promise.all([
+    generated,
     readFile(join(process.cwd(), "app", "assets", "fonts", "ubuntu-400.ttf")),
     readFile(join(process.cwd(), "app", "assets", "fonts", "ubuntu-700.ttf")),
-    readFile(image_path),
+    getEntry(entry.data.author),
   ]);
 
-  const author = await getEntry(entry.data.author);
-
+  console.log("generated", img);
   // <img
   //   src=${new URL(img.src, site)}
   //   width="500"
@@ -51,22 +52,23 @@ export const GET = handler<Props>(async ({ props }) => {
   // />
 
   const markup = html`
-    <div
-      tw="flex h-[40rem] w-[75rem] flex-col items-center justify-center px-6"
-    >
-      <h1 tw="text-6xl font-bold text-slate-700">${author.data.name}</h1>
-      <h2 tw="text-4xl font-bold text-slate-500">${entry.data.title}</h2>
-      <h3 tw="text-2xl font-normal text-slate-500">${entry.data.summary}</h3>
+  <div tw="flex h-[40rem] bg-white w-[75rem] flex-col items-center justify-center px-6"
+  >
+  <h1 tw="text-6xl font-bold text-gray-900">${author.data.name}</h1>
+  <h2 tw="text-5xl font-bold text-gray-500">${entry.data.title}</h2>
+  <h3 tw="text-2xl font-normal text-gray-500">${entry.data.summary}</h3>
+
+
     </div>
   `;
+
   const svg = await satori(markup, {
     width: 1200,
     height: 630,
     embedFont: true,
     fonts: [
-      { name: "Ubuntu", data: light.buffer, style: "normal", weight: 300 },
-      { name: "Ubuntu", data: regular.buffer, style: "normal", weight: 400 },
-      { name: "Ubuntu", data: bold.buffer, style: "normal", weight: 700 },
+      { name: "Ubuntu Sans", data: regular, style: "normal", weight: 400 },
+      { name: "Ubuntu Sans", data: bold, style: "normal", weight: 700 },
     ],
   });
 
@@ -77,6 +79,9 @@ export const GET = handler<Props>(async ({ props }) => {
 
   return new Response(png, {
     status: 200,
-    headers: { "Content-Type": "image/png" },
+    headers: {
+      "Content-Type": "image/png",
+      "Cache-Control": "public, max-age=31536000, immutable",
+    },
   });
 });

@@ -33,10 +33,7 @@ type TupleEntry<
   ? TupleEntry<Tail, [...I, unknown], R | [`${I["length"]}`, Head]>
   : R;
 
-type Entry<T extends NonNullable<unknown>> = T extends readonly [
-  unknown,
-  ...unknown[],
-]
+type Entry<T extends NonNullable<unknown>> = T extends readonly [unknown, ...unknown[]]
   ? TupleEntry<T>
   : T extends ReadonlyArray<infer U>
     ? [`${number}`, U]
@@ -154,14 +151,7 @@ type JSONValue =
       [k: string]: JSONValue;
     };
 
-type PrimitiveType =
-  | string
-  | number
-  | bigint
-  | boolean
-  | symbol
-  | null
-  | undefined;
+type PrimitiveType = string | number | bigint | boolean | symbol | null | undefined;
 
 // biome-ignore lint/complexity/noBannedTypes: <explanation>
 type AtomicObject = Function | RegExp | Promise<unknown> | Date;

@@ -1,11 +1,12 @@
 ---
-import Header from "@/components/molecules/header.astro";
-import Footer from "@/components/organisms/footer.astro";
-// import Header from "@/components/organisms/header.astro";
+import Footer from "@/components/layout/footer.astro";
+import Header from "@/components/layout/header.astro";
+import Attribution from "@/components/shared/attribution.astro";
 ---
 
 <Fragment>
   <Header />
   <slot />
   <Footer />
+  <Attribution />
 </Fragment>

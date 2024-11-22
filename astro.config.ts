@@ -1,6 +1,7 @@
-import vercel from "@astrojs/vercel";
+import netlify from "@astrojs/netlify";
 import { defineConfig } from "astro/config";
 import { loadEnv } from "vite";
+
 import { envSchema } from "./config/env-schema";
 import { integrations } from "./config/integrations";
 import { rehypePlugins, remarkPlugins } from "./config/remark-rehype";
@@ -12,9 +13,13 @@ const envVars = loadEnv(mode, process.cwd(), "");
 export default defineConfig({
   output: "static",
   srcDir: "./app",
-  site: envVars.PUBLIC_URL,
+  site: envVars.PUBLIC_SITE_URL,
   env: { validateSecrets: true, schema: envSchema },
-  experimental: { contentIntellisense: true },
+  experimental: {
+    svg: { mode: "sprite" },
+    responsiveImages: true,
+    contentIntellisense: true,
+  },
   markdown: {
     syntaxHighlight: "shiki",
     remarkPlugins: remarkPlugins,
@@ -22,13 +27,12 @@ export default defineConfig({
   },
   integrations: [...integrations],
   image: {
-    remotePatterns: [{ protocol: "https", hostname: "**.unsplash.com" }],
+    experimentalLayout: "responsive",
+    remotePatterns: [
+      { protocol: "https", hostname: "**.unsplash.com" },
+      { protocol: "https", hostname: "**.github.com" },
+    ],
   },
-  vite: { define: { __APP_BUILD_DATE__: JSON.stringify(new Date()) } },
-  adapter: vercel({
-    isr: true,
-    edgeMiddleware: true,
-    imageService: true,
-    webAnalytics: { enabled: mode === "production" },
-  }),
+  vite: { define: { __BUILD_DATE__: JSON.stringify(new Date()) } },
+  adapter: netlify({ cacheOnDemandPages: true }),
 });

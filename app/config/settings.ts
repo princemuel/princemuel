@@ -1,20 +1,11 @@
-// Place any global data in this file.
-// You can import this data from anywhere in your site by using the `import` keyword.
-
-export const SITE_TITLE = "Prince Muel | Personal Portfolio Website Template";
-export const SITE_DESCRIPTION = "";
-export const GENERATE_SLUG_FROM_TITLE = true;
-export const ENABLE_TRANSITIONS_API = true;
-export const DEFAULT_SITE_THEME = "dark";
-export const ONE_DAY_IN_MS = 1000 * 60 * 60 * 24 * 1;
-export const delimiter = "-";
+export const delimiter = "–";
 export const published_date = new Date("2024-02-01T16:43:29.577Z");
 
 export function getSiteSettings() {
   return {
     id: "settings",
     /** The site title*/
-    name: "",
+    name: "Prince Muel",
     /** A human-readable description of the site*/
     description: "",
     /** The site's default language as a string, e.g. `"en-US"`*/

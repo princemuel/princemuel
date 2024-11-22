@@ -1,9 +1,9 @@
 ---
-layout: "../layouts/legal.astro"
+layout: "../../layouts/legal.astro"
 title: "Privacy Policy"
 description: "The privacy policy of this website"
 author: "Prince Muel"
-publishedAt: 2024-4-23
+publishedAt: 2024-04-23T14:25:32.000Z
 ---
 
 princemuel.com (&apos;we&apos;, &apos;us&apos;, or &apos;our&apos;)

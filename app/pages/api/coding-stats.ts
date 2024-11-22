@@ -1,7 +1,8 @@
 import { WAKATIME_TOKEN } from "astro:env/server";
 import { z } from "astro:schema";
+
 import { handler } from "@/helpers/api-handler";
-import { RequestError } from "@/helpers/errors";
+import { RequestError } from "@/helpers/request-error";
 
 export const prerender = false;
 
@@ -14,8 +15,7 @@ const schema = z.object({
 });
 
 export const GET = handler(async () => {
-  const url =
-    "https://api.wakatime.com/api/v1/users/current/all_time_since_today";
+  const url = "https://api.wakatime.com/api/v1/users/current/all_time_since_today";
   const api_key = Buffer.from(WAKATIME_TOKEN).toString("base64");
   const response = await fetch(url, {
     headers: { Authorization: `Basic ${api_key}` },

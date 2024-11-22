@@ -28,10 +28,10 @@ export function remove_key<T>(k: string, data: T): T {
   return data;
 }
 
-export function omitFields<
-  T extends Record<string, unknown>,
-  K extends keyof T,
->(source: T, fieldsToOmit: K[]): Omit<T, K> {
+export function omitFields<T extends Record<string, unknown>, K extends keyof T>(
+  source: T,
+  fieldsToOmit: K[],
+): Omit<T, K> {
   if (!isObject(source)) throw new Error("Source must be an object.");
 
   return Object.fromEntries(
