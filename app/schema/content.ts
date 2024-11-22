@@ -10,7 +10,7 @@ export const baseSchema = z.object({
   tags: z.array(z.string()).default([]),
   categories: z.array(z.string()).default([]),
   draft: z.boolean().default(true),
-  publishedAt: z.date().default(new Date()),
+  publishedAt: z.date(),
   updatedAt: z.date().optional(),
   duration: z.string().default("1 min read"),
   words: z.number().finite().int().nonnegative().lte(65535).default(200),

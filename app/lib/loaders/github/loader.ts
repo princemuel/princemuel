@@ -6,24 +6,30 @@ import { RequestError as GithubError } from "octokit";
 import { log_in_dev } from "@/helpers/log-in-dev.ts";
 import type { Loader } from "astro/loaders";
 
-type LoaderOptions = {
-  repo: { owner: string; name: string; branch: string; directory: string };
-  incremental: boolean;
+type LoaderOptions =
+  `owner:${string};repo:${string};branch:${string};directory:${string}`;
+
+type GitConfig = {
+  owner: string;
+  repo: string;
+  branch: string;
+  directory: string;
 };
 
-export function loader({ repo, incremental = false }: LoaderOptions): Loader {
+export function loader(options: LoaderOptions): Loader {
   return {
     name: "astro-loader-github",
-    load: async ({ store, parseData, generateDigest, meta, config, logger }) => {
-      const last_modified = meta.get("last-modified");
-      if (incremental) logger.info(`last modified at ${last_modified}`);
+    load: async (ctx) => {
+      const git = Object.fromEntries(
+        options.split(";").map((pair) => pair.split(":")),
+      ) as GitConfig;
 
       const request = await octokit.request(
         "GET /repos/{owner}/{repo}/git/trees/{tree_sha}",
         {
-          owner: repo.owner,
-          repo: repo.name,
-          tree_sha: repo.branch,
+          owner: git.owner,
+          repo: git.repo,
+          tree_sha: git.branch,
           recursive: "true",
         },
       );
@@ -32,7 +38,7 @@ export function loader({ repo, incremental = false }: LoaderOptions): Loader {
         .map((file) => file.path)
         .filter(
           (p) =>
-            p?.includes(repo.directory) && (p.endsWith(".md") || p.endsWith(".mdx")),
+            p?.includes(git.directory) && (p.endsWith(".md") || p.endsWith(".mdx")),
         )
         .filter(Boolean);
 
@@ -44,15 +50,15 @@ export function loader({ repo, incremental = false }: LoaderOptions): Loader {
             "GET /repos/{owner}/{repo}/contents/{path}",
             {
               path: fileName,
-              owner: repo.owner,
-              repo: repo.name,
-              ref: repo.branch,
+              owner: git.owner,
+              repo: git.repo,
+              ref: git.branch,
               headers: { accept: "application/vnd.github.v3.raw" },
             },
           );
 
           const id =
-            fileName.split(`${repo.directory}/`)[1]?.replace(/\.mdx?$/, "") ?? "";
+            fileName.split(`${git.directory}/`)[1]?.replace(/\.mdx?$/, "") ?? "";
 
           return { id, body: response.data as unknown as string };
         } catch (e) {
@@ -66,38 +72,26 @@ export function loader({ repo, incremental = false }: LoaderOptions): Loader {
 
       const entries = response.filter(Boolean);
 
-      logger.info(`Processing ${entries.length} entries`);
+      ctx.logger.info(`Processing ${entries.length} entries`);
+      ctx.store.clear();
 
-      const updatedAt = new Date(last_modified ?? 0);
-
-      if (!incremental) store.clear();
-
-      const processor = await md_processor(config);
+      const processor = await md_processor(ctx.config);
 
       for (const item of entries) {
         const { entry, metadata, body } = await processor.process(item);
-        const data = await parseData({ id: item.id, data: entry });
-        const digest = generateDigest(data);
+        const data = await ctx.parseData({ id: item.id, data: entry });
+        const digest = ctx.generateDigest(data);
 
-        store.set({
+        ctx.store.set({
           id: entry.id,
           data,
           digest,
           body,
           rendered: { html: entry.body, metadata },
         });
-
-        console.log("ITEM", item);
-
-        // if (item.updatedAt > updatedAt) updatedAt = item.updatedAt;
       }
 
-      if (incremental) {
-        meta.set("last-modified", updatedAt.toISOString());
-        logger.info(`new-last-modified: ${meta.get("last-modified")}`);
-      }
-
-      console.log(JSON.stringify(store.entries()));
+      console.log(JSON.stringify(ctx.store.entries()));
     },
   };
 }

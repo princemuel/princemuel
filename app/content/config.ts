@@ -2,8 +2,6 @@ import { MediaObject, baseSchema } from "@/schema/content";
 
 import { file, glob } from "astro/loaders";
 
-import { mockLoader as mocker } from "@ascorbic/mock-loader";
-
 import { defineCollection, reference, z } from "astro:content";
 
 import type { Icon } from "virtual:astro-icon";
@@ -42,30 +40,25 @@ const projects = defineCollection({
           repo: z.string().url().optional(),
         })
         .default({}),
+      type: z.union([z.literal("game"), z.literal("site"), z.literal("software")]),
     }),
 });
 
-// const journal = defineCollection({
-//   loader: loader({
-//     repo: {
-//       owner: OCTOKIT_USERNAME,
-//       name: "markdown",
-//       branch: "main",
-//       directory: "journal",
-//     },
-//     incremental: true,
-//   }),
-//   schema: z.object({
-//     title: z.string().optional(),
-//   }),
-// });
-
 const journal = defineCollection({
-  loader: mocker({
-    seed: 32,
-    entryCount: 10,
-    mockHTML: true,
-    schema: baseSchema,
+  loader: glob({
+    base: "app/content/journal",
+    pattern: "**/[^_]*.{md,mdx}",
+  }),
+  schema: z.object({
+    title: z.string().min(2),
+    description: z.string().min(2),
+    draft: z.boolean().default(true),
+    publishedAt: z.date(),
+    updatedAt: z.date().optional(),
+    duration: z.string().default("1 min read"),
+    words: z.number().finite().int().nonnegative().lte(65535).default(200),
+    language: z.enum(["en", "es", "fr"]).default("en"),
+    permalink: z.string().url().optional(),
   }),
 });
 

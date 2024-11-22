@@ -35,13 +35,6 @@ const entries = collection.sort((a, b) => {
         <section class="mt-8 flex flex-col gap-6">
           {
             entries.map(({ id, data }) => {
-              const date = data.publishedAt ?? new Date();
-              const [year, month, day, slug] = [
-                date.getFullYear(),
-                String(date.getMonth() + 1).padStart(2, "0"),
-                String(date.getDate()).padStart(2, "0"),
-                id,
-              ];
               return (
                 <article class="flex flex-col gap-1">
                   <Time
@@ -50,7 +43,7 @@ const entries = collection.sort((a, b) => {
                   />
                   <h3>
                     <Link
-                      href={`/journal/${year}/${month}/${day}/${slug}`}
+                      href={`/journal/${id}`}
                       class="text-lg font-bold text-gray-800 hocus:underline"
                     >
                       {data.title}
