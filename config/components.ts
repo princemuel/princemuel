@@ -1,7 +1,7 @@
 export const import_options: ImportConfig = {
   imports: [
     // {
-    //   "./app/components/atoms/link.astro": [["default", "Link"]],
+    //   "./app/components/primitives/link.astro": [["default", "Link"]],
     // },
     // // {
     // //   "./app/components/atoms/codesandbox.astro": [["default", "CodeSandbox"]],

@@ -50,6 +50,7 @@ const generated = (async () => {
 const settings = getSiteSettings();
 
 const name = settings.name;
+const author = "princemuel";
 const locale = settings.language;
 const application_name = `${name}'s Domain`;
 const linkCanonical = formatCanonicalURL(canonical || Astro.url.pathname, true);
@@ -79,8 +80,8 @@ const img = await generated;
 <meta name="application-name" content={application_name} />
 <meta name="generator" content={Astro.generator} />
 <meta name="keywords" content={seoKeywords.join(",")} />
-<meta name="creator" content={name} />
-<meta name="publisher" content={name} />
+<meta name="creator" content={author} />
+<meta name="publisher" content={author} />
 
 <title>{htmlTitle}</title>
 <meta name="title" content={htmlTitle} />

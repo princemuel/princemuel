@@ -1,8 +1,8 @@
 ---
-import Container from "@/components/atoms/container.astro";
-import MainContent from "@/components/atoms/main.astro";
-import Markdown from "@/components/atoms/markdown.astro";
-import RootLayout from "@/layouts/root.astro";
+import Markdown from "@/components/content/markdown.astro";
+import Article from "@/components/layout/article.astro";
+import Container from "@/components/layout/container.astro";
+import Root from "@/layouts/root.astro";
 
 import { Content } from "@/content/pages/home.md";
 
@@ -17,7 +17,7 @@ const jsonld = {
 } satisfies Graph;
 ---
 
-<RootLayout title={["Prince Muel", true]} description="Home">
+<Root title={["Prince Muel", true]} description="Home">
   <script
     is:inline
     type="application/ld+json"
@@ -26,14 +26,14 @@ const jsonld = {
   />
   <Container class="mt-12">
     <div class="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-[5rem,1fr] lg:gap-12">
-      <MainContent class="flex flex-col gap-2 lg:col-start-2">
+      <Article class="flex flex-col gap-2 lg:col-start-2">
         <h1 id="headline" class="text-3xl font-extrabold text-gray-800">
           Hey there! 👋
         </h1>
         <Markdown>
           <Content />
         </Markdown>
-      </MainContent>
+      </Article>
     </div>
   </Container>
-</RootLayout>
+</Root>

@@ -1,14 +1,14 @@
 ---
-import Container from "@/components/atoms/container.astro";
-import Link from "@/components/atoms/link.astro";
-import MainContent from "@/components/atoms/main.astro";
-import Markdown from "@/components/atoms/markdown.astro";
-import RootLayout from "@/layouts/root.astro";
+import Markdown from "@/components/content/markdown.astro";
+import Article from "@/components/layout/article.astro";
+import Container from "@/components/layout/container.astro";
+import Link from "@/components/primitives/link.astro";
+import Time from "@/components/primitives/time.astro";
+import Root from "@/layouts/root.astro";
 
 import { Content } from "@/content/pages/journals.md";
 
 import { getCollection } from "astro:content";
-import Time from "@/components/atoms/time.astro";
 
 const collection = await getCollection(
   "journal",
@@ -20,10 +20,10 @@ const entries = collection.sort((a, b) => {
 });
 ---
 
-<RootLayout title={["Journal"]} description="journal">
+<Root title={["Journal"]} description="journal">
   <Container class="mt-12">
     <div class="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-[5rem,1fr] lg:gap-12">
-      <MainContent class="flex flex-col gap-4 lg:col-start-2">
+      <Article class="flex flex-col gap-4 lg:col-start-2">
         <h1 id="headline" class="text-3xl font-extrabold text-gray-800">
           Work Journal
         </h1>
@@ -61,7 +61,7 @@ const entries = collection.sort((a, b) => {
             })
           }
         </section>
-      </MainContent>
+      </Article>
     </div>
   </Container>
-</RootLayout>
+</Root>

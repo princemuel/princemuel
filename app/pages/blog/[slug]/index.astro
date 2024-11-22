@@ -1,8 +1,8 @@
 ---
-import Container from "@/components/atoms/container.astro";
-import MainContent from "@/components/atoms/main.astro";
-import Markdown from "@/components/atoms/markdown.astro";
-import RootLayout from "@/layouts/root.astro";
+import Markdown from "@/components/content/markdown.astro";
+import Article from "@/components/layout/article.astro";
+import Container from "@/components/layout/container.astro";
+import Root from "@/layouts/root.astro";
 
 import { log_in_dev } from "@/helpers/log-in-dev";
 import { withBaseUrl } from "@/helpers/with-base-url";
@@ -16,10 +16,10 @@ import { execSync } from "node:child_process";
 import { join } from "node:path";
 
 import type {
-  Article,
   BreadcrumbList,
   Graph,
   ImageObject,
+  Article as TArticle,
   WebPage,
   WithContext,
 } from "schema-dts";
@@ -81,7 +81,7 @@ const article_ld = {
   copyrightYear: entry.data.publishedAt.getFullYear(),
   copyrightHolder: { "@id": withBaseUrl("/about-me").toString() },
   accessibilityFeature: ["tableOfContents"],
-} satisfies WithContext<Article>;
+} satisfies WithContext<TArticle>;
 
 const page_ld = {
   "@context": "https://schema.org",
@@ -201,7 +201,7 @@ console.log(JSON.stringify(github_links));
 Astro.response.headers.set("netlify-cache-tag", entry.id);
 ---
 
-<RootLayout title={[title, true]} description={description}>
+<Root title={[title, true]} description={description}>
   <Fragment slot="head">
     <script
       is:inline
@@ -212,12 +212,12 @@ Astro.response.headers.set("netlify-cache-tag", entry.id);
   </Fragment>
   <Container class="mt-12">
     <div class="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-[5rem,1fr] lg:gap-12">
-      <MainContent class="flex flex-col gap-4 lg:col-start-2">
+      <Article class="flex flex-col gap-4 lg:col-start-2">
         <h1 id="headline" class="text-3xl font-extrabold text-gray-800">{title}</h1>
         <Markdown>
           <Content />
         </Markdown>
-      </MainContent>
+      </Article>
     </div>
   </Container>
-</RootLayout>
+</Root>

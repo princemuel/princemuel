@@ -1,9 +1,9 @@
 ---
-import Container from "@/components/atoms/container.astro";
-import Link from "@/components/atoms/link.astro";
-import MainContent from "@/components/atoms/main.astro";
-import Markdown from "@/components/atoms/markdown.astro";
-import RootLayout from "@/layouts/root.astro";
+import Markdown from "@/components/content/markdown.astro";
+import Article from "@/components/layout/article.astro";
+import Container from "@/components/layout/container.astro";
+import Link from "@/components/primitives/link.astro";
+import Root from "@/layouts/root.astro";
 
 import { Content } from "@/content/pages/projects.md";
 
@@ -25,13 +25,13 @@ const { page } = Astro.props;
 const entries = page.data;
 ---
 
-<RootLayout
+<Root
   title={["Projects"]}
   description="A list of projects I've worked on, or am currently working on. Mostly web development"
 >
   <Container class="mt-12">
     <div class="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-[5rem,1fr] lg:gap-12">
-      <MainContent class="flex flex-col gap-4 lg:col-start-2">
+      <Article class="flex flex-col gap-4 lg:col-start-2">
         <h1 id="headline" class="text-3xl font-extrabold text-gray-800">Projects</h1>
         <Markdown>
           <Content />
@@ -65,7 +65,7 @@ const entries = page.data;
           {page.url.prev ? <Link href={page.url.prev}>Previous</Link> : null}
           {page.url.next ? <Link href={page.url.next}>Next</Link> : null}
         </div>
-      </MainContent>
+      </Article>
     </div>
   </Container>
-</RootLayout>
+</Root>
