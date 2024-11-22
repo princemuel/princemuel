@@ -2,20 +2,16 @@
 import { pluginCollapsibleSections } from "@expressive-code/plugin-collapsible-sections";
 import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
 import { defineEcConfig } from "astro-expressive-code";
-import twDefaultTheme from "tailwindcss/defaultTheme";
-import twConfig from "./tailwind.json" with { type: "json" };
+import { fonts } from "./config/fonts.mjs";
 
 export default defineEcConfig({
-  themes: ["github-dark-high-contrast", "github-light-high-contrast"],
+  themes: ["github-dark-default", "github-light-default"],
   styleOverrides: {
-    codeFontFamily: [twConfig.theme.fontFamily.mono, ...twDefaultTheme.fontFamily.mono].join(
-      ",",
-    ),
-    uiFontFamily: [twConfig.theme.fontFamily.sans, ...twDefaultTheme.fontFamily.sans].join(","),
+    codeFontFamily: fonts.mono.join(","),
+    uiFontFamily: fonts.sans.join(","),
   },
   plugins: [pluginCollapsibleSections(), pluginLineNumbers()],
   useThemedSelectionColors: false,
-  themeCssSelector: (theme) => `[data-reader-theme='${theme.name}']`,
+  themeCssSelector: (theme) => `[data-theme='${theme.name}']`,
   defaultProps: { showLineNumbers: false },
-  emitExternalStylesheet: true,
 });

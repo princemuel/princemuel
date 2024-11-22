@@ -1,8 +1,11 @@
-I'm [@princemuel](https://x.com/iamprincemuel),, a mostly frontend developer,
-educator, digital creator, and relentless problem-solver.
+  <!-- I want to setup my homepage to be a hub of (featured) posts,
+  (featured) projects, a short bio with a link to my About page,  -->
+
+I'm [@princemuel](https://x.com/iamprincemuel), a frontend developer
+**(mostly)**, educator, musician, and relentless problem-solver.
 
 I'm passionate about building great software, and I share everything I learn
-along the way—whether through [blog posts](/blog), videos, courses, or talks.
+along the way—whether through [articles](/blog), videos, courses, or talks.
 I'm here to help developers create smarter, faster, and more maintainable code.
 
 In 2024, I made the leap to working for myself, so I could focus on

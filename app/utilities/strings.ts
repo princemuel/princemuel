@@ -7,9 +7,9 @@ export const tw = (...classes: CnOptions) => cn(...classes)({ twMerge: true });
   ---------------------------------*
  */
 
-export function capitalize(str: string) {
-  if (!str || typeof str !== "string") return str;
-  return str.charAt(0).toLocaleUpperCase() + str.slice(1).toLocaleUpperCase();
+export function capitalize<S extends string>(str: S) {
+  return (str.charAt(0).toLocaleUpperCase() +
+    str.slice(1).toLocaleUpperCase()) as Capitalize<typeof str>;
 }
 
 export const normalize = (str: string) => str.replace(/[^\w]/g, "-");
@@ -19,13 +19,14 @@ export const truncate = (str: string, length: number) => {
   return `${str.slice(0, length)}...`;
 };
 
-export const str_to_bool = (value?: string | null) => JSON.parse(value ?? "false") as boolean;
+export const str_to_bool = (value?: string | null) =>
+  JSON.parse(value ?? "false") as boolean;
 
-export function pluralize<C extends number, N extends string, P extends string = `${N}s`>(
-  count: C,
-  noun: N,
-  plural?: P,
-) {
+export function pluralize<
+  C extends number,
+  N extends string,
+  P extends string = `${N}s`,
+>(count: C, noun: N, plural?: P) {
   return (count === 1 ? noun : (plural ?? `${noun}s`)) as C extends 1 ? N : P;
 }
 

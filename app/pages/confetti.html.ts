@@ -2,20 +2,14 @@ import { handler } from "@/helpers/api-handler";
 
 export const prerender = false;
 
+const timeout = 1500;
+
 const CONFETTI_URL =
   "https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js";
 
 export const GET = handler(async () => {
   const { readable, writable } = new TransformStream();
 
-  streamData(writable);
-
-  return new Response(readable, {
-    headers: { "Content-Type": "text/html; charset=utf-8" },
-  });
-});
-
-async function streamData(writable: WritableStream, wait_time = 1500) {
   const writer = writable.getWriter();
 
   writer.write(`
@@ -24,18 +18,18 @@ async function streamData(writable: WritableStream, wait_time = 1500) {
   `);
 
   const [_, confetti] = await Promise.all([
-    new Promise((resolve) => setTimeout(resolve, wait_time)),
-    fetch(CONFETTI_URL, { signal: AbortSignal.timeout(5000) }).then((response) =>
-      response.text(),
-    ),
+    new Promise((resolve) => setTimeout(resolve, timeout)),
+    fetch(CONFETTI_URL, { signal: AbortSignal.timeout(5000) }).then((r) => r.text()),
   ]);
 
   writer.write(`
-    <h2>world <font size="2">after ${wait_time / 1000}s</font></h2>
+    <h2>world <font size="2">after ${timeout / 1000}s</font></h2>
     <script>${confetti}\nconfetti();</script>
   `);
 
   writer.close();
-}
 
-export const config = { runtime: "edge" };
+  return new Response(readable, {
+    headers: { "Content-Type": "text/html; charset=utf-8" },
+  });
+});

@@ -3,7 +3,7 @@ layout: "../../layouts/legal.astro"
 title: "Terms of Service"
 description: "The terms and services of this website"
 author: "Prince Muel"
-publishedAt: 2024-4-23
+publishedAt: 2024-04-23T14:25:32.000Z
 ---
 
 ## Liability
@@ -76,7 +76,8 @@ or other security incidents that may occur. It is your responsibility to take ap
 measures to secure your account and data.
 
 **Privacy:** Your privacy is important to us. Our privacy practices are
-outlined in our separate [Privacy Policy](/privacy-policy), which is an integral part of these terms. By using our services, you agree to the
+outlined in our separate [Privacy Policy](/legal/privacy-policy), which is an integral
+part of these terms. By using our services, you agree to the
 collection, use, and disclosure of your information as described in the Privacy Policy.
 It is your responsibility to review the Privacy Policy and understand how your data
 is handled.

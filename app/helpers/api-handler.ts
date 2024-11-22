@@ -1,10 +1,14 @@
-import type { APIContext } from "astro";
 import { log_in_dev } from "./log-in-dev";
 import { RequestError, get_status_from_code } from "./request-error";
 
+import type { APIContext } from "astro";
+
 export const handler = <
   Props extends Record<string, unknown> = Record<string, unknown>,
-  Params extends Record<string, string | undefined> = Record<string, string | undefined>,
+  Params extends Record<string, string | undefined> = Record<
+    string,
+    string | undefined
+  >,
 >(
   callback: (context: APIContext<Props, Params>) => Promise<Response>,
 ) => {

@@ -1,8 +1,11 @@
+import { resend } from "@/config/clients";
+import { checkIfRateLimited } from "@/helpers/rate-limit";
+
 import { ActionError, defineAction } from "astro:actions";
 import { RESEND_AUDIENCE } from "astro:env/server";
 import { z } from "astro:schema";
-import { resend } from "@/config/clients";
-import { checkIfRateLimited } from "@/helpers/rate-limit";
+
+import { experimental_AstroContainer as AstroContainer } from "astro/container";
 
 export const subscribeAction = defineAction({
   accept: "form",
@@ -13,13 +16,15 @@ export const subscribeAction = defineAction({
       .min(1, { message: "This field is required" })
       .email({ message: "Please enter a valid email address" }),
   }),
-  handler: async (body, { request, clientAddress }) => {
-    const { isRateLimited } = await checkIfRateLimited(request, clientAddress);
+  handler: async (body, ctx) => {
+    const { isRateLimited } = await checkIfRateLimited(ctx);
     if (isRateLimited)
       throw new ActionError({
         code: "TOO_MANY_REQUESTS",
         message: "You have reached your request limit",
       });
+
+    await AstroContainer.create();
 
     const response = await resend.contacts.create({
       email: body.email,

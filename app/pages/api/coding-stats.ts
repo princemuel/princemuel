@@ -1,5 +1,6 @@
 import { WAKATIME_TOKEN } from "astro:env/server";
 import { z } from "astro:schema";
+
 import { handler } from "@/helpers/api-handler";
 import { RequestError } from "@/helpers/request-error";
 

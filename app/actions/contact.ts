@@ -1,9 +1,12 @@
-import { ActionError, defineAction } from "astro:actions";
-import { RESEND_ADDRESS } from "astro:env/server";
-import { z } from "astro:schema";
 import { resend } from "@/config/clients";
 import { checkIfRateLimited } from "@/helpers/rate-limit";
 import { capitalize } from "@/utilities/strings";
+
+import { ActionError, defineAction } from "astro:actions";
+import { RESEND_ADDRESS } from "astro:env/server";
+import { z } from "astro:schema";
+
+import { experimental_AstroContainer as AstroContainer } from "astro/container";
 
 export const contactAction = defineAction({
   accept: "form",
@@ -36,14 +39,16 @@ export const contactAction = defineAction({
         message: "To submit this form, please consent to being contacted",
       }),
   }),
-  handler: async (body, { request, clientAddress }) => {
-    const { isRateLimited } = await checkIfRateLimited(request, clientAddress);
+  handler: async (body, ctx) => {
+    const { isRateLimited } = await checkIfRateLimited(ctx);
 
     if (isRateLimited)
       throw new ActionError({
         code: "TOO_MANY_REQUESTS",
         message: "You have reached your request limit for today",
       });
+
+    await AstroContainer.create();
 
     const response = await resend.emails.send({
       from: `${body.firstName} <${body.email}>`,

@@ -1,0 +1,60 @@
+---
+import Markdown from "@/components/content/markdown.astro";
+import Article from "@/components/layout/article.astro";
+import Container from "@/components/layout/container.astro";
+import Link from "@/components/primitives/link.astro";
+import Time from "@/components/primitives/time.astro";
+import Root from "@/layouts/root.astro";
+
+import { Content } from "@/content/pages/journals.md";
+
+import { getCollection } from "astro:content";
+
+const collection = await getCollection(
+  "journal",
+  ({ data }) => !(import.meta.env.PROD && data.draft),
+);
+
+const entries = collection.sort((a, b) => {
+  return Number(b.data.publishedAt) - Number(a.data.publishedAt);
+});
+---
+
+<Root title={["Journal"]} description="journal">
+  <Container class="mt-12">
+    <div class="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-[5rem,1fr] lg:gap-12">
+      <Article class="flex flex-col gap-4 lg:col-start-2">
+        <h1 id="headline" class="text-3xl font-extrabold text-gray-800">
+          Work Journal
+        </h1>
+
+        <Markdown>
+          <Content />
+        </Markdown>
+
+        <section class="mt-8 flex flex-col gap-6">
+          {
+            entries.map(({ id, data }) => {
+              return (
+                <article class="flex flex-col gap-1">
+                  <Time
+                    datetime={data.publishedAt}
+                    class="text-xs font-bold uppercase tracking-wider text-gray-400"
+                  />
+                  <h3>
+                    <Link
+                      href={`/journal/${id}`}
+                      class="text-lg font-bold text-gray-800 hocus:underline"
+                    >
+                      {data.title}
+                    </Link>
+                  </h3>
+                </article>
+              );
+            })
+          }
+        </section>
+      </Article>
+    </div>
+  </Container>
+</Root>

@@ -1,13 +1,60 @@
 ---
-import { getCollection } from "astro:content";
-import RootLayout from "@/layouts/root.astro";
+import Markdown from "@/components/content/markdown.astro";
+import Article from "@/components/layout/article.astro";
+import Container from "@/components/layout/container.astro";
+import Link from "@/components/primitives/link.astro";
+import Root from "@/layouts/root.astro";
 
-let entries = await getCollection("posts", ({ data }) => !(import.meta.env.PROD && data.draft));
-entries = entries.sort((a, b) => {
+import { Content } from "@/content/pages/blog.md";
+
+import { getCollection } from "astro:content";
+
+const collection = await getCollection(
+  "posts",
+  ({ data }) => !(import.meta.env.PROD && data.draft),
+);
+
+const entries = collection.sort((a, b) => {
   return Number(b.data.publishedAt) - Number(a.data.publishedAt);
 });
 ---
 
-<RootLayout title={["Blog"]} description="">
-  <h1>Hello</h1>
-</RootLayout>
+<Root
+  title={["Blog"]}
+  description="A space where I talk about web development and other programming related (or not) things."
+>
+  <Container class="mt-12">
+    <div class="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-[5rem,1fr] lg:gap-12">
+      <Article class="flex flex-col gap-4 lg:col-start-2">
+        <h1 id="headline" class="text-3xl font-extrabold text-gray-800">Blog</h1>
+        <Markdown>
+          <Content />
+        </Markdown>
+
+        <section class="mt-8 flex flex-col gap-8">
+          {
+            entries.map(({ id, data }) => (
+              <article class="flex flex-col gap-1">
+                <h3>
+                  <Link
+                    href={`/blog/${id}`}
+                    class="text-lg font-bold text-gray-800 hocus:underline"
+                  >
+                    {data.title}
+                  </Link>
+                </h3>
+                <p class="text-base text-gray-600">{data.summary}</p>
+                <Link
+                  href={`/blog/${id}`}
+                  class="mt-2 flex text-sm text-gray-500 hocus:text-gray-700 hocus:underline"
+                >
+                  Read this article &RightArrow;
+                </Link>
+              </article>
+            ))
+          }
+        </section>
+      </Article>
+    </div>
+  </Container>
+</Root>
