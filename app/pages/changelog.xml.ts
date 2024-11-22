@@ -22,7 +22,7 @@ export const GET = handler(async (ctx) => {
     return {
       title: `v${item.data.version}`,
       description: item.data.description,
-      content: marked(item.body ?? "", { gfm: true, breaks: true }),
+      content: `<![CDATA[ ${marked(item.body ?? "", { gfm: true, breaks: true })} ]]`,
       pubDate: item.data.publishedAt,
       author: `${author.data.links.email} (${author.data.name})`,
       link: new URL(

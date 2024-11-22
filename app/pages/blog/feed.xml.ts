@@ -28,7 +28,7 @@ export const GET = handler(async (ctx) => {
       title: item.data.title,
       description: item.data.description,
       categories: [...new Set(item.data.tags)],
-      content: marked(item.body ?? "", { gfm: true, breaks: true }),
+      content: `<![CDATA[ ${marked(item.body ?? "", { gfm: true, breaks: true })} ]]`,
       enclosure: img && {
         length: 0,
         url: new URL(img.src, ctx.site).toString(),
