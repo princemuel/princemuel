@@ -1,0 +1,31 @@
+name: 🐍 Generate Snake Contribution
+on:
+  schedule:
+    - cron: "0 1 * * *"
+  workflow_dispatch:
+jobs:
+  snake:
+    if: false
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+      - name: Generate Snake
+        uses: Platane/snk/svg-only@v3
+        with:
+          github_user_name: ${{ github.repository_owner }}
+          outputs: |
+            assets/github-snake.svg
+            assets/github-snake-dark.svg?palette=github-dark
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Auto-Commit and Push Changes to Main
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "feat(readme): update Github Contribution Animation"
+          commit_user_name: princemuel
+          commit_user_email: vansomecsam@gmail.com
+          commit_author: Prince Muel <vansomecsam@gmail.com>
