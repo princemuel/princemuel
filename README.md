@@ -2,7 +2,7 @@
 
 ## About Me
 
-Hiya! I'm Samuel, a self-taught _**(or community-taught, your pick)**_ software engineer based in Lagos, Nigeria.
+Hiya! I'm Samuel, a self-taught _**(or community-taught, your choice)**_ software engineer based in Lagos, Nigeria.
 
 > **Favorite Quote**
 >
