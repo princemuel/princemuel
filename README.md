@@ -16,6 +16,11 @@ If you like my material, consider following me on:
 
 I am currently updating all my projects and it's a work in progress.
 
+### Tooling
+
+- Languages: Rust, Python, Javascript, Typescript
+- Design: Figma, Canva
+
 <!--
 Here are some ideas to get you started:
 
