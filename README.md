@@ -26,7 +26,7 @@ Here are some ideas to get you started:
 
 🌱 I’m currently learning Web3 concepts such as decentralization and the blockchain (Bitcoin for now) via BTrust Builders and the Bitcoin Dev Project. 
 
-🌱 I'm also interested in how networks work, cybersecurity, and AI related subjects subjects such as Neural networks and Computer Vision
+🌱 I'm also interested in how networks work, cybersecurity, and AI related subjects such as Neural networks and Computer Vision
 
 👯 I’m looking to collaborate on apps that utilize Rust, Web Assembly, Artificial Intelligence or Web3 related tech.
 
