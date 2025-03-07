@@ -5,8 +5,8 @@
 Hiya! I'm Samuel, a self-taught _**(or community-taught, your choice)**_ software engineer based in Lagos, Nigeria.
 
 > **Favorite Quote**
->
-> They were so preoccupied with whether or not they could, they didn't stop to think if they should.
+> The obstacle is the way
+> The impediment to action advances action. What stands in the way becomes the way
 
 <!--
 Here are some ideas to get you started:
