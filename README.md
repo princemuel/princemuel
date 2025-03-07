@@ -4,9 +4,7 @@
 
 Hiya! I'm Samuel, a self-taught _**(or community-taught, your choice)**_ software engineer based in Lagos, Nigeria.
 
-> **Favorite Quote**
-> The obstacle is the way
-> 
+> The obstacle is the way.
 > The impediment to action advances action. What stands in the way becomes the way
 
 <!--
