@@ -19,6 +19,7 @@ Here are some ideas to get you started:
 - 😄 Pronouns: ...
 - ⚡ Fun fact: ...
 -->
+I am currently updating all my projects and it's a work in progress.
 
 ## Metadata
 
@@ -53,7 +54,7 @@ If you like my material, consider following me on:
 - [GitHub princemuel](https://github.com/princemuel)
 - [LinkedIn princemuel](https://linkedin.com/in/princemuel)
 
-I am currently updating all my projects and it's a work in progress.
+
 
 <!-- ## Blog Posts -->
 
