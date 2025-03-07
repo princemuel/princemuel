@@ -25,7 +25,7 @@ I am currently updating all my projects and it's a work in progress.
 
 🔭 I’m currently working on **Notezone**, a Progressive Web App for taking notes in text and markdown
 
-🌱 I’m currently learning Web3 concepts such as decentralization and the blockchain (Bitcoin for now) via BTrust Builders and the Bitcoin Dev Project. 
+🌱 I’m currently learning Web3 concepts: decentralization and the blockchain (Bitcoin for now) via BTrust Builders and the Bitcoin Dev Project. 
 
 🌱 I'm also interested in how networks work, cybersecurity, and AI related subjects such as Neural networks and Computer Vision
 
