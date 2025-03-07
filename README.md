@@ -28,7 +28,7 @@ Here are some ideas to get you started:
 
 👯 I’m looking to collaborate on apps that utilize Web Assembly, or AI and Blockchain related tech.
 
-⚡ Fun fact: Aside from my day-to-day activities, in my spare time, I also teach kids to code.
+⚡ Fun fact: In my spare time, I also teach kids to code.
 Passing on knowledge to the next generation is the greatest gift and a privilege.
 
 ### Tooling
