@@ -32,6 +32,7 @@ Here are some ideas to get you started:
 
 ⚡ Fun fact: In my spare time, I also teach kids to code.
 Passing on knowledge to the next generation is the greatest gift and a privilege.
+
 ⚡ I also love chess, though I've have never been able to figure out how to get to an endgame with enough pieces left to actually win.
 
 ### Tooling
