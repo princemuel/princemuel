@@ -32,7 +32,7 @@ Hmm, well if you visit any of my repos and don't see a live preview, just know t
 
 👯 I’m looking to collaborate on apps that utilize Rust, Web Assembly, Artificial Intelligence or Web3 related tech.
 
-⚡ Fun fact: In my spare time, I teach kids to code, and some music lessons too. Passing on knowledge to the next generation is the greatest gift and a privilege.
+⚡ In my spare time, I teach kids to code, and some music lessons too. Passing on knowledge is the greatest gift and a privilege.
 
 ⚡ Chess is awesome. Taking baby steps via [lichess][lichess]
 
