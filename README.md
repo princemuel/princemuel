@@ -4,3 +4,8 @@
 > *— Antoine de Saint-Exupéry*
 >
 > “A rock pile ceases to be a rock pile the moment someone contemplates it, envisioning a cathedral.”
+
+## 🔥 WakaTime Stats
+<!--START_SECTION:waka-->
+
+<!--END_SECTION:waka-->
